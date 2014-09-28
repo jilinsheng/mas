@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!-- dao配置 -->
+	<bean id="extendsDAO" class="com.mingda.dao.impl.ExtendsDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="extendsncDAO" class="com.mingda.dao.impl.ExtendsncDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplatenc" />
+	</bean>
+	<bean id="csempDAO" class="com.mingda.dao.impl.CsempDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="ncempDAO" class="com.mingda.dao.impl.NcempDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="csorganizationDAO" class="com.mingda.dao.impl.CsorganizationDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="ncorganizationDAO" class="com.mingda.dao.impl.NcorganizationDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="bizdeptDAO" class="com.mingda.dao.impl.BizdeptDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="managerOrgDAO" class="com.mingda.dao.impl.ManagerOrgDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="jzBizcheckDAO" class="com.mingda.dao.impl.JzBizcheckDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="jzBizDAO" class="com.mingda.dao.impl.JzBizDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="jzPayDAO" class="com.mingda.dao.impl.JzPayDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="addressBookDAO" class="com.mingda.dao.impl.AddressBookDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="chronicBillDAO" class="com.mingda.dao.impl.ChronicBillDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="chronicCheckDAO" class="com.mingda.dao.impl.ChronicCheckDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="chronicStatusDAO" class="com.mingda.dao.impl.ChronicStatusDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="chronicItemDAO" class="com.mingda.dao.impl.ChronicItemDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="memberBaseinfoviewDAO" class="com.mingda.dao.impl.MemberBaseinfoviewDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="icd10DAO" class="com.mingda.dao.impl.Icd10DAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="outIcdDAO" class="com.mingda.dao.impl.OutIcdDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="managerEmpDAO" class="com.mingda.dao.impl.ManagerEmpDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="jzBizmediaDAO" class="com.mingda.dao.impl.JzBizmediaDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="hospitalPayDAO" class="com.mingda.dao.impl.HospitalPayDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="fensanDAO" class="com.mingda.dao.impl.FensanDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplatenc" />
+	</bean>
+	<bean id="jizhongDAO" class="com.mingda.dao.impl.JizhongDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplatenc" />
+	</bean>
+	<bean id="youfuDAO" class="com.mingda.dao.impl.YoufuDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplatenc" />
+	</bean>
+	<bean id="jzAddassistdataDAO" class="com.mingda.dao.impl.JzAddassistdataDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="tempApproveDAO" class="com.mingda.dao.impl.TempApproveDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="tempBillDAO" class="com.mingda.dao.impl.TempBillDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="maBillDAO" class="com.mingda.dao.impl.MaBillDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="tempPersonDAO" class="com.mingda.dao.impl.TempPersonDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="tempMonthDAO" class="com.mingda.dao.impl.TempMonthDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="maMonthDAO" class="com.mingda.dao.impl.MaMonthDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="exportxlsDAO" class="com.mingda.dao.impl.ExportxlsDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="secondApproveDAO" class="com.mingda.dao.impl.SecondApproveDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="secondBatchDAO" class="com.mingda.dao.impl.SecondBatchDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="secondBillDAO" class="com.mingda.dao.impl.SecondBillDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="jzMedicalafterDAO" class="com.mingda.dao.impl.JzMedicalafterDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="chronicBizDAO" class="com.mingda.dao.impl.ChronicBizDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="tempCalcRuleDAO" class="com.mingda.dao.impl.TempCalcRuleDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="jzMedicalafterfileDAO" class="com.mingda.dao.impl.JzMedicalafterfileDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="tempApprovefileDAO" class="com.mingda.dao.impl.TempApprovefileDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="chronicSessionDAO" class="com.mingda.dao.impl.ChronicSessionDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="wubaohufileDAO" class="com.mingda.dao.impl.WubaohufileDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="wubaohuDAO" class="com.mingda.dao.impl.WubaohuDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="payview01DAO" class="com.mingda.dao.impl.Payview01DAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="guerfileDAO" class="com.mingda.dao.impl.GuerfileDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<bean id="sanwufileDAO" class="com.mingda.dao.impl.SanwufileDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
+	<!-- service配置 -->
+	<bean id="authorityService" class="com.mingda.service.AuthorityServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO" />
+		<property name="csempDAO" ref="csempDAO" />
+		<property name="ncempDAO" ref="ncempDAO" />
+		<property name="managerEmpDAO" ref="managerEmpDAO" />
+		<property name="managerOrgDAO" ref="managerOrgDAO" />
+	</bean>
+	<bean id="baseBizService" class="com.mingda.service.BaseBizServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO" />
+		<property name="jzBizDAO" ref="jzBizDAO" />
+		<property name="jzBizcheckDAO" ref="jzBizcheckDAO" />
+		<property name="jzPayDAO" ref="jzPayDAO" />
+		<property name="addressBookDAO" ref="addressBookDAO" />
+		<property name="jzBizmediaDAO" ref="jzBizmediaDAO"></property>
+	</bean>
+	<bean id="systemDataService" class="com.mingda.service.SystemDataServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO" />
+		<property name="extendsncDAO" ref="extendsncDAO" />
+		<property name="bizdeptDAO" ref="bizdeptDAO" />
+		<property name="managerEmpDAO" ref="managerEmpDAO" />
+		<property name="managerOrgDAO" ref="managerOrgDAO" />
+		<property name="icd10DAO" ref="icd10DAO" />
+		<property name="hospitalPayDAO" ref="hospitalPayDAO" />
+	</bean>
+	<bean id="searchService" class="com.mingda.service.SearchServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO" />
+		<property name="exportxlsDAO" ref="exportxlsDAO" />
+		<property name="extendsncDAO" ref="extendsncDAO" />
+	</bean>
+	<bean id="chronicService" class="com.mingda.service.ChronicServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO" />
+		<property name="chronicBillDAO" ref="chronicBillDAO" />
+		<property name="chronicCheckDAO" ref="chronicCheckDAO" />
+		<property name="chronicStatusDAO" ref="chronicStatusDAO" />
+		<property name="memberBaseinfoviewDAO" ref="memberBaseinfoviewDAO" />
+		<property name="chronicItemDAO" ref="chronicItemDAO"></property>
+		<property name="outIcdDAO" ref="outIcdDAO"></property>
+		<property name="chronicSessionDAO" ref="chronicSessionDAO"></property>
+	</bean>
+	<bean id="reportService" class="com.mingda.service.ReportServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO" />
+	</bean>
+	<bean id="summerHandleService" class="com.mingda.service.SummerHandleServiceImpl">
+		<property name="fensanDAO" ref="fensanDAO"></property>
+		<property name="jizhongDAO" ref="jizhongDAO"></property>
+		<property name="youfuDAO" ref="youfuDAO"></property>
+		<property name="wubaohuDAO" ref="wubaohuDAO"></property>
+		<property name="extendsncDAO" ref="extendsncDAO"></property>
+		<property name="extendsDAO" ref="extendsDAO"></property>
+	</bean>
+	<bean id="tempService" class="com.mingda.service.TempServiceImpl">
+		<property name="memberBaseinfoviewDAO" ref="memberBaseinfoviewDAO"></property>
+		<property name="extendsDAO" ref="extendsDAO"></property>
+		<property name="jzAddassistdataDAO" ref="jzAddassistdataDAO"></property>
+		<property name="tempApproveDAO" ref="tempApproveDAO"></property>
+		<property name="tempBillDAO" ref="tempBillDAO"></property>
+		<property name="tempPersonDAO" ref="tempPersonDAO"></property>
+		<property name="tempMonthDAO" ref="tempMonthDAO"></property>
+		<property name="secondApproveDAO" ref="secondApproveDAO"></property>
+		<property name="secondBatchDAO" ref="secondBatchDAO"></property>
+		<property name="secondBillDAO" ref="secondBillDAO"></property>
+		<property name="jzMedicalafterDAO" ref="jzMedicalafterDAO"></property>
+		<property name="maBillDAO" ref="maBillDAO"></property>
+		<property name="maMonthDAO" ref="maMonthDAO"></property>
+		<property name="tempCalcRuleDAO" ref="tempCalcRuleDAO"></property>
+		<property name="jzMedicalafterfileDAO" ref="jzMedicalafterfileDAO"></property>
+		<property name="tempApprovefileDAO" ref="tempApprovefileDAO"></property>
+		<property name="payview01DAO" ref="payview01DAO"></property>
+	</bean>
+	<bean id="icdService" class="com.mingda.service.IcdServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO"></property>
+		<property name="icd10DAO" ref="icd10DAO"></property>
+	</bean>
+	<bean id="outicdService" class="com.mingda.service.OuticdServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO"></property>
+		<property name="outIcdDAO" ref="outIcdDAO"></property>
+	</bean>
+	<bean id="chronicBizService" class="com.mingda.service.ChronicBizServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO" />
+		<property name="chronicBillDAO" ref="chronicBillDAO" />
+		<property name="chronicBizDAO" ref="chronicBizDAO" />
+	</bean>
+	<bean id="guaranteeService" class="com.mingda.service.GuaranteeServiceImpl">
+		<property name="wubaohufileDAO" ref="wubaohufileDAO" />
+	</bean>
+	<bean id="iServiceYljzProxy" class="org.tempuri.IServiceYljzProxy"></bean>
+	<bean id="yljzService" class="com.mingda.webclient.YljzServiceImpl">
+		<property name="iServiceYljzProxy" ref="iServiceYljzProxy" />
+	</bean>
+	<bean id="orphanService" class="com.mingda.service.OrphanServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO" />
+		<property name="guerfileDAO" ref="guerfileDAO" />
+		<property name="wubaohuDAO" ref="wubaohuDAO" />
+	</bean>
+	<bean id="abstentionsService" class="com.mingda.service.AbstentionsServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO" />
+		<property name="sanwufileDAO" ref="sanwufileDAO" />
+		<property name="wubaohuDAO" ref="wubaohuDAO" />
+	</bean>
+		<bean id="criticalService" class="com.mingda.service.CriticalServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO" />
+		<property name="jzBizmediaDAO" ref="jzBizmediaDAO"></property>
+	</bean>
+</beans>

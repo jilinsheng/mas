@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="abstentions" extends="json-default" namespace="/page/abstentions">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="queryabsmembers" method="queryabsmembers" class="abstentionsAction">
+			<result name="success">
+				/page/abstentions/querymembers.jsp
+		</result>
+		</action>
+		<action name="queryabsmembersinit" method="queryabsmembersinit" class="abstentionsAction">
+			<result name="success">
+				/page/abstentions/querymembers.jsp
+		</result>
+		</action>
+		<action name="queryabsinit" method="queryabsinit"
+			class="abstentionsAction">
+			<result name="success">
+				/page/abstentions/queryabs.jsp
+		</result>
+		</action>
+		<action name="queryabs" method="queryabs" class="abstentionsAction">
+			<result name="success">
+				/page/abstentions/queryabs.jsp
+		</result>
+		</action>
+		<action name="editabsinit" method="editabsinit"
+			class="abstentionsAction">
+			<result name="success">
+				/page/abstentions/approveabs.jsp
+		</result>
+		<result name="edit">
+				/page/abstentions/approveabsedit.jsp
+		</result>
+		<result name="del">
+				/page/abstentions/result.jsp
+		</result>
+		<result name="error">
+				/page/abstentions/error.jsp
+		</result>
+		</action>
+		<action name="editabs" method="editabs" class="abstentionsAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<interceptor-ref name="token"></interceptor-ref>
+			<result name="invalid.token">
+				/page/abstentions/result.jsp
+			</result>
+			<result name="success">
+				/page/abstentions/viewabs.jsp
+			</result>
+		</action>
+		<action name="delfile" method="delfile" class="abstentionsAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+	</package>
+</struts>

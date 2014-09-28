@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<bean id="loginAction" class="com.mingda.action.LoginAction"
+		scope="request">
+		<property name="authorityService" ref="authorityService"></property>
+	</bean>
+	<bean id="commonAction" class="com.mingda.action.CommonAction"
+		scope="request">
+		<property name="searchService" ref="searchService"></property>
+		<property name="authorityService" ref="authorityService"></property>
+		<property name="systemDataService" ref="systemDataService"></property>
+	</bean>
+	<bean id="baseBizAction" class="com.mingda.action.BaseBizAction"
+		scope="request">
+		<property name="systemDataService" ref="systemDataService"></property>
+		<property name="baseBizService" ref="baseBizService"></property>
+	</bean>
+	<bean id="downloadExcelAction" class="com.mingda.action.DownloadExcelAction"
+		scope="request">
+		<property name="searchService" ref="searchService"></property>
+	</bean>
+	<bean id="downloadSortExcelAction" class="com.mingda.action.DownloadSortExcelAction"
+		scope="request">
+		<property name="searchService" ref="searchService"></property>
+	</bean>
+	<bean id="chronicAction" class="com.mingda.action.ChronicAction"
+		scope="request">
+		<property name="systemDataService" ref="systemDataService"></property>
+		<property name="chronicService" ref="chronicService"></property>
+	</bean>
+	<bean id="reportAction" class="com.mingda.action.ReportAction"
+		scope="request">
+		<property name="reportService" ref="reportService"></property>
+		<property name="systemDataService" ref="systemDataService"></property>
+	</bean>
+	<bean id="chartAction" class="com.mingda.action.ChartAction"
+		scope="request">
+		<property name="searchService" ref="searchService"></property>
+	</bean>
+	<bean id="cityAction" class="com.mingda.action.CityAction" scope="request">
+		<property name="searchService" ref="searchService"></property>
+		<property name="systemDataService" ref="systemDataService"></property>
+	</bean>
+	<bean id="townAction" class="com.mingda.action.TownAction" scope="request">
+		<property name="searchService" ref="searchService"></property>
+		<property name="systemDataService" ref="systemDataService"></property>
+	</bean>
+	<bean id="guaranteeAction" class="com.mingda.action.GuaranteeAction"
+		scope="request">
+		<property name="searchService" ref="searchService"></property>
+		<property name="systemDataService" ref="systemDataService"></property>
+		<property name="summerHandleService" ref="summerHandleService"></property>
+		<property name="guaranteeService" ref="guaranteeService"></property>
+	</bean>
+	<bean id="specialcareAction" class="com.mingda.action.SpecialcareAction"
+		scope="request">
+		<property name="searchService" ref="searchService"></property>
+		<property name="systemDataService" ref="systemDataService"></property>
+		<property name="summerHandleService" ref="summerHandleService"></property>
+		<property name="guaranteeService" ref="guaranteeService"></property>
+	</bean>
+	<bean id="tempAction" class="com.mingda.action.TempAction" scope="request">
+		<property name="systemDataService" ref="systemDataService"></property>
+		<property name="tempService" ref="tempService"></property>
+		<property name="yljzService" ref="yljzService"></property>
+	</bean>
+	<bean id="icdAction" class="com.mingda.action.IcdAction" scope="request">
+		<property name="searchService" ref="searchService"></property>
+		<property name="icdService" ref="icdService"></property>
+	</bean>
+	<bean id="outicdAction" class="com.mingda.action.OuticdAction"
+		scope="request">
+		<property name="outicdService" ref="outicdService"></property>
+	</bean>
+	<bean id="chronicBizAction" class="com.mingda.action.ChronicBizAction"
+		scope="request">
+		<property name="systemDataService" ref="systemDataService"></property>
+		<property name="chronicBizService" ref="chronicBizService"></property>
+	</bean>
+	<bean id="abstentionsAction" class="com.mingda.action.AbstentionsAction"
+		scope="request">
+		<property name="searchService" ref="searchService"></property>
+		<property name="systemDataService" ref="systemDataService"></property>
+		<property name="abstentionsService" ref="abstentionsService"></property>
+	</bean>	
+	<bean id="orphanAction" class="com.mingda.action.OrphanAction"
+		scope="request">
+		<property name="searchService" ref="searchService"></property>
+		<property name="systemDataService" ref="systemDataService"></property>
+		<property name="orphanService" ref="orphanService"></property>
+		<property name="guaranteeService" ref="guaranteeService"></property>
+	</bean>
+	<bean id="criticalAction" class="com.mingda.action.CriticalAction"
+		scope="request">
+		<property name="systemDataService" ref="systemDataService"></property>
+		<property name="criticalService" ref="criticalService"></property>
+	</bean>
+</beans>

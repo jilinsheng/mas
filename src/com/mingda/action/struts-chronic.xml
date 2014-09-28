@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="chronic" extends="json-default" namespace="/page/chronic">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="approvechronicmemberinit" method="approvechronicmemberinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/approvechronicmember.jsp
+			</result>
+			<result name="error">
+				/page/chronic/result.jsp
+			</result>
+		</action>
+		<action name="approvechronicmember" method="approvechronicmember"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/approvechronicmemberresult.jsp
+			</result>
+		</action>
+		<action name="querychronicmemberinit" method="querychronicmemberinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicmember.jsp
+			</result>
+			<result name="error">
+				/page/chronic/result.jsp
+			</result>
+		</action>
+		<action name="querychronicmember" method="querychronicmember"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicmember.jsp
+			</result>
+		</action>
+		<action name="querychronicmemberdoneinit" method="querychronicmemberdoneinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicmemberdone.jsp
+			</result>
+			<result name="error">
+				/page/chronic/result.jsp
+			</result>
+		</action>
+		<action name="querychronicmemberdone" method="querychronicmemberdone"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicmemberdone.jsp
+			</result>
+		</action>
+		<action name="querychronicmembermodifyinit" method="querychronicmembermodifyinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicmembermodify.jsp
+			</result>
+			<result name="error">
+				/page/chronic/result.jsp
+			</result>
+		</action>
+		<action name="querychronicmembermodify" method="querychronicmembermodify"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicmembermodify.jsp
+			</result>
+		</action>
+		<action name="editsicken" method="editsicken" class="chronicAction">
+			<result name="success">
+				/page/chronic/editsicken.jsp
+		</result>
+		</action>
+		<action name="querychronicinit" method="querychronicinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronic.jsp
+		</result>
+			<result name="error">
+				/page/chronic/result.jsp
+			</result>
+		</action>
+		<action name="querychronic" method="querychronic" class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronic.jsp
+		</result>
+		</action>
+		<action name="savechronicmoney" method="savechronicmoney"
+			class="chronicAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="cleanchronicmoney" method="cleanchronicmoney"
+			class="chronicAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="findmoney" method="findmoney" class="chronicAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="querychronicallinit" method="querychronicallinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicall.jsp
+		</result>
+			<result name="error">
+				/page/chronic/result.jsp
+			</result>
+		</action>
+		<action name="querychronicall" method="querychronicall" class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicall.jsp
+		</result>
+		</action>
+		<action name="querychronicappendinit" method="querychronicappendinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicappend.jsp
+		</result>
+			<result name="error">
+				/page/chronic/result.jsp
+			</result>
+		</action>
+		<action name="querychronicappend" method="querychronicappend"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicappend.jsp
+		</result>
+		</action>
+		<action name="querychronicmoneyinit" method="querychronicmoneyinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicmoney.jsp
+		</result>
+			<result name="error">
+				/page/chronic/result.jsp
+			</result>
+		</action>
+		<action name="querychronicmoney" method="querychronicmoney"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicmoney.jsp
+		</result>
+		</action>
+		<action name="savechronicmoneyallinit" method="savechronicmoneyallinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/savechronicmoneyall.jsp
+		</result>
+			<result name="error">
+				/page/chronic/result.jsp
+		</result>
+		</action>
+		<action name="savechronicmoneyall" method="savechronicmoneyall"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/result.jsp
+		</result>
+		</action>
+		<action name="querybillinfo" method="querybillinfo" class="chronicAction">
+			<result name="success">
+				/page/chronic/querybillinfo.jsp
+		</result>
+		</action>
+		<!-- 药店对账 -->
+		<action name="checkbills" class="chronicAction" method="checkbills">
+			<result name="success">
+				/page/chronic/checkbills.jsp
+			</result>
+		</action>
+		<action name="checkbillsinit" class="chronicAction" method="checkbillsinit">
+			<result name="success">
+				/page/chronic/checkbills.jsp
+			</result>
+		</action>
+		<action name="checkbillsstatinit" class="chronicAction" method="checkbillsstatinit">
+			<result name="success">
+				/page/chronic/checkbillsstat.jsp
+			</result>
+		</action>
+		<action name="checkbillsstat" class="chronicAction" method="checkbillsstat">
+			<result name="success">
+				/page/chronic/checkbillsstat.jsp
+			</result>
+		</action>
+		<action name="getdept" class="chronicAction" method="getDept">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="chronicpolicyqueryinit" method="chronicpolicyqueryinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/chronicpolicyquery.jsp
+		</result>
+		</action>
+		<action name="chronicpolicyquery" method="chronicpolicyquery"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/chronicpolicyquery.jsp
+		</result>
+		</action>
+		<action name="querychronicgs" method="querychronicgs" class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicgs.jsp
+		</result>
+		</action>
+		<action name="querychronicgsinit" method="querychronicgsinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicgs.jsp
+		</result>
+			<result name="error">
+				/page/chronic/result.jsp
+			</result>
+		</action>
+		<action name="querychronicbillbysubjectinit" method="querychronicbillbysubjectinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicbillbysubject.jsp
+		</result>
+		</action>
+		<action name="querychronicbillbysubject" method="querychronicbillbysubject"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicbillbysubject.jsp
+		</result>
+		</action>
+		<action name="querychronicbatchcancelinit" method="querychronicbatchcancelinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicbatchcancel.jsp
+		</result>
+		</action>
+		<action name="querychronicbatchcancel" method="querychronicbatchcancel"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicbatchcancel.jsp
+		</result>
+		</action>
+		<action name="querychronicstatlinit" method="querychronicstatlinit"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicstatl.jsp
+		</result>
+		</action>
+		<action name="querychronicstatl" method="querychronicstatl"
+			class="chronicAction">
+			<result name="success">
+				/page/chronic/querychronicstatl.jsp
+		</result>
+		</action>
+	</package>
+</struts>

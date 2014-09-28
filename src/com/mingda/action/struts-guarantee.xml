@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="guarantee" extends="json-default" namespace="/page/guarantee">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="querymembers" method="querymembers" class="guaranteeAction">
+			<result name="success">
+				/page/guarantee/querymembers.jsp
+		</result>
+		</action>
+		<action name="querymembersinit" method="querymembersinit"
+			class="guaranteeAction">
+			<result name="success">
+				/page/guarantee/querymembers.jsp
+		</result>
+		</action>
+		<action name="queryguaranteeinit" method="queryguaranteeinit"
+			class="guaranteeAction">
+			<result name="success">
+				/page/guarantee/queryguarantee.jsp
+		</result>
+		</action>
+		<action name="queryguarantee" method="queryguarantee" class="guaranteeAction">
+			<result name="success">
+				/page/guarantee/queryguarantee.jsp
+		</result>
+		</action>
+		<action name="editguaranteeinit" method="editguaranteeinit"
+			class="guaranteeAction">
+			<result name="success">
+				/page/guarantee/approveguarantee.jsp
+		</result>
+			<result name="edit">
+				/page/guarantee/approveguaranteeedit.jsp
+		</result>
+			<result name="del">
+				/page/guarantee/result.jsp
+		</result>
+		<result name="error">
+				/page/guarantee/error.jsp
+		</result>
+		</action>
+		<action name="editguarantee" method="editguarantee" class="guaranteeAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<interceptor-ref name="token"></interceptor-ref>
+			<result name="invalid.token">
+				/page/guarantee/result.jsp
+			</result>
+			<result name="success">
+				/page/guarantee/viewguarantee.jsp
+		</result>
+		</action>
+		<action name="delfile" method="delfile" class="guaranteeAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="uploadexcelinit" method="uploadexcelinit" class="guaranteeAction">
+			<result name="success">
+				/page/guarantee/uploadexcel.jsp
+		</result>
+			<result name="error">
+				/page/guarantee/result.jsp
+		</result>
+		</action>
+		<action name="uploadexcel" method="uploadexcel" class="guaranteeAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<result name="success">
+				/page/guarantee/uploadexcel.jsp
+			</result>
+		</action>
+		<action name="uploadexcelinit1" method="uploadexcelinit1" class="guaranteeAction">
+			<result name="success">
+				/page/guarantee/uploadexcel1.jsp
+		</result>
+			<result name="error">
+				/page/guarantee/result.jsp
+		</result>
+		</action>
+		<action name="uploadexcel1" method="uploadexcel1" class="guaranteeAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<result name="success">
+				/page/guarantee/uploadexcel1.jsp
+			</result>
+		</action>
+		<action name="deluploadexcel" method="deluploadexcel" class="guaranteeAction">
+			<result name="1">
+				/page/guarantee/uploadexcel.jsp
+			</result>
+			<result name="2">
+				/page/guarantee/uploadexcel.jsp
+			</result>
+			<result name="3">
+				/page/guarantee/uploadexcel1.jsp
+			</result>
+		</action>
+		<action name="exportexcel" method="exportexcel" class="guaranteeAction">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">${fileName}</param>
+				<param name="inputName">excelFile</param>
+			</result>
+		</action>
+	</package>
+</struts>

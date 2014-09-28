@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="chronicbiz" extends="json-default" namespace="/page/chronicbiz">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="querychronicbizappinit" method="querychronicbizappinit"
+			class="chronicBizAction">
+			<result name="success">
+				/page/chronicbiz/querychronicbizapp.jsp
+			</result>
+			<result name="error">
+				/page/chronicbiz/result.jsp
+			</result>
+		</action>
+		<action name="querychronicbizmember" method="querychronicbizmember"
+			class="chronicBizAction">
+			<result name="success">
+				/page/chronicbiz/querychronicbizapp.jsp
+			</result>
+		</action>
+		<action name="buydruginit" method="buydruginit"
+			class="chronicBizAction">
+			<result name="success">
+				/page/chronicbiz/buydrugapply.jsp
+			</result>
+		</action>
+		<action name="chronicbizsave" method="chronicbizsave" class="chronicBizAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+             </result>
+		</action>
+		<action name="querychronicbizinit" method="querychronicbizinit"
+			class="chronicBizAction">
+			<result name="success">
+				/page/chronicbiz/querychronicbizmembers.jsp
+			</result>
+			<result name="error">
+				/page/chronicbiz/result.jsp
+			</result>
+		</action>
+				<action name="querychronicbizmembers" method="querychronicbizmembers"
+			class="chronicBizAction">
+			<result name="success">
+				/page/chronicbiz/querychronicbizmembers.jsp
+			</result>
+		</action>
+		<action name="chronicmoneyback" method="chronicmoneyback" class="chronicBizAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+             </result>
+		</action>
+	</package>
+</struts>

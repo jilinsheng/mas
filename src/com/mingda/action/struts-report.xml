@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<!-- 解决jasper html 方式px 报错问题 -->
+	<package name="px" namespace="/images" extends="struts-default">
+		<action name="px">
+			<result>/images/px.gif</result>
+		</action>
+	</package>
+
+	<package name="report" extends="jasperreports-default"
+		namespace="/page/report">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor class="com.mingda.interceptor.ReportRightInterceptor"
+				name="reportright" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+				<interceptor-ref name="reportright" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+			<result name="input" type="redirect">/page/common/result.jsp</result>
+			<result name="nodata" type="redirect">/page/report/nodata.jsp</result>
+		</global-results>
+
+		<action name="reportInit" method="reportInit" class="reportAction">
+			<!-- <interceptor-ref name="defaultStack"> <param name="reportright.includeMethods">reportInit</param> 
+				</interceptor-ref> -->
+			<interceptor-ref name="basicStack" />
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">input,back,cancel,browse</param>
+			</interceptor-ref>
+			<interceptor-ref name="authority" />
+			<result name="jiben">
+				/page/report/jiben.jsp
+			</result>
+			<result name="duixiang">
+				/page/report/duixiang.jsp
+			</result>
+			<result name="feiyong">
+				/page/report/feiyong.jsp
+			</result>
+			<result name="bingzhong">
+				/page/report/bingzhong.jsp
+			</result>
+			<result name="jigou">
+				/page/report/jigou.jsp
+			</result>
+			<result name="zongti">
+				/page/report/zongti.jsp
+			</result>
+			<result name="zijin">
+				/page/report/zijin.jsp
+			</result>
+			<result name="canhecanbao">
+				/page/report/canhecanbao.jsp
+			</result>
+			<result name="yiliaojigou">
+				/page/report/yiliaojigou.jsp
+			</result>
+			
+		</action>
+
+
+		<action name="feiyongcszhuyuan" method="feiyongcszhuyuan"
+			class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/feiyongcszhuyuan.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="feiyongnczhuyuan" method="feiyongnczhuyuan"
+			class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/feiyongnczhuyuan.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="feiyongcsmenzhen" method="feiyongcsmenzhen"
+			class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/feiyongcsmenzhen.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="feiyongncmenzhen" method="feiyongncmenzhen"
+			class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/feiyongncmenzhen.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		
+		<action name="feiyongcslinshi" method="feiyongcslinshi"
+			class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/feiyongcslinshi.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		
+		<action name="feiyongnclinshi" method="feiyongnclinshi"
+			class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/feiyongnclinshi.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		
+		<!-- 基本城市 -->
+		<action name="jibencs" method="jibencs" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/jibencs.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<!-- 基本农村 -->
+		<action name="jibennc" method="jibennc" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/jibennc.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<!-- 对象城市 -->
+		<action name="duixiangcs" method="duixiangcs" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/duixiangcs.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<!-- 对象农村 -->
+		<action name="duixiangnc" method="duixiangnc" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/duixiangnc.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<!-- 机构 -->
+		<action name="jigou" method="jigou" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/jigou.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="jigouxsq" method="jigouxsq" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/jigouxsq.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+
+		<action name="jigouss" method="jigouss" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/jigouss.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="jigouxj" method="jigouss" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/jigouxj.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<!-- 总体 -->
+		<action name="zongticj" method="zongticj" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/zongticj.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="zongtinx" method="zongtinx" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/zongtinx.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+
+		<action name="zongtics" method="zongtics" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/zongtics.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="zongtinc" method="zongtinc" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/zongtinc.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<!-- 病种 -->
+		<action name="bingzhongcs" method="bingzhongcs" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/bingzhongcs.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="bingzhongnc" method="bingzhongnc" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/bingzhongnc.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="bingzhongcscity" method="bingzhongcscity" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/bingzhongcscity.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="bingzhongnccity" method="bingzhongnccity" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/bingzhongnccity.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="bingzhongcssick" method="bingzhongcssick" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/bingzhongcssick.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="bingzhongncsick" method="bingzhongncsick" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/bingzhongncsick.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+	    <action name="yiliaojigou" method="yiliaojigou" class="reportAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/report/yiliaojigou.jasper</param>
+				<param name="dataSource">data</param>
+				<param name="format">${ext}</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+	</package>
+	<package name="reportcommon" extends="json-default">
+		<default-interceptor-ref name="defaultStack"></default-interceptor-ref>
+		<action name="getcity" class="reportAction" method="getcity">
+			<result type="json">
+				<param name="root">
+					result
+				</param>
+				<param name="ignoreHierarchy">
+					false
+				</param>
+				<param name="noCache">
+					true
+				</param>
+				<param name="excludeNullProperties">
+					true
+				</param>
+			</result>
+		</action>
+		<action name="getcitystreet" class="reportAction" method="getcitystreet">
+			<result type="json">
+				<param name="root">
+					result
+				</param>
+				<param name="ignoreHierarchy">
+					false
+				</param>
+				<param name="noCache">
+					true
+				</param>
+				<param name="excludeNullProperties">
+					true
+				</param>
+			</result>
+		</action>
+		<action name="analyseInpatientCostInit" method="analyseInpatientCostInit"
+				 class="reportAction">
+			<result name="success">
+				/page/report/analyseinpatientcost.jsp
+			</result>
+		</action>
+		<action name="analyseInpatientCost" method="analyseInpatientCost"
+				class="reportAction">
+			<result name="success">
+				/page/report/analyseinpatientcost.jsp
+			</result>
+		</action>
+		<action name="queryPayPersonsinfo" method="queryPayPersonsinfo"
+				class="reportAction">
+			<result name="success">
+				/page/report/querypaypersons.jsp
+			</result>
+		</action>
+		<action name="queryAllpaysByPerinfo" method="queryAllpaysByPerinfo"
+				class="reportAction">
+			<result name="success">
+				/page/report/queryallpaysbyper.jsp
+			</result>		
+		</action>
+		<action name="specialInpatientCostInit" method="specialInpatientCostInit"
+				 class="reportAction">
+			<result name="success">
+				/page/report/specialinpatientcost.jsp
+			</result>
+			<result name="result">
+				/page/report/result.jsp
+			</result>
+		</action>
+		<action name="specialInpatientCost" method="specialInpatientCost"
+				class="reportAction">
+			<result name="success">
+				/page/report/specialinpatientcost.jsp
+			</result>
+		</action>
+		<action name="inhospitalCostInit" method="inhospitalCostInit"
+				 class="reportAction">
+			<result name="success">
+				/page/report/inhospitalcost.jsp
+			</result>
+			<result name="result">
+				/page/report/result.jsp
+			</result>
+		</action>
+		<action name="inhospitalCost" method="inhospitalCost"
+				class="reportAction">
+			<result name="success">
+				/page/report/inhospitalcost.jsp
+			</result>
+		</action>
+		<action name="dividedInit" method="dividedInit"
+				 class="reportAction">
+			<result name="success">
+				/page/report/divided.jsp
+			</result>
+			<result name="result">
+				/page/report/result.jsp
+			</result>
+		</action>
+		<action name="divided" method="divided"
+				 class="reportAction">
+			<result name="success">
+				/page/report/divided.jsp
+			</result>
+		</action>
+		<action name="specialInit" method="specialInit"
+				 class="reportAction">
+			<result name="success">
+				/page/report/special.jsp
+			</result>
+			<result name="result">
+				/page/report/result.jsp
+			</result>
+		</action>
+		<action name="special" method="special"
+				 class="reportAction">
+			<result name="success">
+				/page/report/special.jsp
+			</result>
+		</action>
+		<action name="ratioInit" method="ratioInit"
+				 class="reportAction">
+			<result name="success">
+				/page/report/ratio.jsp
+			</result>
+			<result name="result">
+				/page/report/result.jsp
+			</result>
+		</action>
+		<action name="ratio" method="ratio"
+				 class="reportAction">
+			<result name="success">
+				/page/report/ratio.jsp
+			</result>
+		</action>
+	</package>
+</struts>

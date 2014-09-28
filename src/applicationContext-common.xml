@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!--<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.logicalcobwebs.proxool.ProxoolDriver" />
+		<property name="url" value="proxool.medical" />
+	</bean>
+	--><bean id="bonecpDataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 10.2.0.14)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = 10.2.0.13)(PORT = 1521))(LOAD_BALANCE = yes)(FAILOVER = ON)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = yldb)(FAILOVER_MODE=(TYPE = SELECT)(METHOD = BASIC)(RETIRES = 20)(DELAY = 15))))" />
+		<property name="username" value="medical" />
+		<property name="password" value="medical" />
+		<property name="idleConnectionTestPeriod" value="60" />
+		<property name="idleMaxAge" value="240" />
+		<property name="maxConnectionsPerPartition" value="30" />
+		<property name="minConnectionsPerPartition" value="10" />
+		<property name="partitionCount" value="3" />
+		<property name="acquireIncrement" value="5" />
+		<property name="statementsCacheSize" value="100" />
+		<property name="releaseHelperThreads" value="3" />
+	</bean>
+
+	<!-- "WEB-INF/classes/sqlMapConfig.xml" sqlMapConfig.xml -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="WEB-INF/classes/sqlMapConfig.xml" />
+		<property name="dataSource" ref="bonecpDataSource" />
+	</bean>
+	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="bonecpDataSource" />
+	</bean>
+	<aop:config>
+		<aop:pointcut id="servicesPointcut"
+			expression="execution(* com.mingda.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicesPointcut" />
+	</aop:config>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="login" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="find*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- nc --><!--
+	<bean id="dataSourcenc"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.logicalcobwebs.proxool.ProxoolDriver" />
+		<property name="url" value="proxool.summer" />
+	</bean>
+	--><bean id="bonecpDataSourcenc" class="com.jolbox.bonecp.BoneCPDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
+		<!--<property name="jdbcUrl" value="jdbc:oracle:thin:@(description=(ADDRESS_LIST=(ADDRESS =
+			(PROTOCOL = TCP)(HOST = 10.1.0.33)(PORT = 1521))(ADDRESS = (PROTOCOL
+			= TCP)(HOST = 10.1.0.34)(PORT =
+			1521))(load_balance=yes)(failover=yes))(connect_data=(service_name=
+			ncdb)(instance_name=ncdb1)(instance_name=ncdb2)))" />
+		-->
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@10.1.0.31:1521:ncdb1" />
+		<property name="username" value="summer" />
+		<property name="password" value="summer" />
+		<property name="idleConnectionTestPeriod" value="60" />
+		<property name="idleMaxAge" value="240" />
+		<property name="maxConnectionsPerPartition" value="30" />
+		<property name="minConnectionsPerPartition" value="10" />
+		<property name="partitionCount" value="3" />
+		<property name="acquireIncrement" value="5" />
+		<property name="statementsCacheSize" value="100" />
+		<property name="releaseHelperThreads" value="3" />
+	</bean>
+	<bean id="sqlMapClientnc" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="WEB-INF/classes/sqlMapConfignc.xml" />
+		<property name="dataSource" ref="bonecpDataSourcenc" />
+	</bean>
+	<bean id="sqlMapClientTemplatenc" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClientnc" />
+		</property>
+	</bean>
+	<bean id="transactionManagernc"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="bonecpDataSourcenc" />
+	</bean>
+	<aop:config>
+		<aop:pointcut id="servicesPointcutnc"
+			expression="execution(* com.mingda.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvicenc" pointcut-ref="servicesPointcutnc" />
+	</aop:config>
+	<tx:advice id="txAdvicenc" transaction-manager="transactionManagernc">
+		<tx:attributes>
+			<tx:method name="login" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="find*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+</beans>

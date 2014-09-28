@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ul id="gray" class="treeview-gray" style="cursor:hand">
+	<li>
+		<span>医疗救助管理</span>
+		<ul>
+			<li>
+				住院救助管理
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/querymedicalmembersinit.action&amp;nav=住院救助管理>>审批')">审核</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/querymedicalmembersdoneinit.action&amp;nav=住院救助管理>>审批查询')">审核查询</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/print/printmedicalmemberinit.action&amp;nav=住院救助管理>>救助公示')">救助公示</li>
+				</ul>
+			</li>
+			<li>
+				慢性病救助管理
+				<ul>
+					<li onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicallinit.action&amp;nav=慢性病救助管理>>救助金发放')">救助金发放</li>
+					<li onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicinit.action&amp;nav=慢性病救助管理>>救助金补发')">救助金补发</li>
+					<li>救助金查询</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<span>救助金对账</span>
+		<ul>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/querycheckaccoutsinit.action&amp;nav=救助金对账>>对账明细查询')">对账明细查询</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/checkaccoutstatinit.action&amp;nav=救助金对账>>对账统计')">对账统计</li>
+		</ul>
+	</li>
+	<li>
+		<span>救助对象管理</span>
+		<ul>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicmemberinit.action&amp;nav=救助对象管理>>慢性病对象审批')">慢性病对象审批</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicmembermodifyinit.action&amp;nav=救助对象管理>>慢性病对象复查')">慢性病对象复查</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicmemberdoneinit.action&amp;nav=救助对象管理>>慢性病对象审批查询')">慢性病对象审批查询</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/print/printgsinit.action&amp;nav=住院救助管理>>慢性病对象公示')">慢性病对象公示</li>
+		</ul>
+	</li>
+	<li>
+		<span>信息查询</span>
+		<ul>
+			<li>快速查询</li>
+			<li>综合查询</li>
+		</ul>
+	</li>
+	<li>
+		<span>统计分析</span>
+		<ul>
+			<li
+				onclick="viewhtml('../report/reportframe.jsp?url=findReportList.action?reporttype=1')">基本情况</li>
+			<li onclick="viewhtml('../report/reportframe.jsp?url=findReportList.action?reporttype=3')">救助对象情况</li>
+			<li
+				onclick="viewhtml('../report/reportframe.jsp?url=findReportList.action?reporttype=4')">费用分析</li>
+			<li onclick="viewhtml('../report/reportframe.jsp?url=findReportList.action?reporttype=5')">救助病种</li>
+			<li
+				onclick="viewhtml('../report/reportframe.jsp?url=findReportList.action?reporttype=6')">医疗机构花费情况</li>
+			<li onclick="viewhtml('../report/reportframe.jsp?url=findReportList.action?reporttype=8')">总体情况</li>
+		</ul>
+	</li>
+	<li>
+		<span>系统管理</span>
+		<ul>
+			<li>救助标准设置</li>
+			<li>短信设置</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/findAddrBookList.action&amp;nav=系统管理>>通讯录管理 ')">通讯录管理</li>
+		</ul>
+	</li>
+</ul>

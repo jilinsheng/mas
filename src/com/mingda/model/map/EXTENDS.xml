@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="EXTENDS">
+	<sql id="ibatorgenerated_Example_Where_Clause">
+		<iterate property="oredCriteria" conjunction="or" prepend="where"
+			removeFirstPrepend="iterate">
+			<isEqual property="oredCriteria[].valid" compareValue="true">
+				(
+				<iterate prepend="and" property="oredCriteria[].criteriaWithoutValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithoutValue[]$
+        </iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithSingleValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithSingleValue[].condition$
+					#oredCriteria[].criteriaWithSingleValue[].value#
+        </iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithListValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithListValue[].condition$
+					<iterate property="oredCriteria[].criteriaWithListValue[].values"
+						open="(" close=")" conjunction=",">
+						#oredCriteria[].criteriaWithListValue[].values[]#
+          </iterate>
+				</iterate>
+				<iterate prepend="and" property="oredCriteria[].criteriaWithBetweenValue"
+					conjunction="and">
+					$oredCriteria[].criteriaWithBetweenValue[].condition$
+					#oredCriteria[].criteriaWithBetweenValue[].values[0]# and
+					#oredCriteria[].criteriaWithBetweenValue[].values[1]#
+        </iterate>
+				)
+			</isEqual>
+		</iterate>
+	</sql>
+	<statement id="querySeq"
+		resultClass="int" remapResults="true">
+		<![CDATA[select sq_emp_id.nextval from dual]]>
+	</statement>
+	<statement id="queryRow" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap" remapResults="true">
+		<![CDATA[SELECT * FROM ( SELECT A.*, ROWNUM RN FROM ( $executsql$ ) A WHERE ROWNUM <= $end$) WHERE RN > $start$]]>
+	</statement>
+	<statement id="queryAll" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap" remapResults="true">
+		<![CDATA[$executsql$]]>
+	</statement>
+	<statement id="queryCnt" parameterClass="java.util.HashMap"
+		resultClass="int" remapResults="true">
+		<![CDATA[select count(1) as cnt from ( $executsql$)]]>
+	</statement>
+	<update id="updateAll" parameterClass="java.util.HashMap">
+		<![CDATA[$executsql$]]>
+	</update>
+	<update id="insertAll" parameterClass="java.util.HashMap">
+		<![CDATA[$executsql$]]>
+	</update>
+	<!--更新家庭人口 --> 
+</sqlMap>

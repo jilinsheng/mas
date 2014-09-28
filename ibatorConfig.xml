@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ibatorConfiguration PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN" "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd" >
+<ibatorConfiguration>
+	<!-- D:\workspace\galileo\christmas\WebContent\WEB-INF\lib\ojdbc6.jar C:\oracle\product\10.2.0\client_1\jdbc\lib\ojdbc14.jar 
+		jdbc:oracle:thin:@(description=(ADDRESS_LIST=(ADDRESS = (PROTOCOL = TCP)(HOST 
+		= 10.2.0.12)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = 10.2.0.14)(PORT 
+		= 1521))(load_balance=yes)(failover=yes))(connect_data=(service_name= yldb)(instance_name=yldb1)(instance_name=yldb2))) 
+		jdbc:oracle:thin:@192.168.1.10:1521:orcl -->
+	<classPathEntry location="D:\workspace\ojdbc6.jar" />
+	<ibatorContext id="mas" targetRuntime="Ibatis2Java5">
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@10.2.0.13:1521:yldb1" userId="medical"
+			password="medical">
+		</jdbcConnection>
+		<javaModelGenerator targetPackage="com.mingda.model"
+			targetProject="mas">
+			<property name="trimStrings" value="false" />
+			<property name="enableSubPackages" value="false" />
+		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="com.mingda.model.map"
+			targetProject="mas">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		<daoGenerator type="SPRING" targetPackage="com.mingda.dao"
+			targetProject="mas" implementationPackage="com.mingda.dao.impl">
+			<property name="exampleMethodVisibility" value="public" />
+			<property name="methodNameCalculator" value="default" />
+			<property name="enableSubPackages" value="false" />
+		</daoGenerator>
+		<!-- <table tableName="JZ_BIZ" schema="jl_yljz"> <property name="ignoreQualifiersAtRuntime" 
+			value="true" /> <property name="defaultConfigurationStatus" value="true" 
+			/> <generatedKey column="BIZ_ID" sqlStatement="select SQ_BIZ_ID.nextval from 
+			dual" /> </table> <table tableName="ncorganization" schema="medical"> <property 
+			name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
+			value="true" /> </table> <table tableName="jz_pay" schema="medical"> <property 
+			name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
+			value="true" /> </table> <table tableName="CHRONIC_BILL" schema="medical"> 
+			<property name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
+			value="true" /> <generatedKey column="CHRONICBILL_ID" sqlStatement="select 
+			SQ_CHRONICBILL_ID.nextval from dual" /> </table> <table tableName="CHRONIC_CHECK" 
+			schema="medical"> <property name="ignoreQualifiersAtRuntime" value="true" 
+			/> <property name="defaultConfigurationStatus" value="true" /> <generatedKey 
+			column="CHRONICCHECK_ID" sqlStatement="select SQ_CHRONICCHECK_ID.nextval 
+			from dual" /> </table> <table tableName="CHRONIC_STATUS" schema="medical"> 
+			<property name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
+			value="true" /> <generatedKey column="CHRONICSTATUS_ID" sqlStatement="select 
+			SQ_CHRONICSTATUS_ID.nextval from dual" /> </table> -->
+		<!--<table tableName="TEMP_PERSON" schema="medical"> <property name="ignoreQualifiersAtRuntime" 
+			value="true" /> <property name="defaultConfigurationStatus" value="true" 
+			/> <generatedKey column="MEMBER_ID" sqlStatement="select HIBERNATE_SEQUENCE.nextval 
+			from dual" /> </table> <table tableName="TEMP_MONTH" schema="medical"> <property 
+			name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
+			value="true" /> <generatedKey column="MID" sqlStatement="select SQ_CHRONICSTATUS_ID.nextval 
+			from dual" /> </table> <table tableName="TEMP_BILL" schema="medical"> <property 
+			name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
+			value="true" /> <generatedKey column="BILL_ID" sqlStatement="select SQ_CHRONICSTATUS_ID.nextval 
+			from dual" /> </table><table tableName="SECOND_APPROVE" schema="medical"> 
+			<property name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
+			value="true" /> <generatedKey column="APPROVE_ID" sqlStatement="select HIBERNATE_SEQUENCE.nextval 
+			from dual" /> </table> <table tableName="SECOND_BATCH" schema="medical"> 
+			<property name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
+			value="true" /> <generatedKey column="BATCH_ID" sqlStatement="select HIBERNATE_SEQUENCE.nextval 
+			from dual" /> </table> --><!--
+
+		<table tableName="JZ_MEDICALAFTER" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="BIZ_ID"
+				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
+		</table>
+		<table tableName="MA_MONTH" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="MID"
+				sqlStatement="select SQ_CHRONICSTATUS_ID.nextval 
+			from dual" />
+		</table>
+		<table tableName="MA_BILL" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="BILL_ID"
+				sqlStatement="select SQ_CHRONICSTATUS_ID.nextval 
+			from dual" />
+		</table> <table tableName="CHRONIC_SESSION" schema="medical"> 
+			<property name="ignoreQualifiersAtRuntime" value="true" /> 
+			<property name="defaultConfigurationStatus" value="true" /> 
+			<generatedKey column="SS_ID" 
+			sqlStatement="select SQ_CHRONICBILL_ID.nextval from dual" /> 
+			</table>-->
+		
+<!--  		 <table tableName="JZ_BIZCHECK" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="BIZCHECK"
+				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
+		</table> -->
+	<table tableName="TEMP_APPROVE" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="APPROVE_ID"
+				sqlStatement="select SQ_BIZMEDIA_ID.nextval from dual" />
+		</table>  <!--
+		<table tableName="WUBAOHUFILE" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="FILE_ID"
+				sqlStatement="select SQ_CHRONICBILL_ID.nextval from dual" />
+		</table>-->
+ 		<!-- <table tableName="TEMP_CALC_RULE" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="RULETEMP_ID"
+				sqlStatement="select SQ_CHRONICBILL_ID.nextval from dual" />
+		</table>  -->
+		
+<!-- 		 <table tableName="TEMP_CALC_RULE_SPE" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="RULETEMPSPE_ID"
+				sqlStatement="select SQ_CHRONICBILL_ID.nextval from dual" />
+		</table>  -->
+<!-- 		<table tableName="PAYVIEW01" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+		</table> -->
+	<!-- 	<table tableName="JZ_MEDICALAFTER_RULE" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="RULE_ID"
+				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
+		</table> -->
+		<!-- <table tableName="JZ_MEDICALAFTER" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="BIZ_ID"
+				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
+		</table>  -->
+		<!-- <table tableName="GUER" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="MEMBER_ID"
+				sqlStatement="select HIBERNATE_SEQUENCE.nextval@nc from dual" />
+		</table>
+		<table tableName="SANWU" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="MEMBER_ID"
+				sqlStatement="select HIBERNATE_SEQUENCE.nextval@nc from dual" />
+		</table> -->
+<!-- 		<table tableName="SANWUFILE" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="FILE_ID"
+				sqlStatement="select SQ_CHRONICBILL_ID.nextval from dual" />
+		</table> -->
+				<!-- <table tableName="jz_pay" schema="medical"> <property 
+			name="ignoreQualifiersAtRuntime" value="true" /> 
+			<property name="defaultConfigurationStatus" value="true"/>
+			</table> -->
+<!--  		<table tableName="WUBAOHU" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="MEMBER_ID"
+				sqlStatement="select HIBERNATE_SEQUENCE.nextval@nc from dual" />
+		</table>  -->
+<!-- 		<table tableName="DIAGNOSE_TYPE" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+		</table> -->
+	</ibatorContext>
+</ibatorConfiguration>

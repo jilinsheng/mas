@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<file>
+	<remoteserver>172.16.1.21:80</remoteserver>
+	<picpath1>\\10.2.1.31\d$\ftproot\yljz</picpath1>
+	<fileuploadpath1>\\10.2.1.31\d$\ftproot\yljz</fileuploadpath1>
+	<webpath1>yljz</webpath1>
+	<picpath2>Z:\pic\pic2</picpath2>
+	<fileuploadpath2>Z:\pic\asp</fileuploadpath2>
+	<webpath2>asp</webpath2>
+	<picpath3>D:\ftproot\jlsidcard</picpath3>
+	<fileuploadpath3>D:\ftproot\jlsidcard</fileuploadpath3>
+	<webpath3>jlsidcard</webpath3>
+	<excel>10.1.1.100/d$/ftproot/yljz/wbh</excel>
+</file>-->
+
+<file>
+	<remoteserver>172.16.1.21:80</remoteserver>
+	<picpath1>\\10.1.1.101\i\ftproot\yljz</picpath1>
+	<fileuploadpath1>\\10.1.1.101\i\ftproot\yljz</fileuploadpath1>
+	<webpath1>yljz</webpath1>
+	<picpath2>Z:\pic\pic2</picpath2>
+	<fileuploadpath2>Z:\pic\asp</fileuploadpath2>
+	<webpath2>asp</webpath2>
+	<picpath3>D:\ftproot\jlsidcard</picpath3>
+	<fileuploadpath3>D:\ftproot\jlsidcard</fileuploadpath3>
+	<webpath3>jlsidcard</webpath3>
+	<excel>\\10.1.1.101\i\ftproot\yljz\wbh</excel>
+	<medicalafter>\\10.1.1.101\i\ftproot\yljz\medicalafter</medicalafter>
+	<tempfile>\\10.1.1.101\i\ftproot\yljz\tempfile</tempfile>
+	<wbhsfzm>\\10.1.1.101\i\ftproot\yljz\wbhsfzm</wbhsfzm>
+	<guersfzm>\\10.1.1.101\i\ftproot\yljz\guersfzm</guersfzm>
+	<sanwusfzm>\\10.1.1.101\i\ftproot\yljz\sanwusfzm</sanwusfzm>
+</file>

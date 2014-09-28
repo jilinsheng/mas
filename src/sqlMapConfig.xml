@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" />
+	<sqlMap resource="com/mingda/model/map/BIZDEPT_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/ICD10_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/JZ_BIZ_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/CSEMP_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/CSORGANIZATION_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/NCEMP_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/NCORGANIZATION_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/MANAGER_ORG_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/EXTENDS.xml" />
+	<sqlMap resource="com/mingda/model/map/JZ_BIZCHECK_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/JZ_PAY_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/ADDRESS_BOOK_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/CHRONIC_CHECK_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/CHRONIC_STATUS_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/MEMBER_BASEINFOVIEW_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/CHRONIC_BILL_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/CHRONIC_ITEM_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/OUT_ICD_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/MANAGER_EMP_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/JZ_BIZMEDIA_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/MANAGER_ROLE_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/MANAGER_EMP_ROLE_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/HOSPITAL_PAY_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/TEMP_APPROVE_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/TEMP_BILL_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/JZ_ADDASSISTDATA_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/TEMP_MONTH_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/TEMP_PERSON_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/EXPORTXLS_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/SECOND_APPROVE_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/SECOND_BATCH_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/SECOND_BILL_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/JZ_MEDICALAFTER_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/MA_BILL_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/MA_MONTH_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/CHRONIC_BIZ_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/TEMP_CALC_RULE_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/JZ_MEDICALAFTERFILE_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/TEMP_APPROVEFILE_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/CHRONIC_SESSION_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/WUBAOHUFILE_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/WUBAOHU_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/TEMP_CALC_RULE_SPE_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/PAYVIEW01_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/GUERFILE_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/SANWUFILE_SqlMap.xml" />
+</sqlMapConfig>

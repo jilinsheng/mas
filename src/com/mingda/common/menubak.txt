@@ -1,0 +1,38 @@
+<!--<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/specialcare/editspecinit.action&amp;nav=[重点优抚对象]>>[录入审批]')">
+						<span class="file">录入审批</span>
+					</li> -->
+					
+					
+					<!--<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/createtemppersoninit1.action&amp;nav=[临时救助对象]>>[对象录入]')">
+						<span class="file">对象录入</span>
+					</li>
+					-->
+					
+					
+					
+					
+					<!--<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/guarantee/editguaranteeinit.action&amp;nav=[五保户]>>[录入审批]')">
+						<span class="file">录入审批</span>
+					</li>-->
+					
+					<!--  li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/queryaddmemberinit.action&amp;nav=[救助补录管理]>>[业务补录]')">业务补录</span>
+					</li>-->
+					
+					<li>
+						<span class="folder">非定点药店购药</span>
+						<ul>
+							<li
+								onclick="viewhtml('../contentframe.jsp?url=../page/chronicbiz/querychronicbizappinit.action&amp;nav=[救助对象管理]>>[慢性病对象购药审批]')">
+								<span class="file">购药审批</span>
+							</li>
+							<li
+								onclick="viewhtml('../contentframe.jsp?url=../page/chronicbiz/querychronicbizinit.action&amp;nav=[救助对象管理]>>[购药退费及统计]')">
+								<span class="file">退费</span>
+							</li>
+						</ul>
+					</li>

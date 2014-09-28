@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="orphan" extends="json-default" namespace="/page/orphan">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="queryorphanmembers" method="queryorphanmembers" class="orphanAction">
+			<result name="success">
+				/page/orphan/querymembers.jsp
+		</result>
+		</action>
+		<action name="queryorphanmembersinit" method="queryorphanmembersinit" class="orphanAction">
+			<result name="success">
+				/page/orphan/querymembers.jsp
+		</result>
+		</action>
+		<action name="queryorphaninit" method="queryorphaninit"
+			class="orphanAction">
+			<result name="success">
+				/page/orphan/queryorphan.jsp
+		</result>
+		</action>
+		<action name="queryorphan" method="queryorphan" class="orphanAction">
+			<result name="success">
+				/page/orphan/queryorphan.jsp
+		</result>
+		</action>
+		<action name="editorphaninit" method="editorphaninit"
+			class="orphanAction">
+			<result name="success">
+				/page/orphan/approveorphan.jsp
+		</result>
+		<result name="edit">
+				/page/orphan/approveorphanedit.jsp
+		</result>
+		<result name="del">
+				/page/orphan/result.jsp
+		</result>
+		<result name="error">
+				/page/orphan/error.jsp
+		</result>
+		</action>
+		<action name="editorphan" method="editorphan" class="orphanAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<interceptor-ref name="token"></interceptor-ref>
+			<result name="invalid.token">
+				/page/orphan/result.jsp
+			</result>
+			<result name="success">
+				/page/orphan/vieworphan.jsp
+		</result>
+		</action>
+		<action name="delfile" method="delfile" class="orphanAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+	</package>
+</struts>

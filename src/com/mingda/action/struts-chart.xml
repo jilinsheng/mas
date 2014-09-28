@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="chart" extends="json-default" namespace="/page/report">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor class="com.mingda.interceptor.ReportRightInterceptor"
+				name="reportright" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+				<interceptor-ref name="reportright" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+			<result name="input" type="redirect">/page/common/result.jsp</result>
+			<result name="nodata" type="redirect">/page/report/nodata.jsp</result>
+		</global-results>
+		<action name="feiyongChart" class="chartAction" method="feiyongChart">
+			<result name="success">
+				/page/report/chart/feiyong.jsp
+			</result>
+		</action>
+		
+		<action name="feiyonglinshiChart" class="chartAction" method="feiyonglinshiChart">
+			<result name="success">
+				/page/report/chart/feiyong.jsp
+			</result>
+		</action>	
+		
+		<action name="jibenChart" class="chartAction" method="jibenChart">
+			<result name="success">
+				/page/report/chart/jiben.jsp
+			</result>
+		</action>
+
+		<action name="jibenChartDetail" class="chartAction" method="jibenChartDetail">
+			<result name="success">
+				/page/report/chart/jibenDetail.jsp
+			</result>
+		</action>
+
+		<action name="duixiangChart" class="chartAction" method="duixiangChart">
+			<result name="success">
+				/page/report/chart/duixiang.jsp
+			</result>
+		</action>
+		<action name="jigouChart" class="chartAction" method="jigouChart">
+			<result name="success">
+				/page/report/chart/jigou.jsp
+			</result>
+		</action>
+
+
+		<action name="bingzhongChart" class="chartAction" method="bingzhongChart">
+			<result name="success">
+				/page/report/chart/bingzhong.jsp
+			</result>
+		</action>
+
+		<action name="bingzhongsickChart" class="chartAction" method="bingzhongsickChart">
+			<result name="success">
+				/page/report/chart/bingzhongsick.jsp
+			</result>
+		</action>
+
+		<action name="bingzhongcsChartZ" class="chartAction" method="bingzhongcsChartZ">
+			<result type="json">
+				<param name="root">
+					result
+				</param>
+				<param name="ignoreHierarchy">
+					false
+				</param>
+				<param name="noCache">
+					true
+				</param>
+				<param name="excludeNullProperties">
+					true
+				</param>
+			</result>
+		</action>
+
+
+
+	</package>
+</struts>

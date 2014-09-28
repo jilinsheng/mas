@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="temp" extends="json-default" namespace="/page/temp">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="querytempmemberinit" method="querytempmemberinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querytempmember.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="createtempperson" method="createtempperson"
+			class="tempAction">
+			<result name="success">
+				/page/temp/viewtempmembers.jsp
+			</result>
+		</action>
+		<action name="createtempperson1" method="createtempperson1"
+			class="tempAction">
+			<result name="success">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="createtemppersoninit1" method="createtemppersoninit1"
+			class="tempAction">
+			<result name="success">
+				/page/temp/createtempperson1.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="updatetempperson" method="updatetempperson"
+			class="tempAction">
+			<result name="success">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="createtemppersoninit" method="createtemppersoninit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/createtempperson.jsp
+			</result>
+		</action>
+		<action name="updatetemppersoninit" method="updatetemppersoninit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/updatetempperson.jsp
+			</result>
+		</action>
+		<action name="querytemppersoninit" method="querytemppersoninit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querytempperson.jsp
+			</result>
+			<result name="result">/page/temp/result.jsp</result>
+		</action>
+		<action name="querytempperson" method="querytempperson" class="tempAction">
+			<result name="success">
+				/page/temp/querytempperson.jsp
+			</result>
+		</action>
+		<action name="querytempapprove" method="querytempapprove"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querytempapprove.jsp
+			</result>
+		</action>
+		<action name="querytempmember" method="querytempmember" class="tempAction">
+			<result name="success">
+				/page/temp/viewtempmembers.jsp
+			</result>
+			<result name="createtempperson">
+				/page/temp/createtempperson.jsp
+			</result>
+		</action>
+		<action name="tempapplyinit" method="tempapplyinit" class="tempAction">
+			<result name="success">
+				/page/temp/tempapply.jsp
+			</result>
+		</action>
+		<action name="tempapply" method="tempapply" class="tempAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<result name="success">
+				/page/temp/viewtemp.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="querytempapprove" method="querytempapprove"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querytempapprove.jsp
+			</result>
+		</action>
+		<action name="querytempapproveinit" method="querytempapproveinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querytempapprove.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="tempapproveinit" method="tempapproveinit" class="tempAction">
+			<result name="success">
+				/page/temp/tempapprove.jsp
+			</result>
+			<result name="result">
+				/page/temp/maresult.jsp
+			</result>
+		</action>
+		<action name="tempapprove" method="tempapprove" class="tempAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<result name="success">
+				/page/temp/viewtemp.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="viewtempappupdateinit" method="viewtempappupdateinit" class="tempAction">
+			<result name="success">
+				/page/temp/tempapprove.jsp
+			</result>
+			<result name="result">
+				/page/temp/maresult.jsp
+			</result>
+		</action>
+		<action name="querytempsinit" method="querytempsinit" class="tempAction">
+			<result name="success">
+				/page/temp/querytemps.jsp
+			</result>
+		</action>
+		<action name="querytemps" method="querytemps" class="tempAction">
+			<result name="success">
+				/page/temp/querytemps.jsp
+			</result>
+		</action>
+		<action name="createtempbill" method="createtempbill" class="tempAction">
+			<result name="success">
+				/page/temp/createtempbill.jsp
+			</result>
+		</action>
+		<action name="createtempbillinit" method="createtempbillinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/createtempbill.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="createmabill" method="createmabill" class="tempAction">
+			<result name="success">
+				/page/temp/createmabill.jsp
+			</result>
+		</action>
+		<action name="createmabillinit" method="createmabillinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/createmabill.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="genbilldatainit" method="genbilldatainit" class="tempAction">
+			<result name="success">
+				/page/temp/genbilldata.jsp
+			</result>
+		</action>
+		<action name="genbilldata" method="genbilldata" class="tempAction">
+			<result name="success">
+				/page/temp/genbilldata.jsp
+			</result>
+		</action>
+		<action name="genmabilldatainit" method="genmabilldatainit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/genmabilldata.jsp
+			</result>
+		</action>
+		<action name="genmabilldata" method="genmabilldata" class="tempAction">
+			<result name="success">
+				/page/temp/genmabilldata.jsp
+			</result>
+		</action>
+		<action name="viewtemp" method="viewtemp" class="tempAction">
+			<result name="success">
+				/page/temp/viewtemp.jsp
+			</result>
+		</action>
+		<action name="queryaddmemberinit" method="queryaddmemberinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryaddmember.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="queryaddmember" method="queryaddmember" class="tempAction">
+			<result name="success">
+				/page/temp/viewaddmembers.jsp
+			</result>
+		</action>
+		<action name="addapplyinit" method="addapplyinit" class="tempAction">
+			<result name="success">
+				/page/temp/addapply.jsp
+			</result>
+		</action>
+		<action name="addapply" method="addapply" class="tempAction">
+			<result name="success">
+				/page/temp/viewadd.jsp
+			</result>
+		</action>
+		<action name="viewaddapplys" method="viewaddapplys" class="tempAction">
+			<result name="success">
+				/page/temp/viewadds.jsp
+			</result>
+		</action>
+		<action name="deladdapply" method="deladdapply" class="tempAction">
+			<result name="success">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="queryaddapproveinit" method="queryaddapproveinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryaddapprove.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="queryaddapprove" method="queryaddapprove" class="tempAction">
+			<result name="success">
+				/page/temp/queryaddapprove.jsp
+			</result>
+		</action>
+		<action name="calctempmoney" method="calctempmoney" class="tempAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="calcaftermoney" method="calcaftermoney" class="tempAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="calcaftermoneyauto" method="calcaftermoneyauto" class="tempAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="genbillfile" method="genbillfile" class="tempAction">
+			<result type="stream">
+				<param name="contentType">APPLICATION/OCTET-STREAM</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<action name="genmabillfile" method="genmabillfile" class="tempAction">
+			<result type="stream">
+				<param name="contentType">APPLICATION/OCTET-STREAM</param>
+				<param name="inputName">maInputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<action name="removebillmonth" method="removebillmonth" class="tempAction">
+			<result name="success">
+				/page/temp/genbilldata.jsp
+			</result>
+		</action>
+		<action name="removemabillmonth" method="removemabillmonth"
+			class="tempAction">
+			<result name="success">
+				/page/temp/genmabilldata.jsp
+			</result>
+		</action>
+		<action name="queryusedbills" method="queryusedbills" class="tempAction">
+			<result name="success">
+				/page/temp/queryusedbills.jsp
+			</result>
+		</action>
+		<action name="queryusedbillsinit" method="queryusedbillsinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryusedbills.jsp
+			</result>
+		</action>
+		<action name="queryusedmabills" method="queryusedmabills"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryusedmabills.jsp
+			</result>
+		</action>
+		<action name="queryusedmabillsinit" method="queryusedmabillsinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryusedmabills.jsp
+			</result>
+		</action>
+		<action name="querybillstatinit" method="querybillstatinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querytempstat.jsp
+			</result>
+		</action>
+		<action name="querybillstat" method="querybillstat" class="tempAction">
+			<result name="success">
+				/page/temp/querytempstat.jsp
+			</result>
+		</action>
+		<action name="querymabillstatinit" method="querymabillstatinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querymastat.jsp
+			</result>
+		</action>
+		<action name="querymabillstat" method="querymabillstat" class="tempAction">
+			<result name="success">
+				/page/temp/querymastat.jsp
+			</result>
+		</action>
+		<action name="querysecondmemberinit" method="querysecondmemberinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querysecondmember.jsp
+		</result>
+			<result name="error">
+				/page/temp/result.jsp
+		</result>
+		</action>
+		<action name="querysecondmember" method="querysecondmember"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querysecondmember.jsp
+		</result>
+		</action>
+		<action name="gensecondapprove" method="gensecondapprove"
+			class="tempAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="querysecondapprovesinit" method="querysecondapprovesinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querysecondapproves.jsp
+		</result>
+			<result name="error">
+				/page/temp/result.jsp
+		</result>
+		</action>
+		<action name="querysecondapproves" method="querysecondapproves"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querysecondapproves.jsp
+		</result>
+		</action>
+		<action name="editsecondapprove" method="editsecondapprove"
+			class="tempAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="delsecondapprove" method="delsecondapprove"
+			class="tempAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="querysecondbillsinit" method="querysecondbillsinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querysecondbills.jsp
+		</result>
+			<result name="error">
+				/page/temp/result.jsp
+		</result>
+		</action>
+		<action name="createsecondbills" method="createsecondbills"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querysecondbills.jsp
+		</result>
+		</action>
+		<action name="gensecondbillinit" method="gensecondbillinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/gensecondbill.jsp
+		</result>
+		</action>
+		<action name="removesecondbillfile" method="removesecondbillfile"
+			class="tempAction">
+			<result name="success">
+				/page/temp/result.jsp
+		</result>
+		</action>
+		<action name="gensecondbillfile" method="gensecondbillfile"
+			class="tempAction">
+			<result type="stream">
+				<param name="contentType">APPLICATION/OCTET-STREAM</param>
+				<param name="inputName">inputStreamSecond</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<action name="querysecondbilldoneinit" method="querysecondbilldoneinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querysecondbilldone.jsp
+			</result>
+			<result name="error">
+				/page/temp/result.jsp
+		</result>
+		</action>
+		<action name="querysecondbilldone" method="querysecondbilldone"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querysecondbilldone.jsp
+		</result>
+		</action>
+		<action name="queryaftermemberinit" method="queryaftermemberinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryaftermember.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="queryaftermember" method="queryaftermember"
+			class="tempAction">
+			<result name="success">
+				/page/temp/viewaftermembers.jsp
+			</result>
+		</action>
+		<action name="afterapplyinit" method="afterapplyinit" class="tempAction">
+			<result name="success">
+				/page/temp/afterapply.jsp
+			</result>
+			<result name="result">
+				/page/temp/maresult.jsp
+			</result>
+		</action>
+		<action name="viewafterapply" method="viewafterapply" class="tempAction">
+			<result name="success">
+				/page/temp/viewafter.jsp
+			</result>
+		</action>
+		<action name="afterapply" method="afterapply" class="tempAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<result name="success">
+				/page/temp/viewafter.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="viewafterapplys" method="viewafterapplys" class="tempAction">
+			<result name="success">
+				/page/temp/viewafters.jsp
+			</result>
+		</action>
+		<action name="delafterapply" method="delafterapply" class="tempAction">
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="queryafterapproveinit" method="queryafterapproveinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryafterapprove.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="queryafterapprove" method="queryafterapprove"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryafterapprove.jsp
+			</result>
+		</action>
+		<action name="queryafterapprovedoneinit" method="queryafterapprovedoneinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryafterapprovedone.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="queryafterapprovedone" method="queryafterapprovedone"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryafterapprovedone.jsp
+			</result>
+		</action>
+		<action name="afteryn" method="afteryn" class="tempAction">
+			<result name="success">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="managetempinit" method="managetempinit" class="tempAction">
+			<result name="success">
+				/page/temp/managetemp.jsp
+			</result>
+			<result name="error">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="managetemp" method="managetemp" class="tempAction">
+			<result name="success">/page/temp/vmanagetemp.jsp</result>
+		</action>
+		<action name="delfile" method="delfile"
+			class="tempAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="deltafile" method="deltafile"
+			class="tempAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="backall" method="backall"
+			class="tempAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="madownloadExcelInit" method="madownloadExcelInit" class="tempAction">
+			<result name="success">/page/temp/downloadExcelInit.jsp</result>
+		</action>
+		<action name="tempdownloadExcelInit" method="tempdownloadExcelInit" class="tempAction">
+			<result name="success">/page/temp/downloadExcelInit.jsp</result>
+		</action>
+		<action name="afterannexaddinit" method="afterannexaddinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryafterannexadd.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="queryafterannexadd" method="queryafterannexadd"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryafterannexadd.jsp
+			</result>
+		</action>
+		<action name="afteruploadaddinit" method="afteruploadaddinit" 
+			class="tempAction">
+			<result name="success">
+				/page/temp/afteruploadadd.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="afteruploadadd" method="afteruploadadd"
+			class="tempAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<result name="success">
+				/page/temp/result.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="tempannexaddinit" method="tempannexaddinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querytempannexadd.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="querytempannexadd" method="querytempannexadd"
+			class="tempAction">
+			<result name="success">
+				/page/temp/querytempannexadd.jsp
+			</result>
+		</action>
+		<action name="tempuploadaddinit" method="tempuploadaddinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/tempuploadadd.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="tempuploadadd" method="tempuploadadd"
+			class="tempAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<result name="success">
+				/page/temp/result.jsp
+			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="queryaftermembersgsinit" method="queryaftermembersgsinit"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryaftermembersgs.jsp
+			</result>
+		</action>
+		<action name="queryaftermembersgs" method="queryaftermembersgs"
+			class="tempAction">
+			<result name="success">
+				/page/temp/queryaftermembersgs.jsp
+			</result>
+		</action>
+		<action name="queryPaysinfo" method="queryPaysinfo" class="tempAction">
+			<result name="success">
+				/page/temp/maresult.jsp
+			</result>
+		</action>
+		<action name="afterapplyinitnew" method="afterapplyinitnew" class="tempAction">
+			<result name="success">
+				/page/temp/afterapplynew.jsp
+			</result>
+			<result name="result">
+				/page/temp/maresult.jsp
+			</result>
+		</action>
+		<action name="querycheckaccoutsmainit" class="tempAction"
+			method="querycheckaccoutsmainit">
+			<result name="success">
+				/page/temp/querycheckaccoutsma.jsp
+			</result>
+		</action>
+		<action name="querycheckaccoutsma" class="tempAction" 
+			method="querycheckaccoutsma">
+			<result name="success">
+				/page/temp/querycheckaccoutsma.jsp
+			</result>
+		</action>
+		<action name="viewmapay" class="tempAction" method="viewmapay">
+			<result name="success">
+				/page/temp/viewmapay.jsp
+			</result>
+		</action>
+		<action name="checkaccoutsmainit" class="tempAction"
+			method="checkaccoutsmainit">
+			<result name="success">
+				/page/temp/checkaccoutsma.jsp
+			</result>
+			<result name="error">
+				/page/temp/result.jsp
+			</result>
+		</action>
+		<action name="tempback" method="tempback" class="tempAction">
+			<result name="success">
+				/page/temp/result.jsp
+			</result>
+		</action>
+	</package>
+</struts>

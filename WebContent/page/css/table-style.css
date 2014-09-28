@@ -1,0 +1,163 @@
+body,td,th {
+	font-size: 12px;
+}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.areaBorder {
+	border: 1px solid #999999;
+	background-color: #F4F5E7;
+	height: 20px;
+	font-size: 12px;
+	color: #064483;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.operatingarea {
+	background:url(../images/bg_op.gif);
+	height:25px;
+	border:0;
+	margin:0;
+	padding:0;
+	font-size: 12px;
+	color: #064483;
+}
+
+.formTitle {
+	height:33px;
+	border:0;
+	margin:0;
+	padding:0;
+	font-size: 16px;
+	color: #064483;
+	background:url(../images/bgtitle.gif);
+	background-repeat : repeat-y;
+	background-position :bottom right;
+	border-bottom: #689bdb 1px solid
+}
+
+.t1 {
+	border-collapse: collapse;
+	border: 1px solid #999999;
+	border-width: 0 1px 1px 0;
+	margin: 2px 0 2px 0;
+}
+.t1 caption{
+	height: 23px;
+	border: 1px solid #999999;
+	border-width: 1px 0 0 1px;
+	font-size: 12px;
+	text-align: center;
+	text-indent:12px;
+	background-color: #0066CC;
+	color: #FFFFFF;
+	font-weight: 600;
+	padding-top: 5px;
+}
+.t1 td {
+	height: 27px;
+	border: 1px solid #999999;
+	border-width: 1px 0 0 1px ;
+	margin: 2px 0 2px 0;
+	font-size: 12px;
+	background-color: #FFF;
+	text-align: left;
+	text-indent:12px;z
+}
+.t1 th {
+	height: 27px;
+	border: 1px solid #999999;
+	border-width: 1px 0 0 1px;
+	margin: 2px 0 2px 0;
+	text-align: center;
+	font-size: 12px;
+	font-weight: lighter;
+	background-color:#97CBFF;
+	background: url(../images/tr_back.gif) repeat-x;
+	color:#fff;
+}
+.t2 {
+	border-collapse: collapse;
+	border: 1px solid #999999;
+	border-width: 0 1px 1px 0;
+	margin: 2px 0 2px 0;
+}
+.t2 caption{
+	height: 23px;
+	border: 1px solid #999999;
+	border-width: 1px 0 0 1px;
+	font-size: 12px;
+	text-align: center;
+	text-indent:12px;
+	background-color: #0066CC;
+	color: #FFFFFF;
+	font-weight: 600;
+	padding-top: 5px;
+}
+.t2 td {
+	height: 27px;
+	border: 1px solid #999999;
+	border-width: 1px 0 0 1px ;
+	margin: 2px 0 2px 0;
+	font-size: 12px;
+	background-color: #FFF;
+	text-align: center;
+}
+.t2 th {
+	height: 27px;
+	border: 1px solid #999999;
+	border-width: 1px 0 0 1px;
+	margin: 2px 0 2px 0;
+	text-align: center;
+	font-size: 12px;
+	font-weight: lighter;
+	background-color:#97CBFF;
+	background: url(../images/tr_back.gif) repeat-x;
+}
+
+.formtable {
+	height: 30px;
+		border: 1px solid #000000;
+	border-width: 1px 1px 1px 1px;
+	margin: 2px 0 2px 0;
+	font-size: 12px;
+	text-indent:12px;z
+}
+
+.formtd1 {
+	height: 30px;
+	font-size: 12px;
+	border: 1px solid #999999;
+	border-width: 0px 0px 1px 0px;
+	background-color: #E9E9E9;
+	text-align: left;
+	text-indent:12px;z
+}
+
+.formtd2 {
+	height: 30px;
+	font-size: 12px;
+	border: 1px solid #999999;
+	border-width: 0px 0px 1px 1px;
+	background-color: #F5F5F5;
+	text-align: left;
+	text-indent:12px;z
+}
+
+.btn { 
+	BORDER-RIGHT: #002D96 1px solid; BORDER-TOP: 
+    #002D96 1px solid;FONT-SIZE: 12px; FILTER: 
+    progid:DXImageTransform.Microsoft.Gradient(GradientType=0, 
+    StartColorStr=#FFFFFF, EndColorStr=#9DBCEA); BORDER-LEFT: #002D96 
+    1px solid; CURSOR: hand; COLOR: black; PADDING-TOP: 0px; PADDING-BOTTOM: 0px;
+    BORDER-BOTTOM: #002D96 1px solid;padding : 1px 6px 1px 6px;
+     }
+     
+
+
+
+

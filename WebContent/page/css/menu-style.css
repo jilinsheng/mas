@@ -1,0 +1,20 @@
+#TreeMenu {
+	font-size: 12px;
+	width: 130px;
+	border: 0px dashed #666666;
+	padding: 10px;
+}
+#TreeMenu a
+{
+	color: #666666;
+	text-decoration: none;
+}
+#TreeMenu a:hover
+{
+	color: #666666;
+	text-decoration: underline;
+}
+#TreeMenu b
+{
+	color: #333333;
+}

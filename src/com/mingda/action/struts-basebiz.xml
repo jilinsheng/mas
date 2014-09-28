@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="basebiz" extends="json-default" namespace="/page/basebiz">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="querycheckaccoutsinit" class="baseBizAction"
+			method="querycheckaccoutsinit">
+			<result name="success">
+				/page/basebiz/querycheckaccouts.jsp
+			</result>
+		</action>
+		<action name="querycheckaccouts" class="baseBizAction" method="querycheckaccouts">
+			<result name="success">
+				/page/basebiz/querycheckaccouts.jsp
+			</result>
+		</action>
+		<action name="querycheckaccoutscinit" class="baseBizAction"
+			method="querycheckaccoutscinit">
+			<result name="success">
+				/page/basebiz/querycheckaccoutsc.jsp
+			</result>
+		</action>
+		<action name="querycheckaccoutsc" class="baseBizAction" method="querycheckaccoutsc">
+			<result name="success">
+				/page/basebiz/querycheckaccoutsc.jsp
+			</result>
+		</action>
+		<action name="querycheckaccoutsainit" class="baseBizAction"
+			method="querycheckaccoutsainit">
+			<result name="success">
+				/page/basebiz/querycheckaccoutsa.jsp
+			</result>
+		</action>
+		<action name="querycheckaccoutsa" class="baseBizAction" method="querycheckaccoutsa">
+			<result name="success">
+				/page/basebiz/querycheckaccoutsa.jsp
+			</result>
+		</action>
+		<action name="querycheckaccoutsbinit" class="baseBizAction"
+			method="querycheckaccoutsbinit">
+			<result name="success">
+				/page/basebiz/querycheckaccoutsb.jsp
+			</result>
+		</action>
+		<action name="querycheckaccoutsb" class="baseBizAction" method="querycheckaccoutsb">
+			<result name="success">
+				/page/basebiz/querycheckaccoutsb.jsp
+			</result>
+		</action>
+		<action name="getdept" class="baseBizAction" method="getDept">
+			<result type="json">
+				<param name="root">
+					result
+				</param>
+				<param name="ignoreHierarchy">
+					false
+				</param>
+				<param name="noCache">
+					true
+				</param>
+				<param name="excludeNullProperties">
+					true
+				</param>
+			</result>
+		</action>
+		<action name="getdept1" class="baseBizAction" method="getDept1">
+			<result type="json">
+				<param name="root">
+					result
+				</param>
+				<param name="ignoreHierarchy">
+					false
+				</param>
+				<param name="noCache">
+					true
+				</param>
+				<param name="excludeNullProperties">
+					true
+				</param>
+			</result>
+		</action>
+		<action name="getdept2" class="baseBizAction" method="getDept2">
+			<result type="json">
+				<param name="root">
+					result
+				</param>
+				<param name="ignoreHierarchy">
+					false
+				</param>
+				<param name="noCache">
+					true
+				</param>
+				<param name="excludeNullProperties">
+					true
+				</param>
+			</result>
+		</action>
+		<action name="querymedicalmembersinit" class="baseBizAction"
+			method="querymedicalmembersinit">
+			<result name="success">
+				/page/basebiz/querycheckmembers.jsp
+			</result>
+			<result name="error">
+				/page/basebiz/result.jsp
+			</result>
+		</action>
+		<action name="querymedicalmembers" class="baseBizAction"
+			method="querymedicalmembers">
+			<result name="success">
+				/page/basebiz/querycheckmembers.jsp
+			</result>
+		</action>
+		<action name="querymedicalmembersdoneinit" class="baseBizAction"
+			method="querymedicalmembersdoneinit">
+			<result name="success">
+				/page/basebiz/querycheckmembersdone.jsp
+			</result>
+			<result name="error">
+				/page/basebiz/result.jsp
+			</result>
+		</action>
+		<action name="querymedicalmembersdone" class="baseBizAction"
+			method="querymedicalmembersdone">
+			<result name="success">
+				/page/basebiz/querycheckmembersdone.jsp
+			</result>
+		</action>
+		<action name="approvemedicalmember" class="baseBizAction"
+			method="approvemedicalmember">
+			<result name="success">
+				/page/basebiz/approvememberresult.jsp
+			</result>
+		</action>
+		<action name="approvemedicalmemberinit" class="baseBizAction"
+			method="approvemedicalmemberinit">
+			<result name="success">
+				/page/basebiz/approvemedicalmember.jsp
+			</result>
+		</action>
+		<action name="checkaccoutstatinit" class="baseBizAction"
+			method="checkaccoutstatinit">
+			<result name="success">
+				/page/basebiz/checkaccoutstatinit.jsp
+			</result>
+			<result name="error">
+				/page/basebiz/result.jsp
+			</result>
+		</action>
+		<action name="checkaccoutstatcinit" class="baseBizAction"
+			method="checkaccoutstatcinit">
+			<result name="success">
+				/page/basebiz/checkaccoutstatcinit.jsp
+			</result>
+			<result name="error">
+				/page/basebiz/result.jsp
+			</result>
+		</action>
+		<action name="checkaccoutstatljinit" class="baseBizAction"
+			method="checkaccoutstatljinit">
+			<result name="success">
+				/page/basebiz/checkaccoutstatljinit.jsp
+			</result>
+		</action>
+		<action name="viewbizpay" class="baseBizAction" method="viewbizpay">
+			<result name="success">
+				/page/basebiz/viewbizpay.jsp
+			</result>
+		</action>
+		<action name="viewbizpay1" class="baseBizAction" method="viewbizpay1">
+			<result name="success">
+				/page/basebiz/viewbizpay1.jsp
+			</result>
+		</action>
+		<action name="findAddrBookList" class="baseBizAction" method="findAddrBookList">
+			<result name="success">
+				/page/common/addressbook.jsp
+			</result>
+		</action>
+		<action name="findAddrBook" class="baseBizAction" method="findAddrBook">
+			<result name="success">
+				/page/common/addressdetail.jsp
+			</result>
+		</action>
+		<action name="saveAddrBook" class="baseBizAction" method="saveAddrBook">
+			<result name="success">
+				/page/common/addressdetail.jsp
+			</result>
+		</action>
+		<action name="delAddrBook" class="baseBizAction" method="delAddrBook">
+			<result name="success" type="chain">
+				findAddrBookList
+			</result>
+		</action>
+		<action name="queryinhospitalinit" class="baseBizAction"
+			method="queryinhospitalinit">
+			<result name="success">
+				/page/basebiz/queryinhospital.jsp
+			</result>
+		</action>
+		<action name="queryinhospital" class="baseBizAction" method="queryinhospital">
+			<result name="success">
+				/page/basebiz/queryinhospital.jsp
+			</result>
+		</action>
+		<action name="queryoutpatientstatinit" class="baseBizAction"
+			method="queryoutpatientstatinit">
+			<result name="success">
+				/page/basebiz/checkoutaccoutstatinit.jsp
+			</result>
+		</action>
+		<action name="getImgFromByte" class="baseBizAction" method="getImgFromByte">
+			<result name="success" type="stream">
+				<param name="contentType">image/jpeg</param>
+			<param name="inputName">inputStream</param>
+			<param name="bufferSize">4096</param>
+			<param name="allowCaching ">false</param>
+		</result>
+		</action>
+		<action name="himap" class="baseBizAction"
+			method="himap">
+			<result name="success">
+				/page/himap/himap.jsp
+		</result>
+		</action>
+	</package>
+</struts>

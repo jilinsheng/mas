@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="icd" extends="json-default" namespace="/page/icd">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="icdmanageinit" method="icdmanageinit"
+			class="icdAction">
+			<result name="success">
+				/page/icd/viewicdinfo.jsp
+			</result>
+		</action>
+		<action name="queryicdmember" method="queryicdmember"
+			class="icdAction">
+			<result name="success">
+				/page/icd/viewicdinfo.jsp
+			</result>
+		</action>
+		<action name="editicdinfo" method="editicdinfo"
+			class="icdAction">
+			<result name="success">
+				/page/icd/editicdinfo.jsp
+			</result>
+		</action>
+		<action name="editicd" method="editicd" class="icdAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="addicd" method="addicd" class="icdAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+             </result>
+		</action>
+		<action name="addicdinit" method="addicdinit" class="icdAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+             </result>
+		</action>
+	</package>
+</struts>

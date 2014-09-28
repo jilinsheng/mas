@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="billone" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="dmname" class="java.lang.String"/>
+	<field name="zycs" class="java.math.BigDecimal"/>
+	<field name="zyzfy" class="java.math.BigDecimal"/>
+	<field name="zyjzj" class="java.math.BigDecimal"/>
+	<field name="zytc" class="java.math.BigDecimal"/>
+	<field name="zygrzf" class="java.math.BigDecimal"/>
+	<field name="zyqt" class="java.math.BigDecimal"/>
+	<field name="mzcs" class="java.math.BigDecimal"/>
+	<field name="mzzfy" class="java.math.BigDecimal"/>
+	<field name="mzjzj" class="java.math.BigDecimal"/>
+	<field name="mztc" class="java.math.BigDecimal"/>
+	<field name="mzgrzf" class="java.math.BigDecimal"/>
+	<field name="mzqt" class="java.math.BigDecimal"/>
+	<field name="ljzycs" class="java.math.BigDecimal"/>
+	<field name="ljzyzfy" class="java.math.BigDecimal"/>
+	<field name="ljzyjzj" class="java.math.BigDecimal"/>
+	<field name="ljzytc" class="java.math.BigDecimal"/>
+	<field name="ljzygrzf" class="java.math.BigDecimal"/>
+	<field name="ljzyqt" class="java.math.BigDecimal"/>
+	<field name="ljmzcs" class="java.math.BigDecimal"/>
+	<field name="ljmzzfy" class="java.math.BigDecimal"/>
+	<field name="ljmzjzj" class="java.math.BigDecimal"/>
+	<field name="ljmztc" class="java.math.BigDecimal"/>
+	<field name="ljmzgrzf" class="java.math.BigDecimal"/>
+	<field name="ljmzqt" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[吉林省医疗救助金汇总表]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="49" width="207" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[吉林省社会救助事业局（盖章）:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="207" y="49" width="348" height="22"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["统计时间："+""+$P{REPORT_PARAMETERS_MAP}.get("begin")+"至"+$P{REPORT_PARAMETERS_MAP}.get("end")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="60">
+			<staticText>
+				<reportElement x="0" y="0" width="110" height="60"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[药店]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="0" width="445" height="30"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[购药]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="30" width="97" height="30"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[人次]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="207" y="30" width="171" height="30"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[总费用(元)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="30" width="177" height="30"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[医疗救助(元)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="110" height="30"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dmname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="97" height="30"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{zycs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="0" width="177" height="30"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{zyjzj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="207" y="0" width="171" height="30"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{zyzfy}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

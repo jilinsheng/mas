@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="critical" extends="json-default" namespace="/page/critical">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="querycriticalinhospitalinit" method="querycriticalinhospitalinit" class="criticalAction">
+			<result name="success">
+				/page/critical/querycriticalinhospitals.jsp
+			</result>
+		</action>
+		<action name="querycriticalinhospitals" method="querycriticalinhospitals" class="criticalAction">
+			<result name="success">
+				/page/critical/querycriticalinhospitals.jsp
+			</result>
+		</action>
+		<action name="querycriticalinjectioninit" method="querycriticalinjectioninit" class="criticalAction">
+			<result name="success">
+				/page/critical/querycriticalinjections.jsp
+			</result>
+		</action>
+		<action name="querycriticalinjections" method="querycriticalinjections" class="criticalAction">
+			<result name="success">
+				/page/critical/querycriticalinjections.jsp
+			</result>
+		</action>
+		<action name="querycriticaldrugsinit" method="querycriticaldrugsinit" class="criticalAction">
+			<result name="success">
+				/page/critical/querycriticaldrugs.jsp
+			</result>
+		</action>
+		<action name="querycriticaldrugs" method="querycriticaldrugs" class="criticalAction">
+			<result name="success">
+				/page/critical/querycriticaldrugs.jsp
+			</result>
+		</action>
+	</package>
+</struts>

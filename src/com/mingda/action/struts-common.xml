@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="login" extends="json-default">
+		<default-interceptor-ref name="defaultStack"></default-interceptor-ref>
+		<action name="login" class="loginAction" method="login">
+			<result name="success">
+				/page/index.jsp
+			</result>
+			<result name="error">
+				/face3.jsp
+			</result>
+			<result name="input">
+				/face3.jsp
+			</result>
+		</action>
+		<action name="loginout" class="loginAction" method="loginOut">
+			<result name="success">
+				/logout.jsp
+		</result>
+		</action>
+	</package>
+	<package name="common" extends="json-default" namespace="/page/common">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="readmenu" method="readMenu" class="commonAction">
+			<result name="success">
+				/page/common/menu.jsp
+			</result>
+		</action>
+		<action name="detail" method="detail" class="commonAction">
+			<result name="success">
+				/page/common/detail.jsp
+		</result>
+		</action>
+		<action name="downloadExcel" class="downloadExcelAction">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">${fileName}</param>
+				<param name="inputName">excelFile</param>
+			</result>
+		</action>
+		<action name="downloadSortExcel" class="downloadSortExcelAction">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">${fileName}</param>
+				<param name="inputName">excelFile</param>
+			</result>
+		</action>
+	</package>
+	<package name="system" extends="json-default" namespace="/page/system">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="modipwdinit" method="modipwdinit" class="commonAction">
+			<result name="success">
+				/page/common/modipwd.jsp
+		</result>
+		</action>
+		<action name="modipwd" method="modipwd" class="commonAction">
+			<result name="success">
+				/page/common/modipwdresult.jsp
+		</result>
+		</action>
+		<action name="manageempinit" method="manageempinit" class="commonAction">
+			<result name="success">
+				/page/common/manageemp.jsp
+		</result>
+			<result name="error">
+				/page/common/result.jsp
+		</result>
+		</action>
+		<action name="getorgchilds" class="commonAction" method="getorgchilds">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="findemps" class="commonAction" method="findemps">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="addemp" class="commonAction" method="addemp">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="modiemp" class="commonAction" method="modiemp">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="resetemp" class="commonAction" method="resetemp">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="manageemp" method="manageemp" class="commonAction">
+			<result name="success">
+				/page/common/manageemp.jsp
+		</result>
+		</action>
+		<action name="queryempinfoinit" method="queryempinfoinit"
+			class="commonAction">
+			<result name="success">
+				/page/common/queryempinfo.jsp
+		</result>
+			<result name="error">
+				/page/common/result.jsp
+		</result>
+		</action>
+		<action name="queryempinfo" method="queryempinfo" class="commonAction">
+			<result name="success">
+				/page/common/queryempinfo.jsp
+		</result>
+		</action>
+		<action name="queryhempinfoinit" method="queryhempinfoinit"
+			class="commonAction">
+			<result name="success">
+				/page/common/queryhempinfo.jsp
+		</result>
+			<result name="error">
+				/page/common/result.jsp
+		</result>
+		</action>
+		<action name="queryhempinfo" method="queryhempinfo" class="commonAction">
+			<result name="success">
+				/page/common/queryhempinfo.jsp
+		</result>
+		</action>
+		<action name="admin" method="admin" class="commonAction">
+			<result name="success">
+				/page/common/admin.jsp
+		</result>
+			<result name="error">
+				/page/common/result.jsp
+		</result>
+		</action>
+		<action name="queryhospitalpayinit" method="queryhospitalpayinit"
+			class="commonAction">
+			<result name="success">
+				/page/common/queryhospitalpay.jsp
+		</result>
+			<result name="error">
+				/page/common/result.jsp
+		</result>
+		</action>
+		<action name="queryhospitalpay" method="queryhospitalpay"
+			class="commonAction">
+			<result name="success">/page/common/queryhospitalpay.jsp</result>
+		</action>
+		<action name="viewpayinfo" method="viewpayinfo" class="commonAction">
+			<result name="success">/page/common/viewpayinfo.jsp</result>
+		</action>
+		<action name="savepayinfo" method="savepayinfo" class="commonAction">
+			<result name="success">/page/common/viewpayinfo.jsp</result>
+		</action>
+		<action name="valpaperid" method="valpaperid" class="commonAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="valpaperid01" method="valpaperid01" class="commonAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="queryhospitals" method="queryhospitals" class="commonAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+	</package>
+	<package name="print" extends="jasperreports-default"
+		namespace="/page/print">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="printcheckaccounts" method="printcheckaccounts"
+			class="baseBizAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/basebiz/billone.jasper</param>
+				<param name="dataSource">bills</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="printcheckaccountsc" method="printcheckaccountsc"
+			class="baseBizAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/basebiz/billone.jasper</param>
+				<param name="dataSource">bills</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="queryoutpatientstat" method="queryoutpatientstat"
+			class="baseBizAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/basebiz/billone.jasper</param>
+				<param name="dataSource">bills</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="printcheckbills" method="printcheckbills" class="chronicAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/chronic/billone.jasper</param>
+				<param name="dataSource">bills</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="printcheckaccountslj" method="printcheckaccountslj"
+			class="baseBizAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/basebiz/bill.jasper</param>
+				<param name="dataSource">bills</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="printgsinit" method="printgsinit" class="baseBizAction">
+			<result name="success">
+				/page/basebiz/gslistreport.jsp
+			</result>
+		</action>
+		<action name="printgs" method="printgs" class="baseBizAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/basebiz/gs.jasper</param>
+				<param name="dataSource">gs</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="printmedicalmemberinit" method="printmedicalmemberinit"
+			class="baseBizAction">
+			<result name="success">
+				/page/basebiz/printmedicalmember.jsp
+			</result>
+		</action>
+		<action name="printmedicalmember" method="printmedicalmember"
+			class="baseBizAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/basebiz/medicalmember.jasper</param>
+				<param name="dataSource">bizs</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="queryoutpatientgsinit" method="queryoutpatientgsinit"
+			class="baseBizAction">
+			<result name="success">
+				/page/basebiz/printoutpatientmember.jsp
+			</result>
+		</action>
+		<action name="queryoutpatientgs" method="queryoutpatientgs"
+			class="baseBizAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/basebiz/medicalmember.jasper</param>
+				<param name="dataSource">bizs</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="printmaaccounts" method="printmaaccounts"
+			class="tempAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/basebiz/billone.jasper</param>
+				<param name="dataSource">mabills</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+	</package>
+</struts>
