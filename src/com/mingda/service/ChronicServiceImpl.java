@@ -976,7 +976,9 @@ public class ChronicServiceImpl implements ChronicService {
 				+ batch_id
 				+ "' "
 				+ " from chronic_bill b "
-				+ " where  exists (select 1 from MEMBER_BASEINFOVIEW02 mem "
+				+ " where 1=1 " 
+				+ " and b.bizid = -1 "
+				+ " and exists (select 1 from MEMBER_BASEINFOVIEW02 mem "
 				+ " where mem.member_id = b.member_id and mem.ds = mem.ds and mem.familyno like '"
 				+ organizationId + "%') and not exists ( "
 				+ " select bb.chronicbill_id " + " from chronic_bill_batch bb "
