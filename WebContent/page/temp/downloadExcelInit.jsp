@@ -30,7 +30,7 @@
 	</tr>
 	<tr >
 		<td align="center" colspan="3">
-				<button onclick="<button onclick="window.open('<%=basePath%>page/common/downloadExcel.action')">导出excel</button>">确定导出excel</button> &nbsp;&nbsp;
+				<button onclick="window.open('<%=basePath%>page/common/downloadExcel.action')">确定导出excel</button> &nbsp;&nbsp;
 				<button type="button" onclick="window.close()">关闭</button>
 		</td>
 	</tr>

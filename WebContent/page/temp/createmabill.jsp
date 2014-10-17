@@ -18,7 +18,7 @@
 <title>生成临时救助</title>
 <script type="text/javascript">
 	function viewapply() {
-		var url = "genmabilldatainit.action";
+		var url = "page/temp/genmabilldatainit.action";
 		var f = "dialogWidth=700px;dialogHeight=510px;status=no;help=no;scroll=auto";
 		//window.showModalDialog(url, window, f);
 		window
