@@ -798,6 +798,89 @@ public class TempAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	public String calcaftermoneyauto2(){
+		JSONObject json = new JSONObject();
+		ciDTO = new CiDTO();
+		ciDTO.setPaperID(tempDTO.getPaperid());
+		if ("3".equals(tempDTO.getMedicareType())) {
+			ciDTO.setMedicareType("0");
+		} else {
+			ciDTO.setMedicareType(tempDTO.getMedicareType());
+		}
+		ciDTO.setPay_Total(tempDTO.getPayTotal());
+		ciDTO.setPay_Medicare(tempDTO.getPayMedicare());
+		ciDTO.setPay_OutMedicare(tempDTO.getPayOutmedicare());
+		ciDTO.setCalcType(tempDTO.getCalcType());
+		ciDTO.setOld_Pay_Total(tempDTO.getOldPayTotal());
+		ciDTO.setOld_Pay_Medicare(tempDTO.getOldPayMedicare());
+		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
+		ciDTO = yljzService.getCiAssistByPaperID(ciDTO);
+		// 外伤、未经医保/新农合确认的转诊
+		if (tempDTO.getDiagnoseTypeId() != 0) {
+			ciDTO.setPayCIAssist(getCia(tempDTO));
+		}
+		if ("1".equals(ciDTO.getReturnFlag())) {
+			tempDTO.setPaySumAssistScopeIn(ciDTO.getPay_Sum_AssistScope_In());
+			tempDTO.setPayPreSumAssistScopeIn(ciDTO
+					.getPay_PreSum_AssistScope_In());
+			tempDTO.setPaySumAssistIn(ciDTO.getPaySumAssistIn());
+			tempDTO.setPaySumAssistOut(ciDTO.getPaySumAssistOut());
+			tempDTO.setSumMedicareScope(ciDTO.getSumMedicareScope());
+			if ("2".equals(tempDTO.getAssistype())) {
+				HashMap m = tempService.findMaMoney(tempDTO);
+				json.put("m", m.get("m"));
+				json.put("info", m.get("info"));
+				json.put("in", ciDTO.getPaySumAssistIn());
+				json.put("out", ciDTO.getPaySumAssistOut());
+				json.put("scope", ciDTO.getSumMedicareScope());
+				json.put("ci", ciDTO.getPayCIAssist());
+				json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
+				json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
+			} else if ("1".equals(tempDTO.getAssistype())) {
+				if ("1".equals(tempDTO.getAssistype())
+						&& "2".equals(tempDTO.getMedicareType())) {
+					HashMap m = tempService.findMaMoney(tempDTO);
+					json.put("m", m.get("m"));
+					json.put("info", m.get("info"));
+					json.put("in", ciDTO.getPaySumAssistIn());
+					json.put("out", ciDTO.getPaySumAssistOut());
+					json.put("scope", ciDTO.getSumMedicareScope());
+					json.put("ci", ciDTO.getPayCIAssist());
+					json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
+					json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
+				} else {
+					json.put("info", "成功");
+					json.put("in", 0);
+					json.put("out", 0);
+					json.put("scope", 0);
+					json.put("ci", 0);
+					json.put("sum", 0);
+					json.put("preSum", 0);
+				}
+			
+			} else {
+				if ("1".equals(tempDTO.getAssistype())
+						&& "1".equals(tempDTO.getJzjButtonFlag())) {
+					HashMap m = tempService.findMaMoney(tempDTO);
+					json.put("m", m.get("m"));
+					json.put("info", m.get("info"));
+				} else {
+					json.put("info", "成功");
+				}
+				json.put("in", 0);
+				json.put("out", 0);
+				json.put("scope", 0);
+				json.put("ci", 0);
+				json.put("sum", 0);
+				json.put("preSum", 0);
+			}
+		} else {
+			json.put("info", "大病保险计算失败!");
+		}
+		result = json.toString();
+		return SUCCESS;
+	}
+	
 	private BigDecimal getCia(TempDTO tempDTO) {
 		BigDecimal bl = BigDecimal.ZERO;// 大病保险金
 		BigDecimal mline_y = new BigDecimal("8000");// "医保"起助线
@@ -859,6 +942,8 @@ public class TempAction extends ActionSupport {
 			afterDTO.setPay_Total(tempDTO.getPayTotal());
 			afterDTO.setPay_Medicare(tempDTO.getPayMedicare());
 			afterDTO.setPay_OutMedicare(tempDTO.getPayOutmedicare());
+			afterDTO.setPay_Sybx(tempDTO.getInsurance());
+			afterDTO.setPay_Dbbx(tempDTO.getPayCIAssist());
 			afterDTO = yljzService.getAssistMoneyAfter(afterDTO);
 			if ("1".equals(afterDTO.getReturnFlag())) {
 				if ("2".equals(tempDTO.getAssistype())) {

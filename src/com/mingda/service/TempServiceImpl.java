@@ -547,6 +547,7 @@ public class TempServiceImpl implements TempService {
 			tempDTO.setBizStatus(a.getBizStatus());
 			tempDTO.setPaySumAssistScopeIn(a.getSumAssitscope());
 			tempDTO.setPayPreSumAssistScopeIn(a.getSumPreAssitscope());
+			tempDTO.setInsurance(a.getInsurance());
 			if(null == a.getHospitalId()){
 				tempDTO.setHospitalId(0);
 			}else{
@@ -636,6 +637,7 @@ public class TempServiceImpl implements TempService {
 			record.setIcdId(new Integer(tempDTO.getIcdId()));
 			record.setSpecbiz(String.valueOf(tempDTO.getSpecBiz()));
 			record.setCalcmsg(tempDTO.getCalcMsg());
+			record.setInsurance(tempDTO.getInsurance());
 			Integer id = jzMedicalafterDAO.insertSelective(record);
 			tempDTO.setApproveId(id.longValue());
 			if (!"".equals(tempDTO.getAssistTypeM())
@@ -695,6 +697,7 @@ public class TempServiceImpl implements TempService {
 			record.setIcdId(new Integer(tempDTO.getIcdId()));
 			record.setSpecbiz(String.valueOf(tempDTO.getSpecBiz()));
 			record.setCalcmsg(tempDTO.getCalcMsg());
+			record.setInsurance(tempDTO.getInsurance());
 			jzMedicalafterDAO.updateByPrimaryKeySelective(record);
 			if (!"".equals(tempDTO.getAssistTypeM())
 					&& null != tempDTO.getAssistTypeM()) {
@@ -727,7 +730,7 @@ public class TempServiceImpl implements TempService {
 		List<TempDTO> list = new ArrayList<TempDTO>();
 		String sql = "select t.biz_id, mem.membername, mem.paperid, mem.familyno, "
 				+ "t.pay_total, t.pay_medicare, t.pay_outmedicare, t.pay_assist, t.pay_ciassist, t.biz_status, mem.personstate, mem.assist_type, mem.assist_typex, "
-				+ "t.assist_type as mt, t.diagnose_name, t.hospital_name, t.assist_time , t.member_id, t.member_type, t.other_type "
+				+ "t.assist_type as mt, t.diagnose_name, t.hospital_name, t.assist_time , t.member_id, t.member_type, t.other_type, t.insurance "
 				+ " from jz_medicalafter t, MEMBER_BASEINFOVIEW02 mem "
 				+ "where t.member_id = mem.member_id  and t.member_type = mem.ds  and t.member_id='"
 				+ tempDTO.getMemberId()
@@ -754,6 +757,7 @@ public class TempServiceImpl implements TempService {
 			e.setPersonstate((String) s.get("PERSONSTATE"));
 			e.setBizStatus((String) s.get("BIZ_STATUS"));
 			e.setAssistype((String) s.get("MT"));
+			e.setInsurance((BigDecimal) s.get("INSURANCE"));
 			String assistypem = (String) s.get("ASSIST_TYPE");
 			String assisttypex = (String) s.get("ASSIST_TYPEX");
 			e.setAssistTypex(assisttypex);
@@ -1319,22 +1323,6 @@ public class TempServiceImpl implements TempService {
 			// （门诊大病+住院）封顶线 type=9
 			maTopline = getToplineByType(organizationId,"9");
 			
-			// 住院业务个人救助金总额(本年度)type = 2
-			zyPay = getTotalPayAssistPer(tempDTO,"2");
-			// 门诊大病业务个人救助金总额(本年度)type = 1
-			mzPay = getTotalPayAssistPer(tempDTO,"1");
-			// （住院业务+门诊大病业务）个人救助金总额(本年度)
-			zpay = zyPay.add(mzPay);
-			
-			if((BigDecimal.ZERO.compareTo(zyPay)==-1 && BigDecimal.ZERO.compareTo(mzPay)==-1)
-				|| (BigDecimal.ZERO.compareTo(zyPay)==-1 && BigDecimal.ZERO.compareTo(mzPay)==0 && "1".equals(tempDTO.getAssistype()))
-				|| (BigDecimal.ZERO.compareTo(zyPay)==0 && BigDecimal.ZERO.compareTo(mzPay)==-1 && "2".equals(tempDTO.getAssistype()))){
-				m = maTopline;
-			}else if ((BigDecimal.ZERO.compareTo(zyPay)==-1 || BigDecimal.ZERO.compareTo(zyPay)==0) && BigDecimal.ZERO.compareTo(mzPay)==0 && "2".equals(tempDTO.getAssistype())){
-				m = zyTopline;
-			}else if (BigDecimal.ZERO.compareTo(zyPay)==0 && (BigDecimal.ZERO.compareTo(mzPay)==-1 ||BigDecimal.ZERO.compareTo(mzPay)==0) && "1".equals(tempDTO.getAssistype())){
-				m = mzTopline;
-			}
 			// 判断身份类别
 			assistTypeM = tempDTO.getAssistTypeM();
 			if(assistTypeM != null && !"".equals(assistTypeM)){
@@ -1353,6 +1341,28 @@ public class TempServiceImpl implements TempService {
 				a10=assistTypex.substring(4, 5);
 				a11=assistTypex.substring(5, 6);
 			}
+			//乾安和桦甸五保户、三无人员的住院封顶线是15000元
+			if(("220803".equals(organizationId)||"220225".equals(organizationId))&&("1".equals(a3)||"1".equals(a4))){
+				zyTopline=new BigDecimal("15000");
+			}
+			
+			// 住院业务个人救助金总额(本年度)type = 2
+			zyPay = getTotalPayAssistPer(tempDTO,"2");
+			// 门诊大病业务个人救助金总额(本年度)type = 1
+			mzPay = getTotalPayAssistPer(tempDTO,"1");
+			// （住院业务+门诊大病业务）个人救助金总额(本年度)
+			zpay = zyPay.add(mzPay);
+			
+			if((BigDecimal.ZERO.compareTo(zyPay)==-1 && BigDecimal.ZERO.compareTo(mzPay)==-1)
+				|| (BigDecimal.ZERO.compareTo(zyPay)==-1 && BigDecimal.ZERO.compareTo(mzPay)==0 && "1".equals(tempDTO.getAssistype()))
+				|| (BigDecimal.ZERO.compareTo(zyPay)==0 && BigDecimal.ZERO.compareTo(mzPay)==-1 && "2".equals(tempDTO.getAssistype()))){
+				m = maTopline;
+			}else if ((BigDecimal.ZERO.compareTo(zyPay)==-1 || BigDecimal.ZERO.compareTo(zyPay)==0) && BigDecimal.ZERO.compareTo(mzPay)==0 && "2".equals(tempDTO.getAssistype())){
+				m = zyTopline;
+			}else if (BigDecimal.ZERO.compareTo(zyPay)==0 && (BigDecimal.ZERO.compareTo(mzPay)==-1 ||BigDecimal.ZERO.compareTo(mzPay)==0) && "1".equals(tempDTO.getAssistype())){
+				m = mzTopline;
+			}
+
 			if(!"0".equals(a1) || "1".equals(a3) || "1".equals(a4) || "1".equals(a5) || "1".equals(a6)){
 				JzMedicalafterRuleDTO jzMedicalafterRuleDTO = findMedicalafterRule(tempDTO);
 				if (jzMedicalafterRuleDTO.getRuleId() != null) {
@@ -1466,6 +1476,7 @@ public class TempServiceImpl implements TempService {
 								if (tempDTO.getPayTotal()
 										.subtract(tempDTO.getPayMedicare())
 										.subtract(tempDTO.getPayCIAssist())
+										.subtract(tempDTO.getInsurance())
 										.subtract(mline)
 										.compareTo(BigDecimal.ZERO) == 0
 										|| tempDTO
@@ -1474,12 +1485,13 @@ public class TempServiceImpl implements TempService {
 														tempDTO.getPayMedicare())
 												.subtract(
 														tempDTO.getPayCIAssist())
+												.subtract(tempDTO.getInsurance())
 												.subtract(mline)
 												.compareTo(BigDecimal.ZERO) == 1) {
 									assis = (tempDTO.getPayTotal()
 											.subtract(tempDTO.getPayMedicare())
 											.subtract(mline).subtract(tempDTO
-											.getPayCIAssist())).multiply(scale);
+											.getPayCIAssist().subtract(tempDTO.getInsurance()))).multiply(scale);
 									if (m.subtract(zpay).compareTo(assis) == -1) {
 										assis = m.subtract(zpay);
 									}

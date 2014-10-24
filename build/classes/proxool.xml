@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- the proxool configuration can be embedded within your own application's. 
+	Anything outside the "proxool" tag is ignored. -->
+<!--jdbc:oracle:thin:@192.168.1.10:1521:orcl -->
+<something-else-entirely>
+	<proxool>
+		<alias>medical</alias>
+		<!-- <driver-url>jdbc:oracle:thin:@(description=(ADDRESS_LIST=(ADDRESS 
+			= (PROTOCOL = TCP)(HOST = 10.2.0.13)(PORT = 1521))(ADDRESS = (PROTOCOL = 
+			TCP)(HOST = 10.2.0.14)(PORT = 1521))(load_balance=yes)(failover=yes))(connect_data=(service_name= 
+			yldb)(instance_name=yldb1)(instance_name=yldb2)))</driver-url> <driver-url>jdbc:oracle:thin:@192.168.1.10:1521:orcl</driver-url> 
+			jdbc:oracle:thin:@192.168.1.10:1521:orcl jdbc:oracle:thin:@(description=(ADDRESS_LIST=(ADDRESS 
+			= (PROTOCOL = TCP)(HOST = 10.2.0.13)(PORT = 1521))(ADDRESS = (PROTOCOL = 
+			TCP)(HOST = 10.2.0.14)(PORT = 1521))(load_balance=yes)(failover=yes))(connect_data=(service_name= 
+			yldb)(instance_name=yldb1)(instance_name=yldb2)))< -->
+		<!--<driver-url>jdbc:oracle:thin:@(description=(ADDRESS_LIST=(ADDRESS =
+			(PROTOCOL = TCP)(HOST = 10.2.0.13)(PORT = 1521))(ADDRESS = (PROTOCOL
+			= TCP)(HOST = 10.2.0.14)(PORT =
+			1521))(load_balance=yes)(failover=yes))(connect_data=(service_name=
+			yldb)(instance_name=yldb1)(instance_name=yldb2)))</driver-url>
+		--><driver-url>jdbc:oracle:thin:@10.2.0.13:1521:yldb1</driver-url>
+		<driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
+		<driver-properties>
+			<property name="user" value="medical" />
+			<property name="password" value="medical" />
+		</driver-properties>
+		<maximum-connection-count>100</maximum-connection-count>
+		<minimum-connection-count>20</minimum-connection-count>
+		<house-keeping-sleep-time>90000</house-keeping-sleep-time>
+		<simultaneous-build-throttle>10</simultaneous-build-throttle>
+		<prototype-count>5</prototype-count>
+		<test-before-use>true</test-before-use>
+		<house-keeping-test-sql>select 1 from dual</house-keeping-test-sql>
+	</proxool>
+	<proxool>
+		<alias>summer</alias>
+		<!-- <driver-url>jdbc:oracle:thin:@(description=(ADDRESS_LIST=(ADDRESS 
+			= (PROTOCOL = TCP)(HOST = 10.2.0.13)(PORT = 1521))(ADDRESS = (PROTOCOL = 
+			TCP)(HOST = 10.2.0.14)(PORT = 1521))(load_balance=yes)(failover=yes))(connect_data=(service_name= 
+			yldb)(instance_name=yldb1)(instance_name=yldb2)))</driver-url> <driver-url>jdbc:oracle:thin:@192.168.1.10:1521:orcl</driver-url> 
+			jdbc:oracle:thin:@192.168.1.10:1521:orcl jdbc:oracle:thin:@(description=(ADDRESS_LIST=(ADDRESS 
+			= (PROTOCOL = TCP)(HOST = 10.2.0.13)(PORT = 1521))(ADDRESS = (PROTOCOL = 
+			TCP)(HOST = 10.2.0.14)(PORT = 1521))(load_balance=yes)(failover=yes))(connect_data=(service_name= 
+			yldb)(instance_name=yldb1)(instance_name=yldb2)))< -->
+		<driver-url>jdbc:oracle:thin:@(description=(ADDRESS_LIST=(ADDRESS =
+			(PROTOCOL = TCP)(HOST = 10.1.0.33)(PORT = 1521))(ADDRESS = (PROTOCOL
+			= TCP)(HOST = 10.1.0.34)(PORT =
+			1521))(load_balance=yes)(failover=yes))(connect_data=(service_name=
+			ncdb)(instance_name=ncdb1)(instance_name=ncdb2)))</driver-url>
+		<driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
+		<driver-properties>
+			<property name="user" value="summer" />
+			<property name="password" value="summer" />
+		</driver-properties>
+		<maximum-connection-count>100</maximum-connection-count>
+		<minimum-connection-count>20</minimum-connection-count>
+		<house-keeping-sleep-time>90000</house-keeping-sleep-time>
+		<simultaneous-build-throttle>10</simultaneous-build-throttle>
+		<prototype-count>5</prototype-count>
+		<test-before-use>true</test-before-use>
+		<house-keeping-test-sql>select 1 from dual</house-keeping-test-sql>
+	</proxool>
+</something-else-entirely>

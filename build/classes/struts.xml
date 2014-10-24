@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<include file="struts-default.xml" />
+	<constant name="struts.locale" value="zh_CN" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.freemarker.templatesCache" value="true" />
+	<include file="com/mingda/action/struts-common.xml" />
+	<include file="com/mingda/action/struts-basebiz.xml" />
+	<include file="com/mingda/action/struts-chronic.xml" />
+	<include file="com/mingda/action/struts-report.xml" />
+	<include file="com/mingda/action/struts-chart.xml" />
+	<include file="com/mingda/action/struts-city.xml" />
+	<include file="com/mingda/action/struts-town.xml" />
+	<include file="com/mingda/action/struts-guarantee.xml" />
+	<include file="com/mingda/action/struts-specialcare.xml" />
+	<include file="com/mingda/action/struts-temp.xml" />
+	<include file="com/mingda/action/struts-icd.xml" />
+	<include file="com/mingda/action/struts-outicd.xml" />
+	<include file="com/mingda/action/struts-chronicbiz.xml" />
+	<include file="com/mingda/action/struts-abstentions.xml" />
+	<include file="com/mingda/action/struts-orphan.xml" />
+	<include file="com/mingda/action/struts-critical.xml" />
+</struts>

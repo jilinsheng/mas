@@ -44,6 +44,36 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz;
   }
   
+  public java.lang.String getAcceptAssistSumH2H(java.lang.Long hospital_ID, java.lang.Long acceptHospitalID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getAcceptAssistSumH2H(hospital_ID, acceptHospitalID, begin_time, end_time);
+  }
+  
+  public java.lang.String getAcceptAssistSum(java.lang.Long hospital_ID, java.lang.Long acceptHospitalID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getAcceptAssistSum(hospital_ID, acceptHospitalID, begin_time, end_time);
+  }
+  
+  public java.lang.String hospitalCert(byte[] licenseKey) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.hospitalCert(licenseKey);
+  }
+  
+  public java.lang.String getHospitalPayInfo(java.lang.Long hospital_ID, java.lang.String pay_time) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getHospitalPayInfo(hospital_ID, pay_time);
+  }
+  
+  public java.lang.String getHospitalLicFee(java.lang.Long hospital_ID) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getHospitalLicFee(hospital_ID);
+  }
+  
   public java.lang.String setHospitalVer(java.lang.Long hospital_ID, java.lang.String verNum) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
@@ -152,6 +182,48 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz.getCIAssistByPaperID(paperID, medicareType, calcType, old_Pay_Total, old_Pay_Medicare, old_Pay_OutMedicare, pay_Total, pay_Medicare, pay_OutMedicare);
   }
   
+  public java.math.BigDecimal getSumDataByPaperID(java.lang.String paperID, java.lang.Integer medicareType, java.lang.String finishYear, java.lang.Integer nType) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getSumDataByPaperID(paperID, medicareType, finishYear, nType);
+  }
+  
+  public java.math.BigDecimal getDbbxQfx(java.lang.Integer ds) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getDbbxQfx(ds);
+  }
+  
+  public java.math.BigDecimal getDbbx(java.math.BigDecimal sumPreScope, java.math.BigDecimal zfyMony, java.math.BigDecimal tcMony, java.math.BigDecimal noPay, java.lang.Integer wsFlag, java.lang.Integer ds) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getDbbx(sumPreScope, zfyMony, tcMony, noPay, wsFlag, ds);
+  }
+  
+  public java.lang.String queryOutDisease(java.lang.String orgCode) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.queryOutDisease(orgCode);
+  }
+  
+  public java.lang.String queryDiagnoseType(java.lang.String orgCode) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.queryDiagnoseType(orgCode);
+  }
+  
+  public java.lang.String queryDiagnoseTypeByBizID(java.lang.Long biz_id) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.queryDiagnoseTypeByBizID(biz_id);
+  }
+  
+  public java.lang.String setDiagnoseTypeByBizID(java.lang.Long biz_id, java.lang.Long diagnose_type_id) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.setDiagnoseTypeByBizID(biz_id, diagnose_type_id);
+  }
+  
   public java.lang.String getBillData(java.lang.Long biz_id) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
@@ -236,6 +308,12 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz.getAssistListByHospitalOrg(orgCode, hospital_ID, begin_time, end_time, personType);
   }
   
+  public java.lang.String getAssistListByHospitalOrgEx(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String begin_time, java.lang.String end_time, java.lang.Integer personType, java.lang.Integer bizType) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getAssistListByHospitalOrgEx(orgCode, hospital_ID, begin_time, end_time, personType, bizType);
+  }
+  
   public java.lang.String getAssistListByMed(java.lang.Long hospital_ID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
@@ -290,34 +368,10 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz.getAcceptAssistListH2H(hospital_ID, begin_time, end_time, accept_Hospital_ID);
   }
   
-  public java.lang.String getAcceptAssistSumH2H(java.lang.Long hospital_ID, java.lang.Long acceptHospitalID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException{
+  public java.lang.String checkInRegEx(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.String beginTime, java.lang.String deptName, java.lang.String areaname, java.lang.Integer diagnoseType, java.lang.String diagnoseCode, java.lang.String diagnoseName, java.lang.Integer inType, java.lang.Integer gatherFlag, java.lang.Long userID) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
-    return iServiceYljz.getAcceptAssistSumH2H(hospital_ID, acceptHospitalID, begin_time, end_time);
-  }
-  
-  public java.lang.String getAcceptAssistSum(java.lang.Long hospital_ID, java.lang.Long acceptHospitalID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException{
-    if (iServiceYljz == null)
-      _initIServiceYljzProxy();
-    return iServiceYljz.getAcceptAssistSum(hospital_ID, acceptHospitalID, begin_time, end_time);
-  }
-  
-  public java.lang.String hospitalCert(byte[] licenseKey) throws java.rmi.RemoteException{
-    if (iServiceYljz == null)
-      _initIServiceYljzProxy();
-    return iServiceYljz.hospitalCert(licenseKey);
-  }
-  
-  public java.lang.String getHospitalPayInfo(java.lang.Long hospital_ID, java.lang.String pay_time) throws java.rmi.RemoteException{
-    if (iServiceYljz == null)
-      _initIServiceYljzProxy();
-    return iServiceYljz.getHospitalPayInfo(hospital_ID, pay_time);
-  }
-  
-  public java.lang.String getHospitalLicFee(java.lang.Long hospital_ID) throws java.rmi.RemoteException{
-    if (iServiceYljz == null)
-      _initIServiceYljzProxy();
-    return iServiceYljz.getHospitalLicFee(hospital_ID);
+    return iServiceYljz.checkInRegEx(orgCode, hospital_ID, memberType, memberID, biz_id, beginTime, deptName, areaname, diagnoseType, diagnoseCode, diagnoseName, inType, gatherFlag, userID);
   }
   
   public java.lang.String getInpatientsList(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Integer queryType) throws java.rmi.RemoteException{
@@ -410,10 +464,16 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz.getStatInfoByMember(memberType, memberID);
   }
   
-  public java.lang.String getAssistMoney(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.Long out_biz_id, java.lang.Integer bizType, java.lang.String begin_Time, java.lang.String dept_Name, java.lang.String area_Name, java.lang.Long icdID, java.lang.String diagnose_Code, java.lang.String diagnose_Name, java.lang.String end_Time, java.lang.String fin_Time, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Account, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Other, java.math.BigDecimal pay_OutMedicare, java.math.BigDecimal pay_MinLine, java.math.BigDecimal pay_Cash, java.lang.Integer gatherFlag, java.lang.Long user_ID) throws java.rmi.RemoteException{
+  public java.lang.String getAssistMoney(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.Long out_biz_id, java.lang.Integer bizType, java.lang.Integer inTypeID, java.lang.String begin_Time, java.lang.String dept_Name, java.lang.String area_Name, java.lang.Long icdID, java.lang.String diagnose_Code, java.lang.String diagnose_Name, java.lang.String end_Time, java.lang.String fin_Time, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Account, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Other, java.math.BigDecimal pay_OutMedicare, java.math.BigDecimal pay_MinLine, java.math.BigDecimal pay_Cash, java.lang.Integer gatherFlag, java.lang.Long user_ID) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
-    return iServiceYljz.getAssistMoney(orgCode, hospital_ID, memberType, memberID, biz_id, out_biz_id, bizType, begin_Time, dept_Name, area_Name, icdID, diagnose_Code, diagnose_Name, end_Time, fin_Time, pay_Total, pay_Account, pay_Medicare, pay_Other, pay_OutMedicare, pay_MinLine, pay_Cash, gatherFlag, user_ID);
+    return iServiceYljz.getAssistMoney(orgCode, hospital_ID, memberType, memberID, biz_id, out_biz_id, bizType, inTypeID, begin_Time, dept_Name, area_Name, icdID, diagnose_Code, diagnose_Name, end_Time, fin_Time, pay_Total, pay_Account, pay_Medicare, pay_Other, pay_OutMedicare, pay_MinLine, pay_Cash, gatherFlag, user_ID);
+  }
+  
+  public java.lang.String getAssistMoneyDbbx(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.Long out_biz_id, java.lang.Integer bizType, java.lang.Integer inTypeID, java.lang.String begin_Time, java.lang.String dept_Name, java.lang.String area_Name, java.lang.Long icdID, java.lang.String diagnose_Code, java.lang.String diagnose_Name, java.lang.String end_Time, java.lang.String fin_Time, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Account, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Other, java.math.BigDecimal pay_OutMedicare, java.math.BigDecimal pay_MinLine, java.math.BigDecimal pay_Cash, java.math.BigDecimal pay_Dbbx, java.lang.Integer gatherFlag, java.lang.Long user_ID) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getAssistMoneyDbbx(orgCode, hospital_ID, memberType, memberID, biz_id, out_biz_id, bizType, inTypeID, begin_Time, dept_Name, area_Name, icdID, diagnose_Code, diagnose_Name, end_Time, fin_Time, pay_Total, pay_Account, pay_Medicare, pay_Other, pay_OutMedicare, pay_MinLine, pay_Cash, pay_Dbbx, gatherFlag, user_ID);
   }
   
   public java.lang.String getAssistMoneyMed(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Assist, java.math.BigDecimal pay_Balance, java.lang.Integer gatherFlag, java.lang.Long user_ID) throws java.rmi.RemoteException{
@@ -422,10 +482,16 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz.getAssistMoneyMed(orgCode, hospital_ID, memberType, memberID, biz_id, pay_Total, pay_Assist, pay_Balance, gatherFlag, user_ID);
   }
   
-  public java.lang.String getAssistMoneyAfter(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.String medicareType, java.lang.Integer bizType, java.lang.Integer specBiz, java.lang.String begin_Time, java.lang.String end_Time, java.lang.Integer diagnose_Type_ID, java.lang.Integer icd_ID, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_OutMedicare) throws java.rmi.RemoteException{
+  public java.lang.String getAssistMoneyMed0506(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.Integer diagnoseTypeID, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Assist, java.lang.Integer gatherFlag, java.lang.Long user_ID) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
-    return iServiceYljz.getAssistMoneyAfter(orgCode, hospital_ID, memberType, memberID, medicareType, bizType, specBiz, begin_Time, end_Time, diagnose_Type_ID, icd_ID, pay_Total, pay_Medicare, pay_OutMedicare);
+    return iServiceYljz.getAssistMoneyMed0506(orgCode, hospital_ID, memberType, memberID, biz_id, diagnoseTypeID, pay_Total, pay_Medicare, pay_Assist, gatherFlag, user_ID);
+  }
+  
+  public java.lang.String getAssistMoneyAfter(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.String medicareType, java.lang.Integer bizType, java.lang.Integer specBiz, java.lang.String begin_Time, java.lang.String end_Time, java.lang.Integer diagnose_Type_ID, java.lang.Integer icd_ID, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Dbbx, java.math.BigDecimal pay_Sybx, java.math.BigDecimal pay_OutMedicare) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getAssistMoneyAfter(orgCode, hospital_ID, memberType, memberID, medicareType, bizType, specBiz, begin_Time, end_Time, diagnose_Type_ID, icd_ID, pay_Total, pay_Medicare, pay_Dbbx, pay_Sybx, pay_OutMedicare);
   }
   
   public java.lang.String getDupAssist(java.math.BigDecimal pay_Total, java.lang.String beginTime) throws java.rmi.RemoteException{
@@ -458,34 +524,16 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz.refundMedFee(biz_id, memberType, memberID, payAssist, user_ID);
   }
   
+  public java.lang.String refundMedFee0506(java.lang.Long biz_id, java.lang.String memberType, java.lang.String memberID, java.math.BigDecimal payAssist, java.lang.Long user_ID) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.refundMedFee0506(biz_id, memberType, memberID, payAssist, user_ID);
+  }
+  
   public java.lang.String getChargeListByUser(java.lang.Integer bizType, java.lang.Integer chargeType, java.util.Calendar beginTime, java.util.Calendar endTime, java.lang.Long user_ID) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
     return iServiceYljz.getChargeListByUser(bizType, chargeType, beginTime, endTime, user_ID);
-  }
-  
-  public java.lang.String queryOutDisease(java.lang.String orgCode) throws java.rmi.RemoteException{
-    if (iServiceYljz == null)
-      _initIServiceYljzProxy();
-    return iServiceYljz.queryOutDisease(orgCode);
-  }
-  
-  public java.lang.String queryDiagnoseType(java.lang.String orgCode) throws java.rmi.RemoteException{
-    if (iServiceYljz == null)
-      _initIServiceYljzProxy();
-    return iServiceYljz.queryDiagnoseType(orgCode);
-  }
-  
-  public java.lang.String queryDiagnoseTypeByBizID(java.lang.Long biz_id) throws java.rmi.RemoteException{
-    if (iServiceYljz == null)
-      _initIServiceYljzProxy();
-    return iServiceYljz.queryDiagnoseTypeByBizID(biz_id);
-  }
-  
-  public java.lang.String setDiagnoseTypeByBizID(java.lang.Long biz_id, java.lang.Long diagnose_type_id) throws java.rmi.RemoteException{
-    if (iServiceYljz == null)
-      _initIServiceYljzProxy();
-    return iServiceYljz.setDiagnoseTypeByBizID(biz_id, diagnose_type_id);
   }
   
   public java.lang.String getData(java.lang.Integer value) throws java.rmi.RemoteException{
@@ -644,16 +692,16 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz.getExistInReg(memberType, memberID);
   }
   
-  public java.lang.String checkInReg(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.String beginTime, java.lang.String deptName, java.lang.String areaname, java.lang.String diagnoseCode, java.lang.String diagnoseName, java.lang.Integer gatherFlag, java.lang.Long userID) throws java.rmi.RemoteException{
+  public java.lang.String queryInType(java.lang.String orgCode) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
-    return iServiceYljz.checkInReg(orgCode, hospital_ID, memberType, memberID, biz_id, beginTime, deptName, areaname, diagnoseCode, diagnoseName, gatherFlag, userID);
+    return iServiceYljz.queryInType(orgCode);
   }
   
-  public java.lang.String checkInRegEx(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.String beginTime, java.lang.String deptName, java.lang.String areaname, java.lang.Integer diagnoseType, java.lang.String diagnoseCode, java.lang.String diagnoseName, java.lang.Integer gatherFlag, java.lang.Long userID) throws java.rmi.RemoteException{
+  public java.lang.String checkInReg(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.String beginTime, java.lang.String deptName, java.lang.String areaname, java.lang.String diagnoseCode, java.lang.String diagnoseName, java.lang.Integer inType, java.lang.Integer gatherFlag, java.lang.Long userID) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
-    return iServiceYljz.checkInRegEx(orgCode, hospital_ID, memberType, memberID, biz_id, beginTime, deptName, areaname, diagnoseType, diagnoseCode, diagnoseName, gatherFlag, userID);
+    return iServiceYljz.checkInReg(orgCode, hospital_ID, memberType, memberID, biz_id, beginTime, deptName, areaname, diagnoseCode, diagnoseName, inType, gatherFlag, userID);
   }
   
   

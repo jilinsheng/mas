@@ -63,6 +63,8 @@ public class AfterDTO {
 	private BigDecimal Pay_Total;
 	private BigDecimal Pay_Medicare;
 	private BigDecimal Pay_OutMedicare;
+	private BigDecimal Pay_Dbbx;
+	private BigDecimal Pay_Sybx;
 	
 	private String ReturnFlag;
 	private String ResultFlag;
@@ -73,6 +75,7 @@ public class AfterDTO {
 	private BigDecimal AssistSumOut;
 	private BigDecimal AssistCIA;
 	private String CalcMsg;
+
 	
 	public String getOrgCode() {
 		return OrgCode;
@@ -211,6 +214,18 @@ public class AfterDTO {
 	}
 	public void setCalcMsg(String calcMsg) {
 		CalcMsg = calcMsg;
+	}
+	public BigDecimal getPay_Dbbx() {
+		return Pay_Dbbx;
+	}
+	public void setPay_Dbbx(BigDecimal pay_Dbbx) {
+		Pay_Dbbx = pay_Dbbx;
+	}
+	public BigDecimal getPay_Sybx() {
+		return Pay_Sybx;
+	}
+	public void setPay_Sybx(BigDecimal pay_Sybx) {
+		Pay_Sybx = pay_Sybx;
 	}
 
 

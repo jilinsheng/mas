@@ -124,6 +124,10 @@
 		<td class="formtd2"><s:property value="tempDTO.payOutmedicare" /></td>
 	</tr>
 	<tr>
+		<td class="formtd1" colspan="3">商业保险:</td>
+		<td class="formtd2" colspan="3"><s:property value="tempDTO.insurance" /></td>
+	</tr>
+	<tr>
 		<td class="formtd1" colspan="3">本年累计住院救助金额:</td>
 		<td class="formtd2" colspan="3"><s:property value="tempDTO.paySumAssistIn" /></td>
 	</tr>

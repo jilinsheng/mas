@@ -28,7 +28,7 @@
 	}
 	function applynew(m1,m2){
 		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.calcType=1";
-		var f="dialogWidth=750px;dialogHeight=680px;status=no;help=no;scroll=auto";
+		var f="dialogWidth=780px;dialogHeight=750px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 </script>

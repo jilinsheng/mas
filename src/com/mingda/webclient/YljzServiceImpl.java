@@ -101,7 +101,9 @@ public class YljzServiceImpl implements YljzService {
 					afterDTO.getSpecBiz(),afterDTO.getBegin_Time(),
 					afterDTO.getEnd_Time(),afterDTO.getDiagnose_Type_ID(),
 					afterDTO.getIcd_ID(),afterDTO.getPay_Total(),
-					afterDTO.getPay_Medicare(),afterDTO.getPay_OutMedicare());
+					afterDTO.getPay_Medicare(),afterDTO.getPay_Dbbx(),
+					afterDTO.getPay_Sybx(),
+					afterDTO.getPay_OutMedicare());
 			Document document = DocumentHelper.parseText(xml);
 			String returnFlag = document.selectSingleNode(
 					"//GetAssistMoneyAfter/ReturnFlag").getText();

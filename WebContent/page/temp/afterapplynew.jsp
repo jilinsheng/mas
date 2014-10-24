@@ -154,6 +154,8 @@
 		var inhospitalsicken = $("#inhospitalsicken")[0].value;
 		var hospitalnametext = document.getElementById("hospitalId").options[window.document.getElementById("hospitalId").selectedIndex].text;
 		//var hospitalname = document.getElementById("hospitalname");
+		var insurance = $("#insurance")[0].value;
+		var payCIAssist = $("#payCIAssist")[0].value;
 		var flag=true;
 		if(hospitalId>0){
 		}else if(hospitalId==0 && hospitalname == ''){
@@ -237,7 +239,10 @@
 		} else if((parseFloat(payMedicare.toString()) + parseFloat(payOutmedicare.toString()))>parseFloat(payTotal.toString())){
 			alert("统筹支付、目录外费用的和不能大于总费用！");
 			flag=false;
-		} 
+		} else if(insurance==""){
+			alert("商业保险不能为空！");
+			flag=false;
+		}
 		if(flag==true){
 			$.ajax({
 				type : "post",
@@ -264,7 +269,9 @@
 					"tempDTO.diagnoseTypeId" : diagnoseTypeId,
 					"tempDTO.specBiz" : specBiz,
 					"tempDTO.begintime" : beginDate,
-					"tempDTO.endtime" : endDate
+					"tempDTO.endtime" : endDate,
+					"tempDTO.insurance" : insurance,
+					"tempDTO.payCIAssist" : payCIAssist
 				},
 				timeout : 20000,
 				error : function() {
@@ -285,21 +292,21 @@
 						alert('计算保障金:'+m+'元');
 						$('#payAssist')[0].readOnly=true;
 						$('#payAssist')[0].value=m;
-						$('#paySumAssistIn')[0].value=iin;
+						/* $('#paySumAssistIn')[0].value=iin;
 						$('#paySumAssistOut')[0].value=out;
-						$('#sumMedicareScope')[0].value=sum;
+						$('#sumMedicareScope')[0].value=sum; */
 						$('#calcMsg')[0].value=calcmsg;
 						$('#b')[0].disabled=false;
-						if(assistype==1){
+						/* if(assistype==1){
 							$('#payCIAssist')[0].value=0;
 						}else if(assistype==2){
 							$('#payCIAssist')[0].value=ci;
-						}
+						} */
 					}else{
-						$('#paySumAssistIn')[0].value=0;
+						/* $('#paySumAssistIn')[0].value=0;
 						$('#paySumAssistOut')[0].value=0;
 						$('#sumMedicareScope')[0].value=0;
-						$('#payCIAssist')[0].value=0;
+						$('#payCIAssist')[0].value=0; */
 						alert(info);
 						$('#b')[0].disabled=true;
 						$('#payAssist')[0].value=0;
@@ -308,6 +315,123 @@
 			});
 		}
 	}
+	
+	function getciamoney(){
+		var paperid=$("#paperid")[0].value;
+		var medicareType = "";
+		for (var i=0 ;i<3;i++){
+			if($("#medicareType"+i)[0].checked){
+				medicareType=$("#medicareType"+i)[0].value;
+			}
+		}
+		var payTotal=$("#payTotal")[0].value;
+		var payOutmedicare=$("#payOutmedicare")[0].value;
+		var payMedicare=$("#payMedicare")[0].value;
+		var organizationId=$("#organizationId")[0].value;
+		var oldPayTotal=$("#oldPayTotal")[0].value;
+		var oldPayMedicare=$("#oldPayMedicare")[0].value;
+		var oldPayOutMedicare=$("#oldPayOutMedicare")[0].value;
+		var calcType=$("#calcType")[0].value;
+		//var jzjButtonFlag=$("#jzjButtonFlag")[0].value;
+		var memberId=$("#memberId")[0].value;
+		var memberType=$("#memberType")[0].value;
+		var assistype=$("#assistype")[0].value;
+		var assistTypeM=$("#assistTypeM")[0].value;
+		var assistTypex=$("#assistTypex")[0].value;
+		//var payCIAssist =$("#payCIAssist")[0].value;
+		var diagnoseTypeId = $("input[name='tempDTO.diagnoseTypeId']:checked").val();
+		var flag=true;
+		if(payTotal==""){
+			alert("总费用不能为空！");
+			flag=false;
+		} else if(payMedicare==""){
+			alert("统筹支付不能为空！");
+			flag=false;
+		} else if(payOutmedicare==""){
+			alert("目录外费用不能为空！");
+			flag=false;
+		} else if(medicareType==""){
+			alert("请选择保险类型！不能选择'未知'");
+			flag=false;
+		}  else if(parseFloat(payMedicare.toString()) > parseFloat(payTotal.toString())){
+			alert("统筹支付不能大于总费用！");
+			flag=false;
+		} else if(parseFloat(payOutmedicare.toString()) > parseFloat(payTotal.toString())){
+			alert("目录外费用不能大于总费用！");
+			flag=false;
+		} else if((parseFloat(payMedicare.toString()) + parseFloat(payOutmedicare.toString()))>parseFloat(payTotal.toString())){
+			alert("统筹支付、目录外费用的和不能大于总费用！");
+			flag=false;
+		} /* else if(jzjButtonFlag==1){
+			if(payCIAssist==""){
+				alert("本次大病保险支付金额为空！请手工填写！");
+				flag=false;
+			}
+		} */
+		if(flag==true){
+			$.ajax({
+				type : "post",
+				url : "page/temp/calcaftermoney.action",
+				data : {
+					"tempDTO.organizationId" : organizationId,
+					"tempDTO.payTotal" : payTotal, //总费用
+					"tempDTO.payOutmedicare" : payOutmedicare, // 目录外费用
+					"tempDTO.payMedicare" : payMedicare, //统筹  
+					"tempDTO.paperid" : paperid,
+					"tempDTO.medicareType" : medicareType,
+					"tempDTO.oldPayTotal" : oldPayTotal,
+					"tempDTO.oldPayMedicare" : oldPayMedicare,
+					"tempDTO.oldPayOutMedicare" : oldPayOutMedicare,
+					"tempDTO.calcType" : calcType,
+					//"tempDTO.jzjButtonFlag" : jzjButtonFlag,
+					"tempDTO.memberType" : memberType,
+					"tempDTO.memberId" : memberId,
+					"tempDTO.assistype" : assistype,
+					"tempDTO.assistTypeM" : assistTypeM,
+					"tempDTO.assistTypex" : assistTypex,
+					"tempDTO.diagnoseTypeId" : diagnoseTypeId/* ,
+					"tempDTO.payCIAssist" : payCIAssist */
+				},
+				timeout : 20000,
+				error : function() {
+					alert("服务器错误");
+				},
+				async : false,
+				dataType : "json",
+				success : function(json) {
+					json = eval('(' + json + ')');
+					var info= json['info'];
+					var m= json['m'];
+					var iin= json['in'];
+					var out= json['out'];
+					var scope= json['scope'];
+					var ci= json['ci'];
+					var sum= json['sum'];
+					var preSum= json['preSum'];
+					if('成功'==info){
+						//alert('计算保障金:'+m+'元');
+						$('#payAssist')[0].readOnly=true;
+						//$('#payAssist')[0].value=m;
+						$('#paySumAssistIn')[0].value=iin;
+						$('#paySumAssistOut')[0].value=out;
+						$('#sumMedicareScope')[0].value=scope;
+						$('#payCIAssist')[0].value=ci;
+ 						//$('#paySumAssistScopeIn')[0].value=sum;
+						//$('#payPreSumAssistScopeIn')[0].value=preSum; 
+					}else{
+						$('#paySumAssistIn')[0].value=iin;
+						$('#paySumAssistOut')[0].value=out;
+						$('#sumMedicareScope')[0].value=scope;
+						$('#payCIAssist')[0].value=ci;
+						alert(info);
+						$('#b')[0].disabled=true;
+						$('#payAssist')[0].value=0;
+					}
+				}
+			});
+		}
+	}
+	
 	function getassisttype(){
 		var assistype=$("#assistype")[0].value;
 		var diagnoseTypeId = document.getElementById("diagnoseTypeId");
@@ -418,7 +542,7 @@
 	<s:hidden name="tempDTO.bizStatus"></s:hidden>
 	<s:hidden id="assistTypeM" name="tempDTO.assistTypeM"></s:hidden>
 	<s:hidden id="assistTypex" name="tempDTO.assistTypex"></s:hidden>
-	<table width="750px" class="formTitle" border="0" cellpadding="0" cellspacing="0">
+	<table width="780px" class="formTitle" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td style="padding-left: 2px"><img
 			    alt="<s:property value="tempDTO.membername"></s:property>医后报销审批表"
@@ -429,7 +553,7 @@
 		</tr>
 	</table>
 	<table border="0" cellpadding="0" cellspacing="0"
-		width="750px" class="formtable">
+		width="780px" class="formtable">
 		<tr>
 			<td class="formtd1" width="20%">家庭编号：</td>
 			<td class="formtd2" ><s:property
@@ -599,6 +723,13 @@
 				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" /></td>
 		</tr>
 		<tr>
+			<td class="formtd1" colspan="3" >商业保险:</td>
+			<td class="formtd2" colspan="3"><s:textfield id="insurance" name="tempDTO.insurance" size="12" 
+				onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
+				onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
+				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" /></td>
+		</tr>
+		<tr>
 			<td class="formtd1" colspan="3" >本年累计住院救助金额:</td>
 			<td class="formtd2" colspan="3"><s:textfield id="paySumAssistIn" readonly="true" name="tempDTO.paySumAssistIn" size="12" 
 				onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
@@ -626,9 +757,9 @@
 				onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
 				&nbsp;&nbsp;&nbsp;&nbsp;
-				<%-- <s:if test="tempDTO.dbButtonFlag==1">
-				<button type="button" onclick="getmoney()" >计算大病保险金额</button>
-				</s:if> --%>	
+				<%-- <s:if test="tempDTO.dbButtonFlag==1">--%>
+				<button type="button" onclick="getciamoney()" >计算大病保险金额</button>
+				<%-- </s:if>  --%>	
 			</td>
 		</tr>
 		<tr>

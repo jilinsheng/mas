@@ -309,6 +309,22 @@
                 </param>
 			</result>
 		</action>
+		<action name="calcaftermoneyauto2" method="calcaftermoneyauto2" class="tempAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
 		<action name="genbillfile" method="genbillfile" class="tempAction">
 			<result type="stream">
 				<param name="contentType">APPLICATION/OCTET-STREAM</param>
