@@ -416,6 +416,7 @@
 						$('#paySumAssistOut')[0].value=out;
 						$('#sumMedicareScope')[0].value=scope;
 						$('#payCIAssist')[0].value=ci;
+						alert("本次大病保险金额："+ci+"元");
  						//$('#paySumAssistScopeIn')[0].value=sum;
 						//$('#payPreSumAssistScopeIn')[0].value=preSum; 
 					}else{
@@ -744,7 +745,7 @@
 				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" /></td>
 		</tr>
 		<tr>
-			<td class="formtd1" colspan="3">本年累计救助金额:</td>
+			<td class="formtd1" colspan="3">本年累计纳入统筹救助范围(大病保险在此范围内):</td>
 			<td class="formtd2" colspan="3"><s:textfield id="sumMedicareScope" readonly="true" name="tempDTO.sumMedicareScope" size="12" 
 				onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 				onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
