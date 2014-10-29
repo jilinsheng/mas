@@ -121,22 +121,27 @@
 		<td class="formtd2" width="16%"><s:property
 			value="tempDTO.payMedicare" /></td>
 		<td class="formtd1" width="16%">目录外费用：</td>
-		<td class="formtd2"><s:property value="tempDTO.payOutmedicare" /></td>
+		<td class="formtd2"><s:property value="tempDTO.payOutmedicare" />&nbsp;</td>
 	</tr>
 	<tr>
 		<td class="formtd1" colspan="3">商业保险:</td>
-		<td class="formtd2" colspan="3"><s:property value="tempDTO.insurance" /></td>
+		<td class="formtd2" colspan="3"><s:property value="tempDTO.insurance" />&nbsp;</td>
 	</tr>
 	<tr>
 		<td class="formtd1" colspan="3">本年累计住院救助金额:</td>
-		<td class="formtd2" colspan="3"><s:property value="tempDTO.paySumAssistIn" /></td>
+		<td class="formtd2" colspan="3"><s:property value="tempDTO.paySumAssistIn" />&nbsp;</td>
 	</tr>
 	<tr>
 		<td class="formtd1" colspan="3">本年累计特殊门诊大病救助金额:</td>
-		<td class="formtd2" colspan="3"><s:property value="tempDTO.paySumAssistOut" /></td>
+		<td class="formtd2" colspan="3"><s:property value="tempDTO.paySumAssistOut" />&nbsp;</td>
 	</tr>
 	<tr>
+		<s:if test="tempDTO.org=='220506'">
+		<td class="formtd1" colspan="3">本年累计救助金额:</td>
+		</s:if>
+		<s:else>
 		<td class="formtd1" colspan="3">本年累计纳入统筹救助范围(大病保险在此范围内):</td>
+		</s:else>
 		<td class="formtd2" colspan="3"><s:property value="tempDTO.sumMedicareScope" /></td>
 	</tr>
 	<tr>
