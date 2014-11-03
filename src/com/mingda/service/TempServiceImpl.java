@@ -1342,8 +1342,10 @@ public class TempServiceImpl implements TempService {
 				a11=assistTypex.substring(5, 6);
 			}
 			//乾安和桦甸五保户、三无人员的住院封顶线是15000元
-			if(("220803".equals(organizationId)||"220225".equals(organizationId))&&("1".equals(a3)||"1".equals(a4))){
+			if("220225".equals(organizationId)&&("1".equals(a3)||"1".equals(a4))){
 				zyTopline=new BigDecimal("15000");
+			}else if("220803".equals(organizationId)&&("1".equals(a3)||"1".equals(a4))){
+				zyTopline=BigDecimal.ZERO;
 			}
 			
 			// 住院业务个人救助金总额(本年度)type = 2
@@ -1545,12 +1547,16 @@ public class TempServiceImpl implements TempService {
 				}					
 				// 手工填写
 				else {
-					if (m.subtract(zpay).compareTo(BigDecimal.ZERO) == -1 
-							|| zyTopline.subtract(zyPay).compareTo(BigDecimal.ZERO) == -1
-							|| mzTopline.subtract(mzPay).compareTo(BigDecimal.ZERO) == -1) {
-						result = "保障金大于封顶线，您重新填写参与计算金额!";
-					} else {
+					if(m.compareTo(BigDecimal.ZERO)==0){
 						result = "成功";
+					}else{
+						if (m.subtract(zpay).compareTo(BigDecimal.ZERO) == -1 
+								|| zyTopline.subtract(zyPay).compareTo(BigDecimal.ZERO) == -1
+								|| mzTopline.subtract(mzPay).compareTo(BigDecimal.ZERO) == -1) {
+							result = "保障金大于封顶线，您重新填写参与计算金额!";
+						} else {
+							result = "成功";
+						}
 					}
 				}
 			}else{

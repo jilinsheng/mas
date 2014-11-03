@@ -1640,6 +1640,11 @@ public class TempAction extends ActionSupport {
 		long sumFilesSize = 0;
 		tempDTO.setOrg(orgid.substring(0, 6));
 		TempDTO temp = tempService.isline(tempDTO);
+		if((("220803".equals(tempDTO.getOrg()))||("220225".equals(tempDTO.getOrg())))
+				&& (("1".equals(tempDTO.getAssistTypeM().substring(2, 3)))
+						||("1".equals(tempDTO.getAssistTypeM().substring(3, 4))))){
+			temp.setResult("1");
+		}
 		if ("0".equals(temp.getResult())) {
 			result = "保障金大于封顶线，您重新填写救助金!<br/>累计总救助金：" + temp.getTotlePay()
 					+ "元;<br/>住院总救助金：" + temp.getZyPay() + "元;<br/>门诊大病总救助金："
