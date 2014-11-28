@@ -1409,8 +1409,8 @@ public class TempServiceImpl implements TempService {
 											.compareTo(BigDecimal.ZERO) == 1) {
 								assis = (tempDTO.getPayTotal()
 										.subtract(tempDTO.getPayMedicare())
-										.subtract(mline)
 										.subtract(tempDTO.getPayOutmedicare())
+										.subtract(mline)
 										//.subtract(tempDTO.getPayCIAssist())
 										)
 										.multiply(scale);
@@ -1547,7 +1547,7 @@ public class TempServiceImpl implements TempService {
 				}					
 				// 手工填写
 				else {
-					if(m.compareTo(BigDecimal.ZERO)==0){
+					if(zyTopline.compareTo(BigDecimal.ZERO)==0){
 						result = "成功";
 					}else{
 						if (m.subtract(zpay).compareTo(BigDecimal.ZERO) == -1 
@@ -3264,7 +3264,7 @@ public class TempServiceImpl implements TempService {
 			jwhere = jwhere + " and pv.diagnose_type_id =0 ";
 		}
 		String sql = " select sum(pv.pay_assist)as zpay from payview03 pv "
-					+ "where to_char(pv.oper_time, 'yyyy') = '" + year
+					+ "where to_char(pv.end_time, 'yyyy') = '" + year
 					+ "' " + "and pv.member_id = '" + tempDTO.getMemberId()
 					+ "' and pv.member_type = '" + tempDTO.getMemberType()
 					+ "' " + jwhere ;

@@ -735,6 +735,10 @@ public class TempAction extends ActionSupport {
 		}
 		System.out.println(tempDTO.getMedicareType());
 		System.out.println(tempDTO.getAssistype());
+		System.out.println(tempDTO.getInsurance());
+		if(tempDTO.getInsurance()==null || "".equals(tempDTO.getInsurance())){
+			tempDTO.setInsurance(new BigDecimal("0"));
+		}
 		if ("1".equals(ciDTO.getReturnFlag())) {
 			tempDTO.setPaySumAssistScopeIn(ciDTO.getPay_Sum_AssistScope_In());
 			tempDTO.setPayPreSumAssistScopeIn(ciDTO
