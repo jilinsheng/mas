@@ -548,6 +548,8 @@ public class TempServiceImpl implements TempService {
 			tempDTO.setPaySumAssistScopeIn(a.getSumAssitscope());
 			tempDTO.setPayPreSumAssistScopeIn(a.getSumPreAssitscope());
 			tempDTO.setInsurance(a.getInsurance());
+			tempDTO.setHospitalLevel(Integer.valueOf(a.getHospitalLevel().trim()));
+			tempDTO.setOtherType(a.getOtherType());
 			if(null == a.getHospitalId()){
 				tempDTO.setHospitalId(0);
 			}else{
@@ -638,6 +640,8 @@ public class TempServiceImpl implements TempService {
 			record.setSpecbiz(String.valueOf(tempDTO.getSpecBiz()));
 			record.setCalcmsg(tempDTO.getCalcMsg());
 			record.setInsurance(tempDTO.getInsurance());
+			record.setHospitalLevel(String.valueOf(tempDTO.getHospitalLevel()));
+			record.setOtherType(tempDTO.getOtherType());
 			Integer id = jzMedicalafterDAO.insertSelective(record);
 			tempDTO.setApproveId(id.longValue());
 			if (!"".equals(tempDTO.getAssistTypeM())
@@ -698,6 +702,8 @@ public class TempServiceImpl implements TempService {
 			record.setSpecbiz(String.valueOf(tempDTO.getSpecBiz()));
 			record.setCalcmsg(tempDTO.getCalcMsg());
 			record.setInsurance(tempDTO.getInsurance());
+			record.setHospitalLevel(String.valueOf(tempDTO.getHospitalLevel()));
+			record.setOtherType(tempDTO.getOtherType());
 			jzMedicalafterDAO.updateByPrimaryKeySelective(record);
 			if (!"".equals(tempDTO.getAssistTypeM())
 					&& null != tempDTO.getAssistTypeM()) {
@@ -725,7 +731,7 @@ public class TempServiceImpl implements TempService {
 		jzMedicalafterDAO.deleteByPrimaryKey(bizId);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	public List<TempDTO> findAfterapplys(TempDTO tempDTO) {
 		List<TempDTO> list = new ArrayList<TempDTO>();
 		String sql = "select t.biz_id, mem.membername, mem.paperid, mem.familyno, "
@@ -1369,8 +1375,7 @@ public class TempServiceImpl implements TempService {
 				JzMedicalafterRuleDTO jzMedicalafterRuleDTO = findMedicalafterRule(tempDTO);
 				if (jzMedicalafterRuleDTO.getRuleId() != null) {
 					// 门诊特殊慢性病救助金
-					if ("1".equals(tempDTO.getAssistype())
-							&& "1".equals(tempDTO.getJzjButtonFlag())) {
+					if ("1".equals(tempDTO.getAssistype())) {
 						m = jzMedicalafterRuleDTO.getMztsTopLine();
 						mline = jzMedicalafterRuleDTO.getMztsSl();
 						if("1".equals(a4)){
@@ -1427,8 +1432,7 @@ public class TempServiceImpl implements TempService {
 						
 					}
 					// 住院救助金
-					else if ("2".equals(tempDTO.getAssistype())
-							&& "1".equals(tempDTO.getJzjButtonFlag())) {
+					else if ("2".equals(tempDTO.getAssistype())) {
 						sumAssis = tempDTO.getPaySumAssistScopeIn();
 						preSumAssis = tempDTO.getPayPreSumAssistScopeIn();
 						m = jzMedicalafterRuleDTO.getZyTopLine();
@@ -1525,11 +1529,15 @@ public class TempServiceImpl implements TempService {
 										BigDecimal.ZERO) == 0
 										|| nowAssis.subtract(preAssis)
 												.compareTo(BigDecimal.ZERO) == 1) {
-									assis = nowAssis.subtract(preAssis);
+									assis = nowAssis.subtract(preAssis).subtract(tempDTO.getInsurance());
 									if (m.subtract(zpay).compareTo(assis) == -1) {
 										assis = m.subtract(zpay);
 									}
-									result = "成功";
+									if(assis.compareTo(BigDecimal.ZERO)==-1){
+										result = "救助金额小于零";
+									}else{
+										result = "成功";
+									}
 								} else {
 									result = "没有达到起助线!";
 								}

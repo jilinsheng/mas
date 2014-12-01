@@ -8,6 +8,7 @@
 package org.tempuri;
 
 public interface IServiceYljz extends java.rmi.Remote {
+    public java.lang.String getAcceptAssistListH2H(java.lang.Long hospital_ID, java.lang.String begin_time, java.lang.String end_time, java.lang.Long accept_Hospital_ID) throws java.rmi.RemoteException;
     public java.lang.String getAcceptAssistSumH2H(java.lang.Long hospital_ID, java.lang.Long acceptHospitalID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException;
     public java.lang.String getAcceptAssistSum(java.lang.Long hospital_ID, java.lang.Long acceptHospitalID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException;
     public java.lang.String hospitalCert(byte[] licenseKey) throws java.rmi.RemoteException;
@@ -34,6 +35,7 @@ public interface IServiceYljz extends java.rmi.Remote {
     public java.math.BigDecimal getSumDataByPaperID(java.lang.String paperID, java.lang.Integer medicareType, java.lang.String finishYear, java.lang.Integer nType) throws java.rmi.RemoteException;
     public java.math.BigDecimal getDbbxQfx(java.lang.Integer ds) throws java.rmi.RemoteException;
     public java.math.BigDecimal getDbbx(java.math.BigDecimal sumPreScope, java.math.BigDecimal zfyMony, java.math.BigDecimal tcMony, java.math.BigDecimal noPay, java.lang.Integer wsFlag, java.lang.Integer ds) throws java.rmi.RemoteException;
+    public java.lang.String getChargeListByUser(java.lang.Integer bizType, java.lang.Integer chargeType, java.util.Calendar beginTime, java.util.Calendar endTime, java.lang.Long user_ID) throws java.rmi.RemoteException;
     public java.lang.String queryOutDisease(java.lang.String orgCode) throws java.rmi.RemoteException;
     public java.lang.String queryDiagnoseType(java.lang.String orgCode) throws java.rmi.RemoteException;
     public java.lang.String queryDiagnoseTypeByBizID(java.lang.Long biz_id) throws java.rmi.RemoteException;
@@ -61,7 +63,6 @@ public interface IServiceYljz extends java.rmi.Remote {
     public java.lang.String getOutAssistSumH2M(java.lang.Long hospital_ID, java.lang.String outOrgID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException;
     public java.lang.String getOutAssistSum(java.lang.Long hospital_ID, java.lang.Long outHospitalID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException;
     public java.lang.String getOutAssistSumOrg(java.lang.Long hospital_ID, java.lang.String outOrgID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException;
-    public java.lang.String getAcceptAssistListH2H(java.lang.Long hospital_ID, java.lang.String begin_time, java.lang.String end_time, java.lang.Long accept_Hospital_ID) throws java.rmi.RemoteException;
     public java.lang.String checkInRegEx(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.String beginTime, java.lang.String deptName, java.lang.String areaname, java.lang.Integer diagnoseType, java.lang.String diagnoseCode, java.lang.String diagnoseName, java.lang.Integer inType, java.lang.Integer gatherFlag, java.lang.Long userID) throws java.rmi.RemoteException;
     public java.lang.String getInpatientsList(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Integer queryType) throws java.rmi.RemoteException;
     public java.lang.String getInpatientsListByHospital(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.Integer queryType) throws java.rmi.RemoteException;
@@ -83,13 +84,13 @@ public interface IServiceYljz extends java.rmi.Remote {
     public java.lang.String getAssistMoneyMed(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Assist, java.math.BigDecimal pay_Balance, java.lang.Integer gatherFlag, java.lang.Long user_ID) throws java.rmi.RemoteException;
     public java.lang.String getAssistMoneyMed0506(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.Integer diagnoseTypeID, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Assist, java.lang.Integer gatherFlag, java.lang.Long user_ID) throws java.rmi.RemoteException;
     public java.lang.String getAssistMoneyAfter(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.String medicareType, java.lang.Integer bizType, java.lang.Integer specBiz, java.lang.String begin_Time, java.lang.String end_Time, java.lang.Integer diagnose_Type_ID, java.lang.Integer icd_ID, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Dbbx, java.math.BigDecimal pay_Sybx, java.math.BigDecimal pay_OutMedicare) throws java.rmi.RemoteException;
+    public java.lang.String getAssistMoneyAfterEx(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.Integer hospital_Level, java.lang.String memberType, java.lang.String memberID, java.lang.String medicareType, java.lang.Integer bizType, java.lang.Integer specBiz, java.lang.String begin_Time, java.lang.String end_Time, java.lang.Integer diagnose_Type_ID, java.lang.Integer icd_ID, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Dbbx, java.math.BigDecimal pay_Sybx, java.math.BigDecimal pay_OutMedicare) throws java.rmi.RemoteException;
     public java.lang.String getDupAssist(java.math.BigDecimal pay_Total, java.lang.String beginTime) throws java.rmi.RemoteException;
     public java.lang.String getAssistList(java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Integer bizType, java.lang.String beginTime, java.lang.String endTime) throws java.rmi.RemoteException;
     public java.lang.String getAssistChargeByHospital(java.lang.Long hospital_ID, java.lang.Integer bizType, java.lang.String beginTime, java.lang.String endTime) throws java.rmi.RemoteException;
     public java.lang.String refundFee(java.lang.Long biz_id, java.lang.Long user_ID) throws java.rmi.RemoteException;
     public java.lang.String refundMedFee(java.lang.Long biz_id, java.lang.String memberType, java.lang.String memberID, java.math.BigDecimal payAssist, java.lang.Long user_ID) throws java.rmi.RemoteException;
     public java.lang.String refundMedFee0506(java.lang.Long biz_id, java.lang.String memberType, java.lang.String memberID, java.math.BigDecimal payAssist, java.lang.Long user_ID) throws java.rmi.RemoteException;
-    public java.lang.String getChargeListByUser(java.lang.Integer bizType, java.lang.Integer chargeType, java.util.Calendar beginTime, java.util.Calendar endTime, java.lang.Long user_ID) throws java.rmi.RemoteException;
     public java.lang.String getData(java.lang.Integer value) throws java.rmi.RemoteException;
     public org.datacontract.schemas._2004._07.WcfYljz.CompositeType getDataUsingDataContract(org.datacontract.schemas._2004._07.WcfYljz.CompositeType composite) throws java.rmi.RemoteException;
     public java.lang.String getClientIp() throws java.rmi.RemoteException;

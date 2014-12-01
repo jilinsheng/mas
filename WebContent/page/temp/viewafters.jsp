@@ -19,9 +19,9 @@
 <title>医后报销审批列表</title>
 </head>
 <script type="text/javascript">
-	function modify(m1,m2,m3,m4,m5,m6){
-		var url="afterapplyinit.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.assistTypex="+m5+"&tempDTO.paperid="+m6;
-		var f="dialogWidth=710px;dialogHeight=630px;status=no;help=no;scroll=auto";
+	function modify(m1,m2,m3,m4,m5,m6,m7){
+		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.assistTypex="+m5+"&tempDTO.paperid="+m6+"&tempDTO.org="+m7;
+		var f="dialogWidth=780px;dialogHeight=780px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 	function del(m1,m2,m3,m4,m5){
@@ -29,9 +29,9 @@
 		var f="dialogWidth=650px;dialogHeight=450px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
-	function modifynew(m1,m2,m3,m4,m5,m6){
-		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.assistTypex="+m5+"&tempDTO.paperid="+m6;
-		var f="dialogWidth=750px;dialogHeight=680px;status=no;help=no;scroll=auto";
+	function modifynew(m1,m2,m3,m4,m5,m6,m7){
+		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.assistTypex="+m5+"&tempDTO.paperid="+m6+"&tempDTO.org="+m7;
+		var f="dialogWidth=780px;dialogHeight=780px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 	function view(m1,m2,m3){
@@ -41,14 +41,14 @@
 	}
 </script>
 <body>
-<table width="880px" class="formTitle">
+<table width="950px" class="formTitle">
 	<tr>
 		<td style="padding-left: 2px"><img alt="医后报销审批列表" border="0"
 			src="page/images/aws-dev.gif" /><font class="formTitleFont">医后报销审批列表</font></td>
 	</tr>
 </table>
 <table align="center" border="0" cellpadding="0" cellspacing="0"
-	width="880px" class="formtable">
+	width="950px" class="formtable">
 	<tr>
 		<td class="formtd1">救助时间</td>
 		<td class="formtd1">医院</td>
@@ -80,10 +80,10 @@
 			</s:if>
 			<s:elseif test="#session.user.organizationId.length()==8">
 				<s:if test="tempDTO.org=='220506'">
-					<a href="javascript:void(0)" onclick="modifynew('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="assistTypex"></s:property>','<s:property value="paperid"/>')">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="javascript:void(0)" onclick="modifynew('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="assistTypex"></s:property>','<s:property value="paperid"/>','<s:property value="tempDTO.org"/>')">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</s:if>
 				<s:else>
-					<a href="javascript:void(0)" onclick="modify('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="assistTypex"></s:property>','<s:property value="paperid"/>')">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="javascript:void(0)" onclick="modify('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="assistTypex"></s:property>','<s:property value="paperid"/>','<s:property value="tempDTO.org"/>')">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</s:else>
 				<a href="javascript:void(0)" onclick="del('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="assistTypex"></s:property>')">删除</a>
 			</s:elseif>

@@ -51,6 +51,7 @@ public string GetAssistMoneyAfter(string OrgCode, long Hospital_ID, string Membe
 public class AfterDTO {
 	private String OrgCode;
 	private long Hospital_ID;
+	private int Hospital_Level;
 	private String MemberType;
 	private String MemberID;
 	private String MedicareType;
@@ -226,6 +227,27 @@ public class AfterDTO {
 	}
 	public void setPay_Sybx(BigDecimal pay_Sybx) {
 		Pay_Sybx = pay_Sybx;
+	}
+	public int getHospital_Level() {
+		return Hospital_Level;
+	}
+	public void setHospital_Level(int hospital_Level) {
+		Hospital_Level = hospital_Level;
+	}
+	public void setHospital_ID(long hospital_ID) {
+		Hospital_ID = hospital_ID;
+	}
+	public void setBizType(int bizType) {
+		BizType = bizType;
+	}
+	public void setSpecBiz(int specBiz) {
+		SpecBiz = specBiz;
+	}
+	public void setDiagnose_Type_ID(int diagnose_Type_ID) {
+		Diagnose_Type_ID = diagnose_Type_ID;
+	}
+	public void setIcd_ID(int icd_ID) {
+		Icd_ID = icd_ID;
 	}
 
 

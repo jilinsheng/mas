@@ -44,6 +44,12 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz;
   }
   
+  public java.lang.String getAcceptAssistListH2H(java.lang.Long hospital_ID, java.lang.String begin_time, java.lang.String end_time, java.lang.Long accept_Hospital_ID) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getAcceptAssistListH2H(hospital_ID, begin_time, end_time, accept_Hospital_ID);
+  }
+  
   public java.lang.String getAcceptAssistSumH2H(java.lang.Long hospital_ID, java.lang.Long acceptHospitalID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
@@ -198,6 +204,12 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
     return iServiceYljz.getDbbx(sumPreScope, zfyMony, tcMony, noPay, wsFlag, ds);
+  }
+  
+  public java.lang.String getChargeListByUser(java.lang.Integer bizType, java.lang.Integer chargeType, java.util.Calendar beginTime, java.util.Calendar endTime, java.lang.Long user_ID) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getChargeListByUser(bizType, chargeType, beginTime, endTime, user_ID);
   }
   
   public java.lang.String queryOutDisease(java.lang.String orgCode) throws java.rmi.RemoteException{
@@ -362,12 +374,6 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz.getOutAssistSumOrg(hospital_ID, outOrgID, begin_time, end_time);
   }
   
-  public java.lang.String getAcceptAssistListH2H(java.lang.Long hospital_ID, java.lang.String begin_time, java.lang.String end_time, java.lang.Long accept_Hospital_ID) throws java.rmi.RemoteException{
-    if (iServiceYljz == null)
-      _initIServiceYljzProxy();
-    return iServiceYljz.getAcceptAssistListH2H(hospital_ID, begin_time, end_time, accept_Hospital_ID);
-  }
-  
   public java.lang.String checkInRegEx(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.String beginTime, java.lang.String deptName, java.lang.String areaname, java.lang.Integer diagnoseType, java.lang.String diagnoseCode, java.lang.String diagnoseName, java.lang.Integer inType, java.lang.Integer gatherFlag, java.lang.Long userID) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
@@ -494,6 +500,12 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz.getAssistMoneyAfter(orgCode, hospital_ID, memberType, memberID, medicareType, bizType, specBiz, begin_Time, end_Time, diagnose_Type_ID, icd_ID, pay_Total, pay_Medicare, pay_Dbbx, pay_Sybx, pay_OutMedicare);
   }
   
+  public java.lang.String getAssistMoneyAfterEx(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.Integer hospital_Level, java.lang.String memberType, java.lang.String memberID, java.lang.String medicareType, java.lang.Integer bizType, java.lang.Integer specBiz, java.lang.String begin_Time, java.lang.String end_Time, java.lang.Integer diagnose_Type_ID, java.lang.Integer icd_ID, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Dbbx, java.math.BigDecimal pay_Sybx, java.math.BigDecimal pay_OutMedicare) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getAssistMoneyAfterEx(orgCode, hospital_ID, hospital_Level, memberType, memberID, medicareType, bizType, specBiz, begin_Time, end_Time, diagnose_Type_ID, icd_ID, pay_Total, pay_Medicare, pay_Dbbx, pay_Sybx, pay_OutMedicare);
+  }
+  
   public java.lang.String getDupAssist(java.math.BigDecimal pay_Total, java.lang.String beginTime) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
@@ -528,12 +540,6 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
     return iServiceYljz.refundMedFee0506(biz_id, memberType, memberID, payAssist, user_ID);
-  }
-  
-  public java.lang.String getChargeListByUser(java.lang.Integer bizType, java.lang.Integer chargeType, java.util.Calendar beginTime, java.util.Calendar endTime, java.lang.Long user_ID) throws java.rmi.RemoteException{
-    if (iServiceYljz == null)
-      _initIServiceYljzProxy();
-    return iServiceYljz.getChargeListByUser(bizType, chargeType, beginTime, endTime, user_ID);
   }
   
   public java.lang.String getData(java.lang.Integer value) throws java.rmi.RemoteException{

@@ -405,6 +405,139 @@
 			});
 		}
 	}
+	function getmzjzmoney(){
+		var paperid=$("#paperid")[0].value;
+		var medicareType = "";
+		for (var i=0 ;i<3;i++){
+			if($("#medicareType"+i)[0].checked){
+				medicareType=$("#medicareType"+i)[0].value;
+			}
+		}
+		var payTotal=$("#payTotal")[0].value;
+		var payOutmedicare=$("#payOutmedicare")[0].value;
+		var payMedicare=$("#payMedicare")[0].value;
+		var organizationId=$("#organizationId")[0].value;
+		var oldPayTotal=$("#oldPayTotal")[0].value;
+		var oldPayMedicare=$("#oldPayMedicare")[0].value;
+		var oldPayOutMedicare=$("#oldPayOutMedicare")[0].value;
+		var calcType=$("#calcType")[0].value;
+		var jzjButtonFlag=$("#jzjButtonFlag")[0].value;
+		var memberId=$("#memberId")[0].value;
+		var memberType=$("#memberType")[0].value;
+		var assistype=$("#assistype")[0].value;
+		var assistTypeM=$("#assistTypeM")[0].value;
+		var assistTypex=$("#assistTypex")[0].value;
+		var payCIAssist =$("#payCIAssist")[0].value;
+		var diagnoseTypeId = $("input[name='tempDTO.diagnoseTypeId']:checked").val();
+		var insurance = $("#insurance")[0].value;
+		var hospitalLevel = $("input[name='tempDTO.hospitalLevel']:checked").val();
+		var icdId = $("#icdId")[0].value;
+		var flag=true;
+		if(hospitalLevel=="1"||hospitalLevel=="2"||hospitalLevel=="3"||hospitalLevel=="4"){
+		}else{
+			alert("请选择医院级别！");
+			flag=false;
+			return;
+		}
+		if(icdId=="0"){
+			alert("请选择门诊大病病种！");
+			flag=false;
+			return;
+		}
+		if(payCIAssist==""){
+			alert("请点击计算大病保险按钮，计算本次大病保险！");
+			flag=false;
+			return;
+		}
+		if(insurance==""){
+			alert("商业保险不能为空！没有请填写‘0’！");
+			flag=false;
+			return ;
+		}
+		if(flag==true){
+			$.ajax({
+				type : "post",
+				url : "page/temp/calcaftermoneyautomz.action",
+				data : {
+					"tempDTO.organizationId" : organizationId,
+					"tempDTO.payTotal" : payTotal, //总费用
+					"tempDTO.payOutmedicare" : payOutmedicare, // 目录外费用
+					"tempDTO.payMedicare" : payMedicare, //统筹  
+					"tempDTO.paperid" : paperid,
+					"tempDTO.medicareType" : medicareType,
+					"tempDTO.oldPayTotal" : oldPayTotal,
+					"tempDTO.oldPayMedicare" : oldPayMedicare,
+					"tempDTO.oldPayOutMedicare" : oldPayOutMedicare,
+					"tempDTO.calcType" : calcType,
+					"tempDTO.jzjButtonFlag" : jzjButtonFlag,
+					"tempDTO.memberType" : memberType,
+					"tempDTO.memberId" : memberId,
+					"tempDTO.assistype" : assistype,
+					"tempDTO.assistTypeM" : assistTypeM,
+					"tempDTO.assistTypex" : assistTypex,
+					"tempDTO.diagnoseTypeId" : diagnoseTypeId,
+					"tempDTO.insurance" : insurance,
+					"tempDTO.payCIAssist" : payCIAssist,
+					"tempDTO.hospitalLevel" :hospitalLevel,
+					"tempDTO.icdId" :icdId
+				},
+				timeout : 20000,
+				error : function() {
+					alert("服务器错误");
+				},
+				async : false,
+				dataType : "json",
+				success : function(json) {
+					json = eval('(' + json + ')');
+					var info= json['info'];
+					var m= json['m'];
+					if('成功'==info){
+						if(jzjButtonFlag==1){
+							alert('计算保障金:'+m+'元');
+							$('#payAssist')[0].readOnly=false;
+							$('#payAssist')[0].value=m;
+						}else{
+							alert('请手动填写救助金！');
+							$('#payAssist')[0].readOnly=false;
+						}
+						$('#b')[0].disabled=false;
+					}else{
+						alert(info);
+						$('#b')[0].disabled=true;
+						$('#payAssist')[0].value=0;
+					}
+				}
+			});
+		}
+	}
+	function changassistype(v){
+		var divid = document.getElementById("divid");
+		var icdId = document.getElementById("icdId");
+		var inhospitalsicken = document.getElementById("inhospitalsicken");
+		if(v.value=="1"){
+			divid.style.display='block';
+			icdId.disabled=false;
+			inhospitalsicken.readOnly=true;
+			inhospitalsicken.value="";
+			icdId.value="0";
+		}else{
+			divid.style.display='none';
+			icdId.disabled=true;
+			inhospitalsicken.readOnly=false;
+			inhospitalsicken.value="";
+			icdId.value="0";
+		}
+		
+	}
+	function getinhospitalsicken(a){
+		var Text = document.getElementById(a.id).options[window.document.getElementById(a.id).selectedIndex].text;
+		if(Text=='普通住院' || Text=='请选择....'){
+			$("#inhospitalsicken")[0].value = '';
+		}else{
+			$("#inhospitalsicken")[0].value = Text;
+
+		}
+	}
 </script>
 </head>
 <body>
@@ -507,6 +640,12 @@
 			</td>
 		</tr>
 		<tr>
+			<td class="formtd1" width="16%">医院级别：</td>
+			<td class="formtd2" colspan="5">
+				<s:radio id="tempDTO.hospitalLevel" name="tempDTO.hospitalLevel" list="#{'1':'乡镇','2':'区县','3':'市级','4':'省级'}" listKey="key" listValue="value" ></s:radio>
+			</td>
+		</tr>
+		<tr>
 			<td class="formtd1" width="16%">开始时间：</td>
 			<td class="formtd2"><input type="text" readonly="readonly"
 				id="beginDate" name="tempDTO.begintime"
@@ -530,10 +669,17 @@
 		<tr>
 			<td class="formtd1" width="16%">救助类型：</td>
 			<td class="formtd2" width="16%"><s:select id="assistype"
-				list="#{'2':'住院','1':'门诊特殊大病'}" name="tempDTO.assistype"></s:select></td>
+				list="#{'2':'住院','1':'门诊特殊大病'}" name="tempDTO.assistype" onchange="changassistype(this)"></s:select></td>
 			<td class="formtd1" width="16%">患病名称：</td>
 			<td class="formtd2" colspan="3"><s:textfield id="inhospitalsicken"
 				name="tempDTO.inhospitalsicken" size="45" /></td>
+		</tr>
+		<tr>
+			<td class="formtd1" width="16%">门诊大病病种</td>
+			<td class="formtd2" width="16%" colspan="5">
+				<s:select id="icdId" name="tempDTO.icdId" list="outicds" listKey="icdId" headerKey="0" headerValue="请选择..."
+				listValue="name" disabled="true" onchange="getinhospitalsicken(this)"></s:select>
+			</td>
 		</tr>
 		<tr>
 			<td class="formtd1" width="16%">总费用：</td>
@@ -603,16 +749,21 @@
 		</tr>
 		<tr>
 			<td class="formtd1" width="16%">救助金额：</td>
-			<td class="formtd2" width="16%"  colspan="3"><s:textfield id="payAssist" readonly="false"
+			<td class="formtd2" width="16%" ><s:textfield id="payAssist" readonly="false"
 				name="tempDTO.payAssist" size="12" 
 				onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
 				onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
 				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />	
 				&nbsp;&nbsp;
+			</td>
+			<td class="formtd2" colspan="2">
 				<s:if test="tempDTO.jzjButtonFlag==1">
 				<button type="button" onclick="getjzmoney()" >计算救助金额</button>	
 				</s:if>
-			</td>	
+				<div id="divid" style="display:none">
+					<button type="button" onclick="getmzjzmoney()" id="mzjz" >*计算救助金额</button>
+				</div>
+			</td>
 			<td class="formtd1" width="18%">审批结果：</td>
 			<td class="formtd2" colspan="2">
 				<s:select name="tempDTO.bizStatus" list="#{'1':'同意'}" disabled="true"></s:select> 

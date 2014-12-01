@@ -17,14 +17,14 @@
 <link rel="stylesheet" href="page/css/table-style.css" type="text/css"></link>
 <title>医后报销审批查询</title>
 <script type="text/javascript">
-	function modify(m1,m2,m3,m4,m5){
-		var url="afterapplyinit.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.paperid="+m5;
-		var f="dialogWidth=710px;dialogHeight=630px;status=no;help=no;scroll=auto";
+	function modify(m1,m2,m3,m4,m5,m6){
+		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.paperid="+m5+"&tempDTO.org="+m6;
+		var f="dialogWidth=780px;dialogHeight=780px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
-	function modifynew(m1,m2,m3,m4,m5){
-		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.paperid="+m5;
-		var f="dialogWidth=750px;dialogHeight=680px;status=no;help=no;scroll=auto";
+	function modifynew(m1,m2,m3,m4,m5,m6){
+		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.paperid="+m5+"&tempDTO.org="+m6;
+		var f="dialogWidth=780px;dialogHeight=780px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 	function del(m1,m2,m3,m4){
@@ -142,10 +142,10 @@
 							<%-- <a href="javascript:void(0)" onclick="yn('<s:property value="approveId"></s:property>','1')">同意</a>&nbsp;&nbsp;&nbsp;&nbsp; --%>
 								<s:if test="approvests==-1 || approvests==0">
 									<s:if test="#session.user.organizationId=='220506'">
-										<a href="javascript:void(0)" onclick="modifynew('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="paperid"/>')">同意</a>&nbsp;&nbsp;&nbsp;&nbsp;
+										<a href="javascript:void(0)" onclick="modifynew('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="paperid"/>','<s:property value="#session.user.organizationId"/>')">同意</a>&nbsp;&nbsp;&nbsp;&nbsp;
 									</s:if>
 									<s:else>
-										<a href="javascript:void(0)" onclick="modify('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="paperid"/>')">同意</a>&nbsp;&nbsp;&nbsp;&nbsp;
+										<a href="javascript:void(0)" onclick="modify('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="paperid"/>','<s:property value="#session.user.organizationId"/>')">同意</a>&nbsp;&nbsp;&nbsp;&nbsp;
 									</s:else>
 								</s:if>
 								<s:else>

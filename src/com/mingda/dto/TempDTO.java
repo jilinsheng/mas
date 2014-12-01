@@ -115,6 +115,7 @@ public class TempDTO {
 	private String assistType;
 	private Date medicaltimeEnd;
 	private BigDecimal insurance;
+	private int hospitalLevel;
 	
 	public BigDecimal getPaySumAssistScopeIn() {
 		return paySumAssistScopeIn;
@@ -986,6 +987,14 @@ public class TempDTO {
 
 	public void setInsurance(BigDecimal insurance) {
 		this.insurance = insurance;
+	}
+
+	public int getHospitalLevel() {
+		return hospitalLevel;
+	}
+
+	public void setHospitalLevel(int hospitalLevel) {
+		this.hospitalLevel = hospitalLevel;
 	}
 
 }

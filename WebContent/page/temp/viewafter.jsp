@@ -76,6 +76,15 @@
 		</td>
 	</tr>
 	<tr>
+		<td class="formtd1" width="16%">医院级别：</td>
+		<td class="formtd2" colspan="5">
+			<s:if test="tempDTO.hospitalLevel==1">乡镇</s:if>
+			<s:elseif test="tempDTO.hospitalLevel==2">区县</s:elseif>
+			<s:elseif test="tempDTO.hospitalLevel==3">市级</s:elseif>
+			<s:elseif test="tempDTO.hospitalLevel==4">省级</s:elseif>
+		</td>
+	</tr>
+	<tr>
 		<td class="formtd1" width="16%">开始时间：</td>
 		<td class="formtd2"><s:date name="tempDTO.begintime"
 			format="yyyy-MM-dd" /></td>

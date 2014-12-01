@@ -802,6 +802,7 @@ public class TempAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public String calcaftermoneyauto2(){
 		JSONObject json = new JSONObject();
 		ciDTO = new CiDTO();
@@ -830,54 +831,15 @@ public class TempAction extends ActionSupport {
 			tempDTO.setPaySumAssistIn(ciDTO.getPaySumAssistIn());
 			tempDTO.setPaySumAssistOut(ciDTO.getPaySumAssistOut());
 			tempDTO.setSumMedicareScope(ciDTO.getSumMedicareScope());
-			if ("2".equals(tempDTO.getAssistype())) {
-				HashMap m = tempService.findMaMoney(tempDTO);
-				json.put("m", m.get("m"));
-				json.put("info", m.get("info"));
-				json.put("in", ciDTO.getPaySumAssistIn());
-				json.put("out", ciDTO.getPaySumAssistOut());
-				json.put("scope", ciDTO.getSumMedicareScope());
-				json.put("ci", ciDTO.getPayCIAssist());
-				json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
-				json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
-			} else if ("1".equals(tempDTO.getAssistype())) {
-				if ("1".equals(tempDTO.getAssistype())
-						&& "2".equals(tempDTO.getMedicareType())) {
-					HashMap m = tempService.findMaMoney(tempDTO);
-					json.put("m", m.get("m"));
-					json.put("info", m.get("info"));
-					json.put("in", ciDTO.getPaySumAssistIn());
-					json.put("out", ciDTO.getPaySumAssistOut());
-					json.put("scope", ciDTO.getSumMedicareScope());
-					json.put("ci", ciDTO.getPayCIAssist());
-					json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
-					json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
-				} else {
-					json.put("info", "成功");
-					json.put("in", 0);
-					json.put("out", 0);
-					json.put("scope", 0);
-					json.put("ci", 0);
-					json.put("sum", 0);
-					json.put("preSum", 0);
-				}
-			
-			} else {
-				if ("1".equals(tempDTO.getAssistype())
-						&& "1".equals(tempDTO.getJzjButtonFlag())) {
-					HashMap m = tempService.findMaMoney(tempDTO);
-					json.put("m", m.get("m"));
-					json.put("info", m.get("info"));
-				} else {
-					json.put("info", "成功");
-				}
-				json.put("in", 0);
-				json.put("out", 0);
-				json.put("scope", 0);
-				json.put("ci", 0);
-				json.put("sum", 0);
-				json.put("preSum", 0);
-			}
+			HashMap m = tempService.findMaMoney(tempDTO);
+			json.put("m", m.get("m"));
+			json.put("info", m.get("info"));
+			json.put("in", ciDTO.getPaySumAssistIn());
+			json.put("out", ciDTO.getPaySumAssistOut());
+			json.put("scope", ciDTO.getSumMedicareScope());
+			json.put("ci", ciDTO.getPayCIAssist());
+			json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
+			json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
 		} else {
 			json.put("info", "大病保险计算失败!");
 		}
@@ -887,7 +849,7 @@ public class TempAction extends ActionSupport {
 	
 	private BigDecimal getCia(TempDTO tempDTO) {
 		BigDecimal bl = BigDecimal.ZERO;// 大病保险金
-		BigDecimal mline_y = new BigDecimal("8000");// "医保"起助线
+		BigDecimal mline_y = new BigDecimal("9600");// "医保"起助线
 		BigDecimal mline_n = new BigDecimal("6000");// "未经医保/新农合确认转诊"起助线
 		BigDecimal payTotal = tempDTO.getPayTotal();
 		BigDecimal payOutmedicare = tempDTO.getPayOutmedicare();
@@ -948,7 +910,8 @@ public class TempAction extends ActionSupport {
 			afterDTO.setPay_OutMedicare(tempDTO.getPayOutmedicare());
 			afterDTO.setPay_Sybx(tempDTO.getInsurance());
 			afterDTO.setPay_Dbbx(tempDTO.getPayCIAssist());
-			afterDTO = yljzService.getAssistMoneyAfter(afterDTO);
+			afterDTO.setHospital_Level(tempDTO.getHospitalLevel());
+			afterDTO = yljzService.getAssistMoneyAfterEx(afterDTO);
 			if ("1".equals(afterDTO.getReturnFlag())) {
 				if ("2".equals(tempDTO.getAssistype())) {
 					json.put("m", afterDTO.getAssistMoney());
@@ -3489,6 +3452,69 @@ public class TempAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
+	
+	@SuppressWarnings({ "rawtypes" })
+	public String calcaftermoneyautomz(){
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String assisttype = tempDTO.getAssistTypeM() + tempDTO.getAssistTypex()
+				+ "";
+		String organizationId = user.getOrganizationId();
+		if (null != organizationId && !"".equals(organizationId)) {
+			organizationId = organizationId.substring(0, 6);
+		}
+		JSONObject json = new JSONObject();
+		if (!"00000000000".equals(assisttype)) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			afterDTO = new AfterDTO();
+			afterDTO.setOrgCode(organizationId);
+			afterDTO.setHospital_ID(new Long(tempDTO.getHospitalId()));
+			afterDTO.setMedicareType(tempDTO.getMedicareType());
+			afterDTO.setMemberType(tempDTO.getMemberType());
+			afterDTO.setMemberID(tempDTO.getMemberId());
+			afterDTO.setMedicareType(tempDTO.getMedicareType());
+			afterDTO.setBizType(new Integer(tempDTO.getAssistype()));
+			afterDTO.setSpecBiz(tempDTO.getSpecBiz());
+			afterDTO.setBegin_Time(sdf.format(tempDTO.getBegintime()));
+			afterDTO.setEnd_Time(sdf.format(tempDTO.getEndtime()));
+			afterDTO.setDiagnose_Type_ID(new Integer(tempDTO
+					.getDiagnoseTypeId()));
+			afterDTO.setIcd_ID(new Integer(tempDTO.getIcdId()));
+			afterDTO.setPay_Total(tempDTO.getPayTotal());
+			afterDTO.setPay_Medicare(tempDTO.getPayMedicare());
+			afterDTO.setPay_OutMedicare(tempDTO.getPayOutmedicare());
+			afterDTO.setPay_Sybx(tempDTO.getInsurance());
+			afterDTO.setPay_Dbbx(tempDTO.getPayCIAssist());
+			afterDTO.setHospital_Level(tempDTO.getHospitalLevel());
+			afterDTO = yljzService.getAssistMoneyAfterEx(afterDTO);
+			if ("1".equals(afterDTO.getReturnFlag())) {
+				if ("2".equals(tempDTO.getAssistype())) {
+					json.put("m", afterDTO.getAssistMoney());
+					json.put("info", afterDTO.getMessage());
+					json.put("in", afterDTO.getAssistSumIn());
+					json.put("out", afterDTO.getAssistSumOut());
+					json.put("ci", afterDTO.getAssistCIA());
+					json.put("sum", afterDTO.getAssistSum());
+					json.put("calcmsg", afterDTO.getCalcMsg());
+				} else {
+					json.put("m", afterDTO.getAssistMoney());
+					json.put("info", afterDTO.getMessage());
+					json.put("in", afterDTO.getAssistSumIn());
+					json.put("out", afterDTO.getAssistSumOut());
+					json.put("ci", afterDTO.getAssistCIA());
+					json.put("sum", afterDTO.getAssistSum());
+					json.put("calcmsg", afterDTO.getCalcMsg());
+				}
+
+			} else {
+				json.put("info", "救助金计算失败!");
+			}
+		} else {
+			json.put("info", "普通居民不在救助范围内！");
+		}
+		result = json.toString();
+		return SUCCESS;
+	}
 
 	public String queryPaysinfo() {
 		payviews = tempService.findPayviews(tempDTO);
@@ -3960,14 +3986,14 @@ public class TempAction extends ActionSupport {
 		String organizationId = user.getOrganizationId();
 		tempDTO.setOrganizationId(organizationId);
 		tempDTO.setBizType("ma");
-		jzMedicalafterRuleDTO = tempService.findMedicalafterRule(tempDTO);
+		/*jzMedicalafterRuleDTO = tempService.findMedicalafterRule(tempDTO);
 		if (jzMedicalafterRuleDTO.getRuleId() != null) {
 			tempDTO.setDbButtonFlag("0");
 			tempDTO.setJzjButtonFlag("1");
 		} else {
 			tempDTO.setDbButtonFlag("1");
 			tempDTO.setJzjButtonFlag("0");
-		}
+		}*/
 		Boolean flag = false;
 		if (tempDTO.getApproveId() == null) {
 			flag = true;

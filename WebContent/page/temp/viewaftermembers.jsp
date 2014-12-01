@@ -16,19 +16,19 @@
 <link rel="stylesheet" href="page/css/table-style.css" type="text/css"></link>
 <title>人员列表</title>
 <script type="text/javascript">
-	function apply(m1,m2){
-		var url="afterapplyinit.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.calcType=1";
-		var f="dialogWidth=710px;dialogHeight=630px;status=no;help=no;scroll=auto";
+	function apply(m1,m2,m3){
+		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.calcType=1"+"&tempDTO.org="+m3;
+		var f="dialogWidth=780px;dialogHeight=780px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 	function viewapply(m1,m2){
 		var url="viewafterapplys.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2;
-		var f="dialogWidth=880px;dialogHeight=450px;status=no;help=no;scroll=auto";
+		var f="dialogWidth=950px;dialogHeight=450px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
-	function applynew(m1,m2){
-		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.calcType=1";
-		var f="dialogWidth=780px;dialogHeight=750px;status=no;help=no;scroll=auto";
+	function applynew(m1,m2,m3){
+		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.calcType=1"+"&tempDTO.org="+m3;
+		var f="dialogWidth=780px;dialogHeight=780px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 </script>
@@ -60,18 +60,18 @@
 			<td>
 			<s:if test="tempDTO.org=='220506'">
 				<s:if test="personstate=='正常'">
-					<button type="button" onclick="applynew('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>')">添加业务</button>
+					<button type="button" onclick="applynew('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="tempDTO.org"/>')">添加业务</button>
 				</s:if>
 				<s:else>
-					<button type="button" onclick="applynew('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>')" disabled>添加业务</button>
+					<button type="button" onclick="applynew('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="tempDTO.org"/>')" disabled>添加业务</button>
 				</s:else>
 			</s:if>
 			<s:else>
 				<s:if test="personstate=='正常'">
-					<button type="button" onclick="apply('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>')">添加业务</button>
+					<button type="button" onclick="apply('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="tempDTO.org"/>')">添加业务</button>
 				</s:if>
 				<s:else>
-					<button type="button" onclick="apply('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>')" disabled>添加业务</button>
+					<button type="button" onclick="apply('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="tempDTO.org"/>')" disabled>添加业务</button>
 				</s:else>
 			</s:else>
 			<button type="button" onclick="viewapply('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>')">查看业务</button>

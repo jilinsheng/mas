@@ -179,5 +179,93 @@ public class YljzServiceImpl implements YljzService {
 		}
 		return afterDTO;
 	}
-
+	
+	public AfterDTO getAssistMoneyAfterEx(AfterDTO afterDTO) {
+		try {
+			String xml = iServiceYljzProxy.getAssistMoneyAfterEx(
+					afterDTO.getOrgCode(),afterDTO.getHospital_ID(),
+					afterDTO.getHospital_Level(),
+					afterDTO.getMemberType(),afterDTO.getMemberID(),
+					afterDTO.getMedicareType(),afterDTO.getBizType(),
+					afterDTO.getSpecBiz(),afterDTO.getBegin_Time(),
+					afterDTO.getEnd_Time(),afterDTO.getDiagnose_Type_ID(),
+					afterDTO.getIcd_ID(),afterDTO.getPay_Total(),
+					afterDTO.getPay_Medicare(),afterDTO.getPay_Dbbx(),
+					afterDTO.getPay_Sybx(),
+					afterDTO.getPay_OutMedicare());
+			Document document = DocumentHelper.parseText(xml);
+			String returnFlag = document.selectSingleNode(
+					"//GetAssistMoneyAfter/ReturnFlag").getText();
+			String resultFlag = document.selectSingleNode(
+					"//GetAssistMoneyAfter/ResultFlag").getText();
+			String message = document.selectSingleNode(
+					"//GetAssistMoneyAfter/Message").getText();
+			String assistMoney="";
+			if(document.selectSingleNode(
+					"//GetAssistMoneyAfter/AssistMoney")!=null){
+				assistMoney = document.selectSingleNode(
+						"//GetAssistMoneyAfter/AssistMoney").getText();
+			}
+			String assistSum="";
+			if(document.selectSingleNode(
+					"//GetAssistMoneyAfter/AssistSum") != null){
+				assistSum = document.selectSingleNode(
+						"//GetAssistMoneyAfter/AssistSum").getText();
+			}
+			String assistSumIn="";
+			if(document.selectSingleNode(
+					"//GetAssistMoneyAfter/AssistSumIn") != null){
+				assistSumIn = document.selectSingleNode(
+						"//GetAssistMoneyAfter/AssistSumIn").getText();
+			}
+			String assistSumOut="";
+			if(document.selectSingleNode(
+					"//GetAssistMoneyAfter/AssistSumOut") != null){
+				assistSumOut = document.selectSingleNode(
+						"//GetAssistMoneyAfter/AssistSumOut").getText();
+			}
+			String assistCIA = "";
+			if(document.selectSingleNode(
+					"//GetAssistMoneyAfter/AssistCIA") != null){
+				assistCIA = document.selectSingleNode(
+						"//GetAssistMoneyAfter/AssistCIA").getText();
+			}
+			String calcMsg="";
+			if(document.selectSingleNode(
+					"//GetAssistMoneyAfter/CalcMsg") != null){
+				calcMsg = document.selectSingleNode(
+						"//GetAssistMoneyAfter/CalcMsg").getText();
+			}
+			
+			if (null == assistMoney || "".equals(assistMoney)) {
+				assistMoney = "0";
+			}	
+			if (null == assistSum || "".equals(assistSum)) {
+				assistSum = "0";
+			}	
+			if (null == assistSumIn || "".equals(assistSumIn)) {
+				assistSumIn = "0";
+			}	
+			if (null == assistSumOut || "".equals(assistSumOut)) {
+				assistSumOut = "0";
+			}	
+			if (null == assistCIA || "".equals(assistCIA)) {
+				assistCIA = "0";
+			}
+			afterDTO.setReturnFlag(returnFlag);
+			afterDTO.setResultFlag(resultFlag);
+			afterDTO.setMessage(message);
+			afterDTO.setAssistMoney(new BigDecimal(assistMoney));
+			afterDTO.setAssistSum(new BigDecimal(assistSum));
+			afterDTO.setAssistSumIn(new BigDecimal(assistSumIn));
+			afterDTO.setAssistSumOut(new BigDecimal(assistSumOut));
+			afterDTO.setAssistCIA(new BigDecimal(assistCIA));
+			afterDTO.setCalcMsg(calcMsg);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		return afterDTO;
+	}
 }
