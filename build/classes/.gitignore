@@ -1,1 +1,9 @@
+/applicationContext-action.xml
+/applicationContext-bean.xml
+/applicationContext-common.xml
 /com
+/org
+/proxool.xml
+/sqlMapConfig.xml
+/sqlMapConfignc.xml
+/struts.xml

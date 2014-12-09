@@ -121,7 +121,7 @@ body {
 
 .formtable {
 	height: 30px;
-		border: 1px solid #000000;
+	border: 1px solid #000000;
 	border-width: 1px 1px 1px 1px;
 	margin: 2px 0 2px 0;
 	font-size: 12px;
@@ -132,7 +132,7 @@ body {
 	height: 30px;
 	font-size: 12px;
 	border: 1px solid #999999;
-	border-width: 0px 0px 1px 0px;
+	border-width: 1px 1px 1px 1px;
 	background-color: #E9E9E9;
 	text-align: left;
 	text-indent:12px;z
@@ -142,7 +142,7 @@ body {
 	height: 30px;
 	font-size: 12px;
 	border: 1px solid #999999;
-	border-width: 0px 0px 1px 1px;
+	border-width: 1px 1px 1px 1px;
 	background-color: #F5F5F5;
 	text-align: left;
 	text-indent:12px;z

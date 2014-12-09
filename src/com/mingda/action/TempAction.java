@@ -692,12 +692,16 @@ public class TempAction extends ActionSupport {
 			tempDTO.setPaySumAssistIn(ciDTO.getPaySumAssistIn());
 			tempDTO.setPaySumAssistOut(ciDTO.getPaySumAssistOut());
 			tempDTO.setSumMedicareScope(ciDTO.getSumMedicareScope());
-			tempDTO.setPayCIAssist(ciDTO.getPayCIAssist());
+			//tempDTO.setPayCIAssist(ciDTO.getPayCIAssist());
 			HashMap m = tempService.findtempmoney(tempDTO);
 			json.put("in", ciDTO.getPaySumAssistIn());
 			json.put("out", ciDTO.getPaySumAssistOut());
 			json.put("scope", ciDTO.getSumMedicareScope());
-			json.put("ci", ciDTO.getPayCIAssist());
+			if(tempDTO.getPayCIAssist().compareTo(new BigDecimal(ciDTO.getPayCIAssist().toString()))==0){
+				json.put("ci", ciDTO.getPayCIAssist());
+			}else{
+				json.put("ci", tempDTO.getPayCIAssist());
+			}
 			json.put("m", m.get("m"));
 			json.put("info", m.get("info"));
 			log.debug("####>>>>" + json.toString());

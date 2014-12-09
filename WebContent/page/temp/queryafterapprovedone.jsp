@@ -19,12 +19,12 @@
 <script type="text/javascript">
 	function modify(m1,m2,m3,m4,m5,m6){
 		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.paperid="+m5+"&tempDTO.org="+m6;
-		var f="dialogWidth=780px;dialogHeight=780px;status=no;help=no;scroll=auto";
+		var f="dialogWidth=780px;dialogHeight=710px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 	function modifynew(m1,m2,m3,m4,m5,m6){
 		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.paperid="+m5+"&tempDTO.org="+m6;
-		var f="dialogWidth=780px;dialogHeight=780px;status=no;help=no;scroll=auto";
+		var f="dialogWidth=780px;dialogHeight=710px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 	function del(m1,m2,m3,m4){
@@ -39,7 +39,7 @@
 	}
 	function view(m1,m2,m3){
 		var url="viewafterapply.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3;
-		var f="dialogWidth=710px;dialogHeight=630px;status=no;help=no;scroll=auto";
+		var f="dialogWidth=780px;dialogHeight=710px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 </script>

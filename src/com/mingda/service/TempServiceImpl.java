@@ -506,7 +506,7 @@ public class TempServiceImpl implements TempService {
 			tempDTO.setOrganizationId(m.getFamilyno().substring(0, 10));
 			tempDTO.setPersonstate(m.getPersonstate());
 			tempDTO.setAssistTypeM(m.getAssistType());
-			tempDTO.setAssistype(m.getAssistType());
+			tempDTO.setAssistType(m.getAssistType());
 			tempDTO.setAssistTypex(m.getAssistTypex());
 			if (!"".equals(m.getAssistType()) && null != m.getAssistType()) {
 				tempDTO.setA1(m.getAssistType().substring(0, 1));
@@ -548,8 +548,12 @@ public class TempServiceImpl implements TempService {
 			tempDTO.setPaySumAssistScopeIn(a.getSumAssitscope());
 			tempDTO.setPayPreSumAssistScopeIn(a.getSumPreAssitscope());
 			tempDTO.setInsurance(a.getInsurance());
-			tempDTO.setHospitalLevel(Integer.valueOf(a.getHospitalLevel().trim()));
 			tempDTO.setOtherType(a.getOtherType());
+			if(null == a.getHospitalLevel()){
+				tempDTO.setHospitalLevel(0);
+			}else{
+				tempDTO.setHospitalLevel(Integer.valueOf(a.getHospitalLevel().trim()));
+			}
 			if(null == a.getHospitalId()){
 				tempDTO.setHospitalId(0);
 			}else{
@@ -3273,8 +3277,9 @@ public class TempServiceImpl implements TempService {
 		}
 		String sql = " select sum(pv.pay_assist)as zpay from payview03 pv "
 					+ "where to_char(pv.end_time, 'yyyy') = '" + year
-					+ "' " + "and pv.member_id = '" + tempDTO.getMemberId()
-					+ "' and pv.member_type = '" + tempDTO.getMemberType()
+					+ "' " + "and pv.id_card = '"+tempDTO.getPaperid()
+					//+ "' " + "and pv.member_id = '" + tempDTO.getMemberId()
+					//+ "' and pv.member_type = '" + tempDTO.getMemberType()
 					+ "' " + jwhere ;
 		param.put("executsql", sql);
 		List<HashMap> rs1 = extendsDAO.queryAll(param);

@@ -21,6 +21,7 @@
 		var url="approvemedicalmemberinit.action?bizCheckDTO.bizId="+v;
 		var f="dialogWidth=650px;dialogHeight=550px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
+		//window.open(url);
 	}
 	function changetr(id,c1,c2){
 		var h=document.getElementById('r'+id);
