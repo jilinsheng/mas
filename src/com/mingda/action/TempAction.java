@@ -692,16 +692,12 @@ public class TempAction extends ActionSupport {
 			tempDTO.setPaySumAssistIn(ciDTO.getPaySumAssistIn());
 			tempDTO.setPaySumAssistOut(ciDTO.getPaySumAssistOut());
 			tempDTO.setSumMedicareScope(ciDTO.getSumMedicareScope());
-			//tempDTO.setPayCIAssist(ciDTO.getPayCIAssist());
+			tempDTO.setPayCIAssist(ciDTO.getPayCIAssist());
 			HashMap m = tempService.findtempmoney(tempDTO);
 			json.put("in", ciDTO.getPaySumAssistIn());
 			json.put("out", ciDTO.getPaySumAssistOut());
 			json.put("scope", ciDTO.getSumMedicareScope());
-			if(tempDTO.getPayCIAssist().compareTo(new BigDecimal(ciDTO.getPayCIAssist().toString()))==0){
-				json.put("ci", ciDTO.getPayCIAssist());
-			}else{
-				json.put("ci", tempDTO.getPayCIAssist());
-			}
+			json.put("ci", ciDTO.getPayCIAssist());
 			json.put("m", m.get("m"));
 			json.put("info", m.get("info"));
 			log.debug("####>>>>" + json.toString());
@@ -734,7 +730,7 @@ public class TempAction extends ActionSupport {
 		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
 		ciDTO = yljzService.getCiAssistByPaperID(ciDTO);
 		// 外伤、未经医保/新农合确认的转诊
-		if (tempDTO.getDiagnoseTypeId() != 0) {
+		if (!"0".equals(tempDTO.getOtherType())) {
 			ciDTO.setPayCIAssist(getCia(tempDTO));
 		}
 		System.out.println(tempDTO.getMedicareType());
@@ -825,7 +821,7 @@ public class TempAction extends ActionSupport {
 		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
 		ciDTO = yljzService.getCiAssistByPaperID(ciDTO);
 		// 外伤、未经医保/新农合确认的转诊
-		if (tempDTO.getDiagnoseTypeId() != 0) {
+		if ("0".equals(tempDTO.getDiagnoseTypeId())) {
 			ciDTO.setPayCIAssist(getCia(tempDTO));
 		}
 		if ("1".equals(ciDTO.getReturnFlag())) {
