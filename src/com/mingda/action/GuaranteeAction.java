@@ -193,7 +193,7 @@ public class GuaranteeAction extends ActionSupport {
 			}
 			jwhere = jwhere + " and  wbh.familyno like '" + oid + "%' ";
 			sql = "select wbh.* ,substr(wbh.assist_type,4,1) as type, org.orgname from wubaohu wbh, manager_org org "
-					+ "where org.organization_id = substr(wbh.familyno,1,10) "
+					+ "where org.serialnumber = substr(wbh.familyno,1,10) "
 					+ " and wbh.flag = '1' ";
 			sql = sql + jwhere + "  order by wbh.familyno";
 			session.put("sql", sql);
