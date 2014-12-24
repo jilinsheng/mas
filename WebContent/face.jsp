@@ -32,6 +32,7 @@ padding:0px;
     <area shape="rect" coords="299,239,432,374" href="face3.jsp" target="_self" />
     <area shape="rect" coords="161,239,294,374" href="face2.jsp" target="_self" />
     <area shape="rect" coords="23,239,156,374" href="face1.jsp" target="_self" />
+     <area shape="rect" coords="575,239,908,374" href="http://10.3.1.11/default" target="_blank" />
   </map> 
 </div>
 </body>

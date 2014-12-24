@@ -2352,8 +2352,8 @@ public class TempAction extends ActionSupport {
 			SecondBatchDTO secondBatchDTO = new SecondBatchDTO();
 			secondBatchDTO.setOrganizationId(organizationId);
 			// 临时修改-20140106
-			// secondBatchDTO.setYear(year);
-			secondBatchDTO.setYear(2013);
+			secondBatchDTO.setYear(year);
+			//secondBatchDTO.setYear(2013);
 			sbs = tempService.findSecondBatchs(secondBatchDTO);
 			if (null != sbs && sbs.size() > 0) {
 				impl = "0";// 生成审批数据不能操作
@@ -2380,8 +2380,8 @@ public class TempAction extends ActionSupport {
 		int year = calendar.get(Calendar.YEAR);
 		if (null == cur_page || "".equals(cur_page)) {
 			// 临时修改-20140106
-			// tempSecondDTO.setYear((new BigDecimal(year)).toString());
-			tempSecondDTO.setYear("2013");
+			tempSecondDTO.setYear((new BigDecimal(year)).toString());
+			//tempSecondDTO.setYear("2013");
 			BigDecimal bb = new BigDecimal(tempSecondDTO.getSalpercent());
 			if (null == app || "".equals(app)) {
 
@@ -2460,8 +2460,8 @@ public class TempAction extends ActionSupport {
 		SecondBatchDTO secondBatchDTO = new SecondBatchDTO();
 		secondBatchDTO.setOrganizationId(organizationId);
 		// 临时修改-20140106
-		// secondBatchDTO.setYear(year);
-		secondBatchDTO.setYear(2013);
+	    secondBatchDTO.setYear(year);
+		//secondBatchDTO.setYear(2013);
 		sbs = tempService.findSecondBatchs(secondBatchDTO);
 		if (null != sbs && sbs.size() > 0) {
 			impl = "0";// 生成审批数据不能操作
@@ -2493,8 +2493,8 @@ public class TempAction extends ActionSupport {
 		Calendar calendar = Calendar.getInstance();
 		int year = calendar.get(Calendar.YEAR);
 		// 临时修改-20140106
-		// tempSecondDTO.setYear((new BigDecimal(year)).toString());
-		tempSecondDTO.setYear("2013");
+		tempSecondDTO.setYear((new BigDecimal(year)).toString());
+		//tempSecondDTO.setYear("2013");
 
 		String sql = "select * from second_approve t  where t.familyno like '"
 				+ organizationId + "%'";
@@ -2673,8 +2673,8 @@ public class TempAction extends ActionSupport {
 			if (6 == organizationId.length() || 8 == organizationId.length()) {
 				secondBatchDTO.setOrganizationId(organizationId);
 				// 临时救助-20140106
-				// secondBatchDTO.setYear(year);
-				secondBatchDTO.setYear(2013);
+				secondBatchDTO.setYear(year);
+				//secondBatchDTO.setYear(2013);
 				sbs = tempService.findSecondBatchs(secondBatchDTO);
 				if (null != sbs && sbs.size() > 0) {
 					impl = "0";// 不能操作
@@ -2728,8 +2728,8 @@ public class TempAction extends ActionSupport {
 		String organizationId = user.getOrganizationId();
 		Calendar calendar = Calendar.getInstance();
 		// 临时修改---20140106
-		// int year = calendar.get(Calendar.YEAR);
-		int year = 2013;
+		int year = calendar.get(Calendar.YEAR);
+		//int year = 2013;
 		sbs = tempService.findSecondBatchs(organizationId, year);
 		// secondBatchDTO.setYear(year);
 		// 生成EXCEL
