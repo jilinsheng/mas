@@ -376,6 +376,7 @@ public class ReportServiceImpl implements ReportService {
 			PayDTO e = new PayDTO();
 			e.setSubsection((String)s.get("SUBSECTION"));
 			e.setPersum((BigDecimal)s.get("PERSUM"));
+			e.setPnum((BigDecimal)s.get("PNUM"));
 			e.setPayTotal(new BigDecimal(toFormat((BigDecimal)s.get("TOTAL"))));
 			e.setPayOutmedicare(new BigDecimal(toFormat((BigDecimal)s.get("OUTMEDICARE"))));
 			e.setPayMedicare(new BigDecimal(toFormat((BigDecimal)s.get("MEDICARE"))));

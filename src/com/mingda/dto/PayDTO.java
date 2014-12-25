@@ -30,6 +30,7 @@ public class PayDTO {
 	private String membeType;
 	private String subsection;
 	private BigDecimal persum;
+	private BigDecimal pnum;
 	private String subfrom;
 	private String subto;
 	private String name;
@@ -337,5 +338,13 @@ public class PayDTO {
 
 	public void setOrgname(String orgname) {
 		this.orgname = orgname;
+	}
+
+	public BigDecimal getPnum() {
+		return pnum;
+	}
+
+	public void setPnum(BigDecimal pnum) {
+		this.pnum = pnum;
 	}
 }

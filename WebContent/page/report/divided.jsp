@@ -42,11 +42,15 @@
 										<%-- 选择机构：<s:select name="oid" list="orgs"
 										listKey="organizationId" listValue="orgname"></s:select>&nbsp;&nbsp; --%>
 										年份：<s:select value="year" name="year"
-											list="#{'2012':'2012','2013':'2013','2014':'2014','2015':'2015','2016':'2016'}" 
-											listKey="key" listValue="value"> 
+											list="#{'2012':'2012','2013':'2013','2015':'2015','2016':'2016'}" 
+											listKey="key" listValue="value" headerKey="2014" headerValue="2014"> 
 											</s:select>&nbsp;&nbsp;
 										人员类别：<s:select value="type" name="type"
 											list="#{ '':'全部','1':'城市低保对象','2':'农村低保对象','3':'城市特困供养人员【三无,孤儿】','4':'农村特困供养人员【五保】'}" 
+											listKey="key" listValue="value"> 
+											</s:select>&nbsp;&nbsp;
+										病种：<s:select value="diagnosename" name="diagnosename"
+											list="#{ '':'全部','10':'肺结核','20':'尿毒症','30':'精神病'}" 
 											listKey="key" listValue="value"> 
 											</s:select>&nbsp;&nbsp;
 											<s:submit value="查询"></s:submit>
@@ -66,24 +70,26 @@
 					cellpadding="0" cellspacing="0">
 					<tr>	
 						<th>个人年度住院医疗 总费用统计分段 </th>
+						<th>人数</th>
+						<th>人次</th>
 						<th>总费用（元）</th>
 						<th>目录外费用（元）</th>
 						<th>医保/农合报销（元）</th>
 						<th>大病保险（元）</th>
 						<th>医疗救助（元）</th>
 						<!-- <th>个人自理（元）</th> -->
-						<th>人数</th>
 					</tr>
 					<s:iterator value="paylist">
 						<tr>
-							<td><s:property value="subsection" /></td>	
+							<td><s:property value="subsection" /></td>
+							<td><s:property value="persum" /></td>
+							<td><s:property value="pnum"/></td>
 							<td class="right"><s:property value="payTotal" /></td>
 							<td class="right"><s:property value="payOutmedicare" /></td>
 							<td class="right"><s:property value="payMedicare" /></td>
 							<td class="right"><s:property value="payCIAssist" /></td>
 							<td class="right"><s:property value="payAssist" /></td>
 							<%-- <td class="right"><s:property value="paySelf" /></td> --%>
-							<td><s:property value="persum" /></td>
 						</tr>
 					</s:iterator>
 		</table>

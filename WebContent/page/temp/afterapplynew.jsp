@@ -117,7 +117,8 @@
 			alert('本次大病保险支付金额为空！请点击[计算大病保险金额]按钮！');
 			return false;
 		} */
-		if(temps.length>0 || files!=null){
+		//2014-12-25修改，取消附件必须上传；
+		/* if(temps.length>0 || files!=null){
 			
 			for ( var i = 0; i < temps.length; i++) {
 				if (temps[i].value == '') {
@@ -130,7 +131,7 @@
 		}else{
 			alert('你必须上传附件!');
 			return false;
-		}
+		} */
 
 	}
 	function del(fid){
@@ -1444,7 +1445,13 @@
 			</s:iterator>
 			<br>
 			<button type="button" onclick="add()">添加附件</button>
-			<font color="#8A8A8A">(附件说明:扫描仪分辨率设置为100dpi;单张图片建议大小50KB~200KB;单次上传图片总量小于1024KB)</font>
+			<font color="#8A8A8A">&nbsp;&nbsp;附件说明:①扫描仪分辨率设置为100dpi;单张图片建议大小50KB~200KB;单次上传图片总量小于1024KB;
+			<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;②有附件的上传附件，没有附件的可以不上传;</font>
 			<br>
 			<div align="left" style=" display: block" id="dfile2">
 			</div>

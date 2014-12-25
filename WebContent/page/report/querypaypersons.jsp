@@ -11,8 +11,8 @@
 <html>
 <head>
 <script type="text/javascript">
-	function show(id,type){
-		var url="queryAllpaysByPerinfo.action?payDTO.memberId="+id+"&payDTO.membeType="+type;
+	function show(id,type,opttime1from,opttime1to){
+		var url="queryAllpaysByPerinfo.action?payDTO.memberId="+id+"&payDTO.membeType="+type+"&opttime1from="+opttime1from+"&opttime1to="+opttime1to;
 		var f="dialogWidth=1200px;dialogHeight=500px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
@@ -59,7 +59,7 @@
 	<s:iterator value="paylist">
 		<tr>
 			<td><s:property value="familyno" /></td>
-			<td><a href="javascript:void(0)" onclick="show('<s:property value="memberId" />','<s:property value="membeType" />')" style="text-decoration:none;">
+			<td><a href="javascript:void(0)" onclick="show('<s:property value="memberId" />','<s:property value="membeType" />','<s:property value="opttime1from"/>','<s:property value="opttime1to"/>')" style="text-decoration:none;">
 			<%-- <a href="page/report/queryAllpaysByPerinfo.action?payDTO.memberId=<s:property value="memberId" />&payDTO.membeType=<s:property value="membeType" />" target="_blank"> --%>
 			<s:property value="name" /></a></td>
 			<td><s:property value="paperid" /></td>

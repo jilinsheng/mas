@@ -10,7 +10,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Pragma" content="no-cache">
@@ -18,7 +17,7 @@
 <title>生成临时救助</title>
 <script type="text/javascript">
 	function viewapply() {
-		var url = "genbilldatainit.action";
+		var url = "page/temp/genbilldatainit.action";
 		var f = "dialogWidth=700px;dialogHeight=510px;status=no;help=no;scroll=auto";
 		//window.showModalDialog(url, window, f);
 		window.open (url,'生成临时救助','height=510,width=700,top=50,left=100,toolbar=no,menubar=no,scrollbars=yes,resizable=no,location=no,status=no');

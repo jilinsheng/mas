@@ -71,6 +71,7 @@ public class ReportAction extends ActionSupport {
 	private String toolsmenu;
 	private String year;
 	private List<RateDTO> ratelist;
+	private String diagnosename;
 	
 	// 登录人所属机构信息
 	UserDTO user = (UserDTO) ActionContext.getContext().getSession().get("user");
@@ -1617,7 +1618,7 @@ public class ReportAction extends ActionSupport {
 		}
 		if("".equals(opttime1from) && "".equals(opttime1to)){
 		}else{
-			jwhere = jwhere + " and  exists ( select 1 from payview02 av where av.biztype in ('ma', 'biz') and av.member_id = bpay.member_id and av.member_type = bpay.member_type " ;
+			/*jwhere = jwhere + " and  exists ( select 1 from payview02 av where av.biztype in ('ma', 'biz') and av.member_id = bpay.member_id and av.member_type = bpay.member_type " ;
 			if(!"".equals(opttime1from) && !"".equals(opttime1to)){
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 				try{
@@ -1638,7 +1639,27 @@ public class ReportAction extends ActionSupport {
 			}else if("".equals(opttime1from) && !"".equals(opttime1to)){
 				jwhere = jwhere + " and av.oper_time > TO_DATE('" + opttime1to + " 23:59:59','yyyy-MM-dd hh24:mi:ss') ";
 			}
-			jwhere = jwhere + ") ";
+			jwhere = jwhere + ") ";*/
+			if(!"".equals(opttime1from) && !"".equals(opttime1to)){
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				try{
+					Date optFromDate = format.parse(opttime1from);
+					Date optToDate = format.parse(opttime1to);
+					if(optFromDate.after(optToDate)){
+						jwhere = jwhere + " and bpay.oper_time BETWEEN TO_DATE('" + opttime1to + " 00:00:00','yyyy-MM-dd hh24:mi:ss') "
+								+ " AND TO_DATE('" + opttime1from + " 23:59:59','yyyy-MM-dd hh24:mi:ss')";
+					}else if(optFromDate.before(optToDate)|| optFromDate.equals(optToDate)){
+						jwhere = jwhere + " and bpay.oper_time BETWEEN TO_DATE('" + opttime1from + " 00:00:00','yyyy-MM-dd hh24:mi:ss') "
+								+ " AND TO_DATE('" + opttime1to + " 23:59:59','yyyy-MM-dd hh24:mi:ss')";
+					}
+				}catch(ParseException  e){
+					e.printStackTrace();
+				}
+			}else if(!"".equals(opttime1from) && "".equals(opttime1to)){
+				jwhere = jwhere + " and bpay.oper_time < TO_DATE('" + opttime1from + " 00:00:00','yyyy-MM-dd hh24:mi:ss') ";
+			}else if("".equals(opttime1from) && !"".equals(opttime1to)){
+				jwhere = jwhere + " and bpay.oper_time > TO_DATE('" + opttime1to + " 23:59:59','yyyy-MM-dd hh24:mi:ss') ";
+			}
 		}
 		String sql= " select rownum, t.* from (select case "
 				+" when apay.total between 0 and 1000 then          "  
@@ -1777,7 +1798,9 @@ public class ReportAction extends ActionSupport {
 			}
 			if("".equals(opttime1from) && "".equals(opttime1to)){
 			}else{
-				jwhere1 = jwhere1 + " and  exists ( select 1 from payview02 av where av.biztype in ('ma', 'biz') and av.member_id = bpay.member_id and av.member_type = bpay.member_type " ;
+				this.setOpttime1from(opttime1from);
+				this.setOpttime1to(opttime1to);
+				/*jwhere1 = jwhere1 + " and  exists ( select 1 from payview02 av where av.biztype in ('ma', 'biz') and av.member_id = bpay.member_id and av.member_type = bpay.member_type " ;
 				if(!"".equals(opttime1from) && !"".equals(opttime1to)){
 					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 					try{
@@ -1798,7 +1821,27 @@ public class ReportAction extends ActionSupport {
 				}else if("".equals(opttime1from) && !"".equals(opttime1to)){
 					jwhere1 = jwhere1 + " and av.oper_time > TO_DATE('" + opttime1to + " 23:59:59','yyyy-MM-dd hh24:mi:ss') ";
 				}
-				jwhere1 = jwhere1 + ") ";
+				jwhere1 = jwhere1 + ") ";*/
+				if(!"".equals(opttime1from) && !"".equals(opttime1to)){
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+					try{
+						Date optFromDate = format.parse(opttime1from);
+						Date optToDate = format.parse(opttime1to);
+						if(optFromDate.after(optToDate)){
+							jwhere1 = jwhere1 + " and bpay.oper_time BETWEEN TO_DATE('" + opttime1to + " 00:00:00','yyyy-MM-dd hh24:mi:ss') "
+									+ " AND TO_DATE('" + opttime1from + " 23:59:59','yyyy-MM-dd hh24:mi:ss')";
+						}else if(optFromDate.before(optToDate)|| optFromDate.equals(optToDate)){
+							jwhere1 = jwhere1 + " and bpay.oper_time BETWEEN TO_DATE('" + opttime1from + " 00:00:00','yyyy-MM-dd hh24:mi:ss') "
+									+ " AND TO_DATE('" + opttime1to + " 23:59:59','yyyy-MM-dd hh24:mi:ss')";
+						}
+					}catch(ParseException  e){
+						e.printStackTrace();
+					}
+				}else if(!"".equals(opttime1from) && "".equals(opttime1to)){
+					jwhere1 = jwhere1 + " and bpay.oper_time < TO_DATE('" + opttime1from + " 00:00:00','yyyy-MM-dd hh24:mi:ss') ";
+				}else if("".equals(opttime1from) && !"".equals(opttime1to)){
+					jwhere1 = jwhere1 + " and bpay.oper_time > TO_DATE('" + opttime1to + " 23:59:59','yyyy-MM-dd hh24:mi:ss') ";
+				}
 			}
 		if(null==subsection&&"".equals(subsection)){
 		}else{
@@ -1870,6 +1913,27 @@ public class ReportAction extends ActionSupport {
 	public String queryAllpaysByPerinfo(){
 		Map session = ActionContext.getContext().getSession();
 		String sql = "";
+		String jwhere1 = "";
+		if(!"".equals(opttime1from) && !"".equals(opttime1to)){
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			try{
+				Date optFromDate = format.parse(opttime1from);
+				Date optToDate = format.parse(opttime1to);
+				if(optFromDate.after(optToDate)){
+					jwhere1 = jwhere1 + " and pay.oper_time BETWEEN TO_DATE('" + opttime1to + " 00:00:00','yyyy-MM-dd hh24:mi:ss') "
+							+ " AND TO_DATE('" + opttime1from + " 23:59:59','yyyy-MM-dd hh24:mi:ss')";
+				}else if(optFromDate.before(optToDate)|| optFromDate.equals(optToDate)){
+					jwhere1 = jwhere1 + " and pay.oper_time BETWEEN TO_DATE('" + opttime1from + " 00:00:00','yyyy-MM-dd hh24:mi:ss') "
+							+ " AND TO_DATE('" + opttime1to + " 23:59:59','yyyy-MM-dd hh24:mi:ss')";
+				}
+			}catch(ParseException  e){
+				e.printStackTrace();
+			}
+		}else if(!"".equals(opttime1from) && "".equals(opttime1to)){
+			jwhere1 = jwhere1 + " and pay.oper_time < TO_DATE('" + opttime1from + " 00:00:00','yyyy-MM-dd hh24:mi:ss') ";
+		}else if("".equals(opttime1from) && !"".equals(opttime1to)){
+			jwhere1 = jwhere1 + " and pay.oper_time > TO_DATE('" + opttime1to + " 23:59:59','yyyy-MM-dd hh24:mi:ss') ";
+		}
 		reportname = 
 		sql = " select pay.*, nvl(pay.pay_total - pay.pay_medicare - pay.pay_assist - pay.pay_ciassist,0) as pay_self," 
 				+ " base.membername, base.paperid, base.familyno " 
@@ -1922,6 +1986,7 @@ public class ReportAction extends ActionSupport {
 				+ " on base.member_id = pay.member_id "
 				+ " and base.ds = pay.member_type "
 				+ " where pay.member_id = '"+ payDTO.getMemberId() + "' and pay.member_type = '" + payDTO.getMembeType() + "'"
+				+ jwhere1
 				+ " order by pay.oper_time desc ";
 		paylist = reportService.findAllpaysByPer(sql);
 		reportname = paylist.get(0).getName();
@@ -9121,7 +9186,7 @@ public class ReportAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-		if (6 == organizationId.length() ) {
+		if (6 >= organizationId.length() ) {
 			if (2 == organizationId.length()) {
 				orgs = systemDataService.findOrganizationExt(organizationId);
 			} else {
@@ -9130,7 +9195,7 @@ public class ReportAction extends ActionSupport {
 			return SUCCESS;
 
 		} else {
-			result = "此功能为区县使用！";
+			result = "此功能没有权限使用！";
 			return "result";
 		}
 	}
@@ -9146,6 +9211,19 @@ public class ReportAction extends ActionSupport {
 		if(!"".equals(year)&& !(null==year)){
 			jwhere = jwhere + " and to_char(bpay.oper_time,'yyyy')='" + year + "' ";
 		}
+		String diagnosenametxt="";
+		if(null == diagnosename || "".equals(diagnosename)){
+			
+		}else{
+			if("10".equals(diagnosename)){
+				diagnosenametxt = "肺结核";
+			}else if("20".equals(diagnosename)){
+				diagnosenametxt = "尿毒症";
+			}else if("30".equals(diagnosename)){
+				diagnosenametxt = "精神病";
+			}
+			jwhere = jwhere + " and bpay.diagnose_name like '%" + diagnosenametxt + "%' ";
+		}
 		if("1".equals(type)){
 			jwhere = jwhere + " and substr(bpay.person_type,1,1)<>'0' and bpay.member_type='1' ";
 		}else if("2".equals(type)){
@@ -9157,34 +9235,147 @@ public class ReportAction extends ActionSupport {
 		}
 			
 		String sql= " select rownum, t.* from (select case "
-				+" when apay.total between 0 and 500 then    "
-				+"  '0--500'    "
-				+" when apay.total between 500.01 and 1000 then    "
-				+"  '500--1000'    "
-				+" when apay.total between 1000.01 and 2000 then    "
-				+"  '1000--2000'    "
-				+" when apay.total between 2000.01 and 3000 then    "
-				+"  '2000--3000'    "
-				+" when apay.total between 3000.01 and 4000 then    "
-				+"  '3000--4000'    "
-				+" when apay.total between 4000.01 and 5000 then    "
-				+"  '4000--5000'    "
-				+" when apay.total between 5000.01 and 10000 then    "
-				+"  '5000--10000'    "
-				+" when apay.total between 10000.01 and 20000 then    "
-				+"  '10000--20000'    "
-				+" when apay.total between 20000.01 and 30000 then    "
-				+"  '20000--30000'    "
-				+" when apay.total between 30000.01 and 40000 then    "
-				+"  '30000--40000'    "
-				+" when apay.total between 40000.01 and 50000 then    "
-				+"  '40000--50000'    "
-				+" when apay.total between 50000.01 and 100000 then    "
-				+"  '50000--100000'    "
-				+" when apay.total >= 100000.01 then    "
-				+"  '100000-->'    "
+				+" when apay.total between 0 and 1000 then  "
+				+"  '0--1000'  "
+				+" when apay.total between 1000.01 and 2000 then  "
+				+"  '1000--2000'  "
+				+" when apay.total between 2000.01 and 3000 then  "
+				+"  '2000--3000'  "
+				+" when apay.total between 3000.01 and 4000 then  "
+				+"  '3000--4000'  "
+				+" when apay.total between 4000.01 and 5000 then  "
+				+"  '4000--5000'  "
+				+" when apay.total between 5000.01 and 6000 then  "
+				+"  '5000--6000'  "
+				+" when apay.total between 6000.01 and 7000 then  "
+				+"  '6000--7000'  "
+				+" when apay.total between 7000.01 and 8000 then  "
+				+"  '7000--8000'  "
+				+" when apay.total between 8000.01 and 9000 then  "
+				+"  '8000--9000'  "
+				+" when apay.total between 9000.01 and 10000 then  "
+				+"  '9000--10000'  "
+				+" when apay.total between 10000.01 and 15000 then  "
+				+"  '10000--15000'  "
+				+" when apay.total between 15000.01 and 20000 then  "
+				+"  '15000--20000'  "
+				+" when apay.total between 20000.01 and 25000 then  "
+				+"  '20000--25000' "
+				+" when apay.total between 25000.01 and 30000 then  "
+				+"  '25000--30000'  "
+				+" when apay.total between 30000.01 and 35000 then  "
+				+"  '30000--35000'  "
+				+" when apay.total between 35000.01 and 40000 then  "
+				+"  '35000--40000'  "
+				+" when apay.total between 40000.01 and 45000 then  "
+				+"  '40000--45000'  "
+				+" when apay.total between 45000.01 and 50000 then  "
+				+"  '45000--50000'  "
+				+" when apay.total between 50000.01 and 55000 then  "
+				+"  '50000--55000'  "
+				+" when apay.total between 55000.01 and 60000 then  "
+				+"  '55000--60000'  "
+				+" when apay.total between 60000.01 and 65000 then  "
+				+"  '60000--65000'  "
+				+" when apay.total between 65000.01 and 70000 then  "
+				+"  '65000--70000'  "
+				+" when apay.total between 70000.01 and 75000 then  "
+				+"  '70000--75000'  "
+				+" when apay.total between 75000.01 and 80000 then  "
+				+"  '75000--80000'  "
+				+" when apay.total between 80000.01 and 85000 then  "
+				+"  '80000--85000'  "
+				+" when apay.total between 85000.01 and 90000 then  " 
+				+"  '85000--90000'  "
+				+" when apay.total between 90000.01 and 95000 then  "
+				+"  '90000--95000'  "
+				+" when apay.total between 95000.01 and 100000 then  "
+				+"  '95000--100000'  "
+				+" when apay.total between 100000.01 and 105000 then  "
+				+"  '100000--105000' "
+				+" when apay.total between 105000.01 and 110000 then  "
+				+"  '105000--110000' "
+				+" when apay.total between 110000.01 and 115000 then  "
+				+"  '110000--115000'  "
+				+" when apay.total between 115000.01 and 120000 then  "
+				+"  '115000--120000'  "
+				+" when apay.total between 120000.01 and 125000 then  "
+				+"  '120000--125000'  "
+				+" when apay.total between 125000.01 and 130000 then  "
+				+"  '125000--130000'  "
+				+" when apay.total between 130000.01 and 135000 then  "
+				+"  '130000--135000'  "
+				+" when apay.total between 135000.01 and 140000 then  "
+				+"  '135000--140000'  "
+				+" when apay.total between 140000.01 and 145000 then  "
+				+"  '140000--145000'  "
+				+" when apay.total between 145000.01 and 150000 then  "
+				+"  '145000--150000'  "
+				+" when apay.total between 150000.01 and 155000 then  "
+				+"  '150000--155000'  "
+				+" when apay.total between 155000.01 and 160000 then  "
+				+"  '155000--160000'  "
+				+" when apay.total between 160000.01 and 165000 then  "
+				+"  '160000--165000'  "
+				+" when apay.total between 165000.01 and 170000 then  "
+				+"  '165000--170000'  "
+				+" when apay.total between 170000.01 and 175000 then  "
+				+"  '170000--175000'  "
+				+" when apay.total between 175000.01 and 180000 then  "
+				+"  '175000--180000'  "
+				+" when apay.total between 180000.01 and 185000 then  "
+				+"  '180000--185000'  "
+				+" when apay.total between 185000.01 and 190000 then  "
+				+"  '185000--190000'  "
+				+" when apay.total between 190000.01 and 195000 then  "
+				+"  '190000--195000'  "
+				+" when apay.total between 195000.01 and 200000 then  "
+				+"  '195000--200000'  "
+				+" when apay.total between 200000.01 and 205000 then  "
+				+"  '200000--205000'  "
+				+" when apay.total between 205000.01 and 210000 then  "
+				+"  '205000--210000'  "
+				+" when apay.total between 210000.01 and 215000 then  "
+				+"  '210000--215000'  "
+				+" when apay.total between 215000.01 and 220000 then  "
+				+"  '215000--220000'  "
+				+" when apay.total between 220000.01 and 225000 then  "
+				+"  '220000--225000'  "
+				+" when apay.total between 225000.01 and 230000 then  "
+				+"  '225000--230000'  "
+				+" when apay.total between 230000.01 and 235000 then  "
+				+"  '230000--235000'  "
+				+" when apay.total between 235000.01 and 240000 then  "
+				+"  '235000--240000'  "
+				+" when apay.total between 240000.01 and 245000 then  "
+				+"  '240000--245000'  "
+				+" when apay.total between 245000.01 and 250000 then  "
+				+"  '245000--250000'  "
+				+" when apay.total between 250000.01 and 255000 then  "
+				+"  '250000--255000'  "
+				+" when apay.total between 255000.01 and 260000 then  "
+				+"  '255000--260000'  "
+				+" when apay.total between 260000.01 and 265000 then  "
+				+"  '260000--265000'  "
+				+" when apay.total between 265000.01 and 270000 then  "
+				+"  '265000--270000'  "
+				+" when apay.total between 270000.01 and 275000 then  "
+				+"  '270000--275000'  "
+				+" when apay.total between 275000.01 and 280000 then  "
+				+"  '275000--280000'  "
+				+" when apay.total between 280000.01 and 285000 then  "
+				+"  '280000--285000'  "
+				+" when apay.total between 285000.01 and 290000 then  "
+				+"  '285000--290000'  "
+				+" when apay.total between 290000.01 and 295000 then  "
+				+"  '290000--295000'  "
+				+" when apay.total between 295000.01 and 300000 then  "
+				+"  '295000--300000'  "
+				+" when apay.total >= 300000.01 then  "
+				+"  '300000-->'  "
                 +" end as subsection,                                  "
                 +" count(apay.persum) as persum,      "
+                +" sum(apay.pnum) as pnum, "
                 +" nvl(sum(apay.total), 0) as total,                "
                 +" nvl(sum(apay.outmedicare), 0) as outmedicare,    "
                 +" nvl(sum(apay.medicare), 0) as medicare,          "
@@ -9206,38 +9397,152 @@ public class ReportAction extends ActionSupport {
                 +" pay.id_card, "
                 +" pay.family_no, "
                 +" pay.person_type, "
-                +" pay.pay_ciassist, pay.member_id, pay.member_type, pay.oper_time from payview02 pay "
+                +" pay.pay_ciassist, pay.member_id, pay.member_type,"
+                +" pay.diagnose_name, pay.oper_time "
+                +" from payview02 pay "
                 +" where pay.biztype in ('ma', 'biz')) bpay "
                 +" where 1 = 1 " + jwhere
                 +" group by bpay.id_card) apay "
                 +" where 1 = 1 "
                 +" group by case "
-                +" when apay.total between 0 and 500 then    "
-                +"  '0--500'    "
-                +" when apay.total between 500.01 and 1000 then    "
-                +"  '500--1000'    "
-                +" when apay.total between 1000.01 and 2000 then    "
-                +"  '1000--2000'    "
-                +" when apay.total between 2000.01 and 3000 then    "
-                +"  '2000--3000'    "
-                +" when apay.total between 3000.01 and 4000 then    "
-                +"  '3000--4000'    "
-                +" when apay.total between 4000.01 and 5000 then    "
-                +"  '4000--5000'    "
-                +" when apay.total between 5000.01 and 10000 then    "
-                +"  '5000--10000'    "
-                +" when apay.total between 10000.01 and 20000 then    "
-                +"  '10000--20000'    "
-                +" when apay.total between 20000.01 and 30000 then    "
-                +"  '20000--30000'    "
-                +" when apay.total between 30000.01 and 40000 then    "
-                +"  '30000--40000'    "
-                +" when apay.total between 40000.01 and 50000 then    "
-                +"  '40000--50000'    "
-                +" when apay.total between 50000.01 and 100000 then    "
-                +"  '50000--100000'    "
-                +" when apay.total >= 100000.01 then    "
-                +"  '100000-->'    "
+                +" when apay.total between 0 and 1000 then  "
+                +"  '0--1000'  "
+                +" when apay.total between 1000.01 and 2000 then  "
+                +"  '1000--2000'  "
+                +" when apay.total between 2000.01 and 3000 then  "
+                +"  '2000--3000'  "
+                +" when apay.total between 3000.01 and 4000 then  "
+                +"  '3000--4000'  "
+                +" when apay.total between 4000.01 and 5000 then  "
+                +"  '4000--5000'  "
+                +" when apay.total between 5000.01 and 6000 then  "
+                +"  '5000--6000'  "
+                +" when apay.total between 6000.01 and 7000 then  "
+                +"  '6000--7000'  "
+                +" when apay.total between 7000.01 and 8000 then  "
+                +"  '7000--8000'  "
+                +" when apay.total between 8000.01 and 9000 then  "
+                +"  '8000--9000'  "
+                +" when apay.total between 9000.01 and 10000 then  "
+                +"  '9000--10000'  "
+                +" when apay.total between 10000.01 and 15000 then  "
+                +"  '10000--15000'  "
+                +" when apay.total between 15000.01 and 20000 then  "
+                +"  '15000--20000'  "
+                +" when apay.total between 20000.01 and 25000 then  "
+                +"  '20000--25000' "
+                +" when apay.total between 25000.01 and 30000 then  "
+                +"  '25000--30000'  "
+                +" when apay.total between 30000.01 and 35000 then  "
+                +"  '30000--35000'  "
+                +" when apay.total between 35000.01 and 40000 then  "
+                +"  '35000--40000'  "
+                +" when apay.total between 40000.01 and 45000 then  "
+                +"  '40000--45000'  "
+                +" when apay.total between 45000.01 and 50000 then  "
+                +"  '45000--50000'  "
+                +" when apay.total between 50000.01 and 55000 then  "
+                +"  '50000--55000'  "
+                +" when apay.total between 55000.01 and 60000 then  "
+                +"  '55000--60000'  "
+                +" when apay.total between 60000.01 and 65000 then  "
+                +"  '60000--65000'  "
+                +" when apay.total between 65000.01 and 70000 then  "
+                +"  '65000--70000'  "
+                +" when apay.total between 70000.01 and 75000 then  "
+                +"  '70000--75000'  "
+                +" when apay.total between 75000.01 and 80000 then  "
+                +"  '75000--80000'  "
+                +" when apay.total between 80000.01 and 85000 then  "
+                +"  '80000--85000'  "
+                +" when apay.total between 85000.01 and 90000 then  " 
+                +"  '85000--90000'  "
+                +" when apay.total between 90000.01 and 95000 then  "
+                +"  '90000--95000'  "
+                +" when apay.total between 95000.01 and 100000 then  "
+                +"  '95000--100000'  "
+                +" when apay.total between 100000.01 and 105000 then  "
+                +"  '100000--105000' "
+                +" when apay.total between 105000.01 and 110000 then  "
+                +"  '105000--110000' "
+                +" when apay.total between 110000.01 and 115000 then  "
+                +"  '110000--115000'  "
+                +" when apay.total between 115000.01 and 120000 then  "
+                +"  '115000--120000'  "
+                +" when apay.total between 120000.01 and 125000 then  "
+                +"  '120000--125000'  "
+                +" when apay.total between 125000.01 and 130000 then  "
+                +"  '125000--130000'  "
+                +" when apay.total between 130000.01 and 135000 then  "
+                +"  '130000--135000'  "
+                +" when apay.total between 135000.01 and 140000 then  "
+                +"  '135000--140000'  "
+                +" when apay.total between 140000.01 and 145000 then  "
+                +"  '140000--145000'  "
+                +" when apay.total between 145000.01 and 150000 then  "
+                +"  '145000--150000'  "
+                +" when apay.total between 150000.01 and 155000 then  "
+                +"  '150000--155000'  "
+                +" when apay.total between 155000.01 and 160000 then  "
+                +"  '155000--160000'  "
+                +" when apay.total between 160000.01 and 165000 then  "
+                +"  '160000--165000'  "
+                +" when apay.total between 165000.01 and 170000 then  "
+                +"  '165000--170000'  "
+                +" when apay.total between 170000.01 and 175000 then  "
+                +"  '170000--175000'  "
+                +" when apay.total between 175000.01 and 180000 then  "
+                +"  '175000--180000'  "
+                +" when apay.total between 180000.01 and 185000 then  "
+                +"  '180000--185000'  "
+                +" when apay.total between 185000.01 and 190000 then  "
+                +"  '185000--190000'  "
+                +" when apay.total between 190000.01 and 195000 then  "
+                +"  '190000--195000'  "
+                +" when apay.total between 195000.01 and 200000 then  "
+                +"  '195000--200000'  "
+                +" when apay.total between 200000.01 and 205000 then  "
+                +"  '200000--205000'  "
+                +" when apay.total between 205000.01 and 210000 then  "
+                +"  '205000--210000'  "
+                +" when apay.total between 210000.01 and 215000 then  "
+                +"  '210000--215000'  "
+                +" when apay.total between 215000.01 and 220000 then  "
+                +"  '215000--220000'  "
+                +" when apay.total between 220000.01 and 225000 then  "
+                +"  '220000--225000'  "
+                +" when apay.total between 225000.01 and 230000 then  "
+                +"  '225000--230000'  "
+                +" when apay.total between 230000.01 and 235000 then  "
+                +"  '230000--235000'  "
+                +" when apay.total between 235000.01 and 240000 then  "
+                +"  '235000--240000'  "
+                +" when apay.total between 240000.01 and 245000 then  "
+                +"  '240000--245000'  "
+                +" when apay.total between 245000.01 and 250000 then  "
+                +"  '245000--250000'  "
+                +" when apay.total between 250000.01 and 255000 then  "
+                +"  '250000--255000'  "
+                +" when apay.total between 255000.01 and 260000 then  "
+                +"  '255000--260000'  "
+                +" when apay.total between 260000.01 and 265000 then  "
+                +"  '260000--265000'  "
+                +" when apay.total between 265000.01 and 270000 then  "
+                +"  '265000--270000'  "
+                +" when apay.total between 270000.01 and 275000 then  "
+                +"  '270000--275000'  "
+                +" when apay.total between 275000.01 and 280000 then  "
+                +"  '275000--280000'  "
+                +" when apay.total between 280000.01 and 285000 then  "
+                +"  '280000--285000'  "
+                +" when apay.total between 285000.01 and 290000 then  "
+                +"  '285000--290000'  "
+                +" when apay.total between 290000.01 and 295000 then  "
+                +"  '290000--295000'  "
+                +" when apay.total between 295000.01 and 300000 then  "
+                +"  '295000--300000'  "
+                +" when apay.total >= 300000.01 then  "
+                +"  '300000-->'  "
   				+" end "
   				+" order by CAST(substr(subsection, 0,"
   				+" INSTR(subsection, '-', 1, 1) - 1) as int)) t  ";
@@ -9247,6 +9552,7 @@ public class ReportAction extends ActionSupport {
 			//title.put("ROWNUM,val", "序号");	
 			title.put("SUBSECTION,val", "医疗总费用范围");
 			title.put("PERSUM,val", "人数");
+			title.put("PNUM,val", "人次");
 			title.put("TOTAL,val", "总费用");						
 			title.put("MEDICARE,val", "医保/农合报销");
 			title.put("CIASSIST,val", "大病保险");
@@ -9262,7 +9568,7 @@ public class ReportAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-		if (6 == organizationId.length() ) {
+		if (6 >= organizationId.length() ) {
 			if (2 == organizationId.length()) {
 				orgs = systemDataService.findOrganizationExt(organizationId);
 			} else {
@@ -9271,7 +9577,7 @@ public class ReportAction extends ActionSupport {
 			return SUCCESS;
 
 		} else {
-			result = "此功能为区县使用！";
+			result = "此功能没有权限使用！";
 			return "result";
 		}
 	}
@@ -10008,6 +10314,14 @@ public class ReportAction extends ActionSupport {
 
 	public void setRatelist(List<RateDTO> ratelist) {
 		this.ratelist = ratelist;
+	}
+
+	public String getDiagnosename() {
+		return diagnosename;
+	}
+
+	public void setDiagnosename(String diagnosename) {
+		this.diagnosename = diagnosename;
 	}
 
 }

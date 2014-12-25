@@ -42,8 +42,8 @@
 										<%-- 选择机构：<s:select name="oid" list="orgs"
 										listKey="organizationId" listValue="orgname"></s:select>&nbsp;&nbsp; --%>
 										年份：<s:select value="year" name="year"
-											list="#{'2012':'2012','2013':'2013','2014':'2014','2015':'2015','2016':'2016'}" 
-											listKey="key" listValue="value"> 
+											list="#{'2012':'2012','2013':'2013','2015':'2015','2016':'2016'}" 
+											listKey="key" listValue="value" headerKey="2014" headerValue="2014"> 
 											</s:select>&nbsp;&nbsp;
 										来源：<s:select value="type" name="type"
 											list="#{ '':'全部','1':'城市','2':'农村'}" 
