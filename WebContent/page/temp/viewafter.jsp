@@ -54,12 +54,14 @@
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="780px" class="formtable">
 	<tr>
 		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">保险类型：</td>
-		<td class="formtd2" colspan="3">
+		<td class="formtd2">
 			<s:if test="tempDTO.medicareType==1">城镇医保</s:if>
 			<s:if test="tempDTO.medicareType==2">新农合</s:if>
 			<s:if test="tempDTO.medicareType==0">未参保/参合</s:if>
 			<s:if test="tempDTO.medicareType==null">未知</s:if>
 		</td>
+		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">参保编号：</td>
+		<td class="formtd2"><s:property value="tempDTO.ssn" /></td>
 	</tr>
 	<tr>
 		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">医院名称：</td>
@@ -177,6 +179,14 @@
 </table>
 <div align="center">
 <button type="button" onclick="window.close()">关闭</button>
+	<s:if test="tempDTO.organizationId.length()==6">
+		<s:if test="tempDTO.assistype==1">
+		<a href="page/tempreport/printmz.action?tempDTO.approveId=<s:property value='tempDTO.approveId'/>" target="_blank">打印结算单</a>
+		</s:if>
+		<s:if test="tempDTO.assistype==2">
+		<a href="page/tempreport/printzy.action?tempDTO.approveId=<s:property value='tempDTO.approveId'/>" target="_blank">打印结算单</a>
+		</s:if>
+	</s:if>
 </div>
 </body>
 </html>

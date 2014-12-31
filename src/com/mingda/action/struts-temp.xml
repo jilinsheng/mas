@@ -823,4 +823,38 @@
 			</result>
 		</action>
 	</package>
+	<package name="tempreport" extends="jasperreports-default"
+		namespace="/page/tempreport">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+				<action name="printzy" method="printzy" class="tempAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/temp/medicalafterfile/medicalafter_zy.jasper</param>
+				<param name="dataSource">tempDTO</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+		<action name="printmz" method="printmz" class="tempAction">
+			<result name="success" type="jasper">
+				<param name="location">/page/temp/medicalafterfile/medicalafter_mz.jasper</param>
+				<param name="dataSource">tempDTO</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">map</param>
+			</result>
+		</action>
+	</package>
 </struts>

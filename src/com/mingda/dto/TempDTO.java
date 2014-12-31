@@ -116,6 +116,8 @@ public class TempDTO {
 	private Date medicaltimeEnd;
 	private BigDecimal insurance;
 	private int hospitalLevel;
+	private Date systime;
+	private String medicaretypetext;
 	
 	public BigDecimal getPaySumAssistScopeIn() {
 		return paySumAssistScopeIn;
@@ -995,6 +997,22 @@ public class TempDTO {
 
 	public void setHospitalLevel(int hospitalLevel) {
 		this.hospitalLevel = hospitalLevel;
+	}
+
+	public Date getSystime() {
+		return systime;
+	}
+
+	public void setSystime(Date systime) {
+		this.systime = systime;
+	}
+
+	public String getMedicaretypetext() {
+		return medicaretypetext;
+	}
+
+	public void setMedicaretypetext(String medicaretypetext) {
+		this.medicaretypetext = medicaretypetext;
 	}
 
 }

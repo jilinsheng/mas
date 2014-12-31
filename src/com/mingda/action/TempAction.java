@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +26,7 @@ import com.mingda.dto.BillDTO;
 import com.mingda.dto.DeptDTO;
 import com.mingda.dto.DiagnoseTypeDTO;
 import com.mingda.dto.DictDTO;
+import com.mingda.dto.JzMedicalafterBillDTO;
 import com.mingda.dto.JzMedicalafterRuleDTO;
 import com.mingda.dto.JzMedicalafterfileDTO;
 import com.mingda.dto.OrganizationDTO;
@@ -124,6 +126,7 @@ public class TempAction extends ActionSupport {
 	private String minpay;
 	private String bizstatus;
 	private String ds;
+	private JzMedicalafterBillDTO jzMedicalafterBillDTO; 
 
 	@SuppressWarnings("rawtypes")
 	public String createtemppersoninit() {
@@ -712,7 +715,7 @@ public class TempAction extends ActionSupport {
 	// 计算医后大病保险
 	@SuppressWarnings("rawtypes")
 	public String calcaftermoney() {
-		
+
 		JSONObject json = new JSONObject();
 		ciDTO = new CiDTO();
 		ciDTO.setPaperID(tempDTO.getPaperid());
@@ -736,7 +739,7 @@ public class TempAction extends ActionSupport {
 		System.out.println(tempDTO.getMedicareType());
 		System.out.println(tempDTO.getAssistype());
 		System.out.println(tempDTO.getInsurance());
-		if(tempDTO.getInsurance()==null || "".equals(tempDTO.getInsurance())){
+		if (tempDTO.getInsurance() == null || "".equals(tempDTO.getInsurance())) {
 			tempDTO.setInsurance(new BigDecimal("0"));
 		}
 		if ("1".equals(ciDTO.getReturnFlag())) {
@@ -778,7 +781,7 @@ public class TempAction extends ActionSupport {
 					json.put("sum", 0);
 					json.put("preSum", 0);
 				}
-			
+
 			} else {
 				if ("1".equals(tempDTO.getAssistype())
 						&& "1".equals(tempDTO.getJzjButtonFlag())) {
@@ -803,7 +806,7 @@ public class TempAction extends ActionSupport {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public String calcaftermoneyauto2(){
+	public String calcaftermoneyauto2() {
 		JSONObject json = new JSONObject();
 		ciDTO = new CiDTO();
 		ciDTO.setPaperID(tempDTO.getPaperid());
@@ -846,7 +849,7 @@ public class TempAction extends ActionSupport {
 		result = json.toString();
 		return SUCCESS;
 	}
-	
+
 	private BigDecimal getCia(TempDTO tempDTO) {
 		BigDecimal bl = BigDecimal.ZERO;// 大病保险金
 		BigDecimal mline_y = new BigDecimal("9600");// "医保"起助线
@@ -1605,11 +1608,13 @@ public class TempAction extends ActionSupport {
 		FileUpload fu = new FileUpload("/file/medicalafter");
 		mafiles = new ArrayList<JzMedicalafterfileDTO>();
 		long sumFilesSize = 0;
+		tempDTO.setOrganizationId(orgid);
 		tempDTO.setOrg(orgid.substring(0, 6));
 		TempDTO temp = tempService.isline(tempDTO);
-		if((("220803".equals(tempDTO.getOrg()))||("220225".equals(tempDTO.getOrg())))
-				&& (("1".equals(tempDTO.getAssistTypeM().substring(2, 3)))
-						||("1".equals(tempDTO.getAssistTypeM().substring(3, 4))))){
+		if ((("220803".equals(tempDTO.getOrg())) || ("220225".equals(tempDTO
+				.getOrg())))
+				&& (("1".equals(tempDTO.getAssistTypeM().substring(2, 3))) || ("1"
+						.equals(tempDTO.getAssistTypeM().substring(3, 4))))) {
 			temp.setResult("1");
 		}
 		if ("0".equals(temp.getResult())) {
@@ -2353,7 +2358,7 @@ public class TempAction extends ActionSupport {
 			secondBatchDTO.setOrganizationId(organizationId);
 			// 临时修改-20140106
 			secondBatchDTO.setYear(year);
-			//secondBatchDTO.setYear(2013);
+			// secondBatchDTO.setYear(2013);
 			sbs = tempService.findSecondBatchs(secondBatchDTO);
 			if (null != sbs && sbs.size() > 0) {
 				impl = "0";// 生成审批数据不能操作
@@ -2381,7 +2386,7 @@ public class TempAction extends ActionSupport {
 		if (null == cur_page || "".equals(cur_page)) {
 			// 临时修改-20140106
 			tempSecondDTO.setYear((new BigDecimal(year)).toString());
-			//tempSecondDTO.setYear("2013");
+			// tempSecondDTO.setYear("2013");
 			BigDecimal bb = new BigDecimal(tempSecondDTO.getSalpercent());
 			if (null == app || "".equals(app)) {
 
@@ -2460,8 +2465,8 @@ public class TempAction extends ActionSupport {
 		SecondBatchDTO secondBatchDTO = new SecondBatchDTO();
 		secondBatchDTO.setOrganizationId(organizationId);
 		// 临时修改-20140106
-	    secondBatchDTO.setYear(year);
-		//secondBatchDTO.setYear(2013);
+		secondBatchDTO.setYear(year);
+		// secondBatchDTO.setYear(2013);
 		sbs = tempService.findSecondBatchs(secondBatchDTO);
 		if (null != sbs && sbs.size() > 0) {
 			impl = "0";// 生成审批数据不能操作
@@ -2494,7 +2499,7 @@ public class TempAction extends ActionSupport {
 		int year = calendar.get(Calendar.YEAR);
 		// 临时修改-20140106
 		tempSecondDTO.setYear((new BigDecimal(year)).toString());
-		//tempSecondDTO.setYear("2013");
+		// tempSecondDTO.setYear("2013");
 
 		String sql = "select * from second_approve t  where t.familyno like '"
 				+ organizationId + "%'";
@@ -2674,7 +2679,7 @@ public class TempAction extends ActionSupport {
 				secondBatchDTO.setOrganizationId(organizationId);
 				// 临时救助-20140106
 				secondBatchDTO.setYear(year);
-				//secondBatchDTO.setYear(2013);
+				// secondBatchDTO.setYear(2013);
 				sbs = tempService.findSecondBatchs(secondBatchDTO);
 				if (null != sbs && sbs.size() > 0) {
 					impl = "0";// 不能操作
@@ -2729,7 +2734,7 @@ public class TempAction extends ActionSupport {
 		Calendar calendar = Calendar.getInstance();
 		// 临时修改---20140106
 		int year = calendar.get(Calendar.YEAR);
-		//int year = 2013;
+		// int year = 2013;
 		sbs = tempService.findSecondBatchs(organizationId, year);
 		// secondBatchDTO.setYear(year);
 		// 生成EXCEL
@@ -3452,9 +3457,9 @@ public class TempAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
-	
+
 	@SuppressWarnings({ "rawtypes" })
-	public String calcaftermoneyautomz(){
+	public String calcaftermoneyautomz() {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String assisttype = tempDTO.getAssistTypeM() + tempDTO.getAssistTypex()
@@ -3986,14 +3991,12 @@ public class TempAction extends ActionSupport {
 		String organizationId = user.getOrganizationId();
 		tempDTO.setOrganizationId(organizationId);
 		tempDTO.setBizType("ma");
-		/*jzMedicalafterRuleDTO = tempService.findMedicalafterRule(tempDTO);
-		if (jzMedicalafterRuleDTO.getRuleId() != null) {
-			tempDTO.setDbButtonFlag("0");
-			tempDTO.setJzjButtonFlag("1");
-		} else {
-			tempDTO.setDbButtonFlag("1");
-			tempDTO.setJzjButtonFlag("0");
-		}*/
+		/*
+		 * jzMedicalafterRuleDTO = tempService.findMedicalafterRule(tempDTO); if
+		 * (jzMedicalafterRuleDTO.getRuleId() != null) {
+		 * tempDTO.setDbButtonFlag("0"); tempDTO.setJzjButtonFlag("1"); } else {
+		 * tempDTO.setDbButtonFlag("1"); tempDTO.setJzjButtonFlag("0"); }
+		 */
 		Boolean flag = false;
 		if (tempDTO.getApproveId() == null) {
 			flag = true;
@@ -4387,6 +4390,128 @@ public class TempAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	@SuppressWarnings({ "unchecked" })
+	public String printzy() {
+		UserDTO user = (UserDTO) ActionContext.getContext().getSession()
+				.get("user");
+		tempDTO = tempService.findMAmemberinfo(tempDTO);
+		jzMedicalafterBillDTO = new JzMedicalafterBillDTO();
+		jzMedicalafterBillDTO.setUserId(Integer.parseInt(user.getEmpid()));
+		jzMedicalafterBillDTO.setBizId(tempDTO.getBizid().intValue());
+		jzMedicalafterBillDTO = tempService.saveJzMedicalafterBill(jzMedicalafterBillDTO);
+		map = new HashMap<String, String>();
+		map.put("MEMBERNAME", tempDTO.getMembername());
+		map.put("HOSPITALNAME", tempDTO.getHospitalname());
+		map.put("ADDRESS", tempDTO.getAddress());
+		map.put("SEX", tempDTO.getSex());
+		map.put("FAMILYNO", tempDTO.getFamilyno());
+		map.put("PAPERID", tempDTO.getPaperid());
+		map.put("DIAGNOSENAME", tempDTO.getDiagnoseName());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		map.put("BEGINTIME", sdf.format(tempDTO.getBegintime()));
+		map.put("ENDTIME", sdf.format(tempDTO.getEndtime()));
+		map.put("SYSTIME", sdf.format(jzMedicalafterBillDTO.getPrintTime()));
+		String atype = tempDTO.getAssistType();
+		if ("1".equals(atype)) {
+			tempDTO.setAssistTypeTxt("门诊");
+		} else if ("2".equals(atype)) {
+			tempDTO.setAssistTypeTxt("住院");
+		}
+		String mtype = tempDTO.getMedicareType();
+		if ("0".equals(mtype)) {
+			tempDTO.setMedicaretypetext("未参保/参合");
+		} else if ("1".equals(mtype)) {
+			tempDTO.setMedicaretypetext("城市医保");
+		} else if ("2".equals(mtype)) {
+			tempDTO.setMedicaretypetext("新农合");
+		} else {
+			tempDTO.setMedicaretypetext("未知");
+		}
+		map.put("ASSISTTYPE", tempDTO.getAssistTypeTxt());
+		map.put("MEDICARETYPE", tempDTO.getMedicaretypetext());
+		DecimalFormat df1 = new DecimalFormat("###########.00");
+		map.put("PAYTOTAL", df1.format(tempDTO.getPayTotal()));
+		map.put("PAYMEDIARE", df1.format(tempDTO.getPayMedicare()));
+		map.put("PAYOUTMEDICARE", df1.format(tempDTO.getPayOutmedicare()));
+		map.put("PAYASSIST", "￥" + df1.format(tempDTO.getPayAssist()));
+		map.put("PAYCIASSIST", df1.format(tempDTO.getPayCIAssist()));
+		BigDecimal ms = tempDTO.getPayTotal().subtract(tempDTO.getPayMedicare()).subtract(tempDTO.getPayOutmedicare()).subtract(tempDTO.getPayCIAssist());
+		map.put("MEDICARESCOPE", df1.format(ms));
+		map.put("SUMMEDICARESCOPE", df1.format(tempDTO.getSumMedicareScope()));
+		map.put("PAYSUMASSISTIN", df1.format(tempDTO.getPaySumAssistIn()));
+		map.put("PAYSUMASSISTOUT", df1.format(tempDTO.getPaySumAssistOut()));
+		map.put("OPERTIME", sdf.format(tempDTO.getOpertime()));
+		String ASSIST_TYPE = tempDTO.getAssistTypeM()
+				+ tempDTO.getAssistTypex();
+		String DS = tempDTO.getMemberType();
+		String assisttype = tempService.getassisttext(ASSIST_TYPE, DS);
+		map.put("ASSISTTYPETEXT", assisttype);
+		map.put("SSN", tempDTO.getSsn());
+		map.put("TICKETNO", jzMedicalafterBillDTO.getBillId());
+		return SUCCESS;
+	}
+
+	@SuppressWarnings({ "unchecked" })
+	public String printmz() {
+		UserDTO user = (UserDTO) ActionContext.getContext().getSession()
+				.get("user");
+		tempDTO = tempService.findMAmemberinfo(tempDTO);
+		jzMedicalafterBillDTO = new JzMedicalafterBillDTO();
+		jzMedicalafterBillDTO.setUserId(Integer.parseInt(user.getEmpid()));
+		jzMedicalafterBillDTO.setBizId(tempDTO.getBizid().intValue());
+		jzMedicalafterBillDTO = tempService.saveJzMedicalafterBill(jzMedicalafterBillDTO);
+		map = new HashMap<String, String>();
+		map.put("MEMBERNAME", tempDTO.getMembername());
+		map.put("HOSPITALNAME", tempDTO.getHospitalname());
+		map.put("ADDRESS", tempDTO.getAddress());
+		map.put("SEX", tempDTO.getSex());
+		map.put("FAMILYNO", tempDTO.getFamilyno());
+		map.put("PAPERID", tempDTO.getPaperid());
+		map.put("DIAGNOSENAME", tempDTO.getDiagnoseName());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		map.put("BEGINTIME", sdf.format(tempDTO.getBegintime()));
+		map.put("ENDTIME", sdf.format(tempDTO.getEndtime()));
+		map.put("SYSTIME", sdf.format(jzMedicalafterBillDTO.getPrintTime()));
+		String atype = tempDTO.getAssistType();
+		if ("1".equals(atype)) {
+			tempDTO.setAssistTypeTxt("门诊");
+		} else if ("2".equals(atype)) {
+			tempDTO.setAssistTypeTxt("住院");
+		}
+		String mtype = tempDTO.getMedicareType();
+		if ("0".equals(mtype)) {
+			tempDTO.setMedicaretypetext("未参保/参合");
+		} else if ("1".equals(mtype)) {
+			tempDTO.setMedicaretypetext("城市医保");
+		} else if ("2".equals(mtype)) {
+			tempDTO.setMedicaretypetext("新农合");
+		} else {
+			tempDTO.setMedicaretypetext("未知");
+		}
+		map.put("ASSISTTYPE", tempDTO.getAssistTypeTxt());
+		map.put("MEDICARETYPE", tempDTO.getMedicaretypetext());
+		DecimalFormat df1 = new DecimalFormat("###########.00");
+		map.put("PAYTOTAL", df1.format(tempDTO.getPayTotal()));
+		map.put("PAYMEDIARE", df1.format(tempDTO.getPayMedicare()));
+		map.put("PAYOUTMEDICARE", df1.format(tempDTO.getPayOutmedicare()));
+		map.put("PAYASSIST", "￥" + df1.format(tempDTO.getPayAssist()));
+		map.put("PAYCIASSIST", df1.format(tempDTO.getPayCIAssist()));
+		BigDecimal ms = tempDTO.getPayTotal().subtract(tempDTO.getPayMedicare()).subtract(tempDTO.getPayOutmedicare()).subtract(tempDTO.getPayCIAssist());
+		map.put("MEDICARESCOPE", df1.format(ms));
+		map.put("SUMMEDICARESCOPE", df1.format(tempDTO.getSumMedicareScope()));
+		map.put("PAYSUMASSISTIN", df1.format(tempDTO.getPaySumAssistIn()));
+		map.put("PAYSUMASSISTOUT", df1.format(tempDTO.getPaySumAssistOut()));
+		map.put("OPERTIME", sdf.format(tempDTO.getOpertime()));
+		String ASSIST_TYPE = tempDTO.getAssistTypeM()
+				+ tempDTO.getAssistTypex();
+		String DS = tempDTO.getMemberType();
+		String assisttype = tempService.getassisttext(ASSIST_TYPE, DS);
+		map.put("ASSISTTYPETEXT", assisttype);
+		map.put("SSN", tempDTO.getSsn());
+		map.put("TICKETNO", jzMedicalafterBillDTO.getBillId());
+		return SUCCESS;
+	}
+
 	public String getAssismoney1() {
 		return assismoney1;
 	}
@@ -4507,6 +4632,14 @@ public class TempAction extends ActionSupport {
 
 	public void setDs(String ds) {
 		this.ds = ds;
+	}
+
+	public JzMedicalafterBillDTO getJzMedicalafterBillDTO() {
+		return jzMedicalafterBillDTO;
+	}
+
+	public void setJzMedicalafterBillDTO(JzMedicalafterBillDTO jzMedicalafterBillDTO) {
+		this.jzMedicalafterBillDTO = jzMedicalafterBillDTO;
 	}
 
 }

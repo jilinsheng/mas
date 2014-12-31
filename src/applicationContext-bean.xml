@@ -145,6 +145,9 @@
 	<bean id="sanwufileDAO" class="com.mingda.dao.impl.SanwufileDAOImpl">
 		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
 	</bean>
+	<bean id="jzMedicalafterBillDAO" class="com.mingda.dao.impl.JzMedicalafterBillDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
 	<!-- service配置 -->
 	<bean id="authorityService" class="com.mingda.service.AuthorityServiceImpl">
 		<property name="extendsDAO" ref="extendsDAO" />
@@ -214,6 +217,7 @@
 		<property name="jzMedicalafterfileDAO" ref="jzMedicalafterfileDAO"></property>
 		<property name="tempApprovefileDAO" ref="tempApprovefileDAO"></property>
 		<property name="payview01DAO" ref="payview01DAO"></property>
+		<property name="jzMedicalafterBillDAO" ref="jzMedicalafterBillDAO"></property>
 	</bean>
 	<bean id="icdService" class="com.mingda.service.IcdServiceImpl">
 		<property name="extendsDAO" ref="extendsDAO"></property>

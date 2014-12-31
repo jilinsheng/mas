@@ -49,4 +49,5 @@
 	<sqlMap resource="com/mingda/model/map/PAYVIEW01_SqlMap.xml" />
 	<sqlMap resource="com/mingda/model/map/GUERFILE_SqlMap.xml" />
 	<sqlMap resource="com/mingda/model/map/SANWUFILE_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/JZ_MEDICALAFTER_BILL_SqlMap.xml" />
 </sqlMapConfig>

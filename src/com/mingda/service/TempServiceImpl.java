@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import org.apache.log4j.Logger;
 import com.mingda.common.Pager;
 import com.mingda.dao.ExtendsDAO;
 import com.mingda.dao.JzAddassistdataDAO;
+import com.mingda.dao.JzMedicalafterBillDAO;
 import com.mingda.dao.JzMedicalafterDAO;
 import com.mingda.dao.JzMedicalafterfileDAO;
 import com.mingda.dao.MaBillDAO;
@@ -37,6 +39,7 @@ import com.mingda.dao.TempPersonDAO;
 import com.mingda.dto.BillDTO;
 import com.mingda.dto.DeptDTO;
 import com.mingda.dto.DiagnoseTypeDTO;
+import com.mingda.dto.JzMedicalafterBillDTO;
 import com.mingda.dto.JzMedicalafterRuleDTO;
 import com.mingda.dto.JzMedicalafterfileDTO;
 import com.mingda.dto.OutIcdDTO;
@@ -51,6 +54,8 @@ import com.mingda.dto.TempRuleDTO;
 import com.mingda.dto.TempSecondDTO;
 import com.mingda.model.JzAddassistdata;
 import com.mingda.model.JzMedicalafter;
+import com.mingda.model.JzMedicalafterBill;
+import com.mingda.model.JzMedicalafterBillExample;
 import com.mingda.model.JzMedicalafterfile;
 import com.mingda.model.JzMedicalafterfileExample;
 import com.mingda.model.MaMonth;
@@ -64,7 +69,6 @@ import com.mingda.model.SecondApproveExample;
 import com.mingda.model.SecondBatch;
 import com.mingda.model.SecondBillExample;
 import com.mingda.model.TempApprove;
-import com.mingda.model.TempApproveExample;
 import com.mingda.model.TempApprovefile;
 import com.mingda.model.TempApprovefileExample;
 import com.mingda.model.TempCalcRule;
@@ -94,6 +98,7 @@ public class TempServiceImpl implements TempService {
 	private JzMedicalafterfileDAO jzMedicalafterfileDAO;
 	private TempApprovefileDAO tempApprovefileDAO;
 	private Payview01DAO payview01DAO;
+	private JzMedicalafterBillDAO jzMedicalafterBillDAO;
 
 	public List<TempDTO> findAddmember(TempDTO tempDTO) {
 		List<TempDTO> list = new ArrayList<TempDTO>();
@@ -525,6 +530,9 @@ public class TempServiceImpl implements TempService {
 			}
 			tempDTO.setAssistTypeTxt(genAssistype(tempDTO));
 			tempDTO.setMedicareType(m.getMedicareType());
+			//查询参保编号
+			String ssn = this.findSSN(tempDTO);
+			tempDTO.setSsn(ssn);
 		}
 		if (null != tempDTO.getApproveId()) {
 			JzMedicalafter a = jzMedicalafterDAO.selectByPrimaryKey(tempDTO
@@ -549,6 +557,7 @@ public class TempServiceImpl implements TempService {
 			tempDTO.setPayPreSumAssistScopeIn(a.getSumPreAssitscope());
 			tempDTO.setInsurance(a.getInsurance());
 			tempDTO.setOtherType(a.getOtherType());
+			tempDTO.setSsn(a.getSsn());
 			if(null == a.getHospitalLevel()){
 				tempDTO.setHospitalLevel(0);
 			}else{
@@ -646,6 +655,7 @@ public class TempServiceImpl implements TempService {
 			record.setInsurance(tempDTO.getInsurance());
 			record.setHospitalLevel(String.valueOf(tempDTO.getHospitalLevel()));
 			record.setOtherType(tempDTO.getOtherType());
+			record.setSsn(tempDTO.getSsn());
 			Integer id = jzMedicalafterDAO.insertSelective(record);
 			tempDTO.setApproveId(id.longValue());
 			if (!"".equals(tempDTO.getAssistTypeM())
@@ -708,6 +718,7 @@ public class TempServiceImpl implements TempService {
 			record.setInsurance(tempDTO.getInsurance());
 			record.setHospitalLevel(String.valueOf(tempDTO.getHospitalLevel()));
 			record.setOtherType(tempDTO.getOtherType());
+			record.setSsn(tempDTO.getSsn());
 			jzMedicalafterDAO.updateByPrimaryKeySelective(record);
 			if (!"".equals(tempDTO.getAssistTypeM())
 					&& null != tempDTO.getAssistTypeM()) {
@@ -3097,13 +3108,35 @@ public class TempServiceImpl implements TempService {
 		TempDTO e = new TempDTO();
 		Integer bizId = new Integer(tempDTO.getApproveId().intValue());
 		JzMedicalafter a = jzMedicalafterDAO.selectByPrimaryKey(bizId);
+		e.setBizid(Long.valueOf(a.getBizId()));
 		e.setApproveId(tempDTO.getApproveId());
+		e.setMemberId(a.getMemberId());
+		e.setMemberType(a.getMemberType());
+		e.setSsn(a.getSsn());
 		e.setMembername(a.getName());
+		e.setSex(a.getSex());
+		e.setAddress(a.getFamilyAddress());
 		e.setFamilyno(a.getFamilyNo());
 		e.setPaperid(a.getIdCard());
+		e.setAssistTypeM(a.getAssistTypeM());
+		e.setAssistTypex(a.getAssistTypex());
+		e.setHospitalname(a.getHospitalName());
+		e.setDiagnoseName(a.getDiagnoseName());
+		e.setAssistType(a.getAssistType());
+		e.setMedicareType(a.getMedicareType());
+		e.setPayAssist(a.getPayAssist());
+		e.setPayTotal(a.getPayTotal());
+		e.setPayMedicare(a.getPayMedicare());
+		e.setPayOutmedicare(a.getPayOutmedicare());
+		e.setPayCIAssist(a.getPayCiassist());
+		e.setSumMedicareScope(a.getSumAssitscope());
+		e.setPaySumAssistIn(a.getPaySumassistIn());
+		e.setPaySumAssistOut(a.getPaySumassistOut());
 		e.setBegintime(a.getBeginTime());
 		e.setEndtime(a.getEndTime());
-		e.setHospitalname(a.getHospitalName());
+		e.setSystime(new Date());
+		e.setOpertime(a.getOperTime());
+		e.setSsn(a.getSsn());
 		return e;
 	}
 	
@@ -3617,7 +3650,123 @@ public class TempServiceImpl implements TempService {
 	public void delTaFile(String fid) {
 		this.tempApprovefileDAO.deleteByPrimaryKey(new BigDecimal(fid));
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public String findSSN(TempDTO tempDTO){
+		String ssn = "";
+		String sql = "select * from member_medicare mm " 
+				+ " where mm.member_id='"+tempDTO.getMemberId()
+				+ "' and mm.member_type='"+tempDTO.getMemberType()+"' ";
+		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("executsql", sql);
+		List<HashMap> rs = extendsDAO.queryAll(param);
+		if(rs.size()==0){
+			ssn = "";
+		}else{
+			ssn = (String)rs.get(0).get("SSN");
+		}
+		return ssn;
+	}
+	
+	public String getassisttext(String ASSIST_TYPE,String DS){
+		String dsval="";
+		String a1 = ASSIST_TYPE.substring(0, 1);
+		String a2 = ASSIST_TYPE.substring(1, 2);
+		String a3 = ASSIST_TYPE.substring(2, 3);
+		String a4 = ASSIST_TYPE.substring(3, 4);
+		String a5 = ASSIST_TYPE.substring(4, 5);
+		String a6 = ASSIST_TYPE.substring(5, 6);
+		if ("1".equals(DS)) {
+			if ("1".equals(a1)) {
+				dsval = dsval + "城市低保户、";
+			}
+			if ("1".equals(a2)) {
+				dsval = dsval + "分类施保、";
+			}
+			if ("1".equals(a3)) {
+				dsval = dsval + "三无家庭、";
+			}
+			if ("1".equalsIgnoreCase(a4)) {
+				dsval = dsval + "五保户、";
+			}
+			if ("1".equals(a5)) {
+				dsval = dsval + "优抚对象、";
+			}
+			if ("1".equals(a6)) {
+				dsval = dsval + "孤儿、";
+			}
+		} else if ("2".equals(DS)) {
+			if ("2".equals(a1)) {
+				dsval = dsval + "农村低保一般户、";
+			}
+			if ("1".equals(a2)) {
+				dsval = dsval + "重点户、";
+			}
+			if ("1".equals(a3)) {
+				dsval = dsval + "三无家庭、";
+			}
+			if ("1".equalsIgnoreCase(a4)) {
+				dsval = dsval + "五保户、";
+			}
+			if ("1".equals(a5)) {
+				dsval = dsval + "优抚对象、";
+			}
+			if ("1".equals(a6)) {
+				dsval = dsval + "孤儿、";
+			}
+		}
+		return dsval;
+	}
 
+	@SuppressWarnings("rawtypes")
+	public String getTicketNo(){
+		String ticketno = "";
+		String sql = "select sq_billyh.nextval as ticketno from dual";
+		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("executsql", sql);
+		List<HashMap> rs = extendsDAO.queryAll(param);
+		BigDecimal no = (BigDecimal)rs.get(0).get("TICKETNO");
+		DecimalFormat df=new DecimalFormat("0000000");
+	    String no1 = df.format(Integer.parseInt(no.toString()));
+	    Calendar c=Calendar.getInstance();
+	    //获得系统当前日期 
+	    String year=c.get(Calendar.YEAR)+""; 
+	    String type = "YH";
+	    ticketno = type+year+no1;
+		return ticketno;
+	}
+	
+	public JzMedicalafterBillDTO saveJzMedicalafterBill(JzMedicalafterBillDTO jmbDTO){
+		JzMedicalafterBillDTO jmb = new JzMedicalafterBillDTO();
+		//如果有先修改票据状态0
+		JzMedicalafterBillExample example = new JzMedicalafterBillExample();
+		example.createCriteria().andBizIdEqualTo(jmbDTO.getBizId());
+		List<JzMedicalafterBill> rs = jzMedicalafterBillDAO.selectByExample(example);
+		if(rs.size()>0){
+			for (JzMedicalafterBill r : rs) {
+				JzMedicalafterBill record1 = new JzMedicalafterBill();
+				record1.setBillId(r.getBillId());
+				record1.setSts("0");
+				jzMedicalafterBillDAO.updateByPrimaryKeySelective(record1);
+			}
+		}
+		JzMedicalafterBill record = new JzMedicalafterBill();
+		record.setBillId(getTicketNo());
+		record.setPrintTime(new Date());
+		record.setBizId(jmbDTO.getBizId());
+		record.setUserId(jmbDTO.getUserId());
+		record.setSts("1");
+		jzMedicalafterBillDAO.insert(record);
+		jmb.setBillId(record.getBillId());
+		JzMedicalafterBill bill = jzMedicalafterBillDAO.selectByPrimaryKey(record.getBillId());
+		jmb.setBizId(bill.getBizId());
+		jmb.setPrintTime(bill.getPrintTime());
+		jmb.setSts(bill.getSts());
+		jmb.setUserId(bill.getUserId());
+		return jmb;
+		
+	}
+	
 	public String getToolsmenu() {
 		return pager.getToolsmenu();
 	}
@@ -3766,5 +3915,13 @@ public class TempServiceImpl implements TempService {
 
 	public void setPayview01DAO(Payview01DAO payview01dao) {
 		payview01DAO = payview01dao;
+	}
+
+	public JzMedicalafterBillDAO getJzMedicalafterBillDAO() {
+		return jzMedicalafterBillDAO;
+	}
+
+	public void setJzMedicalafterBillDAO(JzMedicalafterBillDAO jzMedicalafterBillDAO) {
+		this.jzMedicalafterBillDAO = jzMedicalafterBillDAO;
 	}
 }

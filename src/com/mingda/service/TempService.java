@@ -8,6 +8,7 @@ import java.util.List;
 import com.mingda.dto.BillDTO;
 import com.mingda.dto.DeptDTO;
 import com.mingda.dto.DiagnoseTypeDTO;
+import com.mingda.dto.JzMedicalafterBillDTO;
 import com.mingda.dto.JzMedicalafterRuleDTO;
 import com.mingda.dto.JzMedicalafterfileDTO;
 import com.mingda.dto.OutIcdDTO;
@@ -196,5 +197,13 @@ public interface TempService {
 	void upTempApp(String sql);
 	
 	public TempDTO upTempBack(TempDTO tempDTO);
+	
+	public String findSSN(TempDTO tempDTO);
+	
+	public String getassisttext(String ASSIST_TYPE,String DS);
+	
+	public String getTicketNo();
+	
+	public JzMedicalafterBillDTO saveJzMedicalafterBill(JzMedicalafterBillDTO jmbDTO);
 
 }
