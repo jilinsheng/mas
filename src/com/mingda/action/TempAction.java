@@ -4429,7 +4429,7 @@ public class TempAction extends ActionSupport {
 		}
 		map.put("ASSISTTYPE", tempDTO.getAssistTypeTxt());
 		map.put("MEDICARETYPE", tempDTO.getMedicaretypetext());
-		DecimalFormat df1 = new DecimalFormat("###########.00");
+		DecimalFormat df1 = new DecimalFormat("##########0.00");
 		map.put("PAYTOTAL", df1.format(tempDTO.getPayTotal()));
 		map.put("PAYMEDIARE", df1.format(tempDTO.getPayMedicare()));
 		map.put("PAYOUTMEDICARE", df1.format(tempDTO.getPayOutmedicare()));
@@ -4490,7 +4490,7 @@ public class TempAction extends ActionSupport {
 		}
 		map.put("ASSISTTYPE", tempDTO.getAssistTypeTxt());
 		map.put("MEDICARETYPE", tempDTO.getMedicaretypetext());
-		DecimalFormat df1 = new DecimalFormat("###########.00");
+		DecimalFormat df1 = new DecimalFormat("##########0.00");
 		map.put("PAYTOTAL", df1.format(tempDTO.getPayTotal()));
 		map.put("PAYMEDIARE", df1.format(tempDTO.getPayMedicare()));
 		map.put("PAYOUTMEDICARE", df1.format(tempDTO.getPayOutmedicare()));

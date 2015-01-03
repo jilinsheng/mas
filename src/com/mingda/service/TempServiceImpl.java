@@ -613,6 +613,7 @@ public class TempServiceImpl implements TempService {
 	public TempDTO saveAfterApplyInfo(TempDTO tempDTO) {
 		JzMedicalafter record = new JzMedicalafter();
 		if (null == tempDTO.getApproveId()) {
+			record.setApplyTime(new Date());
 			record.setAssistTime(new Date());
 			record.setBeginTime(tempDTO.getBegintime());
 			record.setEndTime(tempDTO.getEndtime());

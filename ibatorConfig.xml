@@ -128,17 +128,17 @@
 			<property name="defaultConfigurationStatus" value="true" />
 			<generatedKey column="RULE_ID"
 				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
-		</table>
+		</table>-->
 		<table tableName="JZ_MEDICALAFTER" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
 			<generatedKey column="BIZ_ID"
 				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
-		</table>  -->
-		<table tableName="JZ_MEDICALAFTER_BILL" schema="medical">
+		</table>  
+		<!-- <table tableName="JZ_MEDICALAFTER_BILL" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
-		</table> 
+		</table>  -->
 		<!-- <table tableName="GUER" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />

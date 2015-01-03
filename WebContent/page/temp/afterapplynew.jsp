@@ -892,7 +892,7 @@
 		var diagnoseTypeId=0;
 		var diagnoseTypeText="";
 		var specBiz=-1;
-		if(org=='220506'){
+		if(org=='220506'||org=='220505'||org=='220501'||org=='220502'||org=='220508'||org=='220225'){
 			diagnoseTypeId=$("#diagnoseTypeId")[0].value;
 			diagnoseTypeText = document.getElementById("diagnoseTypeId").options[window.document.getElementById("diagnoseTypeId").selectedIndex].text;
 			specBiz = $("input[name='tempDTO.specBiz']:checked").val();
@@ -942,6 +942,21 @@
 				alert("请选择门诊特殊大病病种！");
 				flag=false;
 				return flag;
+			}
+		}
+		if(assistype==2&&(org=='220506'||org=='220505'||org=='220501'||org=='220502'||org=='220508'||org=='220225')){
+			if(specBiz==1){
+				if(diagnoseTypeId==0){
+					alert("请选择住院疾病病种！");
+					flag=false;
+					return flag;
+				}
+			}else if(specBiz==0){
+				if(inhospitalsicken==""){
+					alert("请填写疾病名称！");
+					flag=false;
+					return flag;
+				}
 			}
 		}
 
@@ -1331,7 +1346,7 @@
 		<tr>
 			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">救助类型：</td>
 			<td class="formtd2">&nbsp;
-				<s:if test="tempDTO.org=='220506'">
+				<s:if test="tempDTO.org=='220506'||tempDTO.org=='220505'||tempDTO.org=='220501'||tempDTO.org=='220502'||tempDTO.org=='220508'||tempDTO.org=='220225'">
 				<s:select id="assistype" list="#{'2':'住院','1':'门诊特殊大病'}" name="tempDTO.assistype" onchange="getassisttype()"></s:select>
 				</s:if>
 				<s:else>
@@ -1367,11 +1382,11 @@
 			</s:else>
 			&nbsp;</td>
 		</tr>
-		<s:if test="tempDTO.org=='220506'">
+		<s:if test="tempDTO.org=='220506'||tempDTO.org=='220505'||tempDTO.org=='220501'||tempDTO.org=='220502'||tempDTO.org=='220508'||tempDTO.org=='220225'">
 		<tr>
 			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">疾病救助类别：</td>
 			<td class="formtd2" colspan="3">
-				<s:if test="tempDTO.org=='220506'">
+				<s:if test="tempDTO.org=='220506'||tempDTO.org=='220505'||tempDTO.org=='220501'||tempDTO.org=='220502'||tempDTO.org=='220508'||tempDTO.org=='220225'">
 					<s:if test="tempDTO.assistype==2">
 							<s:radio id="specBiz" name="tempDTO.specBiz" list="#{'0':'普通救助','1':'重大疾病救助'}" 
 								listKey="key" listValue="value" 
@@ -1436,7 +1451,7 @@
 			</td>
 			<td class="formtd1"  width="15%" style="font-weight:bold;color:#006030">门诊特殊大病病种：</td>
 			<td class="formtd2">&nbsp;
-				<s:if test="tempDTO.org=='220506'">
+				<s:if test="tempDTO.org=='220506'||tempDTO.org=='220505'||tempDTO.org=='220501'||tempDTO.org=='220502'||tempDTO.org=='220508'||tempDTO.org=='220225'">
 					<s:if test="tempDTO.assistype==2" >
 						<s:if test="tempDTO.specBiz==0">
 						<s:select id="icdId" name="tempDTO.icdId" list="outicds" listKey="icdId" headerKey="0" headerValue="请选择..."
@@ -1477,27 +1492,6 @@
 		<tr>
 		<td class="formtd1"  width="15%" style="font-weight:bold;color:#006030" >门诊特殊大病：</td>
 			<td class="formtd2" colspan="3">&nbsp;
-				<s:if test="tempDTO.org=='220506'">
-					<s:if test="tempDTO.assistype==2" >
-						<s:if test="tempDTO.specBiz==0">
-						<s:select id="icdId" name="tempDTO.icdId" list="outicds" listKey="icdId" headerKey="0" headerValue="请选择..."
-						listValue="name" disabled="true" onchange="getinhospitalsicken(this)"></s:select>
-						</s:if>
-						<s:if test="tempDTO.specBiz==1">
-						<s:select id="icdId" name="tempDTO.icdId" list="outicds" listKey="icdId" headerKey="0" headerValue="请选择..."
-						listValue="name" disabled="true" onchange="getinhospitalsicken(this)"></s:select>
-						</s:if>
-					</s:if>
-					<s:elseif test="tempDTO.assistype==1">
-						<s:select id="icdId" name="tempDTO.icdId" list="outicds" listKey="icdId" headerKey="0" headerValue="请选择..."
-						listValue="name" disabled="false" onchange="getinhospitalsicken(this)"></s:select>
-					</s:elseif>
-					<s:else>
-						<s:select id="icdId" name="tempDTO.icdId" list="outicds" listKey="icdId" headerKey="0" headerValue="请选择..."
-						listValue="name" disabled="true" onchange="getinhospitalsicken(this)"></s:select>
-					</s:else>
-				</s:if>
-				<s:else>
 					<s:if test="tempDTO.assistype==2" >
 						<s:select id="icdId" name="tempDTO.icdId" list="outicds" listKey="icdId" headerKey="0" headerValue="请选择..."
 						listValue="name" disabled="true" onchange="getinhospitalsicken(this)"></s:select>
@@ -1510,17 +1504,16 @@
 						<s:select id="icdId" name="tempDTO.icdId" list="outicds" listKey="icdId" headerKey="0" headerValue="请选择..."
 						listValue="name" disabled="true" onchange="getinhospitalsicken(this)"></s:select>
 					</s:else>
-				</s:else>
 			</td>
 		</tr>
 		</s:else>
 		<tr>
 			<td class="formtd1"  width="15%" style="font-weight:bold;color:#006030">&nbsp;
 			<div id="div_inhospitalsicken_title" style="display:block;margin-top:-12px;">患病名称：</div></td>
-			<td class="formtd2"  colspan="3">&nbsp;
-				<div id="div_inhospitalsicken" style="display:block;margin-top:-12px;">
-					&nbsp;<s:textfield id="inhospitalsicken" name="tempDTO.inhospitalsicken" size="45" />
-				</div>
+			<td class="formtd2"  colspan="3">
+						<div id="div_inhospitalsicken" style="display:block;margin-top:0px;">
+						&nbsp;<s:textfield id="inhospitalsicken" name="tempDTO.inhospitalsicken" size="45" />
+						</div>
 			</td>
 		</tr>
 	</table>
