@@ -2385,7 +2385,7 @@ public class TempAction extends ActionSupport {
 		int year = calendar.get(Calendar.YEAR);
 		if (null == cur_page || "".equals(cur_page)) {
 			// 临时修改-20140106
-			tempSecondDTO.setYear((new BigDecimal(year)).toString());
+			tempSecondDTO.setYear((new BigDecimal(year-1)).toString());
 			// tempSecondDTO.setYear("2013");
 			BigDecimal bb = new BigDecimal(tempSecondDTO.getSalpercent());
 			if (null == app || "".equals(app)) {
@@ -2498,7 +2498,7 @@ public class TempAction extends ActionSupport {
 		Calendar calendar = Calendar.getInstance();
 		int year = calendar.get(Calendar.YEAR);
 		// 临时修改-20140106
-		tempSecondDTO.setYear((new BigDecimal(year)).toString());
+		tempSecondDTO.setYear((new BigDecimal(year-1)).toString());
 		// tempSecondDTO.setYear("2013");
 
 		String sql = "select * from second_approve t  where t.familyno like '"
