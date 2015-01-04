@@ -962,7 +962,6 @@
 				}
 			}
 		}
-		alert(diagnoseTypeText);
 		if(assistype==2){
 			if(diagnoseTypeText=='请选择...'){
 				alert("请选择住院疾病病种！");
