@@ -892,10 +892,13 @@
 		var diagnoseTypeId=0;
 		var diagnoseTypeText="";
 		var specBiz=-1;
-		if(org=='220506'||org=='220505'||org=='220501'||org=='220502'||org=='220508'||org=='220225'){
+		if(org=='220506'){
 			diagnoseTypeId=$("#diagnoseTypeId")[0].value;
 			diagnoseTypeText = document.getElementById("diagnoseTypeId").options[window.document.getElementById("diagnoseTypeId").selectedIndex].text;
 			specBiz = $("input[name='tempDTO.specBiz']:checked").val();
+		}else {
+			diagnoseTypeId=$("#diagnoseTypeId")[0].value;
+			diagnoseTypeText = document.getElementById("diagnoseTypeId").options[window.document.getElementById("diagnoseTypeId").selectedIndex].text;
 		}
 		var beginDate=$("#beginDate")[0].value;
 		var endDate = $("#endDate")[0].value;
@@ -944,7 +947,7 @@
 				return flag;
 			}
 		}
-		if(assistype==2&&(org=='220506'||org=='220505'||org=='220501'||org=='220502'||org=='220508'||org=='220225')){
+		if(assistype==2&&org=='220506'){
 			if(specBiz==1){
 				if(diagnoseTypeId==0){
 					alert("请选择住院疾病病种！");
@@ -959,7 +962,20 @@
 				}
 			}
 		}
-
+		alert(diagnoseTypeText);
+		if(assistype==2){
+			if(diagnoseTypeText=='请选择...'){
+				alert("请选择住院疾病病种！");
+				flag=false;
+				return flag;
+			}else if((diagnoseTypeText=='普通住院'||diagnoseTypeText=='无')&&inhospitalsicken==""){
+				alert("请填写疾病病种！");
+				flag=false;
+				return flag;
+			}
+			
+		}
+		
 		if(payTotal==""){
 			alert("总费用不能为空！");
 			flag=false;
@@ -1103,7 +1119,7 @@
 	}
 	function getassisttype02(){
 		var assistype=$("#assistype")[0].value;
-		//var diagnoseTypeId = document.getElementById("diagnoseTypeId");
+		var diagnoseTypeId = document.getElementById("diagnoseTypeId");
 		var icdId = document.getElementById("icdId");
 		var divid = document.getElementById("divid");
 		var divzy = document.getElementById("divzy");
@@ -1115,9 +1131,9 @@
 		if(assistype==1){
 			divid.style.display='block';
 			
-			//diagnoseTypeId.disabled = true;
+			diagnoseTypeId.disabled = true;
 			icdId.disabled = false;
-			//diagnoseTypeId.value = 0;
+			diagnoseTypeId.value = 0;
 			div_inhospitalsicken_title.style.display='none';
 			div_inhospitalsicken.style.display='none';
 			if(org!=220506){
@@ -1130,7 +1146,7 @@
 		}else if(assistype==2){
 			divid.style.display='none';
 			
-			//diagnoseTypeId.disabled = true;
+			diagnoseTypeId.disabled = false;
 			icdId.disabled = true;
 			icdId.value = 0;
 			div_inhospitalsicken_title.style.display='block';
@@ -1146,11 +1162,16 @@
 	}
 	function getinhospitalsicken(a){
 		var Text = document.getElementById(a.id).options[window.document.getElementById(a.id).selectedIndex].text;
-		if(Text=='普通住院' || Text=='请选择....'){
+		var div_inhospitalsicken_title = document.getElementById("div_inhospitalsicken_title");
+		var div_inhospitalsicken = document.getElementById("div_inhospitalsicken");
+		if(Text=='普通住院' || Text=='请选择....' || Text=='无'){
 			$("#inhospitalsicken")[0].value = '';
+			div_inhospitalsicken_title.style.display='block';
+			div_inhospitalsicken.style.display='block';
 		}else{
 			$("#inhospitalsicken")[0].value = Text;
-
+			div_inhospitalsicken_title.style.display='none';
+			div_inhospitalsicken.style.display='none';
 		}
 	}
 	function specBizchange(b){
@@ -1346,7 +1367,7 @@
 		<tr>
 			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">救助类型：</td>
 			<td class="formtd2">&nbsp;
-				<s:if test="tempDTO.org=='220506'||tempDTO.org=='220505'||tempDTO.org=='220501'||tempDTO.org=='220502'||tempDTO.org=='220508'||tempDTO.org=='220225'">
+				<s:if test="tempDTO.org=='220506'">
 				<s:select id="assistype" list="#{'2':'住院','1':'门诊特殊大病'}" name="tempDTO.assistype" onchange="getassisttype()"></s:select>
 				</s:if>
 				<s:else>
@@ -1382,11 +1403,11 @@
 			</s:else>
 			&nbsp;</td>
 		</tr>
-		<s:if test="tempDTO.org=='220506'||tempDTO.org=='220505'||tempDTO.org=='220501'||tempDTO.org=='220502'||tempDTO.org=='220508'||tempDTO.org=='220225'">
+		<s:if test="tempDTO.org=='220506'">
 		<tr>
 			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">疾病救助类别：</td>
 			<td class="formtd2" colspan="3">
-				<s:if test="tempDTO.org=='220506'||tempDTO.org=='220505'||tempDTO.org=='220501'||tempDTO.org=='220502'||tempDTO.org=='220508'||tempDTO.org=='220225'">
+				<s:if test="tempDTO.org=='220506'">
 					<s:if test="tempDTO.assistype==2">
 							<s:radio id="specBiz" name="tempDTO.specBiz" list="#{'0':'普通救助','1':'重大疾病救助'}" 
 								listKey="key" listValue="value" 
@@ -1451,7 +1472,7 @@
 			</td>
 			<td class="formtd1"  width="15%" style="font-weight:bold;color:#006030">门诊特殊大病病种：</td>
 			<td class="formtd2">&nbsp;
-				<s:if test="tempDTO.org=='220506'||tempDTO.org=='220505'||tempDTO.org=='220501'||tempDTO.org=='220502'||tempDTO.org=='220508'||tempDTO.org=='220225'">
+				<s:if test="tempDTO.org=='220506'">
 					<s:if test="tempDTO.assistype==2" >
 						<s:if test="tempDTO.specBiz==0">
 						<s:select id="icdId" name="tempDTO.icdId" list="outicds" listKey="icdId" headerKey="0" headerValue="请选择..."
@@ -1490,8 +1511,26 @@
 		</s:if>
 		<s:else>
 		<tr>
+		<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">住院疾病病种：</td>
+		<td class="formtd2" >&nbsp;
+			<s:if test="tempDTO.assistype==2" >
+				<s:select id="diagnoseTypeId" name="tempDTO.diagnoseTypeId" list="diagnosetypes" 
+				listKey="diagnoseTypeId" listValue="diagnoseTypeName" disabled="false" headerKey="0" headerValue="请选择..."
+				onchange="getinhospitalsicken(this)"></s:select>
+			</s:if>
+			<s:elseif test="tempDTO.assistype==1">
+				<s:select id="diagnoseTypeId" name="tempDTO.diagnoseTypeId" list="diagnosetypes" 
+				listKey="diagnoseTypeId" listValue="diagnoseTypeName" disabled="true" headerKey="0" headerValue="请选择..."
+				onchange="getinhospitalsicken(this)"></s:select>
+			</s:elseif>
+			<s:else>
+				<s:select id="diagnoseTypeId" name="tempDTO.diagnoseTypeId" list="diagnosetypes" 
+				listKey="diagnoseTypeId" listValue="diagnoseTypeName" disabled="false" headerKey="0" headerValue="请选择..."
+				onchange="getinhospitalsicken(this)"></s:select>
+			</s:else>
+		</td>
 		<td class="formtd1"  width="15%" style="font-weight:bold;color:#006030" >门诊特殊大病：</td>
-			<td class="formtd2" colspan="3">&nbsp;
+			<td class="formtd2" >&nbsp;
 					<s:if test="tempDTO.assistype==2" >
 						<s:select id="icdId" name="tempDTO.icdId" list="outicds" listKey="icdId" headerKey="0" headerValue="请选择..."
 						listValue="name" disabled="true" onchange="getinhospitalsicken(this)"></s:select>
