@@ -683,7 +683,7 @@
 							$('#AssistIn')[0].innerText = iin; 
 							$('#AssistOut')[0].innerText = out;
 							$('#MedicareScope')[0].innerText = scope;
-							$('#b')[0].disabled=false;
+							$('#b')[0].disabled=true;
 						}
 						$('#payCIAssist')[0].value=ci;
 						alert("本次大病保险金额："+ci+"元");

@@ -935,7 +935,7 @@ public class TempAction extends ActionSupport {
 				}
 
 			} else {
-				json.put("info", "救助金计算失败!");
+				json.put("info", afterDTO.getMessage());
 			}
 		} else {
 			json.put("info", "普通居民不在救助范围内！");
