@@ -690,7 +690,9 @@ public class TempAction extends ActionSupport {
 		ciDTO.setOld_Pay_Total(tempDTO.getOldPayTotal());
 		ciDTO.setOld_Pay_Medicare(tempDTO.getOldPayMedicare());
 		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
-		ciDTO = yljzService.getCiAssistByPaperID(ciDTO);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ciDTO.setEnd_time(sdf.format(tempDTO.getEndtime()));
+		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		if ("1".equals(ciDTO.getReturnFlag())) {
 			tempDTO.setPaySumAssistIn(ciDTO.getPaySumAssistIn());
 			tempDTO.setPaySumAssistOut(ciDTO.getPaySumAssistOut());
@@ -731,7 +733,9 @@ public class TempAction extends ActionSupport {
 		ciDTO.setOld_Pay_Total(tempDTO.getOldPayTotal());
 		ciDTO.setOld_Pay_Medicare(tempDTO.getOldPayMedicare());
 		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
-		ciDTO = yljzService.getCiAssistByPaperID(ciDTO);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ciDTO.setEnd_time(sdf.format(tempDTO.getEndtime()));
+		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		// 外伤、未经医保/新农合确认的转诊
 		if (!"0".equals(tempDTO.getOtherType())) {
 			ciDTO.setPayCIAssist(getCia(tempDTO));
@@ -822,7 +826,9 @@ public class TempAction extends ActionSupport {
 		ciDTO.setOld_Pay_Total(tempDTO.getOldPayTotal());
 		ciDTO.setOld_Pay_Medicare(tempDTO.getOldPayMedicare());
 		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
-		ciDTO = yljzService.getCiAssistByPaperID(ciDTO);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ciDTO.setEnd_time(sdf.format(tempDTO.getEndtime()));
+		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		// 外伤、未经医保/新农合确认的转诊
 		if ("0".equals(tempDTO.getDiagnoseTypeId())) {
 			ciDTO.setPayCIAssist(getCia(tempDTO));

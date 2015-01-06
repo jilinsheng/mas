@@ -76,6 +76,8 @@ public class CommonAction extends ActionSupport {
 		}
 		if("220506".equals(org)){
 			readxml = new ReadXML("com/mingda/common/menu3.xml");
+		}else if("220110".equals(org)){
+			readxml = new ReadXML("com/mingda/common/menu4.xml");
 		}else{
 			readxml = new ReadXML("com/mingda/common/menu.xml");
 		}

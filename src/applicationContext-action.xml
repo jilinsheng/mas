@@ -98,4 +98,9 @@
 		<property name="systemDataService" ref="systemDataService"></property>
 		<property name="criticalService" ref="criticalService"></property>
 	</bean>
+		<bean id="afterAction" class="com.mingda.action.AfterAction" scope="request">
+		<property name="systemDataService" ref="systemDataService"></property>
+		<property name="tempService" ref="tempService"></property>
+		<property name="yljzService" ref="yljzService"></property>
+	</bean>
 </beans>

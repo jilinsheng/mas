@@ -44,6 +44,12 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz;
   }
   
+  public java.math.BigDecimal getDbbx(java.math.BigDecimal sumPreScope, java.math.BigDecimal zfyMony, java.math.BigDecimal tcMony, java.math.BigDecimal noPay, java.lang.Integer wsFlag, java.lang.Integer ds) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getDbbx(sumPreScope, zfyMony, tcMony, noPay, wsFlag, ds);
+  }
+  
   public java.lang.String getOutAssistSumOrg(java.lang.Long hospital_ID, java.lang.String outOrgID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
@@ -194,6 +200,12 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     return iServiceYljz.getCIAssistByPaperID(paperID, medicareType, calcType, old_Pay_Total, old_Pay_Medicare, old_Pay_OutMedicare, pay_Total, pay_Medicare, pay_OutMedicare);
   }
   
+  public java.lang.String getCIAssistByPaperIDEx(java.lang.String paperID, java.lang.String medicareType, java.lang.Integer calcType, java.math.BigDecimal old_Pay_Total, java.math.BigDecimal old_Pay_Medicare, java.math.BigDecimal old_Pay_OutMedicare, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_OutMedicare, java.lang.String end_Time) throws java.rmi.RemoteException{
+    if (iServiceYljz == null)
+      _initIServiceYljzProxy();
+    return iServiceYljz.getCIAssistByPaperIDEx(paperID, medicareType, calcType, old_Pay_Total, old_Pay_Medicare, old_Pay_OutMedicare, pay_Total, pay_Medicare, pay_OutMedicare, end_Time);
+  }
+  
   public java.math.BigDecimal getSumDataByPaperID(java.lang.String paperID, java.lang.Integer medicareType, java.lang.String finishYear, java.lang.Integer nType) throws java.rmi.RemoteException{
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
@@ -204,12 +216,6 @@ public class IServiceYljzProxy implements org.tempuri.IServiceYljz {
     if (iServiceYljz == null)
       _initIServiceYljzProxy();
     return iServiceYljz.getDbbxQfx(ds);
-  }
-  
-  public java.math.BigDecimal getDbbx(java.math.BigDecimal sumPreScope, java.math.BigDecimal zfyMony, java.math.BigDecimal tcMony, java.math.BigDecimal noPay, java.lang.Integer wsFlag, java.lang.Integer ds) throws java.rmi.RemoteException{
-    if (iServiceYljz == null)
-      _initIServiceYljzProxy();
-    return iServiceYljz.getDbbx(sumPreScope, zfyMony, tcMony, noPay, wsFlag, ds);
   }
   
   public java.lang.String refundMedFee0506(java.lang.Long biz_id, java.lang.String memberType, java.lang.String memberID, java.math.BigDecimal payAssist, java.lang.Long user_ID) throws java.rmi.RemoteException{

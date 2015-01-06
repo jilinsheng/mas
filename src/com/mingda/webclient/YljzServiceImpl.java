@@ -285,4 +285,67 @@ public class YljzServiceImpl implements YljzService {
 		}
 		return afterDTO;
 	}
+	
+	public CiDTO getCiAssistByPaperIDEx(CiDTO cidto) {
+		try {
+			/*
+			 * String xml = iServiceYljzProxy.getCIAssistByPaperID(
+			 * cidto.getPaperID(), cidto.getMedicareType(),
+			 * cidto.getPay_Total(), cidto.getPay_Medicare(),
+			 * cidto.getPay_OutMedicare());
+			 */
+
+			String xml = iServiceYljzProxy.getCIAssistByPaperIDEx(
+					cidto.getPaperID(), cidto.getMedicareType(),
+					cidto.getCalcType(), cidto.getOld_Pay_Total(),
+					cidto.getOld_Pay_Medicare(),
+					cidto.getOld_Pay_OutMedicare(), cidto.getPay_Total(),
+					cidto.getPay_Medicare(), cidto.getPay_OutMedicare(),cidto.getEnd_time());
+			Document document = DocumentHelper.parseText(xml);
+			String returnFlag = document.selectSingleNode(
+					"//GetCIAssistByPaperIDEx/ReturnFlag").getText();
+			String resultFlag = document.selectSingleNode(
+					"//GetCIAssistByPaperIDEx/ResultFlag").getText();
+			String paySumAssistIn = document.selectSingleNode(
+					"//GetCIAssistByPaperIDEx/PaySumAssistIn").getText();
+			String paySumAssistOut = document.selectSingleNode(
+					"//GetCIAssistByPaperIDEx/PaySumAssistOut").getText();
+			String sumMedicareScope = document.selectSingleNode(
+					"//GetCIAssistByPaperIDEx/SumMedicareScope").getText();
+			String payCIAssist = document.selectSingleNode(
+					"//GetCIAssistByPaperIDEx/PayCIAssist").getText();
+			String pay_PreSum_AssistScope_In = document.selectSingleNode(
+					"//GetCIAssistByPaperIDEx/Pay_PreSum_AssistScope_In")
+					.getText();
+			String pay_Sum_AssistScope_In = document.selectSingleNode(
+					"//GetCIAssistByPaperIDEx/Pay_Sum_AssistScope_In").getText();
+			if (null == paySumAssistIn || "".equals("0")) {
+				paySumAssistIn = "0";
+			}
+			if (null == paySumAssistOut || "".equals("0")) {
+				paySumAssistOut = "0";
+			}
+			if (null == sumMedicareScope || "".equals("0")) {
+				sumMedicareScope = "0";
+			}
+			if (null == payCIAssist || "".equals("0")) {
+				payCIAssist = "0";
+			}
+			cidto.setPayCIAssist(new BigDecimal(payCIAssist));
+			cidto.setPaySumAssistIn(new BigDecimal(paySumAssistIn));
+			cidto.setPaySumAssistOut(new BigDecimal(paySumAssistOut));
+			cidto.setSumMedicareScope(new BigDecimal(sumMedicareScope));
+			cidto.setResultFlag(resultFlag);
+			cidto.setReturnFlag(returnFlag);
+			cidto.setPay_PreSum_AssistScope_In(new BigDecimal(
+					pay_PreSum_AssistScope_In));
+			cidto.setPay_Sum_AssistScope_In(new BigDecimal(
+					pay_Sum_AssistScope_In));
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		return cidto;
+	}
 }

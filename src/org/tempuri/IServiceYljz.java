@@ -8,6 +8,7 @@
 package org.tempuri;
 
 public interface IServiceYljz extends java.rmi.Remote {
+    public java.math.BigDecimal getDbbx(java.math.BigDecimal sumPreScope, java.math.BigDecimal zfyMony, java.math.BigDecimal tcMony, java.math.BigDecimal noPay, java.lang.Integer wsFlag, java.lang.Integer ds) throws java.rmi.RemoteException;
     public java.lang.String getOutAssistSumOrg(java.lang.Long hospital_ID, java.lang.String outOrgID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException;
     public java.lang.String getAcceptAssistListH2H(java.lang.Long hospital_ID, java.lang.String begin_time, java.lang.String end_time, java.lang.Long accept_Hospital_ID) throws java.rmi.RemoteException;
     public java.lang.String getAcceptAssistSumH2H(java.lang.Long hospital_ID, java.lang.Long acceptHospitalID, java.lang.String begin_time, java.lang.String end_time) throws java.rmi.RemoteException;
@@ -33,9 +34,9 @@ public interface IServiceYljz extends java.rmi.Remote {
     public java.lang.String getFamilyNoByName(java.lang.String memberName) throws java.rmi.RemoteException;
     public java.lang.String getOrgDataByCode(java.lang.String orgCode) throws java.rmi.RemoteException;
     public java.lang.String getCIAssistByPaperID(java.lang.String paperID, java.lang.String medicareType, java.lang.Integer calcType, java.math.BigDecimal old_Pay_Total, java.math.BigDecimal old_Pay_Medicare, java.math.BigDecimal old_Pay_OutMedicare, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_OutMedicare) throws java.rmi.RemoteException;
+    public java.lang.String getCIAssistByPaperIDEx(java.lang.String paperID, java.lang.String medicareType, java.lang.Integer calcType, java.math.BigDecimal old_Pay_Total, java.math.BigDecimal old_Pay_Medicare, java.math.BigDecimal old_Pay_OutMedicare, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_OutMedicare, java.lang.String end_Time) throws java.rmi.RemoteException;
     public java.math.BigDecimal getSumDataByPaperID(java.lang.String paperID, java.lang.Integer medicareType, java.lang.String finishYear, java.lang.Integer nType) throws java.rmi.RemoteException;
     public java.math.BigDecimal getDbbxQfx(java.lang.Integer ds) throws java.rmi.RemoteException;
-    public java.math.BigDecimal getDbbx(java.math.BigDecimal sumPreScope, java.math.BigDecimal zfyMony, java.math.BigDecimal tcMony, java.math.BigDecimal noPay, java.lang.Integer wsFlag, java.lang.Integer ds) throws java.rmi.RemoteException;
     public java.lang.String refundMedFee0506(java.lang.Long biz_id, java.lang.String memberType, java.lang.String memberID, java.math.BigDecimal payAssist, java.lang.Long user_ID) throws java.rmi.RemoteException;
     public java.lang.String getChargeListByUser(java.lang.Integer bizType, java.lang.Integer chargeType, java.util.Calendar beginTime, java.util.Calendar endTime, java.lang.Long user_ID) throws java.rmi.RemoteException;
     public java.lang.String queryOutDisease(java.lang.String orgCode) throws java.rmi.RemoteException;

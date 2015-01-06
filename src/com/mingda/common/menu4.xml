@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ul id="browser" class="filetree treeview-famfamfam" style="cursor:hand">
+	<li>
+		<span class="folder">救助对象管理</span>
+		<ul>
+			<li>
+				<span class="folder">城市低保对象</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/city/querymembersinit.action&amp;nav=[城市系统]>>[查询]')">
+						<span class="file">查询</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">农村低保对象</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/town/querymembersinit.action&amp;nav=[农村系统]>>[查询]')">
+						<span class="file">查询</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">五保户</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/guarantee/editguaranteeinit.action&amp;nav=[五保户]>>[录入审批]')">
+						<span class="file">录入审批</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/guarantee/uploadexcelinit.action&amp;nav=[五保户]>>[对象导入]')">
+						<span class="file">对象导入</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/guarantee/queryguaranteeinit.action&amp;nav=[五保户]>>[调整复查]')">
+						<span class="file">调整复查</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/guarantee/querymembersinit.action&amp;nav=[五保户]>>[查询]')">
+						<span class="file">查询</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">重点优抚对象</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/specialcare/editspecinit.action&amp;nav=[重点优抚对象]>>[录入审批]')">
+						<span class="file">录入审批</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/guarantee/uploadexcelinit1.action&amp;nav=[重点优抚对象]>>[对象导入]')">
+						<span class="file">对象导入</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/specialcare/queryspecinit.action&amp;nav=[重点优抚对象]>>[调整复查]')">
+						<span class="file">调整复查</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/specialcare/querymembersinit.action&amp;nav=[重点优抚对象]>>[查询]')">
+						<span class="file">查询</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">三无人员</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/abstentions/editabsinit.action&amp;nav=[三无人员]>>[录入审批]')">
+						<span class="file">录入审批</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/abstentions/queryabsinit.action&amp;nav=[三无人员]>>[调整复查]')">
+						<span class="file">调整复查</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/abstentions/queryabsmembersinit.action&amp;nav=[三无人员]>>[查询]')">
+						<span class="file">查询</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">孤儿</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/orphan/editorphaninit.action&amp;nav=[孤儿]>>[录入审批]')">
+						<span class="file">录入审批</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/orphan/queryorphaninit.action&amp;nav=[孤儿]>>[调整复查]')">
+						<span class="file">调整复查</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/orphan/queryorphanmembersinit.action&amp;nav=[孤儿]>>[查询]')">
+						<span class="file">查询</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">临时救助对象</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/querytemppersoninit.action&amp;nav=>[临时救助对象]>>[对象信息查询]')">
+						<span class="file">查询</span>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<span class="folder">救助业务管理</span>
+		<ul>
+			<li>
+				<span class="folder">住院救助管理</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/querymedicalmembersinit.action&amp;nav=[住院救助管理]>>[审核]')">
+						<span class="file">审核</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/querymedicalmembersdoneinit.action&amp;nav=[住院救助管理]>>[复查]')">
+						<span class="file">复查</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/queryinhospitalinit.action&amp;nav=[住院救助管理]>>[查询]')">
+						<span class="file">查询</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/print/printmedicalmemberinit.action&amp;nav=[住院救助管理]>>[公示]')">
+						<span class="file">公示</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">慢性病救助管理</span>
+				<ul>
+					<li>
+						<span class="folder">门诊一般慢性病</span>
+						<ul>
+							<li
+								onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicmemberinit.action&amp;nav=[救助对象管理]>>[慢性病对象审批]')">
+								<span class="file">审批</span>
+							</li>
+							<li
+								onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicmembermodifyinit.action&amp;nav=[救助对象管理]>>[慢性病对象复查]')">
+								<span class="file">复查</span>
+							</li>
+							<li
+								onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicmemberdoneinit.action&amp;nav=[救助对象管理]>>[慢性病对象审批查询]')">
+								<span class="file">审批查询</span>
+							</li>
+							<li
+								onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicgsinit.action&amp;nav=[救助对象管理]>>[慢性病对象公示]')">
+								<span class="file">公示</span>
+							</li>
+							<li
+								onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicbillbysubjectinit.action&amp;nav=[救助对象管理]>>[发放帐单查询]')">
+								<span class="file">发放帐单查询</span>
+							</li>
+							<li
+								onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicstatlinit.action&amp;nav=[救助对象管理]>>[发放统计]')">
+								<span class="file">发放统计</span>
+							</li>
+							<li
+								onclick="viewhtml('../contentframe.jsp?url=../page/chronic/chronicpolicyqueryinit.action&amp;nav=[救助对象管理]>>[政策查询]')">
+								<span class="file">政策查询</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">医后报销管理</span>
+				<ul>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryaftermemberinit.action&amp;nav=[医后报销管理]>>[审批]')">审批</span>
+					</li>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/queryafterapproveinit.action&amp;nav=[医后报销管理]>>[报销查询]')">报销查询</span>
+					</li>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/afterannexaddinit.action&amp;nav=[医后报销管理]>>[附件补录]')">附件补录</span>
+					</li>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/queryaftermembersgsinit.action&amp;nav=[医后报销管理]>>[公示]')">公示</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">临时救助管理</span>
+				<ul>
+
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/querytempmemberinit.action&amp;nav=[临时救助管理]>>[申请]')">申请</span>
+					</li>
+
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/querytempapproveinit&amp;nav=[临时救助管理]>>[审批]')">审批</span>
+					</li>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/querytempsinit&amp;nav=[临时救助管理]>>[审批查询]')">审批查询</span>
+					</li>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/tempannexaddinit.action&amp;nav=[医后报销管理]>>[附件补录]')">附件补录</span>
+					</li>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/managetempinit&amp;nav=[临时救助管理]>>[政策管理]')">政策管理</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">二次救助管理</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/querysecondmemberinit.action&amp;nav=[二次救助管理]>>[生成审批名单]')">
+						<span class="file">生成审批名单</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/querysecondapprovesinit.action&amp;nav=[二次救助管理]>>[对象复审]')">
+						<span class="file">对象复审</span>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<span class="folder">救助金发放管理</span>
+		<ul>
+			<li>
+				<span class="folder">慢性病救助金</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicallinit.action&amp;nav=[慢性病救助管理]>>[慢性病救助金发放]')">
+						<span class="file">救助金发放</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicappendinit.action&amp;nav=[慢性病救助管理]>>[慢性病救助金追加]')">
+						<span class="file">救助金追加</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/chronic/querychronicmoneyinit.action&amp;nav=[慢性病救助管理]>>[慢性病救助金查询]')">
+						<span class="file">救助金查询</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/querymabillstatinit.action&amp;nav=[医后报销救助金]>>[统计]')">
+						<span class="file">统计
+				</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">医后报销救助金</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/createmabillinit.action&amp;nav=[医后报销救助金]>>[救助金发放]')">
+						<span class="file">救助金发放
+				</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/queryusedmabillsinit.action&amp;nav=[医后报销救助金]>>[发放名单查询]')">
+						<span class="file">发放名单查询
+				</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/querymabillstatinit.action&amp;nav=[医后报销救助金]>>[统计]')">
+						<span class="file">统计
+				</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">临时救助金</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/createtempbillinit.action&amp;nav=[临时救助金]>>[救助金发放]')">
+						<span class="file">救助金发放
+				</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/queryusedbillsinit.action&amp;nav=[临时救助金]>>[发放名单查询]')">
+						<span class="file">发放名单查询
+				</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/querybillstatinit.action&amp;nav=[临时救助金]>>[统计]')">
+						<span class="file">统计
+				</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">二次救助金</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/querysecondbillsinit.action&amp;nav=[二次救助管理]>>[救助金发放]')">
+						<span class="file">救助金发放</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/querysecondbilldoneinit.action&amp;nav=[二次救助管理]>>[发放名单查询]')">
+						<span class="file">发放名单查询 </span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/querymabillstatinit.action&amp;nav=[医后报销救助金]>>[统计]')">
+						<span class="file">统计
+				</span>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<span class="folder">救助金对账管理 </span>
+		<ul>
+			<li>
+				<span class="folder">定点医院</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/querycheckaccoutsinit.action&amp;nav=[定点医院]>>[对账明细查询]')">
+						<span class="file">对账明细查询</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/checkaccoutstatinit.action&amp;nav=[定点医院]>>[对账统计]')">
+						<span class="file">对账统计</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">定点药店</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/chronic/checkbillsinit.action&amp;nav=[定点药店]>>[对账明细查询]')">
+						<span class="file">对账明细查询</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/chronic/checkbillsstatinit.action&amp;nav=定点药店>>对账统计')">
+						<span class="file">对账统计</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">转院业务</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/querycheckaccoutscinit.action&amp;nav=[转院业务]>>[对账明细查询]')">
+						<span class="file">对账明细查询</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/checkaccoutstatcinit.action&amp;nav=[转院业务]>>[对账统计]')">
+						<span class="file">对账统计</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">医后报销</span>
+				<ul>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/querycheckaccoutsmainit.action&amp;nav=[医后报销]>>[对账明细查询]')">
+						<span class="file">对账明细查询</span>
+					</li>
+					<li
+						onclick="viewhtml('../contentframe.jsp?url=../page/temp/checkaccoutsmainit.action&amp;nav=[医后报销]>>[对账统计]')">
+						<span class="file">对账统计</span>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<span class="folder">综合统计分析</span>
+		<ul>
+			<li
+				onclick="viewhtml('../report/reportframe.jsp?url=reportInit.action?reporttype=1&amp;nav=[统计分析]>>[基本情况]')">
+				<span class="file">基本情况</span>
+			</li>
+			<li
+				onclick="viewhtml('../report/reportframe.jsp?url=reportInit.action?reporttype=3&amp;nav=[统计分析]>>[救助对象情况]')">
+				<span class="file">救助对象情况</span>
+			</li>
+			<li
+				onclick="viewhtml('../report/reportframe.jsp?url=reportInit.action?reporttype=4&amp;nav=[统计分析]>>[费用分析]')">
+				<span class="file">费用分析</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/report/analyseInpatientCostInit.action&amp;nav=[统计分析]>>[全省住院费用综合分析]')">
+				<span class="file">全省住院费用综合分析</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/report/specialInpatientCostInit.action&amp;nav=[统计分析]>>[特殊群体住院费用分析]')">
+				<span class="file">特殊群体住院费用分析</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/report/inhospitalCostInit.action&amp;nav=[统计分析]>>[住院医疗救助资金统计]')">
+				<span class="file">住院医疗救助资金统计</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/report/dividedInit.action&amp;nav=[统计分析]>>[住院费用分段统计]')">
+				<span class="file">住院费用分段统计</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/report/specialInit.action&amp;nav=[统计分析]>>[特殊疾病医疗费用分段统计]')">
+				<span class="file">特殊疾病医疗费用分段统计</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/report/ratioInit.action&amp;nav=[统计分析]>>[患病率统计]')">
+				<span class="file">患病率统计</span>
+			</li>
+			<li
+				onclick="viewhtml('../report/reportframe.jsp?url=reportInit.action?reporttype=5&amp;nav=[统计分析]>>[救助病种]')">
+				<span class="file">救助病种</span>
+			</li>
+			<li
+				onclick="viewhtml('../report/reportframe.jsp?url=reportInit.action?reporttype=6&amp;nav=[统计分析]>>[医疗机构花费情况]')">
+				<span class="file">医疗机构花费情况</span>
+			</li>
+			<!-- <li onclick="viewhtml('../report/reportframe.jsp?url=reportInit.action?reporttype=9&amp;nav=[统计分析]>>[政策调整、医疗机构调查表]')"> 
+				<span class="file">医疗机构调查表</span> </li> -->
+			<li
+				onclick="viewhtml('../report/reportframe.jsp?url=reportInit.action?reporttype=8&amp;nav=[统计分析]>>[总体情况]')">
+				<span class="file">总体情况</span>
+			</li>
+
+		</ul>
+	</li>
+	<li>
+		<span class="folder">系统管理</span>
+		<ul>
+			<!-- <li ><span class="file">救助标准设置</span></li> <li><span class="file">短信设置</span></li> -->
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/basebiz/findAddrBookList.action&amp;nav=[系统管理]>>[通讯录管理]')">
+				<span class="file">通讯录管理</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/system/modipwdinit.action&amp;nav=[系统管理]>>[修改密码 ]')">
+				<span class="file">修改密码</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/system/manageempinit.action&amp;nav=[系统管理]>>[用户管理 ]')">
+				<span class="file">用户管理</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/system/queryempinfoinit.action&amp;nav=[系统管理]>>[民政用户查询]')">
+				<span class="file">民政用户查询</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/system/queryhempinfoinit.action&amp;nav=[系统管理]>>[医院用户查询]')">
+				<span class="file">医院用户查询</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/system/admin.action&amp;nav=[系统管理]>>[管理员设置]')">
+				<span class="file">管理员设置</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/icd/icdmanageinit.action&amp;nav=[系统管理]>>[病种管理]')">
+				<span class="file">病种管理</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/outicd/viewouticdinfo.jsp&amp;nav=[系统管理]>>[慢性病管理]')">
+				<span class="file">慢性病管理</span>
+			</li>
+		</ul>
+	</li>
+</ul>
+			<!-- <li>
+				<span class="folder">救助补录管理</span>
+				<ul>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/queryaddapproveinit.action&amp;nav=[救助补录管理]>>[补录数据调整]')">补录数据调整</span>
+					</li>
+				</ul>
+			</li> -->

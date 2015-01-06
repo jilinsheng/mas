@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="after" extends="json-default" namespace="/page/after">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="queryaftermemberinit" method="queryaftermemberinit"
+			class="afterAction">
+			<result name="success">
+				/page/after/queryaftermember.jsp
+			</result>
+			<result name="result">
+				/page/after/result.jsp
+			</result>
+		</action>
+		<action name="queryaftermember" method="queryaftermember"
+			class="afterAction">
+			<result name="success">
+				/page/after/viewaftermembers.jsp
+			</result>
+		</action>
+		<action name="afterapplyinitnew" method="afterapplyinitnew"
+			class="afterAction">
+			<result name="success">
+				/page/after/afterapplynew.jsp
+			</result>
+			<result name="result">
+				/page/after/maresult.jsp
+			</result>
+		</action>
+		<action name="calcaftermoney" method="calcaftermoney" 
+			class="afterAction">
+			<result type="json">
+				<param name="root">
+					result
+				</param>
+				<param name="ignoreHierarchy">
+					false
+				</param>
+				<param name="noCache">
+					true
+				</param>
+				<param name="excludeNullProperties">
+					true
+				</param>
+			</result>
+		</action>
+		<action name="calcaftermoneyauto2" method="calcaftermoneyauto2" 
+			class="afterAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="afterapply" method="afterapply" 
+			class="afterAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<result name="success">
+				/page/after/viewafter.jsp
+			</result>
+			<result name="result">
+				/page/after/result.jsp
+			</result>
+		</action>
+		<action name="viewafterapplys" method="viewafterapplys" 
+			class="afterAction">
+			<result name="success">
+				/page/after/viewafters.jsp
+			</result>
+		</action>
+		<action name="viewafterapply" method="viewafterapply" 
+			class="afterAction">
+			<result name="success">
+				/page/after/viewafter.jsp
+			</result>
+		</action>
+		<action name="delafterapply" method="delafterapply" 
+			class="afterAction">
+			<result name="result">
+				/page/after/result.jsp
+			</result>
+		</action>
+	</package>
+</struts>

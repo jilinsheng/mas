@@ -24,4 +24,5 @@
 	<include file="com/mingda/action/struts-abstentions.xml" />
 	<include file="com/mingda/action/struts-orphan.xml" />
 	<include file="com/mingda/action/struts-critical.xml" />
+	<include file="com/mingda/action/struts-after.xml" />
 </struts>

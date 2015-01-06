@@ -163,6 +163,7 @@ $(document).ready(function() {
 					var oldPayOutMedicare=$("#oldPayOutMedicare")[0].value;
 					var calcType=$("#calcType")[0].value;
 					var payCIAssist = $("#payCIAssist")[0].value;
+					var endDate = $("#endDate")[0].value;
 					$.ajax({
 						type : "post",
 						url : "page/temp/calctempmoney.action",
@@ -185,7 +186,8 @@ $(document).ready(function() {
 							"tempDTO.oldPayMedicare" : oldPayMedicare,
 							"tempDTO.oldPayOutMedicare" : oldPayOutMedicare,
 							"tempDTO.calcType" : calcType,
-							"tempDTO.payCIAssist" : payCIAssist
+							"tempDTO.payCIAssist" : payCIAssist,
+							"tempDTO.endtime" : endDate
 						},
 						timeout : 20000,
 						error : function() {

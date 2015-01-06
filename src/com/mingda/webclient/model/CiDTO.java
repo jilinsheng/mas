@@ -67,6 +67,7 @@ public class CiDTO {
 	private  BigDecimal pay_PreSum_AssistScope_In;
 	private String returnFlag;
 	private String resultFlag;
+	private String end_time;
 	public BigDecimal getPay_Total() {
 		return pay_Total;
 	}
@@ -168,6 +169,12 @@ public class CiDTO {
 	}
 	public void setResultFlag(String resultFlag) {
 		this.resultFlag = resultFlag;
+	}
+	public String getEnd_time() {
+		return end_time;
+	}
+	public void setEnd_time(String end_time) {
+		this.end_time = end_time;
 	}
 
 	

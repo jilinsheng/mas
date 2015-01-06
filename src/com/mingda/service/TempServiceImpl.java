@@ -617,7 +617,11 @@ public class TempServiceImpl implements TempService {
 			record.setAssistTime(new Date());
 			record.setBeginTime(tempDTO.getBegintime());
 			record.setEndTime(tempDTO.getEndtime());
-			record.setBizStatus("-1");
+			if("220110".equals(tempDTO.getOrg())){
+				record.setBizStatus(tempDTO.getBizStatus());
+			}else{
+				record.setBizStatus("-1");
+			}
 			record.setDiagnoseName(tempDTO.getInhospitalsicken());
 			record.setHospitalName(tempDTO.getHospitalname());
 			record.setFamilyNo(tempDTO.getFamilyno());
