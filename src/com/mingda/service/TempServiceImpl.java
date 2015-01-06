@@ -2526,15 +2526,16 @@ public class TempServiceImpl implements TempService {
 		return list;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String saveSecondbills(String organizationId) {
 
 		SecondBatch b = new SecondBatch();
+		Calendar calendar = Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR)-1;
 		//ÁÙÊ±ÐÞ¸Ä-20140106
 		//b.setOperTime(new Date());
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd HH:mm:ss");
-			b.setOperTime(sdf.parse("2013-12-31 23:59:59"));
+			b.setOperTime(sdf.parse(year+"-12-31 23:59:59"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -2548,7 +2549,7 @@ public class TempServiceImpl implements TempService {
 				+ b.getBatchId()
 				+ "',tp.member_id,tp.member_type ,tp.paperid  ,tp.membername  ,tp.familyno  ,tp.salmoney, "
 				//+ " sysdate "
-				+ " to_date('2013-12-31 23:59:59', 'YYYY/MM/DD:HH24:MI:SS')"
+				+ " to_date('"+year+"-12-31 23:59:59', 'YYYY/MM/DD:HH24:MI:SS')"
 				+ " from second_approve tp  where tp.familyno like '"
 				+ organizationId + "%' and tp.approvests=1";
 		HashMap<String, String> param = new HashMap<String, String>();

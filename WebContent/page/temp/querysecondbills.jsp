@@ -20,7 +20,7 @@
 </head>
 <script type="text/javascript">
 	function viewapply() {
-		var url = "gensecondbillinit.action";
+		var url = "page/temp/gensecondbillinit.action";
 		var f = "dialogWidth=700px;dialogHeight=510px;status=no;help=no;scroll=auto";
 		//window.showModalDialog(url, window, f);
 		window.open (url,'二次救助','height=510,width=700,top=50,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no');

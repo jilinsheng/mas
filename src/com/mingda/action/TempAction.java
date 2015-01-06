@@ -2355,7 +2355,7 @@ public class TempAction extends ActionSupport {
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
 		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
+		int year = calendar.get(Calendar.YEAR)-1;
 		// 获取机构
 		if (6 == organizationId.length() || 8 == organizationId.length()) {
 			// 查询封顶线
@@ -2388,10 +2388,10 @@ public class TempAction extends ActionSupport {
 		String jwhere = "";
 		String jwhere2 = "";
 		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
+		int year = calendar.get(Calendar.YEAR)-1;
 		if (null == cur_page || "".equals(cur_page)) {
 			// 临时修改-20140106
-			tempSecondDTO.setYear((new BigDecimal(year-1)).toString());
+			tempSecondDTO.setYear((new BigDecimal(year)).toString());
 			// tempSecondDTO.setYear("2013");
 			BigDecimal bb = new BigDecimal(tempSecondDTO.getSalpercent());
 			if (null == app || "".equals(app)) {
@@ -2502,9 +2502,9 @@ public class TempAction extends ActionSupport {
 		tempSecondDTO.setOrganizationId(organizationId);
 
 		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
+		int year = calendar.get(Calendar.YEAR)-1;
 		// 临时修改-20140106
-		tempSecondDTO.setYear((new BigDecimal(year-1)).toString());
+		tempSecondDTO.setYear((new BigDecimal(year)).toString());
 		// tempSecondDTO.setYear("2013");
 
 		String sql = "select * from second_approve t  where t.familyno like '"
@@ -2534,7 +2534,7 @@ public class TempAction extends ActionSupport {
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
 		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
+		int year = calendar.get(Calendar.YEAR)-1;
 		if (organizationId.length() == 6) {
 			if (6 == organizationId.length() || 8 == organizationId.length()) {
 				if (2 == organizationId.length()) {
@@ -2569,7 +2569,7 @@ public class TempAction extends ActionSupport {
 		String organizationId = user.getOrganizationId();
 		String sql = "";
 		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
+		int year = calendar.get(Calendar.YEAR)-1;
 		if (null == cur_page || "".equals(cur_page)) {
 
 			String var = value;
@@ -2678,7 +2678,7 @@ public class TempAction extends ActionSupport {
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
 		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
+		int year = calendar.get(Calendar.YEAR)-1;
 		if (organizationId.length() == 6) {
 			SecondBatchDTO secondBatchDTO = new SecondBatchDTO();
 			if (6 == organizationId.length() || 8 == organizationId.length()) {
@@ -2739,7 +2739,7 @@ public class TempAction extends ActionSupport {
 		String organizationId = user.getOrganizationId();
 		Calendar calendar = Calendar.getInstance();
 		// 临时修改---20140106
-		int year = calendar.get(Calendar.YEAR);
+		int year = calendar.get(Calendar.YEAR)-1;
 		// int year = 2013;
 		sbs = tempService.findSecondBatchs(organizationId, year);
 		// secondBatchDTO.setYear(year);
@@ -2913,7 +2913,7 @@ public class TempAction extends ActionSupport {
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
 		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
+		int year = calendar.get(Calendar.YEAR)-1;
 		tempService.removeSecondAll(organizationId, year);
 		JSONObject json = new JSONObject();
 		json.put("r", "删除成功 ！");
