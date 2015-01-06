@@ -552,7 +552,7 @@ public class TempServiceImpl implements TempService {
 			tempDTO.setSumMedicareScope(a.getSumMedicarescope());
 			tempDTO.setPayCIAssist(a.getPayCiassist());
 			tempDTO.setMedicareType(a.getMedicareType());
-			tempDTO.setBizStatus(a.getBizStatus());
+			tempDTO.setBizStatus(a.getBizStatus().trim());
 			tempDTO.setPaySumAssistScopeIn(a.getSumAssitscope());
 			tempDTO.setPayPreSumAssistScopeIn(a.getSumPreAssitscope());
 			tempDTO.setInsurance(a.getInsurance());

@@ -349,7 +349,6 @@ public class AfterAction extends ActionSupport {
 					+ "Ԫ;";
 			return "result";
 		} else {
-			tempDTO.setBizStatus("1");
 			if (null == af) {
 				tempDTO = tempService.saveAfterApplyInfo(tempDTO);
 			} else {

@@ -566,7 +566,6 @@
 	<s:hidden name="tempDTO.personstate"></s:hidden>
 	<s:hidden id="paySumAssistScopeIn" name="tempDTO.paySumAssistScopeIn"></s:hidden>
 	<s:hidden id="payPreSumAssistScopeIn" name="tempDTO.payPreSumAssistScopeIn"></s:hidden>
-	<s:hidden name="tempDTO.bizStatus"></s:hidden>
 	<s:hidden id="assistTypeM" name="tempDTO.assistTypeM"></s:hidden>
 	<s:hidden id="assistTypex" name="tempDTO.assistTypex"></s:hidden>
 	<s:hidden id="org" name="tempDTO.org"></s:hidden>
@@ -802,7 +801,7 @@
 		<tr>
 			<td class="formtd1" width="15%" style="font-weight:bold;color:#104E8B">审批结果：</td>
 			<td class="formtd2" colspan="5">
-				<s:select name="tempDTO.bizStatus" list="#{'1':'同意'}" disabled="true"></s:select> 
+				<s:select id="bizStatus" name="tempDTO.bizStatus" list="#{'1':'同意','0':'不同意'}" disabled="false"></s:select> 
 			</td>
 		</tr>
 	</table>

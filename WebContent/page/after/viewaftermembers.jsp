@@ -23,7 +23,7 @@
 	}
 	function viewapply(m1,m2){
 		var url="viewafterapplys.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2;
-		var f="dialogWidth=1000px;dialogHeight=450px;status=no;help=no;scroll=auto";
+		var f="dialogWidth=1100px;dialogHeight=450px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 </script>

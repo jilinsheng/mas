@@ -36,14 +36,14 @@
 	}
 </script>
 <body>
-<table width="1000px" class="formTitle">
+<table width="1100px" class="formTitle">
 	<tr>
 		<td style="padding-left: 2px"><img alt="医后报销审批列表" border="0"
 			src="page/images/aws-dev.gif" /><font class="formTitleFont">医后报销审批列表</font></td>
 	</tr>
 </table>
 <table align="center" border="0" cellpadding="0" cellspacing="0"
-	width="1000px" class="formtable">
+	width="1100px" class="formtable">
 	<tr>
 		<td class="formtd1">救助时间</td>
 		<td class="formtd1">医院</td>
@@ -55,6 +55,7 @@
 		<td class="formtd1">救助金额</td>
 		<td class="formtd1">当前人员状态</td>
 		<td class="formtd1">身份类别</td>
+		<td class="formtd1">审批状态</td>
 		<td class="formtd1">操作</td>
 	</tr>
 	<s:iterator value="tempmembers">
@@ -67,12 +68,20 @@
 			<td class="formtd2" width="8%"><s:property value="payOutmedicare"></s:property></td>
 			<td class="formtd2" width="7%"><s:property value="payCIAssist"></s:property></td>
 			<td class="formtd2" width="7%"><s:property value="payAssist"></s:property></td>
-			<td class="formtd2" width="10%"><s:property value="personstate"></s:property></td>
-			<td class="formtd2" width="10%"><s:property value="assistTypeTxt"></s:property></td>
-			<td class="formtd1" width="12%">
+			<td class="formtd2" width="8%"><s:property value="personstate"></s:property></td>
+			<td class="formtd2" width="8%"><s:property value="assistTypeTxt"></s:property></td>
+			<td class="formtd2" width="8%">
+				<s:if test="bizStatus==1">
+					同意
+				</s:if>
+				<s:elseif test="bizStatus==0">
+					不同意
+				</s:elseif>
+			</td>
+			<td class="formtd1" width="10%">
 				<a href="javascript:void(0)" onclick="view('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>')">查看</a> &nbsp;&nbsp;
 				<a href="javascript:void(0)" onclick="modify('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="assistTypex"></s:property>','<s:property value="paperid"/>','<s:property value="tempDTO.org"/>')">修改</a>&nbsp;&nbsp;
-				<a href="javascript:void(0)" onclick="del('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="assistTypex"></s:property>')">删除</a>
+				<%-- <a href="javascript:void(0)" onclick="del('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="assistTypex"></s:property>')">删除</a> --%>
 			</td>
 		</tr>
 	</s:iterator>
