@@ -41,6 +41,7 @@ function getmoney() {
 	var payOutmedicare=$("#payOutmedicare")[0].value;
 	var payMedicare=$("#payMedicare")[0].value;
 	var payCIAssist = $("#payCIAssist")[0].value;
+	var endDate = $("#endDate")[0].value;
 	var flag=true;
 	if(payTotal==""||payTotal==0){
 		alert("请填写总费用！");
@@ -53,6 +54,9 @@ function getmoney() {
 		flag=false;
 	}else if(payCIAssist==""){
 		alert("请填写大病保险金额！");
+		flag=false;
+	}else if(endDate==""){
+		alert("提示：出院时间为空！");
 		flag=false;
 	}
 	if(flag==true){
@@ -74,7 +78,6 @@ function getmoney() {
 		var oldPayOutMedicare=$("#oldPayOutMedicare")[0].value;
 		var calcType=$("#calcType")[0].value;
 		var payCIAssist = $("#payCIAssist")[0].value;
-		var endDate = $("#endDate")[0].value;
 		$.ajax({
 			type : "post",
 			url : "page/temp/calctempmoney.action",
@@ -286,6 +289,7 @@ function getmoney() {
 <body>
 <s:form action="tempapprove" method="post" theme="simple"  enctype="multipart/form-data"
 	onsubmit="return checkform();">
+	<s:hidden id="endDate" name="tempDTO.medicaltimeEnd"></s:hidden>
 	<s:hidden id="approveId" name="tempDTO.approveId"></s:hidden>
 	<s:hidden id="memberId" name="tempDTO.memberId"></s:hidden>
 	<s:hidden id="memberType" name="tempDTO.memberType"></s:hidden>

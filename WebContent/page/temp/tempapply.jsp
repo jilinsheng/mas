@@ -116,6 +116,7 @@ $(document).ready(function() {
 		var payOutmedicare=$("#payOutmedicare")[0].value;
 		var payMedicare=$("#payMedicare")[0].value;
 		var payCIAssist = $("#payCIAssist")[0].value;
+		var endDate = $("#endDate")[0].value;
 		var flag=true;
 		if(payTotal==""||payTotal==0){
 			alert("请填写总费用！");
@@ -131,6 +132,9 @@ $(document).ready(function() {
 			flag=false;
 		}else if(safesort==""){
 			alert("请选择保险类型！不能选择'未知'");
+			flag=false;
+		}else if(endDate==""){
+			alert("请填写出院时间！");
 			flag=false;
 		}
 		if(safesort==1){
@@ -163,7 +167,6 @@ $(document).ready(function() {
 					var oldPayOutMedicare=$("#oldPayOutMedicare")[0].value;
 					var calcType=$("#calcType")[0].value;
 					var payCIAssist = $("#payCIAssist")[0].value;
-					var endDate = $("#endDate")[0].value;
 					$.ajax({
 						type : "post",
 						url : "page/temp/calctempmoney.action",
