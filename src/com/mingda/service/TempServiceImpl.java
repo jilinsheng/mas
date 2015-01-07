@@ -3135,9 +3135,11 @@ public class TempServiceImpl implements TempService {
 		e.setPayMedicare(a.getPayMedicare());
 		e.setPayOutmedicare(a.getPayOutmedicare());
 		e.setPayCIAssist(a.getPayCiassist());
-		e.setSumMedicareScope(a.getSumAssitscope());
+		e.setSumMedicareScope(a.getSumMedicarescope());
 		e.setPaySumAssistIn(a.getPaySumassistIn());
 		e.setPaySumAssistOut(a.getPaySumassistOut());
+		e.setPayPreSumAssistScopeIn(a.getSumPreAssitscope());
+		e.setPaySumAssistScopeIn(a.getSumAssitscope());
 		e.setBegintime(a.getBeginTime());
 		e.setEndtime(a.getEndTime());
 		e.setSystime(new Date());
@@ -3746,7 +3748,7 @@ public class TempServiceImpl implements TempService {
 		JzMedicalafterBillDTO jmb = new JzMedicalafterBillDTO();
 		//如果有先修改票据状态0
 		JzMedicalafterBillExample example = new JzMedicalafterBillExample();
-		example.createCriteria().andBizIdEqualTo(jmbDTO.getBizId());
+		example.createCriteria().andBizIdEqualTo(jmbDTO.getBizId()).andStsEqualTo("1");
 		List<JzMedicalafterBill> rs = jzMedicalafterBillDAO.selectByExample(example);
 		if(rs.size()>0){
 			for (JzMedicalafterBill r : rs) {
