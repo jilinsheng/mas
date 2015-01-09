@@ -52,6 +52,8 @@ public class AfterDTO {
 	private String OrgCode;
 	private long Hospital_ID;
 	private int Hospital_Level;
+	private int Hospital_Local;
+	private int Hospital_Type;
 	private String MemberType;
 	private String MemberID;
 	private String MedicareType;
@@ -248,6 +250,18 @@ public class AfterDTO {
 	}
 	public void setIcd_ID(int icd_ID) {
 		Icd_ID = icd_ID;
+	}
+	public int getHospital_Local() {
+		return Hospital_Local;
+	}
+	public void setHospital_Local(int hospital_Local) {
+		Hospital_Local = hospital_Local;
+	}
+	public int getHospital_Type() {
+		return Hospital_Type;
+	}
+	public void setHospital_Type(int hospital_Type) {
+		Hospital_Type = hospital_Type;
 	}
 
 

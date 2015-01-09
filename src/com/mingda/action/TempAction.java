@@ -920,6 +920,8 @@ public class TempAction extends ActionSupport {
 			afterDTO.setPay_Sybx(tempDTO.getInsurance());
 			afterDTO.setPay_Dbbx(tempDTO.getPayCIAssist());
 			afterDTO.setHospital_Level(tempDTO.getHospitalLevel());
+			afterDTO.setHospital_Local(Integer.parseInt(tempDTO.getHospitalLocal()));
+			afterDTO.setHospital_Type(Integer.parseInt(tempDTO.getHospitaltype()));
 			afterDTO = yljzService.getAssistMoneyAfterEx(afterDTO);
 			if ("1".equals(afterDTO.getReturnFlag())) {
 				if ("2".equals(tempDTO.getAssistype())) {
@@ -1616,7 +1618,7 @@ public class TempAction extends ActionSupport {
 		long sumFilesSize = 0;
 		tempDTO.setOrganizationId(orgid);
 		tempDTO.setOrg(orgid.substring(0, 6));
-		TempDTO temp = tempService.isline(tempDTO);
+		/*TempDTO temp = tempService.isline(tempDTO);
 		if ((("220803".equals(tempDTO.getOrg())) || ("220225".equals(tempDTO
 				.getOrg())))
 				&& (("1".equals(tempDTO.getAssistTypeM().substring(2, 3))) || ("1"
@@ -1629,7 +1631,7 @@ public class TempAction extends ActionSupport {
 					+ temp.getMzPay() + "Ôª;<br/>·â¶¥Ïß£º" + temp.getTopLine()
 					+ "Ôª;";
 			return "result";
-		} else {
+		} else {*/
 			if (orgid.length() >= 8) {
 				tempDTO.setBizStatus("-1");
 			} else if (orgid.length() <= 6) {
@@ -1686,7 +1688,7 @@ public class TempAction extends ActionSupport {
 					/* } */
 				}
 			}
-		}
+		/*}*/
 		mafiles = tempService.findJzMedicalafterfiles(new BigDecimal(tempDTO
 				.getApproveId()).toString());
 		return SUCCESS;
@@ -3497,7 +3499,10 @@ public class TempAction extends ActionSupport {
 			afterDTO.setPay_Sybx(tempDTO.getInsurance());
 			afterDTO.setPay_Dbbx(tempDTO.getPayCIAssist());
 			afterDTO.setHospital_Level(tempDTO.getHospitalLevel());
+			afterDTO.setHospital_Local(Integer.parseInt(tempDTO.getHospitalLocal()));
+			afterDTO.setHospital_Type(Integer.parseInt(tempDTO.getHospitaltype()));
 			afterDTO = yljzService.getAssistMoneyAfterEx(afterDTO);
+			
 			if ("1".equals(afterDTO.getReturnFlag())) {
 				if ("2".equals(tempDTO.getAssistype())) {
 					json.put("m", afterDTO.getAssistMoney());

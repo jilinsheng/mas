@@ -185,6 +185,8 @@ public class YljzServiceImpl implements YljzService {
 			String xml = iServiceYljzProxy.getAssistMoneyAfterEx(
 					afterDTO.getOrgCode(),afterDTO.getHospital_ID(),
 					afterDTO.getHospital_Level(),
+					afterDTO.getHospital_Local(),
+					afterDTO.getHospital_Type(),
 					afterDTO.getMemberType(),afterDTO.getMemberID(),
 					afterDTO.getMedicareType(),afterDTO.getBizType(),
 					afterDTO.getSpecBiz(),afterDTO.getBegin_Time(),

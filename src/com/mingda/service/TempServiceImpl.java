@@ -558,6 +558,7 @@ public class TempServiceImpl implements TempService {
 			tempDTO.setInsurance(a.getInsurance());
 			tempDTO.setOtherType(a.getOtherType());
 			tempDTO.setSsn(a.getSsn());
+			tempDTO.setHospitalLocal(a.getHospitalLocal());
 			if(null == a.getHospitalLevel()){
 				tempDTO.setHospitalLevel(0);
 			}else{
@@ -640,7 +641,6 @@ public class TempServiceImpl implements TempService {
 			record.setAssistType(tempDTO.getAssistype());
 			record.setDiagnoseName(tempDTO.getInhospitalsicken());
 			record.setMedicareType(tempDTO.getMedicareType());
-			record.setHospitalType(tempDTO.getHospitaltype());
 			record.setPersonstate(tempDTO.getPersonstate());
 			record.setAssistTypeM(tempDTO.getAssistTypeM());
 			record.setAssistTypex(tempDTO.getAssistTypex());
@@ -659,6 +659,8 @@ public class TempServiceImpl implements TempService {
 			record.setCalcmsg(tempDTO.getCalcMsg());
 			record.setInsurance(tempDTO.getInsurance());
 			record.setHospitalLevel(String.valueOf(tempDTO.getHospitalLevel()));
+			record.setHospitalLocal(tempDTO.getHospitalLocal());
+			record.setHospitalType(tempDTO.getHospitaltype());
 			record.setOtherType(tempDTO.getOtherType());
 			record.setSsn(tempDTO.getSsn());
 			Integer id = jzMedicalafterDAO.insertSelective(record);
@@ -703,7 +705,6 @@ public class TempServiceImpl implements TempService {
 			record.setDiagnoseName(tempDTO.getInhospitalsicken());
 			record.setBizId(tempDTO.getApproveId().intValue());
 			record.setMedicareType(tempDTO.getMedicareType());
-			record.setHospitalType(tempDTO.getHospitaltype());
 			record.setPersonstate(tempDTO.getPersonstate());
 			record.setAssistTypeM(tempDTO.getAssistTypeM());
 			record.setAssistTypex(tempDTO.getAssistTypex());
@@ -722,6 +723,8 @@ public class TempServiceImpl implements TempService {
 			record.setCalcmsg(tempDTO.getCalcMsg());
 			record.setInsurance(tempDTO.getInsurance());
 			record.setHospitalLevel(String.valueOf(tempDTO.getHospitalLevel()));
+			record.setHospitalLocal(tempDTO.getHospitalLocal());
+			record.setHospitalType(tempDTO.getHospitaltype());
 			record.setOtherType(tempDTO.getOtherType());
 			record.setSsn(tempDTO.getSsn());
 			jzMedicalafterDAO.updateByPrimaryKeySelective(record);

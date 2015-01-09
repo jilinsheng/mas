@@ -69,16 +69,24 @@
 	</tr>
 	<tr>
 		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">医院级别：</td>
-		<td class="formtd2" >
+		<td class="formtd2" colspan="3">
 			<s:if test="tempDTO.hospitalLevel==1">乡镇</s:if>
 			<s:elseif test="tempDTO.hospitalLevel==2">区县</s:elseif>
 			<s:elseif test="tempDTO.hospitalLevel==3">市级</s:elseif>
 			<s:elseif test="tempDTO.hospitalLevel==4">省级</s:elseif>
 		</td>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">医院类别:</td>
+		
+	</tr>
+	<tr>
+		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">医院区域：</td>
 		<td class="formtd2" >
-			<s:if test="tempDTO.hospitaltype==1">辖区内定点医院</s:if>
-			<s:if test="tempDTO.hospitaltype==2">其它</s:if>
+			<s:if test="tempDTO.hospitalLocal==1">辖区内</s:if>
+			<s:if test="tempDTO.hospitalLocal==2">辖区外</s:if>
+		</td>
+		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">医院类别：</td>
+		<td class="formtd2" >
+			<s:if test="tempDTO.hospitaltype==1">定点医院</s:if>
+			<s:if test="tempDTO.hospitaltype==2">非定点医院</s:if>
 		</td>
 	</tr>
 	<tr>

@@ -119,6 +119,8 @@ public class TempDTO {
 	private Date systime;
 	private String medicaretypetext;
 	
+	private String hospitalLocal;
+	
 	public BigDecimal getPaySumAssistScopeIn() {
 		return paySumAssistScopeIn;
 	}
@@ -1013,6 +1015,14 @@ public class TempDTO {
 
 	public void setMedicaretypetext(String medicaretypetext) {
 		this.medicaretypetext = medicaretypetext;
+	}
+
+	public String getHospitalLocal() {
+		return hospitalLocal;
+	}
+
+	public void setHospitalLocal(String hospitalLocal) {
+		this.hospitalLocal = hospitalLocal;
 	}
 
 }

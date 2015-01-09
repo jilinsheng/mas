@@ -205,6 +205,8 @@
 		var insurance = $("#insurance")[0].value;
 		var payCIAssist = $("#payCIAssist")[0].value;
 		var hospitalLevel = $("input[name='tempDTO.hospitalLevel']:checked").val();
+		var hospitalLocal = $("input[name='tempDTO.hospitalLocal']:checked").val();
+		var hospitaltype = $("input[name='tempDTO.hospitaltype']:checked").val();
 		var otherType = $("input[name='tempDTO.otherType']:checked").val();
 		var flag=true;
 		if(hospitalId>0){
@@ -329,7 +331,9 @@
 					"tempDTO.insurance" : insurance,
 					"tempDTO.payCIAssist" : payCIAssist,
 					"tempDTO.otherType" : otherType,
-					"tempDTO.hospitalLevel" : hospitalLevel
+					"tempDTO.hospitalLevel" : hospitalLevel,
+					"tempDTO.hospitalLocal" : hospitalLocal,
+					"tempDTO.hospitaltype" : hospitaltype
 				},
 				timeout : 20000,
 				error : function() {
@@ -419,6 +423,8 @@
 		var insurance = $("#insurance")[0].value;
 		var payCIAssist = $("#payCIAssist")[0].value;
 		var hospitalLevel = $("input[name='tempDTO.hospitalLevel']:checked").val();
+		var hospitalLocal = $("input[name='tempDTO.hospitalLocal']:checked").val();
+		var hospitaltype = $("input[name='tempDTO.hospitaltype']:checked").val();
 		var otherType = $("input[name='tempDTO.otherType']:checked").val();
 		var icdId=$("#icdId")[0].value;
 		var inhospitalsicken = $("#inhospitalsicken")[0].value;
@@ -520,7 +526,9 @@
 					"tempDTO.insurance" : insurance,
 					"tempDTO.payCIAssist" : payCIAssist,
 					"tempDTO.otherType" : otherType,
-					"tempDTO.hospitalLevel" : hospitalLevel
+					"tempDTO.hospitalLevel" : hospitalLevel,
+					"tempDTO.hospitalLocal" : hospitalLocal,
+					"tempDTO.hospitaltype" : hospitaltype
 				},
 				timeout : 20000,
 				error : function() {
@@ -912,6 +920,8 @@
 		var insurance = $("#insurance")[0].value;
 		var payCIAssist = $("#payCIAssist")[0].value;
 		var hospitalLevel = $("input[name='tempDTO.hospitalLevel']:checked").val();
+		var hospitalLocal = $("input[name='tempDTO.hospitalLocal']:checked").val();
+		var hospitaltype = $("input[name='tempDTO.hospitaltype']:checked").val();
 		var otherType = $("input[name='tempDTO.otherType']:checked").val();
 		var icdId=$("#icdId")[0].value;
 		var inhospitalsicken = $("#inhospitalsicken")[0].value;
@@ -1040,7 +1050,9 @@
 					"tempDTO.insurance" : insurance,
 					"tempDTO.payCIAssist" : payCIAssist,
 					"tempDTO.otherType" : otherType,
-					"tempDTO.hospitalLevel" : hospitalLevel
+					"tempDTO.hospitalLevel" : hospitalLevel,
+					"tempDTO.hospitalLocal" : hospitalLocal,
+					"tempDTO.hospitaltype" : hospitaltype
 				},
 				timeout : 20000,
 				error : function() {
@@ -1341,7 +1353,7 @@
 		</tr>
 		<tr>
 			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">医院级别：</td>
-			<td class="formtd2">
+			<td class="formtd2" colspan="3">
 				<s:if test="tempDTO.hospitalLevel==0">
 				<s:radio id="tempDTO.hospitalLevel" name="tempDTO.hospitalLevel" list="#{'1':'乡镇','2':'区县','3':'市级','4':'省级'}" listKey="key" listValue="value" value="2"></s:radio>
 				</s:if>
@@ -1349,12 +1361,23 @@
 				<s:radio id="tempDTO.hospitalLevel" name="tempDTO.hospitalLevel" list="#{'1':'乡镇','2':'区县','3':'市级','4':'省级'}" listKey="key" listValue="value"></s:radio>
 				</s:else>
 			</td>
-			<td class="formtd1" width="18%" style="font-weight:bold;color:#006030">医院类别:</td>
+			
+		</tr>
+		<tr>
+			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">医院区域：</td>
+			<td class="formtd2">
+				<s:if test="tempDTO.hospitalLocal==null">
+					<s:radio id="tempDTO.hospitalLocal" name="tempDTO.hospitalLocal" list="#{'1':'辖区内','2':'辖区外'}" listKey="key" listValue="value" value="1"></s:radio>
+				</s:if><s:else>
+					<s:radio id="tempDTO.hospitalLocal" name="tempDTO.hospitalLocal" list="#{'1':'辖区内','2':'辖区外'}" listKey="key" listValue="value"></s:radio>
+				</s:else>
+			</td>
+			<td class="formtd1" width="18%" style="font-weight:bold;color:#006030">医院类别：</td>
 			<td class="formtd2">
 			<s:if test="tempDTO.hospitaltype==null">
-				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'辖区内定点医院','2':'其它'}" listKey="key" listValue="value" value="1"></s:radio>
+				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'定点 医院','2':'非定点医院'}" listKey="key" listValue="value" value="1"></s:radio>
 			</s:if><s:else>
-				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'辖区内定点医院','2':'其它'}" listKey="key" listValue="value"></s:radio>
+				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'定点 医院','2':'非定点医院'}" listKey="key" listValue="value"></s:radio>
 			</s:else>
 			</td>
 		</tr>
