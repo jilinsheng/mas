@@ -335,7 +335,7 @@ public class BaseBizAction extends ActionSupport {
 			if("220506".equals(orgid)){
 				DeptDTO element1 = new DeptDTO();
 				element1.setHospitalId(2582);
-				element1.setName("通化市海龙精神病医院（药店）");
+				element1.setName("通化市海龙精神病医院（药房）");
 				depts.add(len+1, element1);
 				DeptDTO element2 = new DeptDTO();
 				element2.setHospitalId(2583);
@@ -343,7 +343,7 @@ public class BaseBizAction extends ActionSupport {
 				depts.add((len+2), element2);
 				DeptDTO element3 = new DeptDTO();
 				element3.setHospitalId(2584);
-				element3.setName("梅河口友谊医院（药房）");
+				element3.setName("梅河口市友谊医院（药房）");
 				depts.add((len+3), element3);
 				DeptDTO element4 = new DeptDTO();
 				element4.setHospitalId(2585);
@@ -576,7 +576,7 @@ public class BaseBizAction extends ActionSupport {
 			if("220506".equals(orgid)){
 				DeptDTO element1 = new DeptDTO();
 				element1.setHospitalId(2582);
-				element1.setName("通化市海龙精神病医院（药店）");
+				element1.setName("通化市海龙精神病医院（药房）");
 				depts.add(len+1, element1);
 				DeptDTO element2 = new DeptDTO();
 				element2.setHospitalId(2583);
@@ -584,7 +584,7 @@ public class BaseBizAction extends ActionSupport {
 				depts.add((len+2), element2);
 				DeptDTO element3 = new DeptDTO();
 				element3.setHospitalId(2584);
-				element3.setName("梅河口友谊医院（药房）");
+				element3.setName("梅河口市友谊医院（药房）");
 				depts.add((len+3), element3);
 				DeptDTO element4 = new DeptDTO();
 				element4.setHospitalId(2585);
