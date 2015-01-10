@@ -852,7 +852,8 @@
 					"tempDTO.assistTypex" : assistTypex,
 					"tempDTO.diagnoseTypeId" : diagnoseTypeId,
 					"tempDTO.insurance" : insurance,
-					"tempDTO.payCIAssist" : payCIAssist
+					"tempDTO.payCIAssist" : payCIAssist,
+					"tempDTO.endtime" : endDate
 				},
 				timeout : 20000,
 				error : function() {
