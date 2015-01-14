@@ -350,8 +350,9 @@
 					var ci= json['ci'];
 					var sum= json['sum'];
 					var calcmsg= json['calcmsg'];
+					var year = json['businessyear'];
 					if('成功'==info){
-						alert('计算保障金:'+m+'元');
+						alert(year+'年度业务，'+'计算保障金:'+m+'元');
 						$('#payAssist')[0].readOnly=false;
 						$('#payAssist')[0].value=m;
 						$('#paySumAssistIn')[0].value=iin;
@@ -363,6 +364,7 @@
 						$('#MedicareScope')[0].innerText=sum;
 						$('#Msg')[0].innerText=calcmsg;
 						$('#b')[0].disabled=false;
+						$('#businessyear')[0].value=year;
 						/* if(assistype==1){
 							$('#payCIAssist')[0].value=0;
 						}else if(assistype==2){
@@ -545,8 +547,9 @@
 					var ci= json['ci'];
 					var sum= json['sum'];
 					var calcmsg= json['calcmsg'];
+					var year = json['businessyear'];
 					if('成功'==info){
-						alert('计算保障金:'+m+'元');
+						alert(year+'年度业务，'+'计算保障金:'+m+'元');
 						$('#payAssist')[0].readOnly=false;
 						$('#payAssist')[0].value=m;
 						/* $('#paySumAssistIn')[0].value=iin;
@@ -555,6 +558,7 @@
 						$('#calcMsg')[0].value=calcmsg;
 						$('#Msg')[0].innerText = calcmsg;
 						$('#b')[0].disabled=false;
+						$('#businessyear')[0].value=year;
 						/* if(assistype==1){
 							$('#payCIAssist')[0].value=0;
 						}else if(assistype==2){
@@ -677,6 +681,7 @@
 					var ci= json['ci'];
 					var sum= json['sum'];
 					var preSum= json['preSum'];
+					var year = json['businessyear'];
 					if('成功'==info){
 						//alert('计算保障金:'+m+'元');
 						$('#payAssist')[0].readOnly=false;
@@ -699,7 +704,7 @@
 							$('#b')[0].disabled=true;
 						}
 						$('#payCIAssist')[0].value=ci;
-						alert("本次大病保险金额："+ci+"元");
+						alert(year+"年度业务，"+"本次大病保险金额："+ci+"元");
 					}else{
 						$('#paySumAssistIn')[0].value=iin;
 						$('#paySumAssistOut')[0].value=out;
@@ -865,11 +870,13 @@
 					json = eval('(' + json + ')');
 					var info= json['info'];
 					var m= json['m'];
+					var year = json['businessyear'];
 					if('成功'==info){
-						alert('计算保障金:'+m+'元');
+						alert(year+'年度业务，'+'计算保障金:'+m+'元');
 						$('#payAssist')[0].readOnly=false;
 						$('#payAssist')[0].value=m;
 						$('#b')[0].disabled=false;
+						$('#businessyear')[0].value=year;
 					}else{
 						alert(info);
 						$('#b')[0].disabled=true;
@@ -1070,8 +1077,9 @@
 					var ci= json['ci'];
 					var sum= json['sum'];
 					var calcmsg= json['calcmsg'];
+					var year = json['businessyear'];
 					if('成功'==info){
-						alert('计算保障金:'+m+'元');
+						alert(year+'年度业务，'+'计算保障金:'+m+'元');
 						$('#payAssist')[0].readOnly=false;
 						$('#payAssist')[0].value=m;
 						/* $('#paySumAssistIn')[0].value=iin;
@@ -1080,6 +1088,7 @@
 						$('#calcMsg')[0].value=calcmsg;
 						$('#Msg')[0].innerText = calcmsg;
 						$('#b')[0].disabled=false;
+						$('#businessyear')[0].value=year;
 						/* if(assistype==1){
 							$('#payCIAssist')[0].value=0;
 						}else if(assistype==2){
@@ -1282,6 +1291,7 @@
 	<s:hidden id="assistTypeM" name="tempDTO.assistTypeM"></s:hidden>
 	<s:hidden id="assistTypex" name="tempDTO.assistTypex"></s:hidden>
 	<s:hidden id="org" name="tempDTO.org"></s:hidden>
+	<s:hidden id="businessyear" name="tempDTO.businessyear"></s:hidden>
 	<table width="780px" class="formTitle" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td style="padding-left: 2px"><img

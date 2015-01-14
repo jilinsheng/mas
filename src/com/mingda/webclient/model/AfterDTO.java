@@ -78,7 +78,7 @@ public class AfterDTO {
 	private BigDecimal AssistSumOut;
 	private BigDecimal AssistCIA;
 	private String CalcMsg;
-
+	private String businessyear;
 	
 	public String getOrgCode() {
 		return OrgCode;
@@ -262,6 +262,12 @@ public class AfterDTO {
 	}
 	public void setHospital_Type(int hospital_Type) {
 		Hospital_Type = hospital_Type;
+	}
+	public String getBusinessyear() {
+		return businessyear;
+	}
+	public void setBusinessyear(String businessyear) {
+		this.businessyear = businessyear;
 	}
 
 

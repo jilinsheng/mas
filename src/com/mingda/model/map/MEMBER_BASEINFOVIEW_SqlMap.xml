@@ -32,6 +32,8 @@
     <result column="SALVATION_ID" property="salvationId" jdbcType="VARCHAR" />
     <result column="MEDICARETYPE" property="medicareType" jdbcType="VARCHAR" />
     <result column="ASSIST_TYPEX" property="assistTypex" jdbcType="VARCHAR" />
+    <result column="PAPERID15" property="paperid15" jdbcType="VARCHAR" />
+    <result column="PAPERID18" property="paperid18" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="ibatorgenerated_Example_Where_Clause" >
     <!--
@@ -70,7 +72,8 @@
     -->
     select MEMBER_ID, MEMBERNAME, PAPERID, SSN, FAMILYID, FAMILYNO, RELMASTER, SEX, MASTERNAME,
       BIRTHDAY, HEALTH, SICKENTYPE, SICKENNAME, DEFORMITY, DEFGRADE, RPRKIND, RPRTYPE, RPRADDRESS,
-      LINKMODE, ADDRESS, PERSONSTATE, ASSIST_TYPE, DS, SALVATION_ID,MEDICARETYPE, ASSIST_TYPEX
+      LINKMODE, ADDRESS, PERSONSTATE, ASSIST_TYPE, DS, SALVATION_ID,MEDICARETYPE, ASSIST_TYPEX,
+      PAPERID15, PAPERID18
     from MEMBER_BASEINFOVIEW02
     <isParameterPresent >
       <include refid="MEMBER_BASEINFOVIEW02.ibatorgenerated_Example_Where_Clause" />
@@ -94,13 +97,15 @@
     -->
     insert into MEMBER_BASEINFOVIEW02 (MEMBER_ID, MEMBERNAME, PAPERID, SSN, FAMILYID, FAMILYNO,
       RELMASTER, SEX, MASTERNAME, BIRTHDAY, HEALTH, SICKENTYPE, SICKENNAME, DEFORMITY, DEFGRADE,
-      RPRKIND, RPRTYPE, RPRADDRESS, LINKMODE, ADDRESS, PERSONSTATE, ASSIST_TYPE, DS, SALVATION_ID ,ASSIST_TYPEX)
+      RPRKIND, RPRTYPE, RPRADDRESS, LINKMODE, ADDRESS, PERSONSTATE, ASSIST_TYPE, DS, SALVATION_ID ,ASSIST_TYPEX,
+      PAPERID15, PAPERID18)
     values (#memberId:VARCHAR#, #membername:VARCHAR#, #paperid:VARCHAR#, #ssn:VARCHAR#,
       #familyid:VARCHAR#, #familyno:VARCHAR#, #relmaster:VARCHAR#, #sex:VARCHAR#,
       #mastername:VARCHAR#, #birthday:TIMESTAMP#, #health:VARCHAR#, #sickentype:VARCHAR#,
       #sickenname:VARCHAR#, #deformity:VARCHAR#, #defgrade:VARCHAR#, #rprkind:VARCHAR#,
       #rprtype:VARCHAR#, #rpraddress:VARCHAR#, #linkmode:VARCHAR#, #address:VARCHAR#,
-      #personstate:VARCHAR#, #assistType:VARCHAR#, #ds:CHAR#, #salvationId:VARCHAR#, #assistTypex:VARCHAR#)
+      #personstate:VARCHAR#, #assistType:VARCHAR#, #ds:CHAR#, #salvationId:VARCHAR#, #assistTypex:VARCHAR#,
+      #paperid15:VARCHAR#, #paperid18:VARCHAR#)
   </insert>
   <insert id="ibatorgenerated_insertSelective" parameterClass="com.mingda.model.MemberBaseinfoview" >
     <!--
@@ -184,6 +189,12 @@
        <isNotNull prepend="," property="assistTypex" >
         ASSIST_TYPEX
       </isNotNull>
+      <isNotNull prepend="," property="paperid15" >
+        PAPERID15
+      </isNotNull>
+      <isNotNull prepend="," property="paperid18" >
+        PAPERID18
+      </isNotNull>
       )
     </dynamic>
     values
@@ -262,6 +273,12 @@
       </isNotNull>
        <isNotNull prepend="," property="assistTypex" >
         #assistTypex:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="paperid15" >
+        #paperid15:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="paperid18" >
+        #paperid18:VARCHAR#
       </isNotNull>
       )
     </dynamic>
@@ -356,6 +373,12 @@
        <isNotNull prepend="," property="record.assistTypex" >
         ASSIST_TYPEX = #record.assistTypex:VARCHAR#
       </isNotNull>
+      <isNotNull prepend="," property="record.paperid15" >
+        PAPERID15 = #record.paperid15:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.paperid18" >
+        PAPERID18 = #record.paperid18:VARCHAR#
+      </isNotNull>
     </dynamic>
     <isParameterPresent >
       <include refid="MEMBER_BASEINFOVIEW02.ibatorgenerated_Example_Where_Clause" />
@@ -391,7 +414,9 @@
       ASSIST_TYPE = #record.assistType:VARCHAR#,
       DS = #record.ds:CHAR#,
       SALVATION_ID = #record.salvationId:VARCHAR#,
-      ASSIST_TYPEX = #record.assistTypex:VARCHAR#
+      ASSIST_TYPEX = #record.assistTypex:VARCHAR#,
+      PAPERID15 = #record.paperid15:VARCHAR#,
+      PAPERID18 = #record.paperid18:VARCHAR#
     <isParameterPresent >
       <include refid="MEMBER_BASEINFOVIEW02.ibatorgenerated_Example_Where_Clause" />
     </isParameterPresent>

@@ -120,6 +120,7 @@ public class TempDTO {
 	private String medicaretypetext;
 	
 	private String hospitalLocal;
+	private String businessyear;
 	
 	public BigDecimal getPaySumAssistScopeIn() {
 		return paySumAssistScopeIn;
@@ -1023,6 +1024,14 @@ public class TempDTO {
 
 	public void setHospitalLocal(String hospitalLocal) {
 		this.hospitalLocal = hospitalLocal;
+	}
+
+	public String getBusinessyear() {
+		return businessyear;
+	}
+
+	public void setBusinessyear(String businessyear) {
+		this.businessyear = businessyear;
 	}
 
 }

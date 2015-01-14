@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +21,7 @@ import com.mingda.common.FileUpload;
 import com.mingda.dto.DeptDTO;
 import com.mingda.dto.DiagnoseTypeDTO;
 import com.mingda.dto.JzMedicalafterfileDTO;
+import com.mingda.dto.JzYearDTO;
 import com.mingda.dto.OutIcdDTO;
 import com.mingda.dto.TempDTO;
 import com.mingda.dto.UserDTO;
@@ -160,7 +164,12 @@ public class AfterAction extends ActionSupport {
 	// 计算医后大病保险
 	@SuppressWarnings("rawtypes")
 	public String calcaftermoney() {
-
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String organizationId = user.getOrganizationId();
+		if (null != organizationId && !"".equals(organizationId)) {
+			organizationId = organizationId.substring(0, 6);
+		}
 		JSONObject json = new JSONObject();
 		ciDTO = new CiDTO();
 		ciDTO.setPaperID(tempDTO.getPaperid());
@@ -178,6 +187,9 @@ public class AfterAction extends ActionSupport {
 		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		ciDTO.setEnd_time(sdf.format(tempDTO.getEndtime()));
+		int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
+		System.out.println("计算大病保险,本次业务年度："+businessyear);
+		ciDTO.setBusinessyear(businessyear+"");
 		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		// 外伤、未经医保/新农合确认的转诊
 		if (!"0".equals(tempDTO.getOtherType())) {
@@ -204,6 +216,7 @@ public class AfterAction extends ActionSupport {
 				json.put("ci", ciDTO.getPayCIAssist());
 				json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
 				json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
+				json.put("businessyear", ciDTO.getBusinessyear());
 			} else if ("1".equals(tempDTO.getAssistype())) {
 				if ("1".equals(tempDTO.getAssistype())
 						&& "2".equals(tempDTO.getMedicareType())) {
@@ -216,6 +229,7 @@ public class AfterAction extends ActionSupport {
 					json.put("ci", ciDTO.getPayCIAssist());
 					json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
 					json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
+					json.put("businessyear", ciDTO.getBusinessyear());
 				} else {
 					json.put("info", "成功");
 					json.put("in", 0);
@@ -224,6 +238,7 @@ public class AfterAction extends ActionSupport {
 					json.put("ci", 0);
 					json.put("sum", 0);
 					json.put("preSum", 0);
+					json.put("businessyear", ciDTO.getBusinessyear());
 				}
 
 			} else {
@@ -232,8 +247,10 @@ public class AfterAction extends ActionSupport {
 					HashMap m = tempService.findMaMoney(tempDTO);
 					json.put("m", m.get("m"));
 					json.put("info", m.get("info"));
+					json.put("businessyear", ciDTO.getBusinessyear());
 				} else {
 					json.put("info", "成功");
+					json.put("businessyear", ciDTO.getBusinessyear());
 				}
 				json.put("in", 0);
 				json.put("out", 0);
@@ -251,6 +268,12 @@ public class AfterAction extends ActionSupport {
 
 	@SuppressWarnings("rawtypes")
 	public String calcaftermoneyauto2() {
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String organizationId = user.getOrganizationId();
+		if (null != organizationId && !"".equals(organizationId)) {
+			organizationId = organizationId.substring(0, 6);
+		}
 		JSONObject json = new JSONObject();
 		ciDTO = new CiDTO();
 		ciDTO.setPaperID(tempDTO.getPaperid());
@@ -266,7 +289,12 @@ public class AfterAction extends ActionSupport {
 		ciDTO.setOld_Pay_Total(tempDTO.getOldPayTotal());
 		ciDTO.setOld_Pay_Medicare(tempDTO.getOldPayMedicare());
 		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
-		ciDTO = yljzService.getCiAssistByPaperID(ciDTO);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ciDTO.setEnd_time(sdf.format(tempDTO.getEndtime()));
+		int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
+		System.out.println("本次业务年度："+businessyear);
+		ciDTO.setBusinessyear(businessyear+"");
+		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		// 外伤、未经医保/新农合确认的转诊
 		if ("0".equals(tempDTO.getDiagnoseTypeId())) {
 			ciDTO.setPayCIAssist(getCia(tempDTO));
@@ -287,6 +315,7 @@ public class AfterAction extends ActionSupport {
 			json.put("ci", ciDTO.getPayCIAssist());
 			json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
 			json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
+			json.put("businessyear", ciDTO.getBusinessyear());
 		} else {
 			json.put("info", "大病保险计算失败!");
 		}
@@ -455,6 +484,59 @@ public class AfterAction extends ActionSupport {
 			return "result";
 		}
 	}
+	
+	/*
+	 * 出院时间与审批时间的年份一致时，本次业务年度为此年度；
+	 * 出院时间为上一年（没有跨两年业务），审批时间是跨年的业务时，本次业务年度为
+	 *		如果小于jz_year的设定时间，就以出院时间的年份为准；
+	 *		如果大于jz_year的设定时间，就以审批时间的年份为准；
+	 */
+	private int getBusinessYear(String orgid,Date endtime){
+		GregorianCalendar g = new GregorianCalendar();
+		int year = g.get(Calendar.YEAR);// 获取年份
+		Calendar c = Calendar.getInstance();
+        c.setTime(endtime);
+        int inyear = c.get(Calendar.YEAR);
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
+		String sysdate = sdf.format(date);
+		if(year==inyear){
+		}else{
+			if((year-1)==inyear){
+				JzYearDTO jzYearDTO = new JzYearDTO();
+				jzYearDTO.setOrganizationId(orgid);
+				String businessdate = tempService.getBusinessYear(jzYearDTO);
+				int i = this.compare_date(sysdate, businessdate);
+				if(i==1){
+				}else{
+					year = year - 1;
+				}
+			}else{
+				year = 0;
+			}
+		}
+		return year;
+	}
+	
+	private int compare_date(String DATE1, String DATE2) {
+		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
+        try {
+            Date dt1 = sdf.parse(DATE1);
+            Date dt2 = sdf.parse(DATE2);
+            if (dt1.getTime() > dt2.getTime()) {
+                //System.out.println("dt1 在dt2前");
+                return 1;
+            } else if (dt1.getTime() < dt2.getTime()) {
+                //System.out.println("dt1在dt2后");
+                return -1;
+            } else {
+                return 0;
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return 0;
+    }
 
 	public String getResult() {
 		return result;

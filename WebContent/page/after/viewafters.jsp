@@ -20,6 +20,7 @@
 </head>
 <script type="text/javascript">
 	function modify(m1,m2,m3,m4,m5,m6,m7){
+		alert(m6);
 		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.assistTypex="+m5+"&tempDTO.paperid="+m6+"&tempDTO.org="+m7;
 		var f="dialogWidth=780px;dialogHeight=710px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);

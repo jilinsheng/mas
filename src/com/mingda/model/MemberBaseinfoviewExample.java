@@ -1915,7 +1915,7 @@ public class MemberBaseinfoviewExample {
             return this;
         }
 
-        public Criteria andAssistxTypeLike(String value) {
+        public Criteria andAssistTypexLike(String value) {
             addCriterion("ASSIST_TYPEX like", value, "assistTypex");
             return this;
         }
@@ -1944,5 +1944,146 @@ public class MemberBaseinfoviewExample {
             addCriterion("ASSIST_TYPEX not between", value1, value2, "assistTypex");
             return this;
         }
+        
+        public Criteria andPaperid15IsNull() {
+            addCriterion("PAPERID15 is null");
+            return this;
+        }
+
+        public Criteria andPaperid15IsNotNull() {
+            addCriterion("PAPERID15 is not null");
+            return this;
+        }
+
+        public Criteria andPaperid15EqualTo(String value) {
+            addCriterion("PAPERID15 =", value, "paperid15");
+            return this;
+        }
+
+        public Criteria andPaperid15NotEqualTo(String value) {
+            addCriterion("PAPERID15 <>", value, "paperid15");
+            return this;
+        }
+
+        public Criteria andPaperid15GreaterThan(String value) {
+            addCriterion("PAPERID15 >", value, "paperid15");
+            return this;
+        }
+
+        public Criteria andPaperid15GreaterThanOrEqualTo(String value) {
+            addCriterion("PAPERID15 >=", value, "paperid15");
+            return this;
+        }
+
+        public Criteria andPaperid15LessThan(String value) {
+            addCriterion("PAPERID15 <", value, "paperid15");
+            return this;
+        }
+
+        public Criteria andPaperid15LessThanOrEqualTo(String value) {
+            addCriterion("PAPERID15 <=", value, "paperid15");
+            return this;
+        }
+
+        public Criteria andPaperid15Like(String value) {
+            addCriterion("PAPERID15 like", value, "paperid15");
+            return this;
+        }
+
+        public Criteria andPaperid15NotLike(String value) {
+            addCriterion("PAPERID15 not like", value, "paperid15");
+            return this;
+        }
+
+        public Criteria andPaperid15In(List<String> values) {
+            addCriterion("PAPERID15 in", values, "paperid15");
+            return this;
+        }
+
+        public Criteria andPaperid15NotIn(List<String> values) {
+            addCriterion("PAPERID15 not in", values, "paperid15");
+            return this;
+        }
+
+        public Criteria andPaperid15Between(String value1, String value2) {
+            addCriterion("PAPERID15 between", value1, value2, "paperid15");
+            return this;
+        }
+
+        public Criteria andPaperid15NotBetween(String value1, String value2) {
+            addCriterion("PAPERID15 not between", value1, value2, "paperid15");
+            return this;
+        }
+        
+        public Criteria andPaperid18IsNull() {
+            addCriterion("PAPERID18 is null");
+            return this;
+        }
+
+        public Criteria andPaperid18IsNotNull() {
+            addCriterion("PAPERID18 is not null");
+            return this;
+        }
+
+        public Criteria andPaperid18EqualTo(String value) {
+            addCriterion("PAPERID18 =", value, "paperid18");
+            return this;
+        }
+
+        public Criteria andPaperid18NotEqualTo(String value) {
+            addCriterion("PAPERID18 <>", value, "paperid18");
+            return this;
+        }
+
+        public Criteria andPaperid18GreaterThan(String value) {
+            addCriterion("PAPERID18 >", value, "paperid18");
+            return this;
+        }
+
+        public Criteria andPaperid18GreaterThanOrEqualTo(String value) {
+            addCriterion("PAPERID18 >=", value, "paperid18");
+            return this;
+        }
+
+        public Criteria andPaperid18LessThan(String value) {
+            addCriterion("PAPERID18 <", value, "paperid18");
+            return this;
+        }
+
+        public Criteria andPaperid18LessThanOrEqualTo(String value) {
+            addCriterion("PAPERID18 <=", value, "paperid18");
+            return this;
+        }
+
+        public Criteria andPaperid18Like(String value) {
+            addCriterion("PAPERID18 like", value, "paperid18");
+            return this;
+        }
+
+        public Criteria andPaperid18NotLike(String value) {
+            addCriterion("PAPERID18 not like", value, "paperid18");
+            return this;
+        }
+
+        public Criteria andPaperid18In(List<String> values) {
+            addCriterion("PAPERID18 in", values, "paperid18");
+            return this;
+        }
+
+        public Criteria andPaperid18NotIn(List<String> values) {
+            addCriterion("PAPERID18 not in", values, "paperid18");
+            return this;
+        }
+
+        public Criteria andPaperid18Between(String value1, String value2) {
+            addCriterion("PAPERID18 between", value1, value2, "paperid18");
+            return this;
+        }
+
+        public Criteria andPaperid18NotBetween(String value1, String value2) {
+            addCriterion("PAPERID18 not between", value1, value2, "paperid18");
+            return this;
+        }
+        
     }
 }

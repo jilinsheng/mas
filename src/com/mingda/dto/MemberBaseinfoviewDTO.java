@@ -32,6 +32,8 @@ public class MemberBaseinfoviewDTO {
 	private String assistTypex;
 	private String medicaretype;
 	private String medicaretypetext;
+	private String paperid15;
+	private String paperid18;
 	
 	public String getMemberId() {
 		return memberId;
@@ -206,6 +208,18 @@ public class MemberBaseinfoviewDTO {
 	}
 	public void setMedicaretypetext(String medicaretypetext) {
 		this.medicaretypetext = medicaretypetext;
+	}
+	public String getPaperid15() {
+		return paperid15;
+	}
+	public void setPaperid15(String paperid15) {
+		this.paperid15 = paperid15;
+	}
+	public String getPaperid18() {
+		return paperid18;
+	}
+	public void setPaperid18(String paperid18) {
+		this.paperid18 = paperid18;
 	}
 	
 }

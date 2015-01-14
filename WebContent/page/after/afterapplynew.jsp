@@ -253,6 +253,7 @@
 					var ci= json['ci'];
 					var sum= json['sum'];
 					var preSum= json['preSum'];
+					var year = json['businessyear'];
 					if('成功'==info){
 						$('#payAssist')[0].readOnly=false;
 						$('#paySumAssistIn')[0].value=iin;
@@ -265,7 +266,7 @@
 						$('#MedicareScope')[0].innerText = scope;
 						$('#b')[0].disabled=true;
 						$('#payCIAssist')[0].value=ci;
-						alert("本次大病保险金额："+ci+"元");
+						alert(year+"年度业务，"+"本次大病保险金额："+ci+"元");
 					}else{
 						$('#paySumAssistIn')[0].value=iin;
 						$('#paySumAssistOut')[0].value=out;
@@ -418,7 +419,8 @@
 					"tempDTO.assistTypex" : assistTypex,
 					"tempDTO.diagnoseTypeId" : diagnoseTypeId,
 					"tempDTO.insurance" : insurance,
-					"tempDTO.payCIAssist" : payCIAssist
+					"tempDTO.payCIAssist" : payCIAssist,
+					"tempDTO.endtime" : endDate
 				},
 				timeout : 20000,
 				error : function() {
@@ -430,11 +432,13 @@
 					json = eval('(' + json + ')');
 					var info= json['info'];
 					var m= json['m'];
+					var year = json['businessyear'];
 					if('成功'==info){
-						alert('计算保障金:'+m+'元');
+						alert(year+'年度业务，'+'计算保障金:'+m+'元');
 						$('#payAssist')[0].readOnly=false;
 						$('#payAssist')[0].value=m;
 						$('#b')[0].disabled=false;
+						$('#businessyear')[0].value=year;
 					}else{
 						alert(info);
 						$('#b')[0].disabled=true;
@@ -569,6 +573,7 @@
 	<s:hidden id="assistTypeM" name="tempDTO.assistTypeM"></s:hidden>
 	<s:hidden id="assistTypex" name="tempDTO.assistTypex"></s:hidden>
 	<s:hidden id="org" name="tempDTO.org"></s:hidden>
+	<s:hidden id="businessyear" name="tempDTO.businessyear"></s:hidden>
 	<table width="780px" class="formTitle" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td style="padding-left: 2px"><img
@@ -641,7 +646,7 @@
 		</tr>
 		<tr>
 			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">医院级别：</td>
-			<td class="formtd2">
+			<td class="formtd2" colspan="3">
 				<s:if test="tempDTO.hospitalLevel==0">
 				<s:radio id="tempDTO.hospitalLevel" name="tempDTO.hospitalLevel" list="#{'1':'乡镇','2':'区县','3':'市级','4':'省级'}" listKey="key" listValue="value" value="2"></s:radio>
 				</s:if>
@@ -649,12 +654,23 @@
 				<s:radio id="tempDTO.hospitalLevel" name="tempDTO.hospitalLevel" list="#{'1':'乡镇','2':'区县','3':'市级','4':'省级'}" listKey="key" listValue="value"></s:radio>
 				</s:else>
 			</td>
-			<td class="formtd1" width="18%" style="font-weight:bold;color:#006030">医院类别:</td>
+			
+		</tr>
+		<tr>
+			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">医院区域：</td>
+			<td class="formtd2">
+				<s:if test="tempDTO.hospitalLocal==null">
+					<s:radio id="tempDTO.hospitalLocal" name="tempDTO.hospitalLocal" list="#{'1':'辖区内','2':'辖区外'}" listKey="key" listValue="value" value="1"></s:radio>
+				</s:if><s:else>
+					<s:radio id="tempDTO.hospitalLocal" name="tempDTO.hospitalLocal" list="#{'1':'辖区内','2':'辖区外'}" listKey="key" listValue="value"></s:radio>
+				</s:else>
+			</td>
+			<td class="formtd1" width="18%" style="font-weight:bold;color:#006030">医院类别：</td>
 			<td class="formtd2">
 			<s:if test="tempDTO.hospitaltype==null">
-				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'辖区内定点医院','2':'其它'}" listKey="key" listValue="value" value="1"></s:radio>
+				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'定点 医院','2':'非定点医院'}" listKey="key" listValue="value" value="1"></s:radio>
 			</s:if><s:else>
-				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'辖区内定点医院','2':'其它'}" listKey="key" listValue="value"></s:radio>
+				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'定点 医院','2':'非定点医院'}" listKey="key" listValue="value"></s:radio>
 			</s:else>
 			</td>
 		</tr>
