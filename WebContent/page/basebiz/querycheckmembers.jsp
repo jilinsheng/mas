@@ -147,6 +147,7 @@
 						</s:if>
 						<th>入院时间</th>
 						<th>住院天数</th>
+						<th>人员类别</th>
 						<th>审批结果</th>
 					</tr>
 					<s:iterator value="bizchecks">
@@ -169,6 +170,7 @@
 							</s:if>
 							<td><s:date name="beginTime" format="yyyy-MM-dd" /></td>
 							<td><s:property value="days"></s:property></td>
+							<td><s:property value="personType" /></td>
 							<td><!--  街道审核：--><s:if test="checked1==1">
 			 </s:if> <s:if test="checked1==0">  </s:if> <s:if test="checked1==3"> 审核通过诊断不符合标准 </s:if>
 							&nbsp;&nbsp;&nbsp;&nbsp;区县审核：<s:if test="checked2==1">

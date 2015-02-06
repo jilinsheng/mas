@@ -62,6 +62,7 @@ public class BizDTO {
 	private String biztype;
 	private String mastername;
 	private String paperid;
+	private String intypeid;
 	
 	public String getMeminfo() {
 		return meminfo;
@@ -525,6 +526,14 @@ public class BizDTO {
 
 	public void setPaperid(String paperid) {
 		this.paperid = paperid;
+	}
+
+	public String getIntypeid() {
+		return intypeid;
+	}
+
+	public void setIntypeid(String intypeid) {
+		this.intypeid = intypeid;
 	}
 
 }

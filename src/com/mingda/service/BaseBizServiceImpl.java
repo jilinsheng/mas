@@ -85,7 +85,9 @@ public class BaseBizServiceImpl implements BaseBizService {
 		    String DTYPENAME = (String) s.get("DTYPENAME");
 		    BigDecimal SCALER = (BigDecimal) s.get("SCALER");
 		    //end 梅河口20131018重大疾病-------------------------------------
-			e.setEndTime(ENDTIME);
+		    String INTYPEID = (String) s.get("INTYPEID");
+		    e.setIntypeid(INTYPEID);
+ 			e.setEndTime(ENDTIME);
 			e.setBeginTime(BEGINTIME);
 			e.setOperTime(OPERTIME);
 			e.setBizId(BIZ_ID.intValue());
@@ -243,6 +245,10 @@ public class BaseBizServiceImpl implements BaseBizService {
 			Date endtime = (Date) s.get("END_TIME");
 			BigDecimal MONEYSTAND = (BigDecimal) s.get("MONEYSTAND");
 			String DIAGNOSE_TYPE_NAME = (String) s.get("DIAGNOSE_TYPE_NAME");
+			String PERSON_TYPE = (String)s.get("PERSON_TYPE");
+			String MEMBER_TYPE = (String) s.get("MEMBER_TYPE");
+			String PERSON_TYPE_TXT = this.getassisttext(PERSON_TYPE, MEMBER_TYPE);
+ 			e.setPersonType(PERSON_TYPE_TXT);
 			e.setBizId(BIZ_ID.intValue());
 			e.setName(NAME);
 			e.setFamilyNo(FAMILY_NO);
@@ -1032,5 +1038,55 @@ public class BaseBizServiceImpl implements BaseBizService {
 			list.add(e);
 		}
 		return list;
+	}
+	
+	private String getassisttext(String ASSIST_TYPE, String DS) {
+		String dsval = "";
+		String a1 = ASSIST_TYPE.substring(0, 1);
+		String a2 = ASSIST_TYPE.substring(1, 2);
+		String a3 = ASSIST_TYPE.substring(2, 3);
+		String a4 = ASSIST_TYPE.substring(3, 4);
+		String a5 = ASSIST_TYPE.substring(4, 5);
+		String a6 = ASSIST_TYPE.substring(5, 6);
+		if ("1".equals(DS)) {
+			if ("1".equals(a1)) {
+				dsval = dsval + "城市低保户、";
+			}
+			if ("1".equals(a2)) {
+				dsval = dsval + "分类施保、";
+			}
+			if ("1".equals(a3)) {
+				dsval = dsval + "三无家庭、";
+			}
+			if ("1".equalsIgnoreCase(a4)) {
+				dsval = dsval + "五保户、";
+			}
+			if ("1".equals(a5)) {
+				dsval = dsval + "优抚对象、";
+			}
+			if ("1".equals(a6)) {
+				dsval = dsval + "孤儿、";
+			}
+		} else if ("2".equals(DS)) {
+			if ("2".equals(a1)) {
+				dsval = dsval + "农村低保一般户、";
+			}
+			if ("1".equals(a2)) {
+				dsval = dsval + "重点户、";
+			}
+			if ("1".equals(a3)) {
+				dsval = dsval + "三无家庭、";
+			}
+			if ("1".equalsIgnoreCase(a4)) {
+				dsval = dsval + "五保户、";
+			}
+			if ("1".equals(a5)) {
+				dsval = dsval + "优抚对象、";
+			}
+			if ("1".equals(a6)) {
+				dsval = dsval + "孤儿、";
+			}
+		}
+		return dsval;
 	}
 }

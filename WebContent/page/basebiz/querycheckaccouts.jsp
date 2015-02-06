@@ -178,6 +178,7 @@
 						<th>救助方式（住院/门诊）</th>
 						<th>家庭编号</th>
 						<th>就诊医院</th>
+						<th>住院类别</th>
 						<th>户主姓名</th>
 						<th>患者姓名</th>
 						<th>身份证号码</th>
@@ -199,6 +200,7 @@
 							<td><s:property value="bizType"></s:property></td>
 							<td><s:property value="familyNo"></s:property></td>
 							<td style="text-align: left;"><s:property value="hname"></s:property></td>
+							<td style="text-align: center;"><s:property value="intypeid"></s:property></td>
 							<td style="text-align: left;"><s:property value="mastername"></s:property></td>
 							<td style="text-align: left;"><a
 								href="page/basebiz/viewbizpay.action?bizDTO.bizId=<s:property value="bizId"/>"

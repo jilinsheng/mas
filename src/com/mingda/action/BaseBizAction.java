@@ -500,7 +500,8 @@ public class BaseBizAction extends ActionSupport {
 					+ " decode(substr(biz.person_type, 3, 1), 1, '-三无人员', null) || "
 					+ " decode(substr(biz.person_type, 4, 1), 1, '-五保户', null) || "
 					+ " decode(substr(biz.person_type, 5, 1), 1, '-优抚对象', null) || "
-					+ " decode(substr(biz.person_typex, 1, 1), 1, '-孤儿', null)) as meminfo "
+					+ " decode(substr(biz.person_typex, 1, 1), 1, '-孤儿', null)) as meminfo, "
+					+ " decode(biz.in_type_id,'0','其他','1','消化','31','精神病','48','外伤','49','未经医保/新农合确认的转诊') as intypeid "
 					+ m_sql
 					+ " from jz_biz biz,(select sum(b.pay_total) as total, "
 					+ "sum(b.pay_assist) as assismoney, sum(b.PAY_SELF) as payself ,sum(b.pay_outmedicare) as payoutmedicare,  "
@@ -547,6 +548,7 @@ public class BaseBizAction extends ActionSupport {
 			}
 			title.put("PAYSELF,val", "个人承担");
 			title.put("OPER_TIME,val", "结算时间");
+			title.put("INTYPEID,val", "住院类别");
 			map.put("title", title);
 			cur_page = "1";
 		} else {
@@ -1438,7 +1440,10 @@ public class BaseBizAction extends ActionSupport {
 			sql = "select (select t.diagnose_type_name  from diagnose_type t where t.diagnose_type_id = biz. DIAGNOSE_TYPE_ID) diagnose_type_name "
 					+ ", biz.biz_id,biz.ssn, d.name as hname, "
 					+ " biz.biz_type, biz.family_no,biz.name, biz.id_card, e.name as icdname"
-					+ ", ck.checked1,ck.checked2 , biz.dept_name , biz.area_name , biz.begin_time ,biz.end_time ,DIAGNOSE_NAME"
+					+ ", ck.checked1,ck.checked2 , biz.dept_name , biz.area_name , biz.begin_time ,biz.end_time , "
+					+ " biz.person_type||biz.person_typex as person_type, "
+					+ " biz.member_type, "
+					+ " DIAGNOSE_NAME"
 					//+ ", biz.pay_ex as MONEYSTAND"
 					+ " from jz_bizcheck ck,jz_biz biz,bizdept d,icd10 e "
 					+ "where biz.biz_type=2 and biz.reg_status=1 and ck.biz_id(+) =biz.biz_id and d.hospital_id(+) = biz.hospital_id"
