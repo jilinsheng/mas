@@ -8,6 +8,7 @@ public class MediaDTO {
 	private String filepath;
 	private String filetypeval;
 	private String fileallpath;
+	private String filests;
 
 	public Integer getBizmediaId() {
 		return bizmediaId;
@@ -55,6 +56,14 @@ public class MediaDTO {
 
 	public void setFileallpath(String fileallpath) {
 		this.fileallpath = fileallpath;
+	}
+
+	public String getFilests() {
+		return filests;
+	}
+
+	public void setFilests(String filests) {
+		this.filests = filests;
 	}
 
 }

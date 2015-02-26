@@ -891,7 +891,7 @@ public class BaseBizServiceImpl implements BaseBizService {
 	public List<MediaDTO> findBizPics(Integer bizId, String picpath) {
 		List<MediaDTO> list = new ArrayList<MediaDTO>();
 		JzBizmediaExample example = new JzBizmediaExample();
-		example.createCriteria().andBizIdEqualTo(bizId);
+		example.createCriteria().andBizIdEqualTo(bizId).andFilestsEqualTo("1");
 		example.setOrderByClause("filetype desc");
 		List<JzBizmedia> rs = jzBizmediaDAO.selectByExample(example);
 		for (JzBizmedia s : rs) {
