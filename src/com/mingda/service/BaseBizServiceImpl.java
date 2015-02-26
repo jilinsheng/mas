@@ -269,6 +269,7 @@ public class BaseBizServiceImpl implements BaseBizService {
 			}
 			e.setDays(String.valueOf(days));
 			e.setBeginTime(begintime);
+			e.setEndTime(endtime);
 			e.setIcdname(ICDNAME);
 			e.setSsn(SSN);
 			e.setIdCard(ID_CARD);
