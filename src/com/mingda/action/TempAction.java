@@ -923,7 +923,7 @@ public class TempAction extends ActionSupport {
 			organizationId = organizationId.substring(0, 6);
 		}
 		JSONObject json = new JSONObject();
-		if (!"00000000000".equals(assisttype)) {
+		if (!"00000000000".equals(assisttype)) { 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			afterDTO = new AfterDTO();
 			afterDTO.setOrgCode(organizationId);
@@ -945,8 +945,12 @@ public class TempAction extends ActionSupport {
 			afterDTO.setPay_Sybx(tempDTO.getInsurance());
 			afterDTO.setPay_Dbbx(tempDTO.getPayCIAssist());
 			afterDTO.setHospital_Level(tempDTO.getHospitalLevel());
-			afterDTO.setHospital_Local(Integer.parseInt(tempDTO.getHospitalLocal()));
-			afterDTO.setHospital_Type(Integer.parseInt(tempDTO.getHospitaltype()));
+			if(tempDTO.getHospitalLocal()!=null){
+				afterDTO.setHospital_Local(Integer.parseInt(tempDTO.getHospitalLocal()));
+			}
+			if(tempDTO.getHospitaltype()!=null){
+				afterDTO.setHospital_Type(Integer.parseInt(tempDTO.getHospitaltype()));
+			}
 			int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
 			System.out.println("本次业务年度："+businessyear);
 			afterDTO.setBusinessyear(businessyear+"");

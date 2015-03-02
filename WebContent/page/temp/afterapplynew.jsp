@@ -204,9 +204,9 @@
 		var hospitalnametext = document.getElementById("hospitalId").options[window.document.getElementById("hospitalId").selectedIndex].text;
 		var insurance = $("#insurance")[0].value;
 		var payCIAssist = $("#payCIAssist")[0].value;
-		var hospitalLevel = $("input[name='tempDTO.hospitalLevel']:checked").val();
-		var hospitalLocal = $("input[name='tempDTO.hospitalLocal']:checked").val();
-		var hospitaltype = $("input[name='tempDTO.hospitaltype']:checked").val();
+		//var hospitalLevel = $("input[name='tempDTO.hospitalLevel']:checked").val();
+		//var hospitalLocal = $("input[name='tempDTO.hospitalLocal']:checked").val();
+		//var hospitaltype = $("input[name='tempDTO.hospitaltype']:checked").val();
 		var otherType = $("input[name='tempDTO.otherType']:checked").val();
 		var flag=true;
 		if(hospitalId>0){
@@ -297,10 +297,10 @@
 		} else if(insurance==""){
 			alert("商业保险不能为空！");
 			flag=false;
-		} else if(hospitalLevel != "1" && hospitalLevel != "2" && hospitalLevel != "3" && hospitalLevel != "4"){
+		} /* else if(hospitalLevel != "1" && hospitalLevel != "2" && hospitalLevel != "3" && hospitalLevel != "4"){
 			alert("请选择医院级别！");
 			flag=false;
-		}
+		} */
 		if(flag==true){
 			$.ajax({
 				type : "post",
@@ -330,10 +330,10 @@
 					"tempDTO.endtime" : endDate,
 					"tempDTO.insurance" : insurance,
 					"tempDTO.payCIAssist" : payCIAssist,
-					"tempDTO.otherType" : otherType,
-					"tempDTO.hospitalLevel" : hospitalLevel,
-					"tempDTO.hospitalLocal" : hospitalLocal,
-					"tempDTO.hospitaltype" : hospitaltype
+					"tempDTO.otherType" : otherType
+					//"tempDTO.hospitalLevel" : hospitalLevel,
+					//"tempDTO.hospitalLocal" : hospitalLocal,
+					//"tempDTO.hospitaltype" : hospitaltype
 				},
 				timeout : 20000,
 				error : function() {
@@ -634,9 +634,9 @@
 		} else if(insurance==""){
 			alert("商业保险不能为空！");
 			flag=false;
-		} else if(hospitalLevel != "1" && hospitalLevel != "2" && hospitalLevel != "3" && hospitalLevel != "4"){
-			alert("请选择医院级别！");
-			flag=false;
+		} else if(org!='220506'&& hospitalLevel != "1" && hospitalLevel != "2" && hospitalLevel != "3" && hospitalLevel != "4"){
+				alert("请选择医院级别！");
+				flag=false;
 		} else if(endDate == ""){
 			alert("请输入出院时间");
 			flag=false;
@@ -1362,8 +1362,13 @@
 				</table>
 			</td>
 		</tr>
+		<s:if test="tempDTO.org=='220506'">
+		</s:if>
+		<s:else>
 		<tr>
-			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">医院级别：</td>
+			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">
+			医院级别：
+			</td>
 			<td class="formtd2" colspan="3">
 				<s:if test="tempDTO.hospitalLevel==0">
 				<s:radio id="tempDTO.hospitalLevel" name="tempDTO.hospitalLevel" list="#{'1':'乡镇','2':'区县','3':'市级','4':'省级'}" listKey="key" listValue="value" value="2"></s:radio>
@@ -1375,7 +1380,9 @@
 			
 		</tr>
 		<tr>
-			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">医院区域：</td>
+			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">
+			医院区域：
+			</td>
 			<td class="formtd2">
 				<s:if test="tempDTO.hospitalLocal==null">
 					<s:radio id="tempDTO.hospitalLocal" name="tempDTO.hospitalLocal" list="#{'1':'辖区内','2':'辖区外'}" listKey="key" listValue="value" value="1"></s:radio>
@@ -1383,15 +1390,18 @@
 					<s:radio id="tempDTO.hospitalLocal" name="tempDTO.hospitalLocal" list="#{'1':'辖区内','2':'辖区外'}" listKey="key" listValue="value"></s:radio>
 				</s:else>
 			</td>
-			<td class="formtd1" width="18%" style="font-weight:bold;color:#006030">医院类别：</td>
+			<td class="formtd1" width="18%" style="font-weight:bold;color:#006030">
+			医院类别：
+			</td>
 			<td class="formtd2">
-			<s:if test="tempDTO.hospitaltype==null">
-				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'定点 医院','2':'非定点医院'}" listKey="key" listValue="value" value="1"></s:radio>
-			</s:if><s:else>
-				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'定点 医院','2':'非定点医院'}" listKey="key" listValue="value"></s:radio>
-			</s:else>
+				<s:if test="tempDTO.hospitaltype==null">
+					<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'定点 医院','2':'非定点医院'}" listKey="key" listValue="value" value="1"></s:radio>
+				</s:if><s:else>
+					<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'定点 医院','2':'非定点医院'}" listKey="key" listValue="value"></s:radio>
+				</s:else>
 			</td>
 		</tr>
+		</s:else>
 		<tr>
 			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">入院时间：</td>
 			<td class="formtd2" width="33%">&nbsp;<input type="text" readonly="readonly"
