@@ -553,9 +553,17 @@ public class TempServiceImpl implements TempService {
 				tempDTO.setA11(m.getAssistTypex().substring(5, 6));
 			}
 			tempDTO.setAssistTypeTxt(genAssistype(tempDTO));
-			tempDTO.setMedicareType(m.getMedicareType());
+			
 			// ≤È—Ø≤Œ±£±‡∫≈
-			String ssn = this.findSSN(tempDTO);
+			String medicaretype = this.findSSN(tempDTO).getMedicareType();
+			String ssn = "";
+			if("2".equals(medicaretype)){
+				ssn = m.getPaperid();
+			}else{
+				ssn = this.findSSN(tempDTO).getSsn();
+			}
+
+			tempDTO.setMedicareType(medicaretype);
 			tempDTO.setSsn(ssn);
 		}
 		if (null != tempDTO.getApproveId()) {
@@ -3736,8 +3744,10 @@ public class TempServiceImpl implements TempService {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public String findSSN(TempDTO tempDTO) {
+	public TempDTO findSSN(TempDTO tempDTO) {
+		TempDTO t = new TempDTO();
 		String ssn = "";
+		String medicaretype = "";
 		String sql = "select * from member_medicare mm "
 				+ " where mm.member_id='" + tempDTO.getMemberId()
 				+ "' and mm.member_type='" + tempDTO.getMemberType() + "' ";
@@ -3746,10 +3756,14 @@ public class TempServiceImpl implements TempService {
 		List<HashMap> rs = extendsDAO.queryAll(param);
 		if (rs.size() == 0) {
 			ssn = "";
+			medicaretype = "";
 		} else {
 			ssn = (String) rs.get(0).get("SSN");
+			medicaretype  = (String) rs.get(0).get("MEDICARE_TYPE");
 		}
-		return ssn;
+		t.setSsn(ssn);
+		t.setMedicareType(medicaretype);
+		return t;
 	}
 
 	public String getassisttext(String ASSIST_TYPE, String DS) {

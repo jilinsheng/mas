@@ -199,7 +199,7 @@ public interface TempService {
 	
 	public TempDTO upTempBack(TempDTO tempDTO);
 	
-	public String findSSN(TempDTO tempDTO);
+	public TempDTO findSSN(TempDTO tempDTO);
 	
 	public String getassisttext(String ASSIST_TYPE,String DS);
 	
