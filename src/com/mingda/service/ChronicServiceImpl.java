@@ -886,7 +886,9 @@ public class ChronicServiceImpl implements ChronicService {
 				+ "  TO_DATE('"
 				+ year
 				+ "-12-31 23:59:59', 'yyyy-MM-dd hh24:mi:ss') "
-				+ "  AND bill.optsts = '1'   group by bill.MEMBER_ID, bill.member_type) m "
+				+ "  AND bill.optsts = '1'"
+				+ " and not exists(select * from chronic_bill aa where aa.chronicbill_id=bill.chronicbill_id and aa.subject like '%年末清零%') "
+				+ " group by bill.MEMBER_ID, bill.member_type) m "
 				+ "  where mem.sts = '1' and mem.salstate = '1'  "
 				+ "  and mem.personstate='正常' "
 				+ "  and m.mid(+) = mem.MEMBER_ID and m.mds(+) = mem.member_type  "
