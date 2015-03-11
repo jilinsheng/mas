@@ -485,6 +485,7 @@ public class ChronicAction extends ActionSupport {
 					+ " decode(substr(mem.assist_typex, 1, 1), 1, '-孤儿', null)) as meminfo "
 					+ " from chronic_status ss, MEMBER_BASEINFOVIEW02 mem, chronic_check ck "
 					+ " where mem.MEMBER_ID = ss.member_id(+) and  mem.DS=ss.member_type(+)  and ck.member_type(+)=mem.DS and (mem.assist_type <> '00000' or mem.assist_typex <> '000000') "
+					+ " and mem.personstate='正常' "
 					+ " and ck.member_id(+) = mem.MEMBER_ID  " + jwhere2;
 			sql = sql + jwhere
 					+ "  order by mem.FAMILYNO,  ck.opttime1, ck.opttime2";
@@ -892,7 +893,6 @@ public class ChronicAction extends ActionSupport {
 					+ year
 					+ "-12-31 23:59:59', 'yyyy-MM-dd hh24:mi:ss') "
 					+ "  AND bill.optsts = '1'" 
-					+ " and not exists(select * from chronic_bill aa where aa.chronicbill_id=bill.chronicbill_id and aa.subject like '%年末清零%') "
 					+ " group by bill.MEMBER_ID, bill.member_type) m "
 					+ "  where mem.sts = '1' and mem.salstate = '1' "
 					+ " and mem.personstate='正常' "
@@ -1101,7 +1101,8 @@ public class ChronicAction extends ActionSupport {
 			}
 			if (null == salstate || "".equals(salstate)) {
 			} else {
-				jwhere = jwhere + " and c.salstate = '" + salstate + "' ";
+				jwhere = jwhere + " and c.salstate = '" + salstate + "' "
+						+ " and c.personstate = '正常' and c.assist_type || c.assist_typex <> '00000000000'";
 
 			}
 			if ("1".equals(method)) {
