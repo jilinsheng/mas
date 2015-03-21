@@ -19,8 +19,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Pragma" content="no-cache">
 <link rel="stylesheet" href="<%=basePath%>/page/css/table-style.css" type="text/css"></link>
+<link rel="stylesheet" href="<%=basePath%>/page/js/jqzoom/style/jqzoom.css"
+	type="text/css"></link>
+<link rel="stylesheet" href="<%=basePath%>/page/js/jqzoom/style/style.css"
+	type="text/css"></link>
 <title><s:property value="tempDTO.membername"></s:property>医后报销审批表</title>
 </head>
+<script type="text/javascript"
+	src="<%=basePath%>/page/js/jqzoom/js/jquery.jqzoom.min.js"></script>
+<script type="text/javascript"> 
+	$(document).ready(function() {
+		$(".jqzoom").jqueryzoom( {
+			xzoom : 400, //zooming div default width(default width value is 200)
+			yzoom : 400, //zooming div default width(default height value is 200)
+			offset : 10, //zooming div default offset(default offset value is 10)
+			position : "right", //zooming div position(default position value is "right")
+			preload : 1,
+			lens : 1
+		});
+	});
+</script>
 <body>
 <table width="780px" class="formTitle">
 	<tr>
@@ -177,13 +195,27 @@
 		<td class="formtd1" width="18%" style="color:#7A8B8B" width="18%" >计算描述：</td>
 		<td class="formtd2" colspan="5"><s:property value="tempDTO.calcMsg" /> &nbsp;</td>
 	</tr>
-	<tr>
+<%-- 	<tr>
 		<td colspan="6"><s:iterator value="mafiles">
 			<div align="left" style="height: 20px; display: block" id="dfile1">
 			<a target="_blank" href="<%=jpath%><s:property value="realpath"/>">
 			<s:property value="filename" /></a></div>
 		</s:iterator></td>
-	</tr>
+	</tr> --%>
+	<s:iterator value="mafiles" id="files" status="F">
+		<tr >
+			<td class="formtd1" style="color:#7A8B8B" width="18%">
+				附件：<s:property value="filename" />
+			</td>
+			<td class="formtd2" colspan="5">
+			<div class="jqzoom" style='margin-right: 5px; float: center'>
+			<img width="150px" src="<%=jpath%><s:property value="realpath"/>" jqimg="<%=jpath%><s:property value="realpath"/>" />
+			</div>
+			<%-- <a id="x<s:property value="fileId"/>" target="_blank" href="<%=jpath%><s:property value="realpath"/>">查看大图</a> --%>
+			<a id="x<s:property value="fileId"/>" target="_blank" href="<%=basePath %>page/temp/imagetrans/ImageTrans.jsp?realpath=<s:property value="realpath"/>">查看大图</a>
+			</td>
+		</tr>
+	</s:iterator>
 </table>
 <div align="center">
 <button type="button" onclick="window.close()">关闭</button>

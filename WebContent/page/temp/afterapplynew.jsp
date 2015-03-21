@@ -20,13 +20,27 @@
 <meta http-equiv="Pragma" content="no-cache">
 <link rel="stylesheet" href="<%=basePath%>/page/css/table-style.css" type="text/css"></link>
 <link rel="stylesheet" href="<%=basePath%>/page/css/button.css" type="text/css"></link>
+<link rel="stylesheet" href="<%=basePath%>/page/js/jqzoom/style/jqzoom.css"
+	type="text/css"></link>
+<link rel="stylesheet" href="<%=basePath%>/page/js/jqzoom/style/style.css"
+	type="text/css"></link>
 <title><s:property value="tempDTO.membername"></s:property>医后报销审批表</title>
+<script type="text/javascript"
+	src="<%=basePath%>/page/js/jqzoom/js/jquery.jqzoom.min.js"></script>
 <script type="text/javascript"
 	src="<%=path%>/struts/js/base/jquery.ui.datepicker.min.js"></script>
 <script type="text/javascript"
 	src="<%=path%>/struts/i18n/jquery.ui.datepicker-zh-CN.min.js"></script>
 <script type="text/javascript"> 
 	$(document).ready(function() {
+		$(".jqzoom").jqueryzoom( {
+			xzoom : 400, //zooming div default width(default width value is 200)
+			yzoom : 400, //zooming div default width(default height value is 200)
+			offset : 10, //zooming div default offset(default offset value is 10)
+			position : "right", //zooming div position(default position value is "right")
+			preload : 1,
+			lens : 1
+		});
 		$("#beginDate").datepicker({
 			showMonthAfterYear: true,
 			changeMonth: false, 
@@ -150,12 +164,14 @@
 			success : function(json) {
 				json = eval('(' + json + ')');
 				var val = json['r'];
-				var trnode=document.getElementById("x"+fid); 
+				/* var trnode=document.getElementById("x"+fid); 
 				trnode.parentNode.removeChild(trnode); 
 				trnode=document.getElementById("y"+fid); 
 				trnode.parentNode.removeChild(trnode); 
 				trnode=document.getElementById("dfile1");
-				trnode.parentNode.removeChild(trnode);
+				trnode.parentNode.removeChild(trnode); */
+				var trnode=document.getElementById("a"+fid); 
+				trnode.parentNode.removeChild(trnode); 
 				alert(val);
 			}
 		});
@@ -1734,18 +1750,43 @@
 			<%-- <s:textarea id="calcMsg" name="tempDTO.calcMsg" cssStyle="border:hidden; size:10px; width:480px;height:45px;" />&nbsp; --%>
 			<s:hidden id="calcMsg" name="tempDTO.calcMsg"></s:hidden>
 		</tr>
-		<tr>
-			<td colspan="6"><s:iterator value="mafiles" id="files" status="F">
+		<s:iterator value="mafiles" id="files" status="F">
+		<tr id="a<s:property value="fileId"/>">
+			<td class="formtd1" style="color:#7A8B8B" width="18%">
+				附件：<s:property value="filename" />
+			</td>
+			<td class="formtd2" colspan="4">
+			<div class="jqzoom" style='margin-right: 5px; float: center'>
+			<img width="150px" src="<%=jpath%><s:property value="realpath"/>" jqimg="<%=jpath%><s:property value="realpath"/>" />
+			</div>
+			<%-- <a id="x<s:property value="fileId"/>" target="_blank" href="<%=jpath%><s:property value="realpath"/>">查看大图</a> --%>
+			<a id="x<s:property value="fileId"/>" target="_blank" href="<%=basePath %>page/temp/imagetrans/ImageTrans.jsp?realpath=<s:property value="realpath"/>">查看大图</a>
+			</td>
+			<td class="formtd2">
+			<img id="y<s:property value="fileId"/>" style="padding-right: 2px"
+					src="<%=path%>/page/images/del.gif"
+					onclick="del('<s:property value="fileId"/>')" alt="删除"
+					title="删除"></img>
+			</td>
+		</tr>
+		</s:iterator>
+		<tr align="left">
+			<td colspan="6">
+			<%-- <s:iterator value="mafiles" id="files" status="F">
 				<div align="left" style="height: 20px; display: block" id="dfile1">
 				<a id="x<s:property value="fileId"/>" target="_blank"
 					href="<%=jpath%><s:property value="realpath"/>"> <s:property
 					value="filename" /></a>&nbsp;&nbsp; <img
 					id="y<s:property value="fileId"/>" style="padding-right: 2px"
 					src="<%=path%>/page/images/del.gif"
-					onclick="del('<s:property value="fileId"/>')"></img></div>
-			</s:iterator>
+					onclick="del('<s:property value="fileId"/>')"></img>
+				<img width="20px" src="<%=jpath%><s:property value="realpath"/>"
+						jqimg="<%=jpath%><s:property value="filepath"/>"
+				/>
+				</div>
+			</s:iterator> --%>
 			<br>
-			<button type="button" onclick="add()">添加附件</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="add()">添加附件</button>
 			<font color="#8A8A8A">&nbsp;&nbsp;附件说明:①扫描仪分辨率设置为100dpi;单张图片建议大小50KB~200KB;单次上传图片总量小于1024KB;
 			<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
