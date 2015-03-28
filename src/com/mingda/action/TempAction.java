@@ -673,10 +673,16 @@ public class TempAction extends ActionSupport {
 				.getApproveId()).toString());
 		return SUCCESS;
 	}
-
-	// 计算保障金额
+	
+	// 计算临时大病保险
 	@SuppressWarnings("rawtypes")
-	public String calctempmoney() {
+	public String calctempciassist(){
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String organizationId = user.getOrganizationId();
+		if (null != organizationId && !"".equals(organizationId)) {
+			organizationId = organizationId.substring(0, 6);
+		}
 		JSONObject json = new JSONObject();
 		ciDTO = new CiDTO();
 		ciDTO.setPaperID(tempDTO.getPaperid());
@@ -694,19 +700,65 @@ public class TempAction extends ActionSupport {
 		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		ciDTO.setEnd_time(sdf.format(tempDTO.getEndtime()));
+		int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
+		System.out.println("计算大病保险,临时本次业务年度："+businessyear);
+		ciDTO.setBusinessyear(businessyear+"");
+		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
+		if ("1".equals(ciDTO.getReturnFlag())) {
+			json.put("in", ciDTO.getPaySumAssistIn());
+			json.put("out", ciDTO.getPaySumAssistOut());
+			json.put("scope", ciDTO.getSumMedicareScope());
+			json.put("ci", ciDTO.getPayCIAssist());
+			json.put("info", "成功");
+		} else {
+			json.put("info", "大病保险计算失败!");
+		}
+		result = json.toString();
+		return SUCCESS;
+	}
+
+	// 计算保障金额
+	@SuppressWarnings("rawtypes")
+	public String calctempmoney() {
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String organizationId = user.getOrganizationId();
+		if (null != organizationId && !"".equals(organizationId)) {
+			organizationId = organizationId.substring(0, 6);
+		}
+		JSONObject json = new JSONObject();
+		ciDTO = new CiDTO();
+		ciDTO.setPaperID(tempDTO.getPaperid());
+		if ("3".equals(tempDTO.getMedicareType())) {
+			ciDTO.setMedicareType("0");
+		} else {
+			ciDTO.setMedicareType(tempDTO.getMedicareType());
+		}
+		ciDTO.setPay_Total(tempDTO.getPayTotal());
+		ciDTO.setPay_Medicare(tempDTO.getPayMedicare());
+		ciDTO.setPay_OutMedicare(tempDTO.getPayOutmedicare());
+		ciDTO.setCalcType(tempDTO.getCalcType());
+		ciDTO.setOld_Pay_Total(tempDTO.getOldPayTotal());
+		ciDTO.setOld_Pay_Medicare(tempDTO.getOldPayMedicare());
+		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ciDTO.setEnd_time(sdf.format(tempDTO.getEndtime()));
+		int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
+		System.out.println("临时本次业务年度："+businessyear);
+		ciDTO.setBusinessyear(businessyear+"");
 		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		if ("1".equals(ciDTO.getReturnFlag())) {
 			tempDTO.setPaySumAssistIn(ciDTO.getPaySumAssistIn());
 			tempDTO.setPaySumAssistOut(ciDTO.getPaySumAssistOut());
 			tempDTO.setSumMedicareScope(ciDTO.getSumMedicareScope());
-			tempDTO.setPayCIAssist(ciDTO.getPayCIAssist());
+			tempDTO.setBusinessyear(businessyear+"");
 			HashMap m = tempService.findtempmoney(tempDTO);
 			json.put("in", ciDTO.getPaySumAssistIn());
 			json.put("out", ciDTO.getPaySumAssistOut());
 			json.put("scope", ciDTO.getSumMedicareScope());
-			json.put("ci", ciDTO.getPayCIAssist());
 			json.put("m", m.get("m"));
 			json.put("info", m.get("info"));
+			json.put("businessyear", ciDTO.getBusinessyear());
 			log.debug("####>>>>" + json.toString());
 		} else {
 			json.put("info", "大病保险计算失败!");

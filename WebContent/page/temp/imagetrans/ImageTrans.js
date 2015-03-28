@@ -5,28 +5,28 @@
  * Date: 2010-8-15
  */
 
-//ÈİÆ÷¶ÔÏó
+//å®¹å™¨å¯¹è±¡
 var ImageTrans = function(container, options){
 	this._initialize( container, options );
 	this._initMode();
 	if ( this._support ) {
 		this._initContainer();
 		this._init();
-	} else {//Ä£Ê½²»Ö§³Ö
+	} else {//æ¨¡å¼ä¸æ”¯æŒ
 		this.onError("not support");
 	}
 };
 ImageTrans.prototype = {
-  //³õÊ¼»¯³ÌĞò
+  //åˆå§‹åŒ–ç¨‹åº
   _initialize: function(container, options) {
 	var container = this._container = $$(container);
-	this._clientWidth = container.clientWidth;//±ä»»ÇøÓò¿í¶È
-	this._clientHeight = container.clientHeight;//±ä»»ÇøÓò¸ß¶È
-	this._img = new Image();//Í¼Æ¬¶ÔÏó
-	this._style = {};//±¸·İÑùÊ½
-	this._x = this._y = 1;//Ë®Æ½/´¹Ö±±ä»»²ÎÊı
-	this._radian = 0;//Ğı×ª±ä»»²ÎÊı
-	this._support = false;//ÊÇ·ñÖ§³Ö±ä»»
+	this._clientWidth = container.clientWidth;//å˜æ¢åŒºåŸŸå®½åº¦
+	this._clientHeight = container.clientHeight;//å˜æ¢åŒºåŸŸé«˜åº¦
+	this._img = new Image();//å›¾ç‰‡å¯¹è±¡
+	this._style = {};//å¤‡ä»½æ ·å¼
+	this._x = this._y = 1;//æ°´å¹³/å‚ç›´å˜æ¢å‚æ•°
+	this._radian = 0;//æ—‹è½¬å˜æ¢å‚æ•°
+	this._support = false;//æ˜¯å¦æ”¯æŒå˜æ¢
 	this._init = this._load = this._show = this._dispose = $$.emptyFunction;
 	
 	var opt = this._setOptions(options);
@@ -44,28 +44,28 @@ ImageTrans.prototype = {
 	
 	$$CE.fireEvent( this, "init" );
   },
-  //ÉèÖÃÄ¬ÈÏÊôĞÔ
+  //è®¾ç½®é»˜è®¤å±æ€§
   _setOptions: function(options) {
-    this.options = {//Ä¬ÈÏÖµ
+    this.options = {//é»˜è®¤å€¼
 		mode:		"css3|filter|canvas",
-		zoom:		.1,//Ëõ·Å±ÈÂÊ
-		onPreLoad:	function(){},//Í¼Æ¬¼ÓÔØÇ°Ö´ĞĞ
-		onLoad:		function(){},//Í¼Æ¬¼ÓÔØºóÖ´ĞĞ
-		onError:	function(err){}//³ö´íÊ±Ö´ĞĞ
+		zoom:		.1,//ç¼©æ”¾æ¯”ç‡
+		onPreLoad:	function(){},//å›¾ç‰‡åŠ è½½å‰æ‰§è¡Œ
+		onLoad:		function(){},//å›¾ç‰‡åŠ è½½åæ‰§è¡Œ
+		onError:	function(err){}//å‡ºé”™æ—¶æ‰§è¡Œ
     };
     return $$.extend(this.options, options || {});
   },
-  //Ä£Ê½ÉèÖÃ
+  //æ¨¡å¼è®¾ç½®
   _initMode: function() {
 	var modes = ImageTrans.modes;
 	this._support = $$A.some( this.options.mode.toLowerCase().split("|"), function(mode){
 		mode = modes[ mode ];
 		if ( mode && mode.support ) {
-			mode.init && (this._init = mode.init);//³õÊ¼»¯Ö´ĞĞ³ÌĞò
-			mode.load && (this._load = mode.load);//¼ÓÔØÍ¼Æ¬Ö´ĞĞ³ÌĞò
-			mode.show && (this._show = mode.show);//±ä»»ÏÔÊ¾³ÌĞò
-			mode.dispose && (this._dispose = mode.dispose);//Ïú»Ù³ÌĞò
-			//À©Õ¹±ä»»·½·¨
+			mode.init && (this._init = mode.init);//åˆå§‹åŒ–æ‰§è¡Œç¨‹åº
+			mode.load && (this._load = mode.load);//åŠ è½½å›¾ç‰‡æ‰§è¡Œç¨‹åº
+			mode.show && (this._show = mode.show);//å˜æ¢æ˜¾ç¤ºç¨‹åº
+			mode.dispose && (this._dispose = mode.dispose);//é”€æ¯ç¨‹åº
+			//æ‰©å±•å˜æ¢æ–¹æ³•
 			$$A.forEach( ImageTrans.transforms, function(transform, name){
 				this[ name ] = function(){
 					transform.apply( this, [].slice.call(arguments) );
@@ -76,15 +76,15 @@ ImageTrans.prototype = {
 		}
 	}, this );
   },
-  //³õÊ¼»¯ÈİÆ÷¶ÔÏó
+  //åˆå§‹åŒ–å®¹å™¨å¯¹è±¡
   _initContainer: function() {
 	var container = this._container, style = container.style, position = $$D.getStyle( container, "position" );
-	this._style = { "position": style.position, "overflow": style.overflow };//±¸·İÑùÊ½
+	this._style = { "position": style.position, "overflow": style.overflow };//å¤‡ä»½æ ·å¼
 	if ( position != "relative" && position != "absolute" ) { style.position = "relative"; }
 	style.overflow = "hidden";
 	$$CE.fireEvent( this, "initContainer" );
   },
-  //¼ÓÔØÍ¼Æ¬
+  //åŠ è½½å›¾ç‰‡
   load: function(src) {
 	if ( this._support ) {
 		var img = this._img, oThis = this;
@@ -95,36 +95,36 @@ ImageTrans.prototype = {
 		img.src = src;
 	}
   },
-  //ÖØÖÃ
+  //é‡ç½®
   reset: function() {
 	if ( this._support ) {
 		this._x = this._y = 1; this._radian = 0;
 		this._show();
 	}
   },
-  //Ïú»Ù³ÌĞò
+  //é”€æ¯ç¨‹åº
   dispose: function() {
 	if ( this._support ) {
 		this._dispose();
 		$$CE.fireEvent( this, "dispose" );
-		$$D.setStyle( this._container, this._style );//»Ö¸´ÑùÊ½
+		$$D.setStyle( this._container, this._style );//æ¢å¤æ ·å¼
 		this._container = this._img = this._img.onload = this._img.onerror = this._LOAD = null;
 	}
   }
 };
-//±ä»»Ä£Ê½
+//å˜æ¢æ¨¡å¼
 ImageTrans.modes = function(){
-	var css3Transform;//ccs3±ä»»ÑùÊ½
-	//³õÊ¼»¯Í¼Æ¬¶ÔÏóº¯Êı
+	var css3Transform;//ccs3å˜æ¢æ ·å¼
+	//åˆå§‹åŒ–å›¾ç‰‡å¯¹è±¡å‡½æ•°
 	function initImg(img, container) {
 		$$D.setStyle( img, {
 			position: "absolute",
-			border: 0, padding: 0, margin: 0, width: "auto", height: "auto",//ÖØÖÃÑùÊ½
-			visibility: "hidden"//¼ÓÔØÇ°Òş²Ø
+			border: 0, padding: 0, margin: 0, width: "auto", height: "auto",//é‡ç½®æ ·å¼
+			visibility: "hidden"//åŠ è½½å‰éšè—
 		});
 		container.appendChild( img );
 	}
-	//»ñÈ¡±ä»»²ÎÊıº¯Êı
+	//è·å–å˜æ¢å‚æ•°å‡½æ•°
 	function getMatrix(radian, x, y) {
 		var Cos = Math.cos(radian), Sin = Math.sin(radian);
 		return {
@@ -133,7 +133,7 @@ ImageTrans.modes = function(){
 		};
 	}
 	return {
-		css3: {//css3ÉèÖÃ
+		css3: {//css3è®¾ç½®
 			support: function(){
 				var style = document.createElement("div").style;
 				return $$A.some(
@@ -145,7 +145,7 @@ ImageTrans.modes = function(){
 			init: function() { initImg( this._img, this._container ); },
 			load: function(){
 				var img = this._img;
-				$$D.setStyle( img, {//¾ÓÖĞ
+				$$D.setStyle( img, {//å±…ä¸­
 					top: ( this._clientHeight - img.height ) / 2 + "px",
 					left: ( this._clientWidth - img.width ) / 2 + "px",
 					visibility: "visible"
@@ -153,43 +153,43 @@ ImageTrans.modes = function(){
 			},
 			show: function() {
 				var matrix = getMatrix( this._radian, this._y, this._x );
-				//ÉèÖÃ±äĞÎÑùÊ½
+				//è®¾ç½®å˜å½¢æ ·å¼
 				this._img.style[ css3Transform ] = "matrix("
 					+ matrix.M11.toFixed(16) + "," + matrix.M21.toFixed(16) + ","
 					+ matrix.M12.toFixed(16) + "," + matrix.M22.toFixed(16) + ", 0, 0)";
 			},
 			dispose: function(){ this._container.removeChild(this._img); }
 		},
-		filter: {//ÂË¾µÉèÖÃ
+		filter: {//æ»¤é•œè®¾ç½®
 			support: function(){ return "filters" in document.createElement("div"); }(),
 			init: function() {
 				initImg( this._img, this._container );
-				//ÉèÖÃÂË¾µ
+				//è®¾ç½®æ»¤é•œ
 				this._img.style.filter = "progid:DXImageTransform.Microsoft.Matrix(SizingMethod='auto expand')";
 			},
 			load: function(){
-				this._img.onload = null;//·ÀÖ¹ieÖØ¸´¼ÓÔØgifµÄbug
+				this._img.onload = null;//é˜²æ­¢ieé‡å¤åŠ è½½gifçš„bug
 				this._img.style.visibility = "visible";
 			},
 			show: function() {
 				var img = this._img;
-				//ÉèÖÃÂË¾µ
+				//è®¾ç½®æ»¤é•œ
 				$$.extend(
 					img.filters.item("DXImageTransform.Microsoft.Matrix"),
 					getMatrix( this._radian, this._y, this._x )
 				);
-				//±£³Ö¾ÓÖĞ
+				//ä¿æŒå±…ä¸­
 				img.style.top = ( this._clientHeight - img.offsetHeight ) / 2 + "px";
 				img.style.left = ( this._clientWidth - img.offsetWidth ) / 2 + "px";
 			},
 			dispose: function(){ this._container.removeChild(this._img); }
 		},
-		canvas: {//canvasÉèÖÃ
+		canvas: {//canvasè®¾ç½®
 			support: function(){ return "getContext" in document.createElement('canvas'); }(),
 			init: function() {
 				var canvas = this._canvas = document.createElement('canvas'),
 					context = this._context = canvas.getContext('2d');
-				//ÑùÊ½ÉèÖÃ
+				//æ ·å¼è®¾ç½®
 				$$D.setStyle( canvas, { position: "absolute", left: 0, top: 0 } );
 				canvas.width = this._clientWidth; canvas.height = this._clientHeight;
 				this._container.appendChild(canvas);
@@ -197,13 +197,13 @@ ImageTrans.modes = function(){
 			show: function(){
 				var img = this._img, context = this._context,
 					clientWidth = this._clientWidth, clientHeight = this._clientHeight;
-				//canvas±ä»»
+				//canvaså˜æ¢
 				context.save();
-				context.clearRect( 0, 0, clientWidth, clientHeight );//Çå¿ÕÄÚÈİ
-				context.translate( clientWidth / 2 , clientHeight / 2 );//ÖĞĞÄ×ø±ê
-				context.rotate( this._radian );//Ğı×ª
-				context.scale( this._y, this._x );//Ëõ·Å
-				context.drawImage( img, -img.width / 2, -img.height / 2 );//¾ÓÖĞ»­Í¼
+				context.clearRect( 0, 0, clientWidth, clientHeight );//æ¸…ç©ºå†…å®¹
+				context.translate( clientWidth / 2 , clientHeight / 2 );//ä¸­å¿ƒåæ ‡
+				context.rotate( this._radian );//æ—‹è½¬
+				context.scale( this._y, this._x );//ç¼©æ”¾
+				context.drawImage( img, -img.width / 2, -img.height / 2 );//å±…ä¸­ç”»å›¾
 				context.restore();
 			},
 			dispose: function(){
@@ -213,25 +213,25 @@ ImageTrans.modes = function(){
 		}
 	};
 }();
-//±ä»»·½·¨
+//å˜æ¢æ–¹æ³•
 ImageTrans.transforms = {
-  //´¹Ö±·­×ª
+  //å‚ç›´ç¿»è½¬
   vertical: function() {
 	this._radian = Math.PI - this._radian; this._y *= -1;
   },
-  //Ë®Æ½·­×ª
+  //æ°´å¹³ç¿»è½¬
   horizontal: function() {
 	this._radian = Math.PI - this._radian; this._x *= -1;
   },
-  //¸ù¾İ»¡¶ÈĞı×ª
+  //æ ¹æ®å¼§åº¦æ—‹è½¬
   rotate: function(radian) { this._radian = radian; },
-  //Ïò×ó×ª90¶È
+  //å‘å·¦è½¬90åº¦
   left: function() { this._radian -= Math.PI/2; },
-  //ÏòÓÒ×ª90¶È
+  //å‘å³è½¬90åº¦
   right: function() { this._radian += Math.PI/2; },
-  //¸ù¾İ½Ç¶ÈĞı×ª
+  //æ ¹æ®è§’åº¦æ—‹è½¬
   rotatebydegress: function(degress) { this._radian = degress * Math.PI/180; },
-  //Ëõ·Å
+  //ç¼©æ”¾
   scale: function () {
 	function getZoom(scale, zoom) {
 		return	scale > 0 && scale >-zoom ? zoom :
@@ -244,14 +244,14 @@ ImageTrans.transforms = {
 		}
 	}}
   }(),
-  //·Å´ó
+  //æ”¾å¤§
   zoomin: function() { this.scale( Math.abs(this._zoom) ); },
-  //ËõĞ¡
+  //ç¼©å°
   zoomout: function() { this.scale( -Math.abs(this._zoom) ); }
 };
 
 
-//ÍÏ¶¯Ğı×ªÀ©Õ¹
+//æ‹–åŠ¨æ—‹è½¬æ‰©å±•
 ImageTrans.prototype._initialize = (function(){
 	var init = ImageTrans.prototype._initialize,
 		methods = {
@@ -270,7 +270,7 @@ ImageTrans.prototype._initialize = (function(){
 				this._mrSTART = this._mrMOVE = this._mrSTOP = null;
 			}
 		};
-	//¿ªÊ¼º¯Êı
+	//å¼€å§‹å‡½æ•°
 	function start(e){
 		var rect = $$D.clientRect( this._container );
 		this._mrX = rect.left + this._clientWidth / 2;
@@ -287,12 +287,12 @@ ImageTrans.prototype._initialize = (function(){
 			e.preventDefault();
 		}
 	};
-	//ÍÏ¶¯º¯Êı
+	//æ‹–åŠ¨å‡½æ•°
 	function move(e){
 		this.rotate( Math.atan2( e.clientY - this._mrY, e.clientX - this._mrX ) - this._mrRadian );
 		window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
 	};
-	//Í£Ö¹º¯Êı
+	//åœæ­¢å‡½æ•°
 	function stop(){
 		$$E.removeEvent( document, "mousemove", this._mrMOVE );
 		$$E.removeEvent( document, "mouseup", this._mrSTOP );
@@ -307,7 +307,7 @@ ImageTrans.prototype._initialize = (function(){
 	return function(){
 		var options = arguments[1];
 		if ( !options || options.mouseRotate !== false ) {
-			//À©Õ¹¹³×Ó
+			//æ‰©å±•é’©å­
 			$$A.forEach( methods, function( method, name ){
 				$$CE.addEvent( this, name, method );
 			}, this );
@@ -316,7 +316,7 @@ ImageTrans.prototype._initialize = (function(){
 	}
 })();
 
-//¹öÂÖËõ·ÅÀ©Õ¹
+//æ»šè½®ç¼©æ”¾æ‰©å±•
 ImageTrans.prototype._initialize = (function(){
 	var init = ImageTrans.prototype._initialize,
 		mousewheel = $$B.firefox ? "DOMMouseScroll" : "mousewheel",
@@ -332,7 +332,7 @@ ImageTrans.prototype._initialize = (function(){
 				this._mzZoom = null;
 			}
 		};
-	//Ëõ·Åº¯Êı
+	//ç¼©æ”¾å‡½æ•°
 	function zoom(e){
 		this.scale((
 			e.wheelDelta ? e.wheelDelta / (-120) : (e.detail || 0) / 3
@@ -342,7 +342,7 @@ ImageTrans.prototype._initialize = (function(){
 	return function(){
 		var options = arguments[1];
 		if ( !options || options.mouseZoom !== false ) {
-			//À©Õ¹¹³×Ó
+			//æ‰©å±•é’©å­
 			$$A.forEach( methods, function( method, name ){
 				$$CE.addEvent( this, name, method );
 			}, this );

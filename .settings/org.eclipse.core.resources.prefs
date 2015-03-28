@@ -1,8 +1,14 @@
 eclipse.preferences.version=1
 encoding//WebContent/face3.jsp=UTF-8
 encoding//WebContent/page/common/admin.jsp=UTF-8
+encoding//WebContent/page/policy/ImageRotation/css/5imoban.net.css=UTF-8
+encoding//WebContent/page/policy/ImageRotation/js/jquery-1.8.3.min.js=UTF-8
+encoding//WebContent/page/policy/ImageRotation/js/jquery.js=UTF-8
+encoding//WebContent/page/policy/ImageRotation/js/lrscroll.js=UTF-8
 encoding//WebContent/page/report/chart/test.jsp=UTF-8
 encoding//WebContent/page/temp/genbilldata.jsp=UTF-8
+encoding//WebContent/page/temp/imagetrans/CJL.0.1.min.js=UTF-8
+encoding//WebContent/page/temp/imagetrans/ImageTrans.js=UTF-8
 encoding//WebContent/page/temp/managetemp.jsp=UTF-8
 encoding//WebContent/page/temp/viewadd.jsp=UTF-8
 encoding//WebContent/page/temp/viewtempmembers.jsp=UTF-8

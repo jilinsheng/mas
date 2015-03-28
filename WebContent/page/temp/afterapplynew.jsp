@@ -1760,7 +1760,7 @@
 			<img width="150px" src="<%=jpath%><s:property value="realpath"/>" jqimg="<%=jpath%><s:property value="realpath"/>" />
 			</div>
 			<%-- <a id="x<s:property value="fileId"/>" target="_blank" href="<%=jpath%><s:property value="realpath"/>">查看大图</a> --%>
-			<a id="x<s:property value="fileId"/>" target="_blank" href="<%=basePath %>page/temp/imagetrans/ImageTrans.jsp?realpath=<s:property value="realpath"/>">查看大图</a>
+			<a id="x<s:property value="fileId"/>" target="_blank" href="<%=basePath %>page/temp/imagetrans/ImageTrans.jsp?realpath=<%=jpath%><s:property value="realpath"/>">查看大图</a>
 			</td>
 			<td class="formtd2">
 			<img id="y<s:property value="fileId"/>" style="padding-right: 2px"

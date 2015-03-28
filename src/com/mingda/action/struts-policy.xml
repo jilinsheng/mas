@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="policy" extends="json-default" namespace="/page/policy">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result>
+		</global-results>
+		<action name="uploadpolicyinit" method="uploadpolicyinit"
+			class="policyAction">
+			<result name="success">
+				/page/policy/uploadpolicy.jsp
+			</result>
+			<result name="result">
+				/page/policy/result.jsp
+			</result>
+		</action>
+		<action name="uploadpolicy" method="uploadpolicy"
+			class="policyAction">
+			<interceptor-ref name="fileUpload" >
+			  <param name="allowedTypes">image/png,image/gif,image/jpeg,image/jpg</param> 
+			</interceptor-ref>
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<result name="success">
+				/page/policy/viewuploadpolicy.jsp
+			</result>
+			<result name="result">
+				/page/policy/result.jsp
+			</result>
+		</action>
+		<action name="querypolicyinit" method="querypolicyinit"
+			class="policyAction">
+			<result name="success">
+				/page/policy/queryuploadpolicy.jsp
+			</result>
+			<result name="result">
+				/page/policy/result.jsp
+			</result>
+		</action>
+		<action name="querypolicybyorgid" method="querypolicybyorgid"
+			class="policyAction">
+			<result name="success">
+				/page/policy/viewpolicys.jsp
+			</result>
+		</action>
+		<action name="querypolicybyid" method="querypolicybyid"
+			class="policyAction">
+			<result name="success">
+				/page/policy/viewpolicy.jsp
+			</result>
+		</action>
+		<action name="queryorgparent" method="queryorgparent" class="policyAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="queryorgchild" method="queryorgchild" class="policyAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="queryselfpolicyinit" method="queryselfpolicyinit" class="policyAction">
+			<result name="success">
+				/page/policy/querypolicy.jsp
+			</result>
+			<result name="result">
+				/page/policy/result.jsp
+			</result>
+		</action>
+		<action name="querypolicy" method="querypolicy" class="policyAction">
+			<result name="success">
+				/page/policy/querypolicy.jsp
+			</result>
+		</action>
+		<action name="deletpolicy" method="deletpolicy" class="policyAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+	</package>
+</struts>

@@ -151,6 +151,9 @@
 	<bean id="jzYearDAO" class="com.mingda.dao.impl.JzYearDAOImpl">
 		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
 	</bean>
+	<bean id="orgPolicyDAO" class="com.mingda.dao.impl.OrgPolicyDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
 	<!-- service配置 -->
 	<bean id="authorityService" class="com.mingda.service.AuthorityServiceImpl">
 		<property name="extendsDAO" ref="extendsDAO" />
@@ -253,8 +256,14 @@
 		<property name="sanwufileDAO" ref="sanwufileDAO" />
 		<property name="wubaohuDAO" ref="wubaohuDAO" />
 	</bean>
-		<bean id="criticalService" class="com.mingda.service.CriticalServiceImpl">
+	<bean id="criticalService" class="com.mingda.service.CriticalServiceImpl">
 		<property name="extendsDAO" ref="extendsDAO" />
 		<property name="jzBizmediaDAO" ref="jzBizmediaDAO"></property>
 	</bean>
+	<bean id="policyService" class="com.mingda.service.PolicyServiceImpl">
+		<property name="extendsDAO" ref="extendsDAO" />
+		<property name="orgPolicyDAO" ref="orgPolicyDAO"></property>
+		<property name="managerOrgDAO" ref="managerOrgDAO"></property>
+	</bean>
+	
 </beans>

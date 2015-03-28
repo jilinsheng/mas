@@ -36,6 +36,75 @@ $(document).ready(function() {
 		showButtonPanel: true,
 		showOtherMonths: false});
 });
+function getciamoney(){
+	var payTotal=$("#payTotal")[0].value;
+	var payOutmedicare=$("#payOutmedicare")[0].value;
+	var payMedicare=$("#payMedicare")[0].value;
+	var endDate = $("#endDate")[0].value;
+	var calcType=$("#calcType")[0].value;
+	var oldPayTotal=$("#oldPayTotal")[0].value;
+	var oldPayMedicare=$("#oldPayMedicare")[0].value;
+	var oldPayOutMedicare=$("#oldPayOutMedicare")[0].value;
+	var safesort=$("#safesort")[0].value;
+	var flag=true;
+	if(payTotal==""||payTotal==0){
+		alert("请填写总费用！");
+		flag=false;
+	}else if(payMedicare==""){
+		alert("统筹支付不能为空！");
+		flag=false;
+	}else if(payOutmedicare==""){
+		alert("目录外费用不能为空！");
+		flag=false;
+	}else if(endDate==""){
+		alert("提示：出院时间为空！");
+		flag=false;
+	}
+	if (flag==true) {
+		$.ajax({
+			type : "post",
+			url : "page/temp/calctempciassist.action",
+			data : {
+				"tempDTO.payTotal" : payTotal, //总费用
+				"tempDTO.payOutmedicare" : payOutmedicare, // 目录外费用
+				"tempDTO.payMedicare" : payMedicare, //统筹  
+				"tempDTO.medicareType" : safesort,
+				"tempDTO.oldPayTotal" : oldPayTotal,
+				"tempDTO.oldPayMedicare" : oldPayMedicare,
+				"tempDTO.oldPayOutMedicare" : oldPayOutMedicare,
+				"tempDTO.calcType" : calcType,
+				"tempDTO.endtime" : endDate
+			},
+			timeout : 20000,
+			error : function() {
+				alert("服务器错误");
+			},
+			async : false,
+			dataType : "json",
+			success : function(json) {
+				json = eval('(' + json + ')');
+				var info = json['info'];
+				var iin = json['in'];
+				var out = json['out'];
+				var scope = json['scope'];
+				var ci = json['ci'];
+				if ('成功' == info) {
+					alert('计算大病保险金额:' + ci + '元');
+					$('#paySumAssistIn')[0].value = iin;
+					$('#paySumAssistOut')[0].value = out;
+					$('#sumMedicareScope')[0].value = scope;
+					$('#payCIAssist')[0].value = ci;
+				} else {
+					$('#paySumAssistIn')[0].value = iin;
+					$('#paySumAssistOut')[0].value = out;
+					$('#sumMedicareScope')[0].value = scope;
+					$('#payCIAssist')[0].value = ci;
+					alert(info);
+				}
+			}
+		});
+	}
+}
 function getmoney() {
 	var payTotal=$("#payTotal")[0].value;
 	var payOutmedicare=$("#payOutmedicare")[0].value;
@@ -113,23 +182,13 @@ function getmoney() {
 				json = eval('(' + json + ')');
 				var info= json['info'];
 				var m= json['m'];
-				var iin= json['in'];
-				var out= json['out'];
-				var scope= json['scope'];
-				var ci= json['ci'];
+				var year = json['businessyear'];
 				if('成功'==info){
 					alert('计算保障金:'+m+'元');
 					$('#b')[0].disabled=false;
 					$('#payAssist')[0].value=m;
-					$('#paySumAssistIn')[0].value=iin;
-					$('#paySumAssistOut')[0].value=out;
-					$('#sumMedicareScope')[0].value=scope;
-					$('#payCIAssist')[0].value=ci;
+					$('#businessyear')[0].value=year;
 				}else{
-					$('#paySumAssistIn')[0].value=iin;
-					$('#paySumAssistOut')[0].value=out;
-					$('#sumMedicareScope')[0].value=scope;
-					$('#payCIAssist')[0].value=ci;
 					alert(info);
 					$('#b')[0].disabled=true;
 					$('#payAssist')[0].value=0;
@@ -295,6 +354,7 @@ function getmoney() {
 	<s:hidden id="memberType" name="tempDTO.memberType"></s:hidden>
 	<s:hidden id="organizationId" name="tempDTO.organizationId"></s:hidden>
 	<s:hidden id="safesort" name="tempDTO.safesort"></s:hidden>
+	<s:hidden id="businessyear" name="tempDTO.businessyear"></s:hidden>
 	<s:hidden id="r" name="r"></s:hidden>
 	<s:if test="r=='1a'">
 		<s:hidden id="oldPayTotal" name="tempDTO.oldPayTotal" value="0"></s:hidden>
@@ -426,25 +486,30 @@ function getmoney() {
 		<tr>
 			<td class="formtd1" colspan="2" >本年累计住院救助金额:</td>
 			<td class="formtd2"><s:textfield id="paySumAssistIn" readonly="true" name="tempDTO.paySumAssistIn"
-				size="8" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" /></td>
-			<td class="formtd1" colspan="2">本年累计纳入统筹救助范围(大病保险在此范围内):</td>
-			<td class="formtd2"><s:textfield id="sumMedicareScope" readonly="true" name="tempDTO.sumMedicareScope"
-				size="8" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"/></td>
-		</tr>
-		<tr>
+				size="8" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" value="0"/></td>
 			<td class="formtd1" colspan="2" >本年累计特殊门诊大病救助金额:</td>
 			<td class="formtd2"><s:textfield id="paySumAssistOut" readonly="true" name="tempDTO.paySumAssistOut"
-				size="8" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"/></td>
-			<td class="formtd1" colspan="2" >本次大病保险支付金额:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">*</font></td>
-			<td class="formtd2"><s:textfield id="payCIAssist" readonly="false" name="tempDTO.payCIAssist"
-				size="8" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"/></td>
+				size="8" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" value="0"/></td>
 		</tr>
 		<tr>
-			<td class="formtd1">救助金额：</td>
-			<td class="formtd2" colspan="3"><s:textfield id="payAssist"
-				name="tempDTO.payAssist" size="12"  onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
-				&nbsp;&nbsp;&nbsp;&nbsp;
-				<button type="button" onclick="getmoney()" >计算救助金</button>
+			<td class="formtd1" colspan="5">本年累计纳入统筹救助范围(大病保险在此范围内):</td>
+			<td class="formtd2"  ><s:textfield id="sumMedicareScope" readonly="true" name="tempDTO.sumMedicareScope"
+				size="8" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" value="0"/></td>
+		</tr>
+		<tr>
+			<td class="formtd1" colspan="2" >本次大病保险支付金额:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">*</font></td>
+			<td class="formtd2" colspan="4" ><s:textfield id="payCIAssist" readonly="false" name="tempDTO.payCIAssist"
+				size="8" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
+				
+				<button type="button" onclick="getciamoney()" >计算大病保险</button>
+			</td>
+		</tr>
+		<tr>
+			<td class="formtd1" colspan="2">救助金额：</td>
+			<td class="formtd2" colspan="2"><s:textfield id="payAssist"
+				name="tempDTO.payAssist" size="8"  onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
+				
+				<button type="button" onclick="getmoney()" >计算救助金&nbsp;&nbsp;&nbsp;&nbsp;</button>
 				</td>
 				<td class="formtd1">审批结果</td>
 				<td class="formtd2" >

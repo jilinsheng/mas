@@ -67,7 +67,7 @@
 			1521))(load_balance=yes)(failover=yes))(connect_data=(service_name=
 			ncdb)(instance_name=ncdb1)(instance_name=ncdb2)))" />
 		-->
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@10.1.0.31:1521:ncdb1" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@10.1.0.34:1521:ncdb2" />
 		<property name="username" value="summer" />
 		<property name="password" value="summer" />
 		<property name="idleConnectionTestPeriod" value="60" />

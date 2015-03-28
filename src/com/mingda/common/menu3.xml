@@ -459,6 +459,23 @@
 		</ul>
 	</li>
 	<li>
+		<span class="folder">业务政策管理</span>
+		<ul>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/policy/uploadpolicyinit.action&amp;nav=[业务政策管理]>>[业务政策上传]')">
+				<span class="file">业务政策上传</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/policy/queryselfpolicyinit.action&amp;nav=[业务政策管理]>>[业务政策修改]')">
+				<span class="file">业务政策修改</span>
+			</li>
+			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/policy/querypolicyinit.action&amp;nav=[业务政策管理]>>[业务政策查询]')">
+				<span class="file">业务政策查询</span>
+			</li>
+		</ul>
+	</li>
+	<li>
 		<span class="folder">系统管理</span>
 		<ul>
 			<!-- <li ><span class="file">救助标准设置</span></li> <li><span class="file">短信设置</span></li> -->

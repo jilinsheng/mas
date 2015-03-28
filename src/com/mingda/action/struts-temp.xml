@@ -261,6 +261,22 @@
 				/page/temp/queryaddapprove.jsp
 			</result>
 		</action>
+		<action name="calctempciassist" method="calctempciassist" class="tempAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
 		<action name="calctempmoney" method="calctempmoney" class="tempAction">
 			<result type="json">
 				<param name="root">

@@ -1037,6 +1037,7 @@ public class TempServiceImpl implements TempService {
 				tempDTO.setTsSicken(b1);
 			}
 			tempDTO.setSaltype(a.getSaltype());
+			tempDTO.setBusinessyear(a.getBusinessYear());
 		}
 		return tempDTO;
 
@@ -1073,7 +1074,9 @@ public class TempServiceImpl implements TempService {
 		record.setAssistType(tempDTO.getAssistType());
 		record.setMedicaltimeEnd(tempDTO.getMedicaltimeEnd());
 		record.setIdCard(tempDTO.getPaperid());
-
+		
+		record.setBusinessYear(tempDTO.getBusinessyear());
+		
 		// 费用的录入
 		record.setPayTotal(tempDTO.getPayTotal());
 		record.setPayOutmedicare(tempDTO.getPayOutmedicare());
@@ -1116,6 +1119,7 @@ public class TempServiceImpl implements TempService {
 		record.setPaySumassistOut(tempDTO.getPaySumAssistOut());
 		record.setSumMedicarescope(tempDTO.getSumMedicareScope());
 		record.setPayCiassist(tempDTO.getPayCIAssist());
+		record.setBusinessYear(tempDTO.getBusinessyear());
 		if (organizationId.trim().length() == 8) {
 			record.setApprovests("1");
 		} else {
@@ -1699,8 +1703,7 @@ public class TempServiceImpl implements TempService {
 	@SuppressWarnings({ "rawtypes" })
 	public HashMap<String, Comparable> findtempmoney(TempDTO tempDTO) {
 		log.debug("计算临时救助金开始-----------------------------");
-		Calendar c = new GregorianCalendar();// 新建日期对象
-		int year = c.get(Calendar.YEAR);// 获取年份
+		int year = Integer.parseInt(tempDTO.getBusinessyear());// 获取年份
 		HashMap<String, Comparable> map = new HashMap<String, Comparable>();
 		BigDecimal m = BigDecimal.ZERO;// 封顶线
 		BigDecimal zpay = BigDecimal.ZERO;// 个人救助金总额

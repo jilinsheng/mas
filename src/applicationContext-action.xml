@@ -103,4 +103,8 @@
 		<property name="tempService" ref="tempService"></property>
 		<property name="yljzService" ref="yljzService"></property>
 	</bean>
+	<bean id="policyAction" class="com.mingda.action.PolicyAction" scope="request">
+		<property name="policyService" ref="policyService"></property>
+		<property name="systemDataService" ref="systemDataService"></property>
+	</bean>
 </beans>

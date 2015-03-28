@@ -94,12 +94,12 @@
 			<generatedKey column="BIZCHECK"
 				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
 		</table> -->
-	<!-- <table tableName="TEMP_APPROVE" schema="medical">
+	 <table tableName="TEMP_APPROVE" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
 			<generatedKey column="APPROVE_ID"
 				sqlStatement="select SQ_BIZMEDIA_ID.nextval from dual" />
-		</table> -->  <!--
+		</table>  <!--
 		<table tableName="WUBAOHUFILE" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
@@ -177,11 +177,17 @@
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
 		</table> -->
-		<table tableName="jz_bizmedia" schema="medical">
+<!-- 		<table tableName="jz_bizmedia" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
 			<generatedKey column="BIZMEDIA_ID"
 				sqlStatement="select SQ_BIZMEDIA_ID.nextval from dual" />
-		</table>
+		</table> -->
+		<!-- <table tableName="org_policy" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="P_ID"
+				sqlStatement="select SQ_P_ID.nextval from dual" />
+		</table> -->
 	</ibatorContext>
 </ibatorConfiguration>

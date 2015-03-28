@@ -157,7 +157,46 @@ body {
     BORDER-BOTTOM: #002D96 1px solid;padding : 1px 6px 1px 6px;
      }
      
-
+.t3 {
+	border-collapse: collapse;
+	border: 0px solid #999999;
+	border-width: 0 0px 0px 0;
+	margin: 0px 0 0px 0;
+}
+.t3 caption{
+	height: 23px;
+	border: 0px solid #999999;
+	border-width: 0px 0 0 0px;
+	font-size: 12px;
+	text-align: center;
+	text-indent:12px;
+	background-color: #0066CC;
+	color: #FFFFFF;
+	font-weight: 600;
+	padding-top: 0px;
+}
+.t3 td {
+	height: 27px;
+	border: 0px solid #999999;
+	border-width: 0px 0 0 0px ;
+	margin: 0px 0 0px 0;
+	font-size: 12px;
+	background-color: #FFF;
+	text-align: left;
+	text-indent:12px;z
+}
+.t3 th {
+	height: 27px;
+	border: 0px solid #999999;
+	border-width: 0px 0 0 10px;
+	margin: 0px 0 0px 0;
+	text-align: center;
+	font-size: 12px;
+	font-weight: lighter;
+	background-color:#97CBFF;
+	background: url(../images/tr_back.gif) repeat-x;
+	color:#fff;
+}
 
 
 

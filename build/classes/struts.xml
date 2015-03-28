@@ -25,4 +25,5 @@
 	<include file="com/mingda/action/struts-orphan.xml" />
 	<include file="com/mingda/action/struts-critical.xml" />
 	<include file="com/mingda/action/struts-after.xml" />
+	<include file="com/mingda/action/struts-policy.xml" />
 </struts>
