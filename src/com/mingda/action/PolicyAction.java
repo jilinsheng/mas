@@ -51,7 +51,7 @@ public class PolicyAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-		if (6 >= organizationId.length()) {
+		if (6 == organizationId.length()) {
 			return SUCCESS;
 		} else {
 			result = "没有操作权限！";
