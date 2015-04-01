@@ -50,8 +50,19 @@ ul#wimoban_nav li a:hover,#wimoban_p a:hover{color:red;}
 			<td width="15%">发布时间：</td>
 			<td width="85%"><s:date name="policyDTO.operTime" format="yyyy-MM-dd"/>&nbsp;</td>
 		</tr>
+		<s:iterator value="filerealpaths_file">
+		<tr>
+			<td width="15%">附件文件：</td>
+			<td width="85%">
+			<A href="<%=jpath%><s:property value="realpath"/>" target="_self">
+			<font size="3px" color="#0094ff"><s:property value="name" />&nbsp;</font>
+			</A>
+			</td>
+		</tr>
+		</s:iterator>
 		<tr >
 		<td colspan="2" align="center">
+		附件文件：
 		<div align="center">
 		<table width="90%" border="0" cellpadding="0" cellspacing="0" class="t3">
 		<tr>
@@ -71,7 +82,7 @@ ul#wimoban_nav li a:hover,#wimoban_p a:hover{color:red;}
 					</A>
 				</div>
 				<br/>
-				<div align="center"><font size="3px"><s:property value="name"/></font></div>
+				<div align="center"><font size="3px" color="#0094ff"><s:property value="name"/></font></div>
 			</DIV>
 			</LI>
 			</s:iterator>

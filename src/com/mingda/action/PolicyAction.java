@@ -36,6 +36,8 @@ public class PolicyAction extends ActionSupport {
 	private OrganizationDTO odto;
 	@SuppressWarnings("rawtypes")
 	private List<HashMap> filerealpaths;
+	@SuppressWarnings("rawtypes")
+	private List<HashMap> filerealpaths_file;
 	private List<OrganizationDTO> odtos;
 	private List<OrganizationDTO> odtoc;
 	private String orgid;
@@ -72,7 +74,7 @@ public class PolicyAction extends ActionSupport {
 			if (null == pf) {
 				/*policyDTO.setFileNum("0");
 				policyDTO = policyService.savePolicyFiles(policyDTO);*/
-				result = "上传文件格式不正确，请上传.jpg、.png、.gif格式的图片！";
+				result = "上传文件格式不正确，请上传.jpg、.doc、.docx、.pdf格式！";
 				return "result";
 			} else {
 				policyDTO.setFileNum(pf.size()+"");
@@ -156,16 +158,25 @@ public class PolicyAction extends ActionSupport {
 		String folder = policyDTO.getPolicyId();
 		String fnum = policyDTO.getFileNum();
 		filerealpaths = new ArrayList<HashMap>();
+		filerealpaths_file = new ArrayList<HashMap>();
 		File file = new File("//10.1.1.101/i/ftproot/yljz/policyfile/"+folder);
 		String[] filelist = file.list();
 		if(filelist!=null){
 			for (int i = 0; i < filelist.length; i++) {
 				File readfile = new File(file + "/" + filelist[i]);
 	            if (!readfile.isDirectory()) {
-					HashMap m =new HashMap();
-					m.put("realpath", folder+"/"+readfile.getName());
-					m.put("name", readfile.getName());
-					filerealpaths.add(m);
+	            	String filetype = getFileExtension(readfile);
+	            	HashMap m =new HashMap();
+	            	if("jpg".equals(filetype)){
+						m.put("realpath", folder+"/"+readfile.getName());
+						m.put("name", readfile.getName());
+						filerealpaths.add(m);
+	            	}else{
+	            		m.put("realpath", folder+"/"+readfile.getName());
+						m.put("name", readfile.getName());
+						filerealpaths_file.add(m);
+	            	}
+					
 	            }
 			}
 		}else{
@@ -182,6 +193,20 @@ public class PolicyAction extends ActionSupport {
 			}
 		}*/
 		return SUCCESS;
+	}
+	
+	/**
+	 * 获取文件扩展名
+	 * @param file
+	 * @return
+	 */
+	private static String getFileExtension(File file) {
+		String fileName = file.getName();
+		if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
+			return fileName.substring(fileName.lastIndexOf(".") + 1);
+		} else {
+			return "";
+		}
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -402,5 +427,15 @@ public class PolicyAction extends ActionSupport {
 
 	public void setOpertime2(String opertime2) {
 		this.opertime2 = opertime2;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public List<HashMap> getFilerealpaths_file() {
+		return filerealpaths_file;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void setFilerealpaths_file(List<HashMap> filerealpaths_file) {
+		this.filerealpaths_file = filerealpaths_file;
 	}
 }

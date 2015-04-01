@@ -31,14 +31,14 @@ function valfile(){
 		
 		for ( var i = 0; i < temps.length; i++) {
 			if (temps[i].value == '') {
-				alert('选择上传的附件，附件格式为.jpg、.png、.gif的图片文件！');
+				alert('选择上传的附件，附件格式为.jpg、.doc、.docx、.pdf的图片文件！');
 				return false;
 			}
 		}
 		
 		return true;
 	}else{
-		alert('你必须上传附件！，附件格式为.jpg、.png、.gif的图片文件！');
+		alert('你必须上传附件！，附件格式为.jpg、.doc、.docx、.pdf的图片文件！');
 		return false;
 	} 
 
@@ -97,7 +97,9 @@ function delfile(i){
 										</tr>
 										<tr>
 											<td colspan="2">
-												<button type="button" onclick="add()"><img src="page/images/add.gif" border=0 align="absmiddle" >&nbsp;添加附件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button> <br>
+												<button type="button" onclick="add()"><img src="page/images/add.gif" border=0 align="absmiddle" >&nbsp;添加附件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button> 
+												<font color="#8A8A8A">&nbsp;&nbsp;&nbsp;&nbsp;附件说明:①本次上传附件总容量不能超过100MB;&nbsp;&nbsp;&nbsp;&nbsp;②上传附件格式：.jpg,.doc,.docx,.pdf;</font>
+												<br>
 												<div align="left" style=" display: block" id="dfile2">
 												</div>
 											</td>

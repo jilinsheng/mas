@@ -31,8 +31,11 @@
 		<action name="uploadpolicy" method="uploadpolicy"
 			class="policyAction">
 			<interceptor-ref name="fileUpload" >
-			  <param name="allowedTypes">image/png,image/gif,image/jpeg,image/jpg</param> 
+			  <param name="allowedTypes">image/jpeg,image/jpg,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document</param> 
+			  <!--设置上传文件的大小,子开关,默认值100M-->
+              <param name="fileUpload.maximumSize">104857600</param>
 			</interceptor-ref>
+			
 			<interceptor-ref name="mydefault"></interceptor-ref>
 			<result name="success">
 				/page/policy/viewuploadpolicy.jsp
