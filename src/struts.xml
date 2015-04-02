@@ -8,6 +8,7 @@
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.freemarker.templatesCache" value="true" />
+	<constant name="struts.multipart.maxSize" value="104857600" />
 	<include file="com/mingda/action/struts-common.xml" />
 	<include file="com/mingda/action/struts-basebiz.xml" />
 	<include file="com/mingda/action/struts-chronic.xml" />

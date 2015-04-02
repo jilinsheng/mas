@@ -32,7 +32,7 @@
 			class="policyAction">
 			<interceptor-ref name="fileUpload" >
 			  <param name="allowedTypes">image/jpeg,image/jpg,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document</param> 
-			  <!--设置上传文件的大小,子开关,默认值100M-->
+			  <!--设置上传文件的大小,子开关,默认值2M-->
               <param name="fileUpload.maximumSize">104857600</param>
 			</interceptor-ref>
 			

@@ -55,7 +55,11 @@ function formcheck(){
 		return false;
 	}
 	flag =valfile();
-	return true;
+	if(flag){
+		$("#r")[0].value="上传中，请稍等...";
+		$("#r")[0].disabled=true;
+	}
+	return flag;
 }
 function add(){
 	temp='<input name="pf" type="file" id="file1" size="40"/>&nbsp;&nbsp;<img style="padding-right:2px" src="<%=path%>/page/images/del.gif" onclick ="delfile(this)"></img>';
@@ -107,7 +111,7 @@ function delfile(i){
 										<tr>
 											<td colspan="2">
 												<div align="center">
-													<input  type="submit" name="button" id="button"
+													<input  type="submit" name="button" id="r"
 														value="保存" tabindex="1" />
 												</div>
 											</td>
