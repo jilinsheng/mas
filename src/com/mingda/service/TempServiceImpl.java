@@ -1730,7 +1730,7 @@ public class TempServiceImpl implements TempService {
 				}
 			}
 			sql = "select sum(ta.pay_assist)as zpay from temp_approve ta "
-					+ "where to_char(ta.approvetime, 'yyyy') = '" + year + "' "
+					+ "where to_char(ta.medicaltime_end, 'yyyy') = '" + year + "' "
 					+ "and ta.member_id = '" + tempDTO.getMemberId()
 					+ "' and ta.member_type = '" + tempDTO.getMemberType()
 					+ "' and ta.approvests = '2'";

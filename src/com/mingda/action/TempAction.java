@@ -935,8 +935,8 @@ public class TempAction extends ActionSupport {
 
 	private BigDecimal getCia(TempDTO tempDTO) {
 		BigDecimal bl = BigDecimal.ZERO;// 大病保险金
-		BigDecimal mline_y = new BigDecimal("9600");// "医保"起助线
-		BigDecimal mline_n = new BigDecimal("6000");// "未经医保/新农合确认转诊"起助线
+		BigDecimal mline_y = new BigDecimal("11000");// "医保"起助线
+		BigDecimal mline_n = new BigDecimal("8000");// "未经医保/新农合确认转诊"起助线
 		BigDecimal payTotal = tempDTO.getPayTotal();
 		BigDecimal payOutmedicare = tempDTO.getPayOutmedicare();
 		BigDecimal payMedicare = tempDTO.getPayMedicare();
