@@ -332,7 +332,7 @@ public class BaseBizAction extends ActionSupport {
 			element.setHospitalId(null);
 			element.setName("全部");
 			depts.add(0, element);
-			if("220506".equals(orgid)){
+			/*if("220506".equals(orgid)){
 				DeptDTO element1 = new DeptDTO();
 				element1.setHospitalId(2582);
 				element1.setName("通化市海龙精神病医院（药房）");
@@ -349,7 +349,7 @@ public class BaseBizAction extends ActionSupport {
 				element4.setHospitalId(2585);
 				element4.setName("梅河口市中心医院（药房 ）");
 				depts.add((len+4), element4);
-			}
+			}*/
 		} else {
 			DeptDTO element = new DeptDTO();
 			element.setHospitalId(-1);
@@ -575,7 +575,7 @@ public class BaseBizAction extends ActionSupport {
 			element.setHospitalId(null);
 			element.setName("全部");
 			depts.add(0, element);
-			if("220506".equals(orgid)){
+			/*if("220506".equals(orgid)){
 				DeptDTO element1 = new DeptDTO();
 				element1.setHospitalId(2582);
 				element1.setName("通化市海龙精神病医院（药房）");
@@ -592,7 +592,7 @@ public class BaseBizAction extends ActionSupport {
 				element4.setHospitalId(2585);
 				element4.setName("梅河口市中心医院（药房 ）");
 				depts.add((len+4), element4);
-			}
+			}*/
 		} else {
 			DeptDTO element = new DeptDTO();
 			element.setHospitalId(-1);
