@@ -143,7 +143,7 @@
 									至 <s:textfield size="8" name="assismoeny2"></s:textfield> 元</td>
 									<td><s:submit value="查询"></s:submit>
 									<button
-										onclick="window.open('../../page/common/downloadSortExcel.action')">导出excel</button>
+										onclick="window.open('<%=basePath%>page/common/downloadSortExcel.action')">导出excel</button>
 									</td>
 								</tr>
 								<tr>
