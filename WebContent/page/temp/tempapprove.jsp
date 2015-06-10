@@ -46,6 +46,7 @@ function getciamoney(){
 	var oldPayMedicare=$("#oldPayMedicare")[0].value;
 	var oldPayOutMedicare=$("#oldPayOutMedicare")[0].value;
 	var safesort=$("#safesort")[0].value;
+	var paperid=$("#paperid")[0].value;
 	var flag=true;
 	if(payTotal==""||payTotal==0){
 		alert("请填写总费用！");
@@ -65,6 +66,7 @@ function getciamoney(){
 			type : "post",
 			url : "page/temp/calctempciassist.action",
 			data : {
+				"tempDTO.paperid" : paperid,
 				"tempDTO.payTotal" : payTotal, //总费用
 				"tempDTO.payOutmedicare" : payOutmedicare, // 目录外费用
 				"tempDTO.payMedicare" : payMedicare, //统筹  
