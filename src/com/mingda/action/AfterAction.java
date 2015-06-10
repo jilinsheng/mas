@@ -190,6 +190,7 @@ public class AfterAction extends ActionSupport {
 		int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
 		System.out.println("计算大病保险,本次业务年度："+businessyear);
 		ciDTO.setBusinessyear(businessyear+"");
+		ciDTO.setOrgCode(organizationId);
 		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		// 外伤、未经医保/新农合确认的转诊
 		if (!"0".equals(tempDTO.getOtherType())) {
@@ -294,6 +295,7 @@ public class AfterAction extends ActionSupport {
 		int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
 		System.out.println("本次业务年度："+businessyear);
 		ciDTO.setBusinessyear(businessyear+"");
+		ciDTO.setOrgCode(organizationId);
 		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		// 外伤、未经医保/新农合确认的转诊
 		if ("0".equals(tempDTO.getDiagnoseTypeId())) {

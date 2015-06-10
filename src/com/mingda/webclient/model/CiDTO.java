@@ -69,6 +69,7 @@ public class CiDTO {
 	private String resultFlag;
 	private String end_time;
 	private String businessyear;
+	private String orgCode;
 	
 	public BigDecimal getPay_Total() {
 		return pay_Total;
@@ -183,6 +184,12 @@ public class CiDTO {
 	}
 	public void setBusinessyear(String businessyear) {
 		this.businessyear = businessyear;
+	}
+	public String getOrgCode() {
+		return orgCode;
+	}
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
 	}
 
 	

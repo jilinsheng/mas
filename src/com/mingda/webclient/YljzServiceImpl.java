@@ -141,7 +141,7 @@ public class YljzServiceImpl implements YljzService {
 			 */
 
 			String xml = iServiceYljzProxy.getCIAssistByPaperIDEx(
-					cidto.getPaperID(), cidto.getMedicareType(),
+					cidto.getPaperID(),cidto.getOrgCode(), cidto.getMedicareType(),
 					cidto.getCalcType(), cidto.getOld_Pay_Total(),
 					cidto.getOld_Pay_Medicare(),
 					cidto.getOld_Pay_OutMedicare(), cidto.getPay_Total(),
