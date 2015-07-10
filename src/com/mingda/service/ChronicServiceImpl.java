@@ -35,6 +35,7 @@ import com.mingda.model.ChronicStatusExample;
 import com.mingda.model.MemberBaseinfoview;
 import com.mingda.model.MemberBaseinfoviewExample;
 import com.mingda.model.OutIcd;
+import com.mingda.model.OutIcdExample;
 import com.mingda.model.OutIcdKey;
 
 public class ChronicServiceImpl implements ChronicService {
@@ -1073,10 +1074,16 @@ public class ChronicServiceImpl implements ChronicService {
 	}
 
 	public String findMoney(ChronicCheckDTO chronicCheckDTO) {
-		OutIcdKey key = new OutIcdKey();
-		key.setIcdId(new Integer(chronicCheckDTO.getMainId()));
-		key.setOrganizationId(chronicCheckDTO.getOrganziationId());
-		OutIcd rs = outIcdDAO.selectByPrimaryKey(key);
+		//OutIcdKey key = new OutIcdKey();
+		OutIcdExample example = new OutIcdExample();
+		example.createCriteria()
+				.andIcdIdEqualTo(new Integer(chronicCheckDTO.getMainId()))
+				.andOrganizationIdEqualTo(chronicCheckDTO.getOrganziationId())
+				.andStsEqualTo("1");
+		//key.setIcdId(new Integer(chronicCheckDTO.getMainId()));
+		//key.setOrganizationId(chronicCheckDTO.getOrganziationId());
+		OutIcd rs =outIcdDAO.selectByExample(example).get(0);
+		//OutIcd rs = outIcdDAO.selectByPrimaryKey(key);
 		if (null == rs) {
 			return "0";
 		} else {

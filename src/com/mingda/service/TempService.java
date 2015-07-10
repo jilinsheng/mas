@@ -208,5 +208,7 @@ public interface TempService {
 	public JzMedicalafterBillDTO saveJzMedicalafterBill(JzMedicalafterBillDTO jmbDTO);
 	
 	public String getBusinessYear(JzYearDTO jzYearDTO);
+	
+	public BigDecimal getToplineByType(String organizationId, String type);
 
 }

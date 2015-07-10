@@ -544,7 +544,7 @@ function getmoney() {
 			</td>
 		</tr>
 		<tr>
-			<td colspan="6" style="padding-left: 2px">（1）参保参合:个人自理费用=总费用-统筹-目录外费用；<br/>&nbsp;&nbsp;&nbsp;&nbsp;（2）未参保参合:个人自理费用=总费用*纳入救助范围；<br/>&nbsp;&nbsp;&nbsp;&nbsp;（3）（个人自理费用-临时救助起助线）*救助比例=临时救助金；<br/>&nbsp;&nbsp;&nbsp;&nbsp;（4）封顶线：8000元，如果 年临时救助金总额，大于8000元，不予救助。<br/>
+			<td colspan="6" style="padding-left: 2px">（1）参保参合:个人自理费用=总费用-统筹-目录外费用；<br/>&nbsp;&nbsp;&nbsp;&nbsp;（2）未参保参合:个人自理费用=总费用*纳入救助范围；<br/>&nbsp;&nbsp;&nbsp;&nbsp;（3）（个人自理费用-临时救助起助线）*救助比例=临时救助金；<br/>&nbsp;&nbsp;&nbsp;&nbsp;（4）封顶线：<s:property value="temp_topline"/>元，如果 年临时救助金总额，大于<s:property value="temp_topline"/>元，不予救助。<br/>
 			</td>
 		</tr>
 		<tr>

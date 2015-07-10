@@ -128,7 +128,9 @@ public class TempAction extends ActionSupport {
 	private String minpay;
 	private String bizstatus;
 	private String ds;
-	private JzMedicalafterBillDTO jzMedicalafterBillDTO; 
+	private JzMedicalafterBillDTO jzMedicalafterBillDTO;
+	
+	private BigDecimal temp_topline;
 
 	@SuppressWarnings("rawtypes")
 	public String createtemppersoninit() {
@@ -331,6 +333,7 @@ public class TempAction extends ActionSupport {
 		tempDTO = tempService.findTempmeberinfo(tempDTO);
 		outicds = systemDataService.findSickens(organizationId.substring(0, 6),
 				"1", "1", "");
+		temp_topline = tempService.getToplineByType(organizationId.substring(0, 6),"4");
 		return SUCCESS;
 
 	}
@@ -522,6 +525,7 @@ public class TempAction extends ActionSupport {
 			tempDTO = tempService.findTempmeberinfo(tempDTO);
 			tafiles = tempService.findTempApprovefiles(new BigDecimal(tempDTO
 					.getApproveId()).toString());
+			temp_topline = tempService.getToplineByType(organizationId.substring(0, 6),"4");
 			return SUCCESS;
 		} else {
 			payviews = tempService.findPayviews(tempDTO);
@@ -4798,6 +4802,14 @@ public class TempAction extends ActionSupport {
 
 	public void setJzMedicalafterBillDTO(JzMedicalafterBillDTO jzMedicalafterBillDTO) {
 		this.jzMedicalafterBillDTO = jzMedicalafterBillDTO;
+	}
+
+	public BigDecimal getTemp_topline() {
+		return temp_topline;
+	}
+
+	public void setTemp_topline(BigDecimal temp_topline) {
+		this.temp_topline = temp_topline;
 	}
 
 }

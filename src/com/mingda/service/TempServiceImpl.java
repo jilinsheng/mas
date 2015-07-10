@@ -3373,7 +3373,7 @@ public class TempServiceImpl implements TempService {
 	// 门诊大病业务封顶线 type=1
 	// （门诊大病+住院）封顶线 type=9
 	@SuppressWarnings("rawtypes")
-	private BigDecimal getToplineByType(String organizationId, String type) {
+	public BigDecimal getToplineByType(String organizationId, String type) {
 		BigDecimal m = BigDecimal.ZERO;
 		HashMap<String, String> param = new HashMap<String, String>();
 		String sql = "select  t.line as S  from top_line t where t.organization_id='"
