@@ -120,7 +120,9 @@ public class GuaranteeAction extends ActionSupport {
 			}
 			if (!"".equals(flag)) {
 			}
-			sql = " select mem.*, org.fullname as ORGNAME from MEMBER_BASEINFOVIEW02 mem, manager_org org where 1 = 1 and mem.a4 = '1' and org.organization_id(+) = substr(mem.familyno, 1, 10)";
+			sql = " select mem.*, org.fullname as ORGNAME, "
+					+ " decode(mem.member_id,mem.familyid,'五保户数据库',decode(ds,'1','城市数据库','2','农村数据库')) as comedata "
+					+ " from MEMBER_BASEINFOVIEW02 mem, manager_org org where 1 = 1 and mem.a4 = '1' and org.organization_id(+) = substr(mem.familyno, 1, 10)";
 			sql = sql + jwhere + "  order by mem.FAMILYNO";
 			session.put("sql", sql);
 			cur_page = "1";
@@ -128,6 +130,8 @@ public class GuaranteeAction extends ActionSupport {
 			title.put("FAMILYNO,val", "家庭编号");
 			title.put("MEMBERNAME,val", "姓名");
 			title.put("PAPERID,val", "身份证号");
+			title.put("ORGNAME,val", "所属");
+			title.put("COMEDATA,val", "数据来源");
 			session.put("title", title);
 		} else {
 			sql = (String) session.get("sql");
