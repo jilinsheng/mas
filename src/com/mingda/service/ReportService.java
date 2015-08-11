@@ -6,7 +6,7 @@ import com.mingda.dto.OrganizationDTO;
 import com.mingda.dto.PayDTO;
 import com.mingda.dto.RateDTO;
 import com.mingda.dto.ReportDTO;
-import com.mingda.dto.RoleDTO;
+import com.mingda.dto.SeriousDTO;
 
 public interface ReportService {
    // 查询费用情况
@@ -48,4 +48,6 @@ public interface ReportService {
 	public List<PayDTO> findAllpaysByPer(String sql);
 	
 	public List<PayDTO> findPayInviews(String sql);
+	
+	public List<SeriousDTO> findSerious(String sql);
 }

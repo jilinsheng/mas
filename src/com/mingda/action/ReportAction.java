@@ -18,6 +18,7 @@ import com.mingda.dto.OrganizationDTO;
 import com.mingda.dto.PayDTO;
 import com.mingda.dto.RateDTO;
 import com.mingda.dto.ReportDTO;
+import com.mingda.dto.SeriousDTO;
 import com.mingda.dto.UserDTO;
 import com.mingda.service.ReportService;
 import com.mingda.service.SystemDataService;
@@ -72,6 +73,7 @@ public class ReportAction extends ActionSupport {
 	private String year;
 	private List<RateDTO> ratelist;
 	private String diagnosename;
+	private List<SeriousDTO> seriouslist;
 	
 	// 登录人所属机构信息
 	UserDTO user = (UserDTO) ActionContext.getContext().getSession().get("user");
@@ -9985,6 +9987,96 @@ public class ReportAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public String seriousInit(){
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String organizationId = user.getOrganizationId();
+		return SUCCESS;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public String serious(){
+		String sql = " select dd.business_year,                                                                "
+					+"  nvl(sum(dd.assist)/10000, 0) wasist,                                                   "
+					+"  sum(dd.cishu) as cishu,                                                                "
+					+"  sum(dd.renshu)as renshu,                                                               "
+					+"  nvl(sum(dd.total), 0) as total,                                                        "
+					+"  nvl(sum(dd.outmedicare), 0) as outmedicare,                                            "
+					+"  nvl(sum(dd.medicare), 0) as medicare,                                                  "
+					+"  nvl(sum(dd.ciassist), 0) as ciassist,                                                  "
+					+"  nvl(sum(dd.self), 0) as self,                                                          "
+					+"  nvl(sum(dd.assist), 0) as assist                                                       "
+					+" from                                                                                    "
+					+" (select cc.business_year,                                                               "
+					+"         count(1) as cishu,                                                              "
+					+"         count(distinct(cc.member_id||cc.member_type)) as renshu,                        "
+					+"         nvl(sum(cc.pay_total), 0) as total,                                             "
+					+"         nvl(sum(cc.pay_outmedicare), 0) as outmedicare,                                 "
+					+"         nvl(sum(cc.pay_medicare), 0) as medicare,                                       "
+					+"         nvl(sum(cc.pay_assist), 0) as assist,                                           "
+					+"         nvl(sum(cc.pay_total - cc.pay_medicare -                                        "
+					+"               cc.pay_assist -cc.pay_ciassist),0) as self,                               "
+					+"         nvl(sum(cc.pay_ciassist), 0) as ciassist                                        "
+					+" from                                                                                    "
+					+" (select bb.* from                                                                       "
+					+" (select apay.*                                                                          "
+					+"   from (select count(bpay.biz_id) as pnum,                                              "
+					+"                bpay.member_id || bpay.member_type,                                      "
+					+"                count(distinct(bpay.member_id || bpay.member_type)) as persum,           "
+					+"                bpay.member_id as memberid,                                              "
+					+"                bpay.member_type as membertype,                                          "
+					+"                bpay.business_year,                                                      "
+					+"                nvl(sum(bpay.pay_total), 0) as total,                                    "
+					+"                nvl(sum(bpay.pay_outmedicare), 0) as outmedicare,                        "
+					+"                nvl(sum(bpay.pay_medicare), 0) as medicare,                              "
+					+"                nvl(sum(bpay.pay_assist), 0) as assist,                                  "
+					+"                nvl(sum(bpay.pay_self), 0) as self,                                      "
+					+"                nvl(sum(bpay.pay_ciassist), 0) as ciassist                               "
+					+"           from (select pay.biz_id,                                                      "
+					+"                        pay.pay_total,                                                   "
+					+"                        pay.pay_medicare,                                                "
+					+"                        pay.pay_outmedicare,                                             "
+					+"                        pay.pay_assist,                                                  "
+					+"                        nvl(pay.pay_total - pay.pay_medicare - pay.pay_assist -          "
+					+"                            pay.pay_ciassist,                                            "
+					+"                            0) as pay_self,                                              "
+					+"                        pay.id_card,                                                     "
+					+"                        pay.pay_ciassist,                                                "
+					+"                        pay.member_id,                                                   "
+					+"                        pay.member_type,                                                 "
+					+"                        pay.oper_time,                                                   "
+					+"                        pay.business_year                                                "
+					+"                   from payview03 pay                                                    "
+					+"                  ) bpay                                                                 "
+					+"          where 1 = 1                                                                    "
+					+"         group by bpay.member_id, bpay.member_type, bpay.business_year                   "
+					+"         ) apay                                                                          "
+					+"  where 1 = 1                                                                            "
+					+"    and apay.self > 50000 ) aa left join payview03 bb on aa.memberid = bb.member_id      "
+					+"    and aa.membertype = bb.member_type                                                   "
+					+"    where bb.biz_type='"+type+"' and bb.business_year<>'0')cc                                   "
+					+"    group by cc.business_year, cc.member_id,cc.member_type                               "
+					+"    )dd                                                                                  "
+					+"    group by dd.business_year                                                            ";
+		seriouslist = reportService.findSerious(sql);
+		Map session = ActionContext.getContext().getSession();
+		session.put("sql", sql);
+		HashMap title = new HashMap();		
+		title.put("BUSINESS_YEAR,val", "年度");
+		title.put("WASIST,val", "救助支出（万元）");
+		title.put("CISHU,val", "救助人次（人次）");						
+		title.put("RENSHU,val", "救助人数（人）");		
+		title.put("TOTAL,val", "总费用");	
+		title.put("OUTMEDICARE,val", "目录外费用");	
+		title.put("MEDICARE,val", "统筹支付");	
+		title.put("CIASSIST,val", "大病保险");	
+		title.put("SELF,val", "医疗救助范围");	
+		title.put("ASSIST,val", "医疗救助");	
+		session.put("title", title);
+		return SUCCESS;
+	}
+	
 	public void setQuarter(String quarter) {
 		this.quarter = quarter;
 	}
@@ -10322,6 +10414,14 @@ public class ReportAction extends ActionSupport {
 
 	public void setDiagnosename(String diagnosename) {
 		this.diagnosename = diagnosename;
+	}
+
+	public List<SeriousDTO> getSeriouslist() {
+		return seriouslist;
+	}
+
+	public void setSeriouslist(List<SeriousDTO> seriouslist) {
+		this.seriouslist = seriouslist;
 	}
 
 }

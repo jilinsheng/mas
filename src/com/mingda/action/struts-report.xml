@@ -425,5 +425,17 @@
 				/page/report/ratio.jsp
 			</result>
 		</action>
+		<action name="seriousInit" method="seriousInit"
+				 class="reportAction">
+			<result name="success">
+				/page/report/serious.jsp
+			</result>
+		</action>
+		<action name="serious" method="serious"
+				 class="reportAction">
+			<result name="success">
+				/page/report/serious.jsp
+			</result>
+		</action>
 	</package>
 </struts>

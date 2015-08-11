@@ -12,6 +12,7 @@ import com.mingda.dto.OrganizationDTO;
 import com.mingda.dto.PayDTO;
 import com.mingda.dto.RateDTO;
 import com.mingda.dto.ReportDTO;
+import com.mingda.dto.SeriousDTO;
 
 public class ReportServiceImpl implements ReportService {
 	private ExtendsDAO extendsDAO;
@@ -499,6 +500,29 @@ public class ReportServiceImpl implements ReportService {
 		Double dd = num.doubleValue();
 		snum = df.format(dd);
 		return snum;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<SeriousDTO> findSerious(String sql){
+		List<SeriousDTO> list = new ArrayList<SeriousDTO>();
+		HashMap param = new HashMap();
+		param.put("executsql", sql);
+		List<HashMap> rs = extendsDAO.queryAll(param);
+		for (HashMap s : rs) {
+			SeriousDTO e = new SeriousDTO();
+			e.setBusinessYear((String)s.get("BUSINESS_YEAR"));
+			e.setWasist((BigDecimal)s.get("WASIST"));
+			e.setCishu((BigDecimal)s.get("CISHU"));
+			e.setRenshu((BigDecimal)s.get("RENSHU"));
+			e.setTotal((BigDecimal)s.get("TOTAL"));
+			e.setOutmedicare((BigDecimal)s.get("OUTMEDICARE"));
+			e.setMedicare((BigDecimal)s.get("MEDICARE"));
+			e.setCiassist((BigDecimal)s.get("CIASSIST"));
+			e.setSelf((BigDecimal)s.get("SELF"));
+			e.setAssist((BigDecimal)s.get("ASSIST"));
+			list.add(e);
+		}
+		return list;
 	}
 	
 	public Pager getPager() {

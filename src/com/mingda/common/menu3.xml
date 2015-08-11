@@ -442,6 +442,10 @@
 				<span class="file">患病率统计</span>
 			</li>
 			<li
+				onclick="viewhtml('../contentframe.jsp?url=../page/report/seriousInit.action&amp;nav=[统计分析]>>[重特大病统计]')">
+				<span class="file">重特大病统计</span>
+			</li>
+			<li
 				onclick="viewhtml('../report/reportframe.jsp?url=reportInit.action?reporttype=5&amp;nav=[统计分析]>>[救助病种]')">
 				<span class="file">救助病种</span>
 			</li>
