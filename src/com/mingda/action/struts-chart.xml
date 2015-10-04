@@ -20,7 +20,7 @@
 		</interceptors>
 		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
 		<global-results>
-			<result name="login" type="redirect">/logout.jsp</result>
+			<result name="login" type="redirect">/logout.jsp</result><result name="norole" type="redirect">/norole/norole.jsp</result>
 			<result name="input" type="redirect">/page/common/result.jsp</result>
 			<result name="nodata" type="redirect">/page/report/nodata.jsp</result>
 		</global-results>

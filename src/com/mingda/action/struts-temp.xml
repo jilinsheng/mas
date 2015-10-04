@@ -17,7 +17,7 @@
 		</interceptors>
 		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
 		<global-results>
-			<result name="login" type="redirect">/logout.jsp</result>
+			<result name="login" type="redirect">/logout.jsp</result><result name="norole" type="redirect">/norole/norole.jsp</result>
 		</global-results>
 		<action name="querytempmemberinit" method="querytempmemberinit"
 			class="tempAction">
@@ -854,7 +854,7 @@
 		</interceptors>
 		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
 		<global-results>
-			<result name="login" type="redirect">/logout.jsp</result>
+			<result name="login" type="redirect">/logout.jsp</result><result name="norole" type="redirect">/norole/norole.jsp</result>
 		</global-results>
 				<action name="printzy" method="printzy" class="tempAction">
 			<result name="success" type="jasper">

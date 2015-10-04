@@ -285,8 +285,8 @@ public class SystemDataServiceImpl implements SystemDataService {
 				+ " o. DEPT_TYPE,  o. DEPT_LEVEL,  o. STATUS,  o. ISBASE, "
 				+ " o. ISACCEPT,  o. IP from bizdept_org t, bizdept o "
 				+ " where t.organization_id = '" + organizationId + "' "
-				+ " and t.hospital_id = o.hospital_id " + " and o.dept_type = '1' "
-				+ " and t.sts = '1' "
+				+ " and t.hospital_id = o.hospital_id "
+				+ " and o.dept_type = '1' " + " and t.sts = '1' "
 				+ " order by o.organization_id, o.hospital_id  ";
 		HashMap param = new HashMap();
 		param.put("executsql", sql);
@@ -295,7 +295,7 @@ public class SystemDataServiceImpl implements SystemDataService {
 			DeptDTO e = new DeptDTO();
 			e.setDeptLevel((String) s.get("DEPT_LEVEL"));
 			e.setDeptType((String) s.get("DEPT_TYPE"));
-			e.setHospitalId( new Integer( s.get("HOSPITAL_ID").toString()));
+			e.setHospitalId(new Integer(s.get("HOSPITAL_ID").toString()));
 			e.setName((String) s.get("NAME"));
 			e.setOrganizationId((String) s.get("ORGANIZATION_ID"));
 			e.setStatus((String) s.get("STATUS"));
@@ -312,8 +312,8 @@ public class SystemDataServiceImpl implements SystemDataService {
 				+ " o. DEPT_TYPE,  o. DEPT_LEVEL,  o. STATUS,  o. ISBASE, "
 				+ " o. ISACCEPT,  o. IP from bizdept_org t, bizdept o "
 				+ " where t.organization_id = '" + oid + "' "
-				+ " and t.hospital_id = o.hospital_id " + " and o.dept_type = '0' "
-				+ " and t.sts = '1' "
+				+ " and t.hospital_id = o.hospital_id "
+				+ " and o.dept_type = '0' " + " and t.sts = '1' "
 				+ " order by o.organization_id, o.hospital_id  ";
 		HashMap param = new HashMap();
 		param.put("executsql", sql);
@@ -322,27 +322,23 @@ public class SystemDataServiceImpl implements SystemDataService {
 			DeptDTO e = new DeptDTO();
 			e.setDeptLevel((String) s.get("DEPT_LEVEL"));
 			e.setDeptType((String) s.get("DEPT_TYPE"));
-			e.setHospitalId( new Integer( s.get("HOSPITAL_ID").toString()));
+			e.setHospitalId(new Integer(s.get("HOSPITAL_ID").toString()));
 			e.setName((String) s.get("NAME"));
 			e.setOrganizationId((String) s.get("ORGANIZATION_ID"));
 			e.setStatus((String) s.get("STATUS"));
 			depts.add(e);
 		}
-		/*BizdeptExample example = new BizdeptExample();
-		example.createCriteria().andOrganizationIdEqualTo(oid)
-				.andDeptTypeEqualTo("0");
-		example.setOrderByClause("organization_id , name");
-		List<Bizdept> rs = bizdeptDAO.selectByExample(example);
-		for (Bizdept s : rs) {
-			DeptDTO e = new DeptDTO();
-			e.setDeptLevel(s.getDeptLevel());
-			e.setDeptType(s.getDeptType());
-			e.setHospitalId(s.getHospitalId());
-			e.setName(s.getName());
-			e.setOrganizationId(s.getOrganizationId());
-			e.setStatus(s.getStatus());
-			depts.add(e);
-		}*/
+		/*
+		 * BizdeptExample example = new BizdeptExample();
+		 * example.createCriteria().andOrganizationIdEqualTo(oid)
+		 * .andDeptTypeEqualTo("0");
+		 * example.setOrderByClause("organization_id , name"); List<Bizdept> rs
+		 * = bizdeptDAO.selectByExample(example); for (Bizdept s : rs) { DeptDTO
+		 * e = new DeptDTO(); e.setDeptLevel(s.getDeptLevel());
+		 * e.setDeptType(s.getDeptType()); e.setHospitalId(s.getHospitalId());
+		 * e.setName(s.getName()); e.setOrganizationId(s.getOrganizationId());
+		 * e.setStatus(s.getStatus()); depts.add(e); }
+		 */
 		return depts;
 	}
 
@@ -651,5 +647,31 @@ public class SystemDataServiceImpl implements SystemDataService {
 
 	public ExtendsncDAO getExtendsncDAO() {
 		return extendsncDAO;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public boolean findEmprole(String empid, String url) {
+		String sql = "select rolename, role_id, url, flag, empid, empname, accout, pwd, organization_id from v_emprole er where er.EMPID='"
+				+ empid + "' and er.URL='" + url + "'";
+		// ROLENAME ROLE_ID URL FLAG EMPID EMPNAME ACCOUT PWD ORGANIZATION_ID
+		System.out.println(sql);
+		HashMap param = new HashMap();
+		param.put("executsql", sql);
+		List<HashMap> rs = extendsDAO.queryAll(param);
+		if (null != rs && rs.size() > 0) {
+			if (rs.size() == 1) {
+				String f = (String) rs.get(0).get("FLAG");
+				if ("1".equals(f)) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
 	}
 }

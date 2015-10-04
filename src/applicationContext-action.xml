@@ -107,4 +107,7 @@
 		<property name="policyService" ref="policyService"></property>
 		<property name="systemDataService" ref="systemDataService"></property>
 	</bean>
+	<bean id="authorityInterceptor" class="com.mingda.interceptor.AuthorityInterceptor" scope="request">
+		<property name="systemDataService" ref="systemDataService"></property>
+	</bean>
 </beans>

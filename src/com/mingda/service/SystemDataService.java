@@ -105,6 +105,8 @@ public interface SystemDataService {
 	public List<DeptDTO> findDeptsByOrg2(String organizationId);
 
 	public List<DeptDTO> findDeptsByOrg3(String organizationId);
+	
+	public boolean findEmprole(String empid,String url);
 
 
 }

@@ -36,7 +36,7 @@
 		</interceptors>
 		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
 		<global-results>
-			<result name="login" type="redirect">/logout.jsp</result>
+			<result name="login" type="redirect">/logout.jsp</result><result name="norole" type="redirect">/norole/norole.jsp</result>
 		</global-results>
 		<action name="readmenu" method="readMenu" class="commonAction">
 			<result name="success">
@@ -77,7 +77,7 @@
 		</interceptors>
 		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
 		<global-results>
-			<result name="login" type="redirect">/logout.jsp</result>
+			<result name="login" type="redirect">/logout.jsp</result><result name="norole" type="redirect">/norole/norole.jsp</result>
 		</global-results>
 		<action name="modipwdinit" method="modipwdinit" class="commonAction">
 			<result name="success">
@@ -301,7 +301,7 @@
 		</interceptors>
 		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
 		<global-results>
-			<result name="login" type="redirect">/logout.jsp</result>
+			<result name="login" type="redirect">/logout.jsp</result><result name="norole" type="redirect">/norole/norole.jsp</result>
 		</global-results>
 		<action name="printcheckaccounts" method="printcheckaccounts"
 			class="baseBizAction">

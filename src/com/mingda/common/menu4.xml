@@ -175,7 +175,11 @@
 				<ul>
 					<li>
 						<span class="file"
-							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryaftermemberinit.action&amp;nav=[医后报销管理]>>[审批]')">审批</span>
+							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryaftermemberinit.action&amp;nav=[医后报销管理]>>[审批]')">录入</span>
+					</li>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryafterapprovedoneinit.action&amp;nav=[医后报销管理]>>[审批]')">审批</span>
 					</li>
 					<li>
 						<span class="file"

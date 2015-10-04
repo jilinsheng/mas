@@ -68,28 +68,6 @@
 		<td class="formtd2" colspan="3"><s:property value="tempDTO.hospitalname" /></td>
 	</tr>
 	<tr>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">医院级别：</td>
-		<td class="formtd2" colspan="3">
-			<s:if test="tempDTO.hospitalLevel==1">乡镇</s:if>
-			<s:elseif test="tempDTO.hospitalLevel==2">区县</s:elseif>
-			<s:elseif test="tempDTO.hospitalLevel==3">市级</s:elseif>
-			<s:elseif test="tempDTO.hospitalLevel==4">省级</s:elseif>
-		</td>
-		
-	</tr>
-	<tr>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">医院区域：</td>
-		<td class="formtd2" >
-			<s:if test="tempDTO.hospitalLocal==1">辖区内</s:if>
-			<s:if test="tempDTO.hospitalLocal==2">辖区外</s:if>
-		</td>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">医院类别：</td>
-		<td class="formtd2" >
-			<s:if test="tempDTO.hospitaltype==1">定点医院</s:if>
-			<s:if test="tempDTO.hospitaltype==2">非定点医院</s:if>
-		</td>
-	</tr>
-	<tr>
 		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">开始时间：</td>
 		<td class="formtd2"><s:date name="tempDTO.begintime"
 			format="yyyy-MM-dd" /></td>
@@ -99,19 +77,11 @@
 	</tr>
 	<tr>
 		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">救助类型：</td>
-		<td class="formtd2" width="16%"><s:if test="tempDTO.assistype==1">门诊特殊大病
+		<td class="formtd2" width="16%"><s:if test="tempDTO.assistype==1">门诊
 				</s:if> <s:if test="tempDTO.assistype==2">住院
-				</s:if> <s:if test="tempDTO.assistype==3">临时救助
 				</s:if></td>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">疾病救助类别：</td>
-		<td class="formtd2" colspan="3">
-			<s:if test="tempDTO.specBiz==0">普通救助</s:if>
-			<s:if test="tempDTO.specBiz==1">重大疾病救助</s:if>	
-		</td>
-	</tr>
-	<tr>
 		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">类别：</td>
-		<td class="formtd2" colspan="5">
+		<td class="formtd2" colspan="3">
 			<s:if test="tempDTO.diagnoseTypeId==48">外伤</s:if>
 			<s:if test="tempDTO.diagnoseTypeId==49">未经医保/新农合确认的转诊</s:if>
 			<s:if test="tempDTO.diagnoseTypeId==0">其它</s:if>

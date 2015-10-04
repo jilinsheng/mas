@@ -1,26 +1,20 @@
 package com.mingda.action;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
-import com.mingda.common.FileUpload;
 import com.mingda.dto.DeptDTO;
 import com.mingda.dto.DiagnoseTypeDTO;
-import com.mingda.dto.JzMedicalafterfileDTO;
 import com.mingda.dto.JzYearDTO;
 import com.mingda.dto.OutIcdDTO;
 import com.mingda.dto.TempDTO;
@@ -28,6 +22,7 @@ import com.mingda.dto.UserDTO;
 import com.mingda.service.SystemDataService;
 import com.mingda.service.TempService;
 import com.mingda.webclient.YljzService;
+import com.mingda.webclient.model.AfterDTO;
 import com.mingda.webclient.model.CiDTO;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -43,15 +38,13 @@ public class AfterAction extends ActionSupport {
 	private TempService tempService;
 	private List<TempDTO> payviews;
 	private String r;
-	private List<JzMedicalafterfileDTO> mafiles;
 	private List<DeptDTO> depts;
 	private List<DiagnoseTypeDTO> diagnosetypes;
 	private List<OutIcdDTO> outicds;
 	private CiDTO ciDTO;
-	private List<File> af;
-	private List<String> afFileName;
 	private String orgid;
 	private TempDTO tempDTOend;
+	private AfterDTO afterDTO;
 
 	@SuppressWarnings("rawtypes")
 	public String queryaftermemberinit() {
@@ -102,11 +95,6 @@ public class AfterAction extends ActionSupport {
 
 		if (flag == true) {
 			tempDTO = tempService.findAftermeberinfo(tempDTO);
-			if (null == tempDTO.getApproveId()) {
-			} else {
-				mafiles = tempService.findJzMedicalafterfiles(new BigDecimal(
-						tempDTO.getApproveId()).toString());
-			}
 			// 定点医院名称列表
 			if (organizationId.length() > 6) {
 				organizationId = organizationId.substring(0, 6);
@@ -267,7 +255,7 @@ public class AfterAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	@SuppressWarnings("rawtypes")
+/*	@SuppressWarnings("rawtypes")
 	public String calcaftermoneyauto2() {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
@@ -323,7 +311,7 @@ public class AfterAction extends ActionSupport {
 		}
 		result = json.toString();
 		return SUCCESS;
-	}
+	}*/
 
 	private BigDecimal getCia(TempDTO tempDTO) {
 		BigDecimal bl = BigDecimal.ZERO;// 大病保险金
@@ -361,18 +349,9 @@ public class AfterAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String orgid = user.getOrganizationId();
-		FileUpload fu = new FileUpload("/file/medicalafter");
-		mafiles = new ArrayList<JzMedicalafterfileDTO>();
-		long sumFilesSize = 0;
 		tempDTO.setOrganizationId(orgid);
 		tempDTO.setOrg(orgid.substring(0, 6));
 		TempDTO temp = tempService.isline(tempDTO);
-		if ((("220803".equals(tempDTO.getOrg())) || ("220225".equals(tempDTO
-				.getOrg())))
-				&& (("1".equals(tempDTO.getAssistTypeM().substring(2, 3))) || ("1"
-						.equals(tempDTO.getAssistTypeM().substring(3, 4))))) {
-			temp.setResult("1");
-		}
 		if ("0".equals(temp.getResult())) {
 			result = "保障金大于封顶线，您重新填写救助金!<br/>累计总救助金：" + temp.getTotlePay()
 					+ "元;<br/>住院总救助金：" + temp.getZyPay() + "元;<br/>门诊大病总救助金："
@@ -380,54 +359,8 @@ public class AfterAction extends ActionSupport {
 					+ "元;";
 			return "result";
 		} else {
-			if (null == af) {
-				tempDTO = tempService.saveAfterApplyInfo(tempDTO);
-			} else {
-				for (int i = 0; i < af.size(); i++) {
-					sumFilesSize = sumFilesSize + af.get(i).length();
-				}
-				if (sumFilesSize / 1024 > 1024) {
-					result = "上传图片总大小为：" + (sumFilesSize / 1024)
-							+ "KB，超出上线1024KB，请重新上传！";
-					return "result";
-				} else {
-					tempDTO = tempService.saveAfterApplyInfo(tempDTO);
-					for (int i = 0; i < af.size(); i++) {
-						JzMedicalafterfileDTO filedto = new JzMedicalafterfileDTO();
-						String sFileName = afFileName.get(i);
-						if (null == sFileName || "".equals(sFileName)) {
-						} else {
-							filedto.setFilename(sFileName);
-							File sFile = af.get(i);
-							String dir = fu.filepath + "\\"
-									+ tempDTO.getApproveId();
-							fu.MakeDir(dir);
-							String uu = UUID.randomUUID().toString();
-							String bname = tempDTO.getApproveId() + "/" + uu
-									+ fu.getExtention(sFileName);
-							filedto.setRealpath(bname);
-							String realpath = dir + "\\" + uu
-									+ fu.getExtention(sFileName);
-							filedto.setRealfilename(realpath);
-							realpath = realpath.replace("/", "\\\\");
-							File swbhFile = new File(realpath);
-							try {
-								swbhFile.createNewFile();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-							fu.copy(sFile, swbhFile);
-							filedto.setBizId(new BigDecimal(tempDTO
-									.getApproveId()));
-							mafiles.add(filedto);
-						}
-					}
-					tempService.saveJzMedicalafterfiles(mafiles);
-				}
-			}
+			tempDTO = tempService.saveAfterApplyInfo(tempDTO);
 		}
-		mafiles = tempService.findJzMedicalafterfiles(new BigDecimal(tempDTO
-				.getApproveId()).toString());
 		return SUCCESS;
 
 	}
@@ -450,11 +383,6 @@ public class AfterAction extends ActionSupport {
 		orgid = organizationId.substring(0, 6);
 		tempDTO = tempService.findAftermeberinfo(tempDTO);
 		tempDTO.setOrg(orgid);
-		if (null == tempDTO.getApproveId()) {
-		} else {
-			mafiles = tempService.findJzMedicalafterfiles(new BigDecimal(
-					tempDTO.getApproveId()).toString());
-		}
 		return SUCCESS;
 	}
 	
@@ -485,6 +413,78 @@ public class AfterAction extends ActionSupport {
 			result = "此条信息不允许删除！";
 			return "result";
 		}
+	}
+	
+	//调用getAssistMoneyAfterEx，计算救助金
+	@SuppressWarnings({ "rawtypes" })
+	public String calcaftermoneyauto() {
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String assisttype = tempDTO.getAssistTypeM() + tempDTO.getAssistTypex()
+				+ "";
+		String organizationId = user.getOrganizationId();
+		if (null != organizationId && !"".equals(organizationId)) {
+			organizationId = organizationId.substring(0, 6);
+		}
+		JSONObject json = new JSONObject();
+		if (!"00000000000".equals(assisttype)) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			afterDTO = new AfterDTO();
+			afterDTO.setOrgCode(organizationId);
+			afterDTO.setHospital_ID(new Long(tempDTO.getHospitalId()));
+			afterDTO.setMedicareType(tempDTO.getMedicareType());
+			afterDTO.setMemberType(tempDTO.getMemberType());
+			afterDTO.setMemberID(tempDTO.getMemberId());
+			afterDTO.setMedicareType(tempDTO.getMedicareType());
+			afterDTO.setBizType(new Integer(tempDTO.getAssistype()));
+			afterDTO.setSpecBiz(-1);
+			afterDTO.setBegin_Time(sdf.format(tempDTO.getBegintime()));
+			afterDTO.setEnd_Time(sdf.format(tempDTO.getEndtime()));
+			afterDTO.setDiagnose_Type_ID(new Integer(tempDTO
+					.getDiagnoseTypeId()));
+			afterDTO.setIcd_ID(0);//原的门诊特殊大病
+			afterDTO.setPay_Total(tempDTO.getPayTotal());
+			afterDTO.setPay_Medicare(tempDTO.getPayMedicare());
+			afterDTO.setPay_OutMedicare(tempDTO.getPayOutmedicare());
+			afterDTO.setPay_Sybx(tempDTO.getInsurance());
+			afterDTO.setPay_Dbbx(tempDTO.getPayCIAssist());
+			afterDTO.setHospital_Level(-1);
+			afterDTO.setHospital_Local(-1);
+			afterDTO.setHospital_Type(-1);
+			int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
+			System.out.println("本次业务年度："+businessyear);
+			afterDTO.setBusinessyear(businessyear+"");
+			afterDTO = yljzService.getAssistMoneyAfterEx(afterDTO);
+			
+			if ("1".equals(afterDTO.getReturnFlag())) {
+				if ("2".equals(tempDTO.getAssistype())) {
+					json.put("m", afterDTO.getAssistMoney());
+					json.put("info", afterDTO.getMessage());
+					json.put("in", afterDTO.getAssistSumIn());
+					json.put("out", afterDTO.getAssistSumOut());
+					json.put("ci", afterDTO.getAssistCIA());
+					json.put("sum", afterDTO.getAssistSum());
+					json.put("calcmsg", afterDTO.getCalcMsg());
+					json.put("businessyear", businessyear);
+				} else {
+					json.put("m", afterDTO.getAssistMoney());
+					json.put("info", afterDTO.getMessage());
+					json.put("in", afterDTO.getAssistSumIn());
+					json.put("out", afterDTO.getAssistSumOut());
+					json.put("ci", afterDTO.getAssistCIA());
+					json.put("sum", afterDTO.getAssistSum());
+					json.put("calcmsg", afterDTO.getCalcMsg());
+					json.put("businessyear", businessyear);
+				}
+
+			} else {
+				json.put("info", "救助金计算失败!");
+			}
+		} else {
+			json.put("info", "普通居民不在救助范围内！");
+		}
+		result = json.toString();
+		return SUCCESS;
 	}
 	
 	/*
@@ -604,14 +604,6 @@ public class AfterAction extends ActionSupport {
 		this.r = r;
 	}
 
-	public List<JzMedicalafterfileDTO> getMafiles() {
-		return mafiles;
-	}
-
-	public void setMafiles(List<JzMedicalafterfileDTO> mafiles) {
-		this.mafiles = mafiles;
-	}
-
 	public List<DeptDTO> getDepts() {
 		return depts;
 	}
@@ -643,23 +635,7 @@ public class AfterAction extends ActionSupport {
 	public void setCiDTO(CiDTO ciDTO) {
 		this.ciDTO = ciDTO;
 	}
-
-	public List<File> getAf() {
-		return af;
-	}
-
-	public void setAf(List<File> af) {
-		this.af = af;
-	}
-
-	public List<String> getAfFileName() {
-		return afFileName;
-	}
-
-	public void setAfFileName(List<String> afFileName) {
-		this.afFileName = afFileName;
-	}
-
+	
 	public String getOrgid() {
 		return orgid;
 	}
@@ -674,6 +650,14 @@ public class AfterAction extends ActionSupport {
 
 	public void setTempDTOend(TempDTO tempDTOend) {
 		this.tempDTOend = tempDTOend;
+	}
+
+	public AfterDTO getAfterDTO() {
+		return afterDTO;
+	}
+
+	public void setAfterDTO(AfterDTO afterDTO) {
+		this.afterDTO = afterDTO;
 	}
 
 }

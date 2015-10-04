@@ -17,7 +17,7 @@
 		</interceptors>
 		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
 		<global-results>
-			<result name="login" type="redirect">/logout.jsp</result>
+			<result name="login" type="redirect">/logout.jsp</result><result name="norole" type="redirect">/norole/norole.jsp</result>
 		</global-results>
 		<action name="queryaftermemberinit" method="queryaftermemberinit"
 			class="afterAction">
@@ -60,7 +60,7 @@
 				</param>
 			</result>
 		</action>
-		<action name="calcaftermoneyauto2" method="calcaftermoneyauto2" 
+		<action name="calcaftermoneyauto" method="calcaftermoneyauto" 
 			class="afterAction">
 			<result type="json">
 				<param name="root">
