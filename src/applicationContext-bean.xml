@@ -154,6 +154,9 @@
 	<bean id="orgPolicyDAO" class="com.mingda.dao.impl.OrgPolicyDAOImpl">
 		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
 	</bean>
+	<bean id="orgEnabledDAO" class="com.mingda.dao.impl.OrgEnabledDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
 	<!-- service配置 -->
 	<bean id="authorityService" class="com.mingda.service.AuthorityServiceImpl">
 		<property name="extendsDAO" ref="extendsDAO" />
@@ -161,6 +164,7 @@
 		<property name="ncempDAO" ref="ncempDAO" />
 		<property name="managerEmpDAO" ref="managerEmpDAO" />
 		<property name="managerOrgDAO" ref="managerOrgDAO" />
+		<property name="orgEnabledDAO" ref="orgEnabledDAO" />
 	</bean>
 	<bean id="baseBizService" class="com.mingda.service.BaseBizServiceImpl">
 		<property name="extendsDAO" ref="extendsDAO" />

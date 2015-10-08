@@ -4510,6 +4510,7 @@ public class TempAction extends ActionSupport {
 		jzMedicalafterBillDTO.setBizId(tempDTO.getBizid().intValue());
 		jzMedicalafterBillDTO = tempService.saveJzMedicalafterBill(jzMedicalafterBillDTO);
 		map = new HashMap<String, String>();
+		map.put("ORGNAME", user.getOrgname()+"社会救助事业中心");
 		map.put("MEMBERNAME", tempDTO.getMembername());
 		map.put("HOSPITALNAME", tempDTO.getHospitalname());
 		map.put("ADDRESS", tempDTO.getAddress());
@@ -4571,6 +4572,7 @@ public class TempAction extends ActionSupport {
 		jzMedicalafterBillDTO.setBizId(tempDTO.getBizid().intValue());
 		jzMedicalafterBillDTO = tempService.saveJzMedicalafterBill(jzMedicalafterBillDTO);
 		map = new HashMap<String, String>();
+		map.put("ORGNAME", user.getOrgname()+"社会救助事业中心");
 		map.put("MEMBERNAME", tempDTO.getMembername());
 		map.put("HOSPITALNAME", tempDTO.getHospitalname());
 		map.put("ADDRESS", tempDTO.getAddress());

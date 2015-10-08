@@ -52,4 +52,5 @@
 	<sqlMap resource="com/mingda/model/map/JZ_MEDICALAFTER_BILL_SqlMap.xml" />
 	<sqlMap resource="com/mingda/model/map/JZ_YEAR_SqlMap.xml" />
 	<sqlMap resource="com/mingda/model/map/ORG_POLICY_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/ORG_ENABLED_SqlMap.xml" />
 </sqlMapConfig>

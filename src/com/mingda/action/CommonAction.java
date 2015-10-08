@@ -18,6 +18,7 @@ import com.mingda.common.ReadXML;
 import com.mingda.dto.BizCheckDTO;
 import com.mingda.dto.DeptDTO;
 import com.mingda.dto.HospitalPayDTO;
+import com.mingda.dto.OrgEnabledDTO;
 import com.mingda.dto.OrganizationDTO;
 import com.mingda.dto.RoleDTO;
 import com.mingda.dto.UserDTO;
@@ -74,12 +75,14 @@ public class CommonAction extends ActionSupport {
 		}else{
 			org = organizationId;
 		}
+		OrgEnabledDTO oe = authorityService.queryEnabled(org);
+		if(1==oe.getManualSts()){
+			readxml = new ReadXML("com/mingda/common/menu4.xml");
+		}else if(2==oe.getManualSts()){
+			readxml = new ReadXML("com/mingda/common/menu.xml");
+		}
 		if("220506".equals(org)){
 			readxml = new ReadXML("com/mingda/common/menu3.xml");
-		}else if("220110".equals(org)){
-			readxml = new ReadXML("com/mingda/common/menu4.xml");
-		}else{
-			readxml = new ReadXML("com/mingda/common/menu.xml");
 		}
 		Document menuxml = readxml.readXml();
 		Element root = menuxml.getRootElement();

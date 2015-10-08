@@ -9,11 +9,15 @@ import com.mingda.dao.ExtendsDAO;
 import com.mingda.dao.ManagerEmpDAO;
 import com.mingda.dao.ManagerOrgDAO;
 import com.mingda.dao.NcempDAO;
+import com.mingda.dao.OrgEnabledDAO;
+import com.mingda.dto.OrgEnabledDTO;
 import com.mingda.dto.RoleDTO;
 import com.mingda.dto.UserDTO;
 import com.mingda.model.ManagerEmp;
 import com.mingda.model.ManagerEmpExample;
 import com.mingda.model.ManagerOrg;
+import com.mingda.model.OrgEnabled;
+import com.mingda.model.OrgEnabledExample;
 
 public class AuthorityServiceImpl implements AuthorityService {
 	private ExtendsDAO extendsDAO;
@@ -21,6 +25,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 	private NcempDAO ncempDAO;
 	private ManagerEmpDAO managerEmpDAO;
 	private ManagerOrgDAO managerOrgDAO;
+	private OrgEnabledDAO orgEnabledDAO;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public UserDTO findUser(UserDTO userDTO) {
@@ -80,6 +85,21 @@ public class AuthorityServiceImpl implements AuthorityService {
 			re.printStackTrace();
 			throw re;
 		}
+	}
+	
+	@Override
+	public OrgEnabledDTO queryEnabled(String orgid){
+		OrgEnabledDTO o = new OrgEnabledDTO();
+		OrgEnabledExample example = new OrgEnabledExample();
+		example.createCriteria().andOrganizationIdEqualTo(orgid);
+		List<OrgEnabled> rs = orgEnabledDAO.selectByExample(example);
+		OrgEnabled s = rs.get(0);
+		o.setHopitalSts(s.getHopitalSts());
+		o.setHospitalTime(s.getHospitalTime());
+		o.setManualSts(s.getManualSts());
+		o.setManualTime(s.getManualTime());
+		o.setOrganizationId(s.getOrganizationId());
+		return o;
 	}
 
 	public ExtendsDAO getExtendsDAO() {
@@ -144,5 +164,13 @@ public class AuthorityServiceImpl implements AuthorityService {
 			}
 		}
 		return true;
+	}
+
+	public OrgEnabledDAO getOrgEnabledDAO() {
+		return orgEnabledDAO;
+	}
+
+	public void setOrgEnabledDAO(OrgEnabledDAO orgEnabledDAO) {
+		this.orgEnabledDAO = orgEnabledDAO;
 	}
 }

@@ -647,15 +647,12 @@ public class TempServiceImpl implements TempService {
 	public TempDTO saveAfterApplyInfo(TempDTO tempDTO) {
 		JzMedicalafter record = new JzMedicalafter();
 		if (null == tempDTO.getApproveId()) {
+			tempDTO.setBizStatus("-1");
 			record.setApplyTime(new Date());
 			record.setAssistTime(new Date());
 			record.setBeginTime(tempDTO.getBegintime());
 			record.setEndTime(tempDTO.getEndtime());
-			if ("220110".equals(tempDTO.getOrg())) {
-				record.setBizStatus(tempDTO.getBizStatus());
-			} else {
-				record.setBizStatus("-1");
-			}
+			record.setBizStatus(tempDTO.getBizStatus());
 			record.setDiagnoseName(tempDTO.getInhospitalsicken());
 			record.setHospitalName(tempDTO.getHospitalname());
 			record.setFamilyNo(tempDTO.getFamilyno());

@@ -106,5 +106,25 @@
 				/page/after/result.jsp
 			</result>
 		</action>
+		<action name="queryafterapprovedoneinit" method="queryafterapprovedoneinit"
+			class="tempAction">
+			<result name="success">
+				/page/after/queryafterapprovedone.jsp
+			</result>
+			<result name="result">
+				/page/after/result.jsp
+			</result>
+		</action>
+		<action name="queryafterapprovedone" method="queryafterapprovedone"
+			class="tempAction">
+			<result name="success">
+				/page/after/queryafterapprovedone.jsp
+			</result>
+		</action>
+		<action name="afteryn" method="afteryn" class="tempAction">
+			<result name="success">
+				/page/after/result.jsp
+			</result>
+		</action>
 	</package>
 </struts>

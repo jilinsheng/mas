@@ -26,7 +26,7 @@
 	<field name="OPERTIME" class="java.lang.String"/>
 	<field name="ASSISTTYPETEXT" class="java.lang.String"/>
 	<detail>
-		<band height="183" splitType="Stretch">
+		<band height="201" splitType="Stretch">
 			<staticText>
 				<reportElement mode="Opaque" x="25" y="15" width="60" height="18"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
@@ -53,7 +53,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
 					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("HOSPITALNAME")]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("ORGNAME")]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="24" y="35" width="63" height="18"/>
@@ -238,7 +238,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("TICKETNO")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="240" y="71" width="86" height="18"/>
+				<reportElement mode="Opaque" x="240" y="89" width="86" height="18"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="1.0"/>
@@ -251,7 +251,7 @@
 				<text><![CDATA[家庭住址]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="87" y="71" width="154" height="18"/>
+				<reportElement mode="Opaque" x="87" y="89" width="154" height="18"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -261,10 +261,10 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("DIAGNOSENAME")]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("HOSPITALNAME")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="24" y="71" width="63" height="18"/>
+				<reportElement mode="Opaque" x="24" y="89" width="63" height="18"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="2.0"/>
@@ -274,7 +274,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
 					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
-				<text><![CDATA[诊断]]></text>
+				<text><![CDATA[就医机构]]></text>
 			</staticText>
 			<textField>
 				<reportElement mode="Opaque" x="241" y="53" width="116" height="18"/>
@@ -290,7 +290,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("MEDICARETYPE")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="24" y="107" width="113" height="18"/>
+				<reportElement mode="Opaque" x="24" y="125" width="113" height="18"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="2.0"/>
@@ -303,7 +303,7 @@
 				<text><![CDATA[医疗救助金额（大写）：]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="24" y="125" width="63" height="18"/>
+				<reportElement mode="Opaque" x="24" y="143" width="63" height="18"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="2.0"/>
@@ -316,7 +316,7 @@
 				<text><![CDATA[医疗费总金额]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="87" y="125" width="102" height="18"/>
+				<reportElement mode="Opaque" x="87" y="143" width="102" height="18"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -329,7 +329,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("PAYTOTAL")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="189" y="125" width="51" height="18"/>
+				<reportElement mode="Opaque" x="189" y="143" width="51" height="18"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="1.0"/>
@@ -342,7 +342,7 @@
 				<text><![CDATA[统筹支付]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="240" y="124" width="60" height="19"/>
+				<reportElement mode="Opaque" x="240" y="142" width="60" height="19"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -355,7 +355,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("PAYMEDIARE")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="300" y="125" width="112" height="18"/>
+				<reportElement mode="Opaque" x="300" y="143" width="57" height="18"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="1.0"/>
@@ -368,7 +368,7 @@
 				<text><![CDATA[自费合计]]></text>
 			</staticText>
 			<textField pattern="###0.00">
-				<reportElement mode="Opaque" x="412" y="125" width="120" height="18"/>
+				<reportElement mode="Opaque" x="469" y="143" width="63" height="18"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -378,10 +378,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="宋体" size="10" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("PAYOUTMEDICARE")]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("PAYCIASSIST")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="24" y="143" width="63" height="18"/>
+				<reportElement mode="Opaque" x="24" y="161" width="63" height="18"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="2.0"/>
@@ -394,7 +394,7 @@
 				<text><![CDATA[纳入救助金额]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="87" y="143" width="102" height="18"/>
+				<reportElement mode="Opaque" x="87" y="161" width="102" height="18"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -407,7 +407,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("MEDICARESCOPE")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="240" y="143" width="60" height="18"/>
+				<reportElement mode="Opaque" x="240" y="161" width="60" height="18"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -420,7 +420,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("PAYSUMASSISTIN")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="189" y="143" width="51" height="18"/>
+				<reportElement mode="Opaque" x="189" y="161" width="51" height="18"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="1.0"/>
@@ -433,7 +433,7 @@
 				<text><![CDATA[救助累计]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="300" y="143" width="112" height="18"/>
+				<reportElement mode="Opaque" x="300" y="161" width="112" height="18"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="1.0"/>
@@ -446,7 +446,7 @@
 				<text><![CDATA[本次救助时间]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="412" y="143" width="120" height="18"/>
+				<reportElement mode="Opaque" x="412" y="161" width="120" height="18"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -459,63 +459,63 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("OPERTIME")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="65" y="163" width="38" height="20"/>
+				<reportElement mode="Opaque" x="65" y="181" width="38" height="20"/>
 				<textElement>
 					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="24" y="163" width="40" height="20"/>
+				<reportElement mode="Opaque" x="24" y="181" width="40" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[负责人：]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="103" y="163" width="42" height="20"/>
+				<reportElement mode="Opaque" x="103" y="181" width="42" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[复核人：]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="300" y="163" width="46" height="20"/>
+				<reportElement mode="Opaque" x="300" y="181" width="46" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[救助人：]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="347" y="163" width="65" height="20"/>
+				<reportElement mode="Opaque" x="347" y="181" width="65" height="20"/>
 				<textElement>
 					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="412" y="163" width="56" height="20"/>
+				<reportElement mode="Opaque" x="412" y="181" width="56" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[打印日期：]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="468" y="163" width="63" height="20"/>
+				<reportElement mode="Opaque" x="468" y="181" width="63" height="20"/>
 				<textElement>
 					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("SYSTIME")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="145" y="163" width="44" height="20"/>
+				<reportElement mode="Opaque" x="145" y="181" width="44" height="20"/>
 				<textElement>
 					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[""]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="24" y="89" width="63" height="18"/>
+				<reportElement mode="Opaque" x="24" y="107" width="63" height="18"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="2.0"/>
@@ -528,7 +528,7 @@
 				<text><![CDATA[入院时间]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="87" y="89" width="155" height="18"/>
+				<reportElement mode="Opaque" x="87" y="107" width="155" height="18"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -541,7 +541,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[($P{REPORT_PARAMETERS_MAP}.get("BEGINTIME") ==null ? "":$P{REPORT_PARAMETERS_MAP}.get("BEGINTIME"))]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="241" y="89" width="85" height="18"/>
+				<reportElement mode="Opaque" x="241" y="107" width="85" height="18"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid"/>
 					<leftPen lineWidth="1.0"/>
@@ -554,7 +554,7 @@
 				<text><![CDATA[出院时间]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="326" y="89" width="206" height="18"/>
+				<reportElement mode="Opaque" x="326" y="107" width="206" height="18"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -567,7 +567,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[($P{REPORT_PARAMETERS_MAP}.get("ENDTIME") ==null ? "":$P{REPORT_PARAMETERS_MAP}.get("ENDTIME"))]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="137" y="107" width="395" height="18"/>
+				<reportElement mode="Opaque" x="137" y="125" width="395" height="18"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="0.0"/>
@@ -587,7 +587,7 @@
 				<text><![CDATA[票据号：]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="326" y="71" width="206" height="18"/>
+				<reportElement mode="Opaque" x="326" y="89" width="206" height="18"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -600,14 +600,14 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("ADDRESS")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="189" y="163" width="42" height="20"/>
+				<reportElement mode="Opaque" x="189" y="181" width="42" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[操作人：]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="231" y="163" width="44" height="20"/>
+				<reportElement mode="Opaque" x="231" y="181" width="44" height="20"/>
 				<textElement>
 					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
@@ -619,6 +619,58 @@
 					<font fontName="黑体" size="16" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[吉林省医疗救助结算单]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="24" y="71" width="63" height="18"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[诊断]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="87" y="71" width="445" height="18"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("DIAGNOSENAME")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="357" y="143" width="55" height="18"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("PAYOUTMEDICARE")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="412" y="143" width="57" height="18"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[大病保险]]></text>
 			</staticText>
 		</band>
 	</detail>

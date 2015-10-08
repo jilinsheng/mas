@@ -7,9 +7,6 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
-	String jpath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ "/yljz/medicalafter/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -138,17 +135,10 @@
 		<td class="formtd1" width="18%" style="color:#7A8B8B" width="18%" >计算描述：</td>
 		<td class="formtd2" colspan="5"><s:property value="tempDTO.calcMsg" /> &nbsp;</td>
 	</tr>
-	<tr>
-		<td colspan="6"><s:iterator value="mafiles">
-			<div align="left" style="height: 20px; display: block" id="dfile1">
-			<a target="_blank" href="<%=jpath%><s:property value="realpath"/>">
-			<s:property value="filename" /></a></div>
-		</s:iterator></td>
-	</tr>
 </table>
 <div align="center">
 <button type="button" onclick="window.close()">关闭</button>
-	<s:if test="tempDTO.organizationId.length()==6">
+	<s:if test="tempDTO.bizStatus==1">
 		<s:if test="tempDTO.assistype==1">
 		<a href="page/tempreport/printmz.action?tempDTO.approveId=<s:property value='tempDTO.approveId'/>" target="_blank">打印结算单</a>
 		</s:if>

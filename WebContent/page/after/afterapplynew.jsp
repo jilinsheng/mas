@@ -7,9 +7,6 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
-	String jpath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ "/yljz/medicalafter/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -644,7 +641,7 @@
 		<tr>
 			<td class="formtd1" width="15%" style="font-weight:bold;color:#104E8B">审批结果：</td>
 			<td class="formtd2" colspan="5">
-				<s:select id="bizStatus" name="tempDTO.bizStatus" list="#{'-1':'同意','0':'不同意'}" disabled="false"></s:select> 
+				<s:select name="tempDTO.bizStatus" list="#{'1':'同意'}" readonly="readonly"></s:select> 
 			</td>
 		</tr>
 	</table>

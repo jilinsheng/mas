@@ -1,5 +1,6 @@
 package com.mingda.service;
 
+import com.mingda.dto.OrgEnabledDTO;
 import com.mingda.dto.UserDTO;
 
 public interface AuthorityService {
@@ -20,4 +21,6 @@ public interface AuthorityService {
 	 * @return
 	 */
 	public boolean checkReportRight(String uRL, String organizationId);
+	
+	public OrgEnabledDTO queryEnabled(String orgid);
 }

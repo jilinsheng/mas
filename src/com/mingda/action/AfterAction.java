@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import com.mingda.dto.DeptDTO;
 import com.mingda.dto.DiagnoseTypeDTO;
 import com.mingda.dto.JzYearDTO;
+import com.mingda.dto.OrganizationDTO;
 import com.mingda.dto.OutIcdDTO;
 import com.mingda.dto.TempDTO;
 import com.mingda.dto.UserDTO;
@@ -45,6 +46,15 @@ public class AfterAction extends ActionSupport {
 	private String orgid;
 	private TempDTO tempDTOend;
 	private AfterDTO afterDTO;
+	private List<OrganizationDTO> orgs;
+	private String cur_page;
+	private String value;
+	private String operational;
+	private String term;
+	private String app;
+	private String oid;
+	private String toolsmenu;
+	private String assistype;
 
 	@SuppressWarnings("rawtypes")
 	public String queryaftermemberinit() {
@@ -487,6 +497,128 @@ public class AfterAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	/**
+	 * 审批查询初始化
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public String queryafterapprovedoneinit() {
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String organizationId = user.getOrganizationId();
+
+		if (6 == organizationId.length()) {
+			if (2 == organizationId.length()) {
+				orgs = systemDataService.findOrganizationExt(organizationId);
+			} else {
+				orgs = systemDataService.findOrgParentAndChilds(organizationId);
+			}
+		}
+		return SUCCESS;
+
+	}
+	
+	/**
+	 * 审批查询
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public String queryafterapprovedone() {
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String organizationId = user.getOrganizationId();
+		String sql = "";
+		if (null == cur_page || "".equals(cur_page)) {
+
+			String var = value;
+			String jwhere = "";
+			if (!"".equals(var)) {
+				if ("=".equals(operational)) {
+					var = " = '" + var + "'";
+				} else if ("like".equals(operational)) {
+					var = "like  '%" + var + "%'";
+				} else {
+					var = "";
+				}
+				if ("SSN".equals(term)) {
+				} else if ("FAMILYNO".equals(term)) {
+					jwhere = jwhere + " and family_no  " + var;
+				} else if ("MEMBERNAME".equals(term)) {
+					jwhere = jwhere + " and  name  " + var;
+				} else if ("PAPERID".equals(term)) {
+					jwhere = jwhere + " and  id_card " + var;
+				} else {
+				}
+			}
+			if (app == null || "".equals(app)) {
+			} else {
+				jwhere = jwhere + " and biz_status = '" + app + "'";
+			}
+			if (assistype == null || "".equals(assistype)) {
+			} else {
+				jwhere = jwhere + " and assist_type = '" + assistype + "'";
+			}
+			if (oid == null || "".equals(oid)) {
+				jwhere = jwhere + " and  family_no like '" + organizationId
+						+ "%' ";
+			} else {
+				jwhere = jwhere + " and  family_no like '" + oid + "%' ";
+			}
+			sql = "select biz_id, hospital_name, assist_type, jz.organization_id, member_id, member_type, "
+					+ "decode(assist_type,'1','门诊','2','住院',null) as assist_type_text, "
+					+ "personstate, assist_type_m, "
+					+ "family_no as familyno, family_address, name as membername, sex, id_card as paperid , begin_time, diagnose_name, end_time, assist_time, "
+					+ "pay_total, pay_medicare, pay_outmedicare, pay_assist, biz_status, oper_time, jz.assist_typex, "
+					+ "org1.orgname as org1, "
+					+ "org2.orgname as org2, "
+					+ "org3.orgname as org3  from jz_medicalafter jz"
+					+ " left join manager_org org1 on org1.depth = 3 and substr(jz.family_no,0,6)=org1.organization_id "
+					+ " left join manager_org org2 on org2.depth = 4 and substr(jz.family_no,0,8)=org2.organization_id "
+					+ " left join manager_org org3 on org3.depth = 5 and substr(jz.family_no,0,10)=org3.organization_id "
+					+ "where 1=1 " + jwhere + "  order by oper_time desc  ";
+			session.put("sql", sql);
+			cur_page = "1";
+			HashMap title = new HashMap();
+			title.put("FAMILYNO,val", "家庭编号");
+			title.put("MEMBERNAME,val", "姓名");
+			title.put("PAPERID,val", "身份证号");
+			title.put("DIAGNOSE_NAME,val", "患病名称");
+			title.put("PAY_TOTAL,val", "总费用");
+			title.put("PAY_MEDICARE,val", "统筹");
+			title.put("PAY_ASSIST,val", "医疗救助");
+			title.put("PAY_OUTMEDICARE,val", "目录外费用");
+			title.put("HOSPITAL_NAME,val", "就诊医院");
+			title.put("ASSIST_TYPE_TEXT,val", "救助类型");
+			title.put("ORG1,val", "区县");
+			title.put("ORG2,val", "乡镇");
+			title.put("ORG3,val", "社区/街道");
+			session.put("title", title);
+		} else {
+			sql = (String) session.get("sql");
+		}
+		tempmembers = tempService.findAfterapprovedone(sql, new BigDecimal(
+				cur_page).intValue(), "page/temp/queryafterapprovedone.action");
+		setToolsmenu(tempService.getToolsmenu());
+		// 获取机构
+		if (6 == organizationId.length() || 8 == organizationId.length()) {
+			if (2 == organizationId.length()) {
+				orgs = systemDataService.findOrganizationExt(organizationId);
+			} else {
+				orgs = systemDataService.findOrgParentAndChilds(organizationId);
+			}
+		}
+		return SUCCESS;
+	}
+	/**
+	 *审批不同意
+	 * @return
+	 */
+	public String afteryn() {
+		tempDTO = tempService.saveAfteryn(tempDTO);
+		result = "保存成功";
+		return SUCCESS;
+	}
+	
 	/*
 	 * 出院时间与审批时间的年份一致时，本次业务年度为此年度；
 	 * 出院时间为上一年（没有跨两年业务），审批时间是跨年的业务时，本次业务年度为
@@ -658,6 +790,78 @@ public class AfterAction extends ActionSupport {
 
 	public void setAfterDTO(AfterDTO afterDTO) {
 		this.afterDTO = afterDTO;
+	}
+
+	public List<OrganizationDTO> getOrgs() {
+		return orgs;
+	}
+
+	public void setOrgs(List<OrganizationDTO> orgs) {
+		this.orgs = orgs;
+	}
+
+	public String getCur_page() {
+		return cur_page;
+	}
+
+	public void setCur_page(String cur_page) {
+		this.cur_page = cur_page;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public String getOperational() {
+		return operational;
+	}
+
+	public void setOperational(String operational) {
+		this.operational = operational;
+	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+
+	public String getApp() {
+		return app;
+	}
+
+	public void setApp(String app) {
+		this.app = app;
+	}
+
+	public String getOid() {
+		return oid;
+	}
+
+	public void setOid(String oid) {
+		this.oid = oid;
+	}
+
+	public String getToolsmenu() {
+		return toolsmenu;
+	}
+
+	public void setToolsmenu(String toolsmenu) {
+		this.toolsmenu = toolsmenu;
+	}
+
+	public String getAssistype() {
+		return assistype;
+	}
+
+	public void setAssistype(String assistype) {
+		this.assistype = assistype;
 	}
 
 }
