@@ -23,6 +23,7 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 
 import com.mingda.common.FileUpload;
+import com.mingda.common.NumberToCN;
 import com.mingda.dto.BillDTO;
 import com.mingda.dto.DeptDTO;
 import com.mingda.dto.DiagnoseTypeDTO;
@@ -4538,6 +4539,7 @@ public class TempAction extends ActionSupport {
 		} else {
 			tempDTO.setMedicaretypetext("Î´Öª");
 		}
+		
 		map.put("ASSISTTYPE", tempDTO.getAssistTypeTxt());
 		map.put("MEDICARETYPE", tempDTO.getMedicaretypetext());
 		DecimalFormat df1 = new DecimalFormat("##########0.00");
@@ -4545,6 +4547,7 @@ public class TempAction extends ActionSupport {
 		map.put("PAYMEDIARE", df1.format(tempDTO.getPayMedicare()));
 		map.put("PAYOUTMEDICARE", df1.format(tempDTO.getPayOutmedicare()));
 		map.put("PAYASSIST", "£¤" + df1.format(tempDTO.getPayAssist()));
+		map.put("PAYASSISTCN", NumberToCN.number2CNMontrayUnit(tempDTO.getPayAssist()));
 		map.put("PAYCIASSIST", df1.format(tempDTO.getPayCIAssist()));
 		BigDecimal ms = tempDTO.getPayTotal().subtract(tempDTO.getPayMedicare()).subtract(tempDTO.getPayOutmedicare()).subtract(tempDTO.getPayCIAssist());
 		map.put("MEDICARESCOPE", df1.format(ms));
@@ -4607,6 +4610,7 @@ public class TempAction extends ActionSupport {
 		map.put("PAYMEDIARE", df1.format(tempDTO.getPayMedicare()));
 		map.put("PAYOUTMEDICARE", df1.format(tempDTO.getPayOutmedicare()));
 		map.put("PAYASSIST", "£¤" + df1.format(tempDTO.getPayAssist()));
+		map.put("PAYASSISTCN", NumberToCN.number2CNMontrayUnit(tempDTO.getPayAssist()));
 		map.put("PAYCIASSIST", df1.format(tempDTO.getPayCIAssist()));
 		BigDecimal ms = tempDTO.getPayTotal().subtract(tempDTO.getPayMedicare()).subtract(tempDTO.getPayOutmedicare()).subtract(tempDTO.getPayCIAssist());
 		map.put("MEDICARESCOPE", df1.format(ms));

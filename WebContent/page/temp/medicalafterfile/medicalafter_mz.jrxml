@@ -149,7 +149,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("ADDRESS")]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{REPORT_PARAMETERS_MAP}.get("ADDRESS")==null) ? "":$P{REPORT_PARAMETERS_MAP}.get("ADDRESS")]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="73" y="89" width="154" height="18"/>
@@ -297,17 +297,17 @@
 				<text><![CDATA[自费合计]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="123" y="107" width="395" height="18"/>
+				<reportElement mode="Opaque" x="123" y="107" width="220" height="18"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="0.0"/>
 					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="2.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("PAYASSIST")]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("PAYASSISTCN")]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="226" y="125" width="60" height="18"/>
@@ -392,7 +392,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("MEDICARETYPE")]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{REPORT_PARAMETERS_MAP}.get("MEDICARETYPE")==null) ? "":$P{REPORT_PARAMETERS_MAP}.get("MEDICARETYPE")]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="286" y="35" width="57" height="18"/>
@@ -498,7 +498,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("SSN")]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[($P{REPORT_PARAMETERS_MAP}.get("SSN")==null) ? "":$P{REPORT_PARAMETERS_MAP}.get("SSN")]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="10" y="125" width="63" height="18"/>
@@ -599,6 +599,32 @@
 				</textElement>
 				<text><![CDATA[大病保险]]></text>
 			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="343" y="107" width="55" height="18"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[（小写）：]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement mode="Opaque" x="398" y="107" width="120" height="18"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_PARAMETERS_MAP}.get("PAYASSIST")]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
