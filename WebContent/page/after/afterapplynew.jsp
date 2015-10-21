@@ -363,11 +363,23 @@
 					json = eval('(' + json + ')');
 					var info= json['info'];
 					var m= json['m'];
+					var iin= json['in'];
+					var out= json['out'];
+					var sum= json['sum'];
+					var calcmsg= json['calcmsg'];
 					var year = json['businessyear'];
 					if('成功'==info){
 						alert(year+'年度业务，'+'计算保障金:'+m+'元');
 						$('#payAssist')[0].readOnly=false;
 						$('#payAssist')[0].value=m;
+						$('#paySumAssistIn')[0].value=iin;
+						$('#paySumAssistOut')[0].value=out;
+						$('#sumMedicareScope')[0].value=sum;
+						$('#calcMsg')[0].value=calcmsg;
+						$('#AssistIn')[0].innerText=iin;
+						$('#AssistOut')[0].innerText=out;
+						$('#MedicareScope')[0].innerText=sum;
+						$('#Msg')[0].innerText=calcmsg;
 						$('#b')[0].disabled=false;
 						$('#businessyear')[0].value=year;
 					}else{

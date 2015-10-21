@@ -464,6 +464,13 @@ public class AfterAction extends ActionSupport {
 			int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
 			System.out.println("本次业务年度："+businessyear);
 			afterDTO.setBusinessyear(businessyear+"");
+			Integer i = 0;
+			if("49".equals(tempDTO.getOtherType())){
+				i = 1;
+			}else{
+				i = 0;
+			}
+			afterDTO.setZzFlag(i);
 			afterDTO = yljzService.getAssistMoneyAfterEx(afterDTO);
 			
 			if ("1".equals(afterDTO.getReturnFlag())) {

@@ -79,6 +79,7 @@ public class AfterDTO {
 	private BigDecimal AssistCIA;
 	private String CalcMsg;
 	private String businessyear;
+	private Integer zzFlag;
 	
 	public String getOrgCode() {
 		return OrgCode;
@@ -268,6 +269,12 @@ public class AfterDTO {
 	}
 	public void setBusinessyear(String businessyear) {
 		this.businessyear = businessyear;
+	}
+	public Integer getZzFlag() {
+		return zzFlag;
+	}
+	public void setZzFlag(Integer zzFlag) {
+		this.zzFlag = zzFlag;
 	}
 
 

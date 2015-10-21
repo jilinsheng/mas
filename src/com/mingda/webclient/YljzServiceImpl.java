@@ -37,10 +37,13 @@ public class YljzServiceImpl implements YljzService {
 					afterDTO.getPay_Medicare(),afterDTO.getPay_Dbbx(),
 					afterDTO.getPay_Sybx(),
 					afterDTO.getPay_OutMedicare(),
-					afterDTO.getBusinessyear());
-			/*System.out.println("getAssistMoneyAfterEx("+afterDTO.getOrgCode()+","
+					afterDTO.getBusinessyear(),
+					afterDTO.getZzFlag());
+			System.out.println("getAssistMoneyAfterEx("+afterDTO.getOrgCode()+","
 					+afterDTO.getHospital_ID()+","
 					+afterDTO.getHospital_Level()+","
+					+afterDTO.getHospital_Local()+","
+					+afterDTO.getHospital_Type()+","
 					+afterDTO.getMemberType()+","
 					+afterDTO.getMemberID()+","
 					+afterDTO.getMedicareType()+","
@@ -54,7 +57,9 @@ public class YljzServiceImpl implements YljzService {
 					+afterDTO.getPay_Medicare()+","
 					+afterDTO.getPay_Dbbx()+","
 					+afterDTO.getPay_Sybx()+","
-					+afterDTO.getPay_OutMedicare()+")");*/
+					+afterDTO.getPay_OutMedicare()+","
+					+afterDTO.getBusinessyear()+","
+					+afterDTO.getZzFlag()+")");
 			Document document = DocumentHelper.parseText(xml);
 			String returnFlag = document.selectSingleNode(
 					"//GetAssistMoneyAfter/ReturnFlag").getText();
