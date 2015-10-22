@@ -526,8 +526,8 @@
 	<div align="center" style="font-weight:bold;color:#104E8B;font-size:15px;">就  医  情  况</div>
 	<table border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">
 		<tr>
-			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">保障类型：</td>
-			<td class="formtd2" colspan="3">
+			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">保障类型：</td>
+			<td class="formtd2" >
 			<table align="left" height="8%" border="0" cellpadding="0" cellspacing="0" width="100%">
 					<tr>
 					<td width="60%">
@@ -538,12 +538,12 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">参保编号：</td>
-			<td class="formtd2" colspan="3">&nbsp;<s:textfield id="ssn" name="tempDTO.ssn" size="40"/></td>
+			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">参保编号：</td>
+			<td class="formtd2">&nbsp;<s:textfield id="ssn" name="tempDTO.ssn" size="40"/></td>
 		</tr>
 		<tr>
-			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">医院名称：</td>
-			<td class="formtd2" colspan="3" >
+			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">医院名称：</td>
+			<td class="formtd2" >
 				<table align="left" height="8%" border="0" cellpadding="0" cellspacing="0" width="100%">
 					<tr>
 						<td width="250">
@@ -559,25 +559,25 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">救助类型：</td>
-			<td class="formtd2" colspan="3">&nbsp;
+			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">救助类型：</td>
+			<td class="formtd2">&nbsp;
 				<s:select id="assistype" list="#{'2':'住院','1':'门诊'}" name="tempDTO.assistype" cssStyle="width:35%"></s:select>
 			</td>
 		</tr>
 		<tr>
-			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">入院时间：</td>
-			<td class="formtd2" width="33%">&nbsp;<input type="text" readonly="readonly"
+			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">入院时间：</td>
+			<td class="formtd2" >&nbsp;<input type="text" readonly="readonly"
 				id="beginDate" name="tempDTO.begintime" onchange="startimechang(this);"
 				value='<s:date name="tempDTO.begintime" format="yyyy-MM-dd"/>' /></td>
 		</tr>
 		<tr>
-			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">出院时间：</td>
+			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">出院时间：</td>
 			<td class="formtd2">&nbsp;<input type="text"
 				readonly="readonly" id="endDate" name="tempDTO.endtime"
 				value='<s:date name="tempDTO.endtime" format="yyyy-MM-dd"/>' /></td>
 		</tr>
 		<tr>
-			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">诊断类型：</td>
+			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">诊断类型：</td>
 			<td class="formtd2" >&nbsp;
 					<s:select id="diagnoseTypeId" name="tempDTO.diagnoseTypeId" list="diagnosetypes" 
 					listKey="diagnoseTypeId" listValue="diagnoseTypeName" disabled="false" headerKey="0" headerValue="请选择..."
@@ -585,12 +585,12 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="formtd1"  width="8%" style="font-weight:bold;color:#006030">&nbsp;患病名称：</td>
+			<td class="formtd1"  width="20%" style="font-weight:bold;color:#006030">&nbsp;患病名称：</td>
 			<td class="formtd2"  colspan="3">&nbsp;<s:textfield id="inhospitalsicken" name="tempDTO.inhospitalsicken" size="40" />
 			</td>
 		</tr>
 		<tr>
-		<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">
+		<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">
 			<s:if test='tempDTO.medicareType==2'>
 				<div id="div_otherType_title" style="display:block;height: 5px;margin-top:5px;">类别：</div>&nbsp;
 			</s:if>
@@ -598,7 +598,7 @@
 				<div id="div_otherType_title" style="display:none;height: 5px;margin-top:5px;">类别：</div>&nbsp;
 			</s:else>
 			</td>
-			<td class="formtd2" >
+			<td class="formtd2"  >
 			<s:if test='tempDTO.medicareType==2'>
 				<div id="div_otherType" style="display:block;height: 5px;">
 				<s:if test="tempDTO.otherType==null">
