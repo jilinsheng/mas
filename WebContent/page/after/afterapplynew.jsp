@@ -531,7 +531,7 @@
 			<table align="left" height="8%" border="0" cellpadding="0" cellspacing="0" width="100%">
 					<tr>
 					<td width="60%">
-			&nbsp;&nbsp;<s:radio id="medicareType" name="tempDTO.medicareType" list="%{#{'1':'城镇医保','2':'新农合','0':'未参保/参合','':'未知'}}" onclick="medicareTypechange(this)"></s:radio>
+			&nbsp;&nbsp;&nbsp;<s:radio id="medicareType" name="tempDTO.medicareType" list="%{#{'1':'城镇医保','2':'新农合','0':'未参保/参合','':'未知'}}" onclick="medicareTypechange(this)"></s:radio>
 			</td>
 			</tr>
 			</table>
@@ -547,7 +547,7 @@
 				<table align="left" height="8%" border="0" cellpadding="0" cellspacing="0" width="100%">
 					<tr>
 						<td width="250">
-							&nbsp;&nbsp;<s:select id="hospitalId" name="tempDTO.hospitalId" list="depts" listKey="hospitalId" listValue="name" headerKey="0" headerValue="其他" onchange="gethosname(this)"></s:select>
+							&nbsp;&nbsp;&nbsp;&nbsp;<s:select id="hospitalId" name="tempDTO.hospitalId" list="depts" listKey="hospitalId" listValue="name" headerKey="0" headerValue="其他" onchange="gethosname(this)"></s:select>
 						</td>
 						<td >
 						<div id="div_hospitalname" style="display:block">
