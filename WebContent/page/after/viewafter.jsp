@@ -55,7 +55,7 @@
 	<%-- &nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;color:#104E8B;">家庭地址：</font><s:property value="tempDTO.address"></s:property> --%>
 
 	<hr/>
-	<div align="center" style="font-weight:bold;color:#104E8B;font-size:15px;">就  医  情  况</div>
+	<div align="center" style="background:#FFFFCC;font-weight:bold;color:#003399;font-size:15px;">就  医  情  况</div>
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">
 	<tr>
 		<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">保险类型：</td>
@@ -106,7 +106,7 @@
 		</td>
 	</tr>
 </table>
-<div align="center" style="font-weight:bold;color:#104E8B;font-size:15px;">就  医  费  用</div>
+<div align="center" style="background:#FFFFCC;font-weight:bold;color:#003399;font-size:15px;">就  医  费  用</div>
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">	
 	<tr>
 		<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">总费用：</td>
