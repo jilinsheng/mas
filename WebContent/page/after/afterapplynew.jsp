@@ -262,7 +262,7 @@
 		var insurance = $("#insurance")[0].value;
 		var payCIAssist = $("#payCIAssist")[0].value;
 		var inhospitalsicken = $("#inhospitalsicken")[0].value;
-		var otherType = $("input[name='tempDTO.otherType']:checked").val();
+		//var otherType = $("input[name='tempDTO.otherType']:checked").val();
 		var medicareFlag = $("#medicareFlag")[0].checked;
 		var flag=true;
 		if(hospitalId>0){
@@ -352,7 +352,7 @@
 					"tempDTO.hospitalId" : hospitalId,                             
 					"tempDTO.begintime" : beginDate,                           
 					"tempDTO.endtime" : endDate,                               
-					"tempDTO.otherType" : otherType,
+					//"tempDTO.otherType" : otherType,
 					"tempDTO.MedicareFlag" : medicareFlag                     
 				},
 				timeout : 20000,

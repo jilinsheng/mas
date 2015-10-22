@@ -678,10 +678,14 @@ public class TempServiceImpl implements TempService {
 			record.setOtherType(tempDTO.getOtherType());
 			record.setSsn(tempDTO.getSsn());
 			record.setBusinessYear(tempDTO.getBusinessyear());
-			if(tempDTO.getMedicareFlag()){
-				record.setMedicareFlag("1");
-			}else{
+			if(null == tempDTO.getMedicareFlag()|| "".equals(tempDTO.getMedicareFlag())){
 				record.setMedicareFlag("0");
+			}else{
+				if(tempDTO.getMedicareFlag()){
+					record.setMedicareFlag("1");
+				}else{
+					record.setMedicareFlag("0");
+				}
 			}
 			Integer id = jzMedicalafterDAO.insertSelective(record);
 			tempDTO.setApproveId(id.longValue());
@@ -749,10 +753,14 @@ public class TempServiceImpl implements TempService {
 			record.setOtherType(tempDTO.getOtherType());
 			record.setSsn(tempDTO.getSsn());
 			record.setBusinessYear(tempDTO.getBusinessyear());
-			if(tempDTO.getMedicareFlag()){
-				record.setMedicareFlag("1");
-			}else{
+			if(null == tempDTO.getMedicareFlag()|| "".equals(tempDTO.getMedicareFlag())){
 				record.setMedicareFlag("0");
+			}else{
+				if(tempDTO.getMedicareFlag()){
+					record.setMedicareFlag("1");
+				}else{
+					record.setMedicareFlag("0");
+				}
 			}
 			jzMedicalafterDAO.updateByPrimaryKeySelective(record);
 			if (!"".equals(tempDTO.getAssistTypeM())
