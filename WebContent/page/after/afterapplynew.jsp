@@ -433,6 +433,13 @@
 			endDate.value = a.value;
 		}
 	}
+	function otherTypechange(a){
+		if(a.value=='49'){
+			$("#medicareFlag")[0].checked=true;
+		}else{
+			$("#medicareFlag")[0].checked=false;
+		}
+	}
 </script>
 </head>
 <body>
@@ -595,18 +602,18 @@
 			<s:if test='tempDTO.medicareType==2'>
 				<div id="div_otherType" style="display:block;height: 5px;">
 				<s:if test="tempDTO.otherType==null">
-					<s:radio id="otherType" name="tempDTO.otherType" list="%{#{'49':'未经新农合确认的转诊','0':'其它'}}" listKey="key" listValue="value" value="0"></s:radio>
+					<s:radio id="otherType" name="tempDTO.otherType" list="%{#{'49':'未经新农合确认的转诊','0':'其它'}}" listKey="key" listValue="value" value="0" onclick="otherTypechange(this)"></s:radio>
 				</s:if><s:else>
-					<s:radio id="otherType" name="tempDTO.otherType" list="%{#{'49':'未经新农合确认的转诊','0':'其它'}}" listKey="key" listValue="value"></s:radio>
+					<s:radio id="otherType" name="tempDTO.otherType" list="%{#{'49':'未经新农合确认的转诊','0':'其它'}}" listKey="key" listValue="value" onclick="otherTypechange(this)"></s:radio>
 				</s:else>
 				</div>
 			</s:if>
 			<s:else>
 			<div id="div_otherType" style="display:none;height: 5px;">
 				<s:if test="tempDTO.otherType==null">
-					<s:radio id="otherType" name="tempDTO.otherType" list="%{#{'49':'未经新农合确认的转诊','0':'其它'}}" listKey="key" listValue="value" value="0"></s:radio>
+					<s:radio id="otherType" name="tempDTO.otherType" list="%{#{'49':'未经新农合确认的转诊','0':'其它'}}" listKey="key" listValue="value" value="0" onclick="otherTypechange(this)"></s:radio>
 				</s:if><s:else>
-					<s:radio id="otherType" name="tempDTO.otherType" list="%{#{'49':'未经新农合确认的转诊','0':'其它'}}" listKey="key" listValue="value"></s:radio>
+					<s:radio id="otherType" name="tempDTO.otherType" list="%{#{'49':'未经新农合确认的转诊','0':'其它'}}" listKey="key" listValue="value" onclick="otherTypechange(this)"></s:radio>
 				</s:else>
 				</div>
 			</s:else>
