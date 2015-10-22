@@ -33,12 +33,14 @@ public class YljzServiceImpl implements YljzService {
 					afterDTO.getMedicareType(),afterDTO.getBizType(),
 					afterDTO.getSpecBiz(),afterDTO.getBegin_Time(),
 					afterDTO.getEnd_Time(),afterDTO.getDiagnose_Type_ID(),
-					afterDTO.getIcd_ID(),afterDTO.getPay_Total(),
+					afterDTO.getIcd_ID(),
+					afterDTO.getMedicareFlag(),
+					afterDTO.getPay_Total(),
 					afterDTO.getPay_Medicare(),afterDTO.getPay_Dbbx(),
 					afterDTO.getPay_Sybx(),
 					afterDTO.getPay_OutMedicare(),
-					afterDTO.getBusinessyear(),
-					afterDTO.getZzFlag());
+					afterDTO.getBusinessyear()
+					);
 			System.out.println("getAssistMoneyAfterEx("+afterDTO.getOrgCode()+","
 					+afterDTO.getHospital_ID()+","
 					+afterDTO.getHospital_Level()+","
@@ -53,13 +55,13 @@ public class YljzServiceImpl implements YljzService {
 					+afterDTO.getEnd_Time()+","
 					+afterDTO.getDiagnose_Type_ID()+","
 					+afterDTO.getIcd_ID()+","
+					+afterDTO.getMedicareFlag()+","
 					+afterDTO.getPay_Total()+","
 					+afterDTO.getPay_Medicare()+","
 					+afterDTO.getPay_Dbbx()+","
 					+afterDTO.getPay_Sybx()+","
 					+afterDTO.getPay_OutMedicare()+","
-					+afterDTO.getBusinessyear()+","
-					+afterDTO.getZzFlag()+")");
+					+afterDTO.getBusinessyear()+")");
 			Document document = DocumentHelper.parseText(xml);
 			String returnFlag = document.selectSingleNode(
 					"//GetAssistMoneyAfter/ReturnFlag").getText();
@@ -103,7 +105,6 @@ public class YljzServiceImpl implements YljzService {
 				calcMsg = document.selectSingleNode(
 						"//GetAssistMoneyAfter/CalcMsg").getText();
 			}
-			
 			if (null == assistMoney || "".equals(assistMoney)) {
 				assistMoney = "0";
 			}	
@@ -147,7 +148,9 @@ public class YljzServiceImpl implements YljzService {
 
 			String xml = iServiceYljzProxy.getCIAssistByPaperIDEx(
 					cidto.getPaperID(),cidto.getOrgCode(), cidto.getMedicareType(),
-					cidto.getCalcType(), cidto.getOld_Pay_Total(),
+					cidto.getCalcType(), 
+					cidto.getXnhZzFlag(),
+					cidto.getOld_Pay_Total(),
 					cidto.getOld_Pay_Medicare(),
 					cidto.getOld_Pay_OutMedicare(), cidto.getPay_Total(),
 					cidto.getPay_Medicare(), cidto.getPay_OutMedicare(),cidto.getEnd_time(),
@@ -170,16 +173,16 @@ public class YljzServiceImpl implements YljzService {
 					.getText();
 			String pay_Sum_AssistScope_In = document.selectSingleNode(
 					"//GetCIAssistByPaperIDEx/Pay_Sum_AssistScope_In").getText();
-			if (null == paySumAssistIn || "".equals("0")) {
+			if (null == paySumAssistIn || "".equals(paySumAssistIn)) {
 				paySumAssistIn = "0";
 			}
-			if (null == paySumAssistOut || "".equals("0")) {
+			if (null == paySumAssistOut || "".equals(paySumAssistOut)) {
 				paySumAssistOut = "0";
 			}
-			if (null == sumMedicareScope || "".equals("0")) {
+			if (null == sumMedicareScope || "".equals(sumMedicareScope)) {
 				sumMedicareScope = "0";
 			}
-			if (null == payCIAssist || "".equals("0")) {
+			if (null == payCIAssist || "".equals(payCIAssist)) {
 				payCIAssist = "0";
 			}
 			cidto.setPayCIAssist(new BigDecimal(payCIAssist));

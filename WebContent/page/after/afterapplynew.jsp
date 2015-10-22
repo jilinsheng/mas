@@ -263,6 +263,7 @@
 		var payCIAssist = $("#payCIAssist")[0].value;
 		var inhospitalsicken = $("#inhospitalsicken")[0].value;
 		var otherType = $("input[name='tempDTO.otherType']:checked").val();
+		var medicareFlag = $("#medicareFlag")[0].checked;
 		var flag=true;
 		if(hospitalId>0){
 		}else if(hospitalId==0 && hospitalname == ''){
@@ -351,7 +352,8 @@
 					"tempDTO.hospitalId" : hospitalId,                             
 					"tempDTO.begintime" : beginDate,                           
 					"tempDTO.endtime" : endDate,                               
-					"tempDTO.otherType" : otherType                      
+					"tempDTO.otherType" : otherType,
+					"tempDTO.MedicareFlag" : medicareFlag                     
 				},
 				timeout : 20000,
 				error : function() {
@@ -369,6 +371,7 @@
 					var calcmsg= json['calcmsg'];
 					var year = json['businessyear'];
 					if('成功'==info){
+						$('#b')[0].disabled=false;
 						alert(year+'年度业务，'+'计算保障金:'+m+'元');
 						$('#payAssist')[0].readOnly=false;
 						$('#payAssist')[0].value=m;
@@ -380,7 +383,6 @@
 						$('#AssistOut')[0].innerText=out;
 						$('#MedicareScope')[0].innerText=sum;
 						$('#Msg')[0].innerText=calcmsg;
-						$('#b')[0].disabled=false;
 						$('#businessyear')[0].value=year;
 					}else{
 						alert(info);
@@ -471,7 +473,7 @@
 	<s:hidden id="assistTypex" name="tempDTO.assistTypex"></s:hidden>
 	<s:hidden id="org" name="tempDTO.org"></s:hidden>
 	<s:hidden id="businessyear" name="tempDTO.businessyear"></s:hidden>
-	<table width="780px" class="formTitle" border="0" cellpadding="0" cellspacing="0">
+	<table width="680px" class="formTitle" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td style="padding-left: 2px"><img
 			    alt="<s:property value="tempDTO.membername"></s:property>医后报销审批表"
@@ -481,7 +483,7 @@
 			</td>
 		</tr>
 	</table>
-	<table border="0" cellpadding="0" cellspacing="0" width="780px" class="formtable">
+	<%-- <table border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">
 		<tr>
 			<td class="formtd1" width="15%">家庭编号：</td>
 			<td class="formtd2" width="18%"><s:property
@@ -498,7 +500,7 @@
 			<td class="formtd1" width="15%">户主姓名：</td>
 			<td class="formtd2" width="18%"><s:property
 				value="tempDTO.mastername"></s:property>&nbsp;</td>
-			<td class="formtd1" width="15%">与户主关系：</td>
+			<td class="formtd1" width="15%">家庭关系：</td>
 			<td class="formtd2" ><s:property value="tempDTO.relmaster"></s:property>&nbsp;</td>
 		</tr>
 		<tr>
@@ -506,35 +508,43 @@
 			<td class="formtd2" colspan="5"><s:property
 				value="tempDTO.address"></s:property>&nbsp;</td>
 		</tr>
-	</table>
-	<table border="0" cellpadding="0" cellspacing="0" width="780px" class="formtable">
+	</table> --%>
+	<Br>
+	&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;color:#104E8B;">家庭编号：</font><s:property value="tempDTO.familyno"></s:property>
+	&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;color:#104E8B;">姓	名：</font><s:property value="tempDTO.membername"></s:property>
+	&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;color:#104E8B;">身份证号：</font><s:property value="tempDTO.paperid"></s:property>
+	<%-- &nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;color:#104E8B;">家庭地址：</font><s:property value="tempDTO.address"></s:property> --%>
+
+	<hr/>
+	<div align="center" style="font-weight:bold;color:#104E8B;font-size:15px;">就  医  情  况</div>
+	<table border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">
 		<tr>
-			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">保障类型：</td>
+			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">保障类型：</td>
 			<td class="formtd2" colspan="3">
-			<table align="left" height="20px" border="0" cellpadding="0" cellspacing="0" width="100%">
+			<table align="left" height="8%" border="0" cellpadding="0" cellspacing="0" width="100%">
 					<tr>
 					<td width="60%">
-			<s:radio id="medicareType" name="tempDTO.medicareType" list="%{#{'1':'城镇医保','2':'新农合','0':'未参保/参合','':'未知'}}" onclick="medicareTypechange(this)"></s:radio>
-			</td>
-			<td class="formtd1" style="font-weight:bold;color:#006030">参保编号：</td>
-			<td >
-			<s:textfield id="ssn" name="tempDTO.ssn"/>
+			&nbsp;&nbsp;<s:radio id="medicareType" name="tempDTO.medicareType" list="%{#{'1':'城镇医保','2':'新农合','0':'未参保/参合','':'未知'}}" onclick="medicareTypechange(this)"></s:radio>
 			</td>
 			</tr>
 			</table>
 			</td>
 		</tr>
 		<tr>
-			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">医院名称：</td>
+			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">参保编号：</td>
+			<td class="formtd2" colspan="3">&nbsp;<s:textfield id="ssn" name="tempDTO.ssn" size="40"/></td>
+		</tr>
+		<tr>
+			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">医院名称：</td>
 			<td class="formtd2" colspan="3" >
-				<table align="left" height="20px" border="0" cellpadding="0" cellspacing="0" width="100%">
+				<table align="left" height="8%" border="0" cellpadding="0" cellspacing="0" width="100%">
 					<tr>
-						<td width="40%">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<s:select id="hospitalId" name="tempDTO.hospitalId" list="depts" listKey="hospitalId" listValue="name" headerKey="0" headerValue="其他" onchange="gethosname(this)"></s:select>
+						<td width="250">
+							&nbsp;&nbsp;<s:select id="hospitalId" name="tempDTO.hospitalId" list="depts" listKey="hospitalId" listValue="name" headerKey="0" headerValue="其他" onchange="gethosname(this)"></s:select>
 						</td>
 						<td >
 						<div id="div_hospitalname" style="display:block">
-							<s:textfield id="hospitalname" name="tempDTO.hospitalname" size="40" disabled="false"/>
+							<s:textfield id="hospitalname" name="tempDTO.hospitalname" size="30" disabled="false"/>
 						</div>
 						</td>
 					</tr>
@@ -542,29 +552,38 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">救助类型：</td>
+			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">救助类型：</td>
 			<td class="formtd2" colspan="3">&nbsp;
-				<s:select id="assistype" list="#{'2':'住院','1':'门诊'}" name="tempDTO.assistype" cssStyle="width:200px"></s:select>
+				<s:select id="assistype" list="#{'2':'住院','1':'门诊'}" name="tempDTO.assistype" cssStyle="width:35%"></s:select>
 			</td>
 		</tr>
 		<tr>
-			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">入院时间：</td>
+			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">入院时间：</td>
 			<td class="formtd2" width="33%">&nbsp;<input type="text" readonly="readonly"
 				id="beginDate" name="tempDTO.begintime" onchange="startimechang(this);"
 				value='<s:date name="tempDTO.begintime" format="yyyy-MM-dd"/>' /></td>
-			<td class="formtd1" width="18%" style="font-weight:bold;color:#006030">出院时间：</td>
+		</tr>
+		<tr>
+			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">出院时间：</td>
 			<td class="formtd2">&nbsp;<input type="text"
 				readonly="readonly" id="endDate" name="tempDTO.endtime"
 				value='<s:date name="tempDTO.endtime" format="yyyy-MM-dd"/>' /></td>
 		</tr>
 		<tr>
-			<td class="formtd1" width="15%" style="font-weight:bold;color:#006030">诊断类型：</td>
+			<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">诊断类型：</td>
 			<td class="formtd2" >&nbsp;
 					<s:select id="diagnoseTypeId" name="tempDTO.diagnoseTypeId" list="diagnosetypes" 
 					listKey="diagnoseTypeId" listValue="diagnoseTypeName" disabled="false" headerKey="0" headerValue="请选择..."
 					onchange="getinhospitalsicken(this)"></s:select>
 			</td>
-			<td class="formtd1" width="18%" style="font-weight:bold;color:#006030">
+		</tr>
+		<tr>
+			<td class="formtd1"  width="8%" style="font-weight:bold;color:#006030">&nbsp;患病名称：</td>
+			<td class="formtd2"  colspan="3">&nbsp;<s:textfield id="inhospitalsicken" name="tempDTO.inhospitalsicken" size="40" />
+			</td>
+		</tr>
+		<tr>
+		<td class="formtd1" width="8%" style="font-weight:bold;color:#006030">
 			<s:if test='tempDTO.medicareType==2'>
 				<div id="div_otherType_title" style="display:block;height: 5px;margin-top:5px;">类别：</div>&nbsp;
 			</s:if>
@@ -593,75 +612,79 @@
 			</s:else>
 			&nbsp;</td>
 		</tr>
-		<tr>
-			<td class="formtd1"  width="15%" style="font-weight:bold;color:#006030">&nbsp;患病名称：</td>
-			<td class="formtd2"  colspan="3">&nbsp;<s:textfield id="inhospitalsicken" name="tempDTO.inhospitalsicken" size="45" />
-			</td>
-		</tr>
 	</table>
-	<table border="0" cellpadding="0" cellspacing="0" width="780px" class="formtable">
+	<div align="center" style="font-weight:bold;color:#104E8B;font-size:15px;">就  医  费  用</div>
+	<table border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">
 		<tr>
 			<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">总费用：</td>
-			<td class="formtd2" width="12%"> <s:textfield size="12" id="payTotal"
+			<td class="formtd2" >&nbsp;<s:textfield size="30" id="payTotal"
 				name="tempDTO.payTotal"
 				onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
 				onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
 				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" /></td>
+		</tr>
+		<tr>
 			<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">统筹支付：</td>
-			<td class="formtd2" width="12%"> <s:textfield size="12" id="payMedicare"
+			<td class="formtd2" >&nbsp;<s:textfield size="30" id="payMedicare"
 				name="tempDTO.payMedicare"
 				onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
 				onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
-				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" /></td>
+				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<s:checkbox id="medicareFlag" name="tempDTO.MedicareFlag" ></s:checkbox>基本医疗保险是否降低比例
+			</td>
+				
+		</tr>
+		<tr>
 			<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">目录外费用：</td>
-			<td class="formtd2"> <s:textfield size="12" id="payOutmedicare"
+			<td class="formtd2">&nbsp;<s:textfield size="30" id="payOutmedicare"
 				name="tempDTO.payOutmedicare"
 				onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
 				onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
 				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" /></td>
 		</tr>
 		<tr>
-			<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">本次大病保险支付金额:</td>
-			<td class="formtd2" colspan="3"> <s:textfield id="payCIAssist" readonly="false" name="tempDTO.payCIAssist" size="12" 
-				onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
-				onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
-				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
-				&nbsp;&nbsp;&nbsp;&nbsp;
-				<button type="button" onclick="getciamoney()" class="button blue small">计算大病保险金额</button>
-			</td>
 			<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">商业保险:</td>
-			<td class="formtd2"> <s:textfield id="insurance" name="tempDTO.insurance" size="12" value="0"
+			<td class="formtd2">&nbsp;<s:textfield id="insurance" name="tempDTO.insurance" size="30" value="0"
 				onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 				onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
 				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" /></td>
 		</tr>
 		<tr>
+			<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">本次大病保险:</td>
+			<td class="formtd2" >&nbsp;<s:textfield id="payCIAssist" readonly="false" name="tempDTO.payCIAssist" size="30"
+				onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
+				onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" 
+				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<button type="button" onclick="getciamoney()" class="button blue small" >计算大病保险</button>
+			</td>
+			
+		</tr>
+		<tr>
 			<td class="formtd1" width="20%" style="font-weight:bold;color:red;font-size:14px;">救助金额：</td>
-			<td class="formtd2" colspan="2">
+			<td class="formtd2" >&nbsp;
 				<s:textfield id="payAssist" 
 				name="tempDTO.payAssist" size="30" 
 				onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
 				onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
 				onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" />	
-				&nbsp;
-			</td>
-			<td colspan="3">
+				&nbsp;&nbsp;&nbsp;&nbsp;
 				<button id="zyjz" type="button" onclick="getjzmoney()"  class="button green small">计算救助金额</button>
 			</td>
-			
 		</tr>
 		<tr>
 			<td class="formtd1" width="15%" style="font-weight:bold;color:#104E8B">审批结果：</td>
-			<td class="formtd2" colspan="5">
-				<s:select name="tempDTO.bizStatus" list="#{'1':'同意'}" readonly="readonly"></s:select> 
+			<td class="formtd2" >
+				&nbsp;<s:select name="tempDTO.bizStatus" list="#{'1':'同意'}" readonly="readonly" ></s:select> 
 			</td>
 		</tr>
 	</table>
-	<table border="0" cellpadding="0" cellspacing="0" width="780px" class="formtable">
+	<table border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">
 		<tr>
-			<td class="formtd1" style="color:#7A8B8B" width="18%">本年累计住院救助金额:</td>
+			<td class="formtd1" style="color:#7A8B8B" width="20%">本年累计住院救助金额:</td>
 			<td class="formtd1" width="7%"><div id="AssistIn"><s:property value="tempDTO.paySumAssistIn"/>&nbsp;</div></td>
-			<td class="formtd1" style="color:#7A8B8B" width="24%">本年累计特殊门诊大病救助金额:</td>
+			<td class="formtd1" style="color:#7A8B8B" width="22%">本年累计特殊门诊大病救助金额:</td>
 			<td class="formtd1" width="7%"><div id="AssistOut"><s:property value="tempDTO.paySumAssistOut"/>&nbsp;</div></td>
 			<td class="formtd1" style="color:#7A8B8B" width="36%">
 				<s:if test="tempDTO.org=='220506'">本年累计救助金额:</s:if>
@@ -674,8 +697,9 @@
 		</tr>
 		<tr>
 			<td class="formtd1" style="color:#7A8B8B" width="18%">计算描述：</td>
-			<td class="formtd1" colspan="5"><div id="Msg"><s:property value="tempDTO.calcMsg"/>&nbsp;</div>&nbsp;</td>
-			<%-- <s:textarea id="calcMsg" name="tempDTO.calcMsg" cssStyle="border:hidden; size:10px; width:480px;height:45px;" />&nbsp; --%>
+			<td class="formtd1" colspan="5"><%-- <div id="Msg"><s:property value="tempDTO.calcMsg"/>&nbsp;</div>&nbsp; --%>
+			<s:textarea id="calcMsg" name="tempDTO.calcMsg" cssStyle="border:hidden; size:10px; width:480px;height:40px;" />
+			</td>
 			<s:hidden id="calcMsg" name="tempDTO.calcMsg"></s:hidden>
 		</tr>
 	</table>

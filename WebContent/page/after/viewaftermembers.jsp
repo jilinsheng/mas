@@ -18,7 +18,7 @@
 <script type="text/javascript">
 	function apply(m1,m2,m3){
 		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.calcType=1"+"&tempDTO.org="+m3;
-		var f="dialogWidth=780px;dialogHeight=570px;status=no;help=no;scroll=auto";
+		var f="dialogWidth=680px;dialogHeight=800px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 	function viewapply(m1,m2){

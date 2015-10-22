@@ -183,7 +183,7 @@
 					</li>
 					<li>
 						<span class="file"
-							onclick="viewhtml('../contentframe.jsp?url=../page/temp/queryafterapproveinit.action&amp;nav=[医后报销管理]>>[报销查询]')">报销查询</span>
+							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryafterapproveinit.action&amp;nav=[医后报销管理]>>[报销查询]')">报销查询</span>
 					</li>
 <!-- 					<li>
 						<span class="file"

@@ -19,7 +19,7 @@
 <title><s:property value="tempDTO.membername"></s:property>医后报销审批表</title>
 </head>
 <body>
-<table width="780px" class="formTitle">
+<table width="680px" class="formTitle">
 	<tr>
 		<td style="padding-left: 2px"><img
 			alt="<s:property value="tempDTO.membername"></s:property>医后报销审批表"
@@ -29,99 +29,121 @@
 		</td>
 	</tr>
 </table>
-<table align="center" border="0" cellpadding="0" cellspacing="0" width="780px" class="formtable">
+<%-- <table align="center" border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">
 	<tr>
-		<td class="formtd1" width="16%">家庭编号：</td>
-		<td class="formtd2" width="16%"><s:property
+		<td class="formtd1" width="20%">家庭编号：</td>
+		<td class="formtd2" width="20%"><s:property
 			value="tempDTO.familyno"></s:property></td>
-		<td class="formtd1" width="16%">姓名：</td>
-		<td class="formtd2" width="16%"><s:property
+		<td class="formtd1" width="20%">姓名：</td>
+		<td class="formtd2" width="20%"><s:property
 			value="tempDTO.membername"></s:property></td>
-		<td class="formtd1" width="16%">身份证号：</td>
+		<td class="formtd1" width="20%">身份证号：</td>
 		<td class="formtd2"><s:property value="tempDTO.paperid"></s:property></td>
 	</tr>
 	<tr>
-		<td class="formtd1" width="16%">性别：</td>
-		<td class="formtd2" width="16%"><s:property value="tempDTO.sex"></s:property></td>
-		<td class="formtd1" width="16%">家庭地址：</td>
-		<td class="formtd2" width="16%" colspan="3"><s:property
+		<td class="formtd1" width="20%">性别：</td>
+		<td class="formtd2" width="20%"><s:property value="tempDTO.sex"></s:property></td>
+		<td class="formtd1" width="20%">家庭地址：</td>
+		<td class="formtd2" width="20%" colspan="3"><s:property
 			value="tempDTO.address"></s:property></td>
 	</tr>
-</table>
-<table align="center" border="0" cellpadding="0" cellspacing="0" width="780px" class="formtable">
+</table> --%>
+<Br>
+	&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;color:#104E8B;">家庭编号：</font><s:property value="tempDTO.familyno"></s:property>
+	&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;color:#104E8B;">姓	名：</font><s:property value="tempDTO.membername"></s:property>
+	&nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;color:#104E8B;">身份证号：</font><s:property value="tempDTO.paperid"></s:property>
+	<%-- &nbsp;&nbsp;&nbsp;&nbsp;<font style="font-weight:bold;color:#104E8B;">家庭地址：</font><s:property value="tempDTO.address"></s:property> --%>
+
+	<hr/>
+	<div align="center" style="font-weight:bold;color:#104E8B;font-size:15px;">就  医  情  况</div>
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">
 	<tr>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">保险类型：</td>
-		<td class="formtd2">
+		<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">保险类型：</td>
+		<td class="formtd2" >
 			<s:if test="tempDTO.medicareType==1">城镇医保</s:if>
 			<s:if test="tempDTO.medicareType==2">新农合</s:if>
 			<s:if test="tempDTO.medicareType==0">未参保/参合</s:if>
 			<s:if test="tempDTO.medicareType==null">未知</s:if>
 		</td>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">参保编号：</td>
+		
+	</tr>
+	<tr>
+		<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">参保编号：</td>
 		<td class="formtd2"><s:property value="tempDTO.ssn" /></td>
 	</tr>
 	<tr>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">医院名称：</td>
-		<td class="formtd2" colspan="3"><s:property value="tempDTO.hospitalname" /></td>
+		<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">医院名称：</td>
+		<td class="formtd2" ><s:property value="tempDTO.hospitalname" /></td>
 	</tr>
 	<tr>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">开始时间：</td>
+		<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">开始时间：</td>
 		<td class="formtd2"><s:date name="tempDTO.begintime"
 			format="yyyy-MM-dd" /></td>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">结束时间：</td>
-		<td class="formtd2" colspan="3"><s:date name="tempDTO.endtime"
+	</tr>
+	<tr>
+		<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">结束时间：</td>
+		<td class="formtd2" ><s:date name="tempDTO.endtime"
 			format="yyyy-MM-dd" /></td>
 	</tr>
 	<tr>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">救助类型：</td>
-		<td class="formtd2" width="16%"><s:if test="tempDTO.assistype==1">门诊
+		<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">救助类型：</td>
+		<td class="formtd2"><s:if test="tempDTO.assistype==1">门诊
 				</s:if> <s:if test="tempDTO.assistype==2">住院
 				</s:if></td>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">类别：</td>
-		<td class="formtd2" colspan="3">
+	</tr>
+	<tr>
+		<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">患病名称：</td>
+		<td class="formtd2" >
+			<s:property value="tempDTO.inhospitalsicken" />
+		</td>
+	</tr>
+	<tr>
+		<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">类别：</td>
+		<td class="formtd2">
 			<s:if test="tempDTO.diagnoseTypeId==48">外伤</s:if>
 			<s:if test="tempDTO.diagnoseTypeId==49">未经医保/新农合确认的转诊</s:if>
 			<s:if test="tempDTO.diagnoseTypeId==0">其它</s:if>
 		</td>
 	</tr>
-	<tr>
-		<td class="formtd1" width="16%" style="font-weight:bold;color:#006030">患病名称：</td>
-		<td class="formtd2" colspan="5">
-			<s:property value="tempDTO.inhospitalsicken" />
-		</td>
-	</tr>
 </table>
-<table align="center" border="0" cellpadding="0" cellspacing="0" width="780px" class="formtable">	
+<div align="center" style="font-weight:bold;color:#104E8B;font-size:15px;">就  医  费  用</div>
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">	
 	<tr>
 		<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">总费用：</td>
-		<td class="formtd2" width="12%"><s:property
-			value="tempDTO.payTotal" /></td>
+		<td class="formtd2"><s:property value="tempDTO.payTotal" /></td>
+	</tr>
+	<tr>
 		<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">统筹支付：</td>
-		<td class="formtd2" width="12%"><s:property
-			value="tempDTO.payMedicare" /></td>
+		<td class="formtd2"><s:property value="tempDTO.payMedicare" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<s:if test="tempDTO.MedicareFlag==true">基本医疗保险--降低比例</s:if>
+		<s:else>基本医疗保险--不降低比例</s:else> </td>
+	</tr>
+	<tr>
 		<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">目录外费用：</td>
 		<td class="formtd2"><s:property value="tempDTO.payOutmedicare" />&nbsp;</td>
 	</tr>
 	<tr>
-		<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">本次大病保险支付金额:</td>
-		<td class="formtd2" colspan="3"><s:property value="tempDTO.payCIAssist" /></td>
 		<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">商业保险:</td>
-		<td class="formtd2" width="12%"><s:property value="tempDTO.insurance" />&nbsp;</td>
+		<td class="formtd2" ><s:property value="tempDTO.insurance" />&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">本次大病保险:</td>
+		<td class="formtd2" ><s:property value="tempDTO.payCIAssist" /></td>
 	</tr>
 	<tr>
 		<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">救助金额：</td>
-		<td class="formtd2" colspan="5"><s:property
+		<td class="formtd2"><s:property
 			value="tempDTO.payAssist" /></td>
 	</tr>
 	<tr>
 		<td class="formtd1" width="20%" style="font-weight:bold;color:#104E8B">审批结果：</td>
-		<td class="formtd2" colspan="5">
+		<td class="formtd2">
 			<s:if test="tempDTO.bizStatus==1">同意</s:if>
 			<s:elseif test="tempDTO.bizStatus==-1">审批中</s:elseif>
 			<s:elseif test="tempDTO.bizStatus==0">不同意</s:elseif></td>
 	</tr>
 </table>
-<table align="center" border="0" cellpadding="0" cellspacing="0" width="780px" class="formtable">
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">
 	<tr>
 		<td class="formtd1" width="18%" style="color:#7A8B8B" width="18%">本年累计住院救助金额:</td>
 		<td class="formtd2" width="7%"><s:property value="tempDTO.paySumAssistIn" />&nbsp;</td>

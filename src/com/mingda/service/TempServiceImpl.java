@@ -597,16 +597,6 @@ public class TempServiceImpl implements TempService {
 				tempDTO.setHospitalLevel(Integer.valueOf(a.getHospitalLevel()
 						.trim()));
 			}
-			if (null == a.getHospitalId()) {
-				tempDTO.setHospitalId(0);
-			} else {
-				tempDTO.setHospitalId(a.getHospitalId());
-			}
-			if (null == a.getDiagnoseTypeId()) {
-				tempDTO.setDiagnoseTypeId(0);
-			} else {
-				tempDTO.setDiagnoseTypeId(a.getDiagnoseTypeId());
-			}
 			if (null == a.getIcdId()) {
 				tempDTO.setIcdId(0);
 			} else {
@@ -617,7 +607,6 @@ public class TempServiceImpl implements TempService {
 			} else {
 				tempDTO.setSpecBiz(Integer.valueOf(a.getSpecbiz().trim()));
 			}
-			tempDTO.setCalcMsg(a.getCalcmsg());
 			if (null == a.getHospitalId()) {
 				tempDTO.setHospitalId(0);
 			} else {
@@ -628,15 +617,10 @@ public class TempServiceImpl implements TempService {
 			} else {
 				tempDTO.setDiagnoseTypeId(a.getDiagnoseTypeId());
 			}
-			if (null == a.getIcdId()) {
-				tempDTO.setIcdId(0);
-			} else {
-				tempDTO.setIcdId(a.getIcdId());
-			}
-			if (null == a.getSpecbiz()) {
-				tempDTO.setSpecBiz(0);
-			} else {
-				tempDTO.setSpecBiz(Integer.parseInt(a.getSpecbiz().trim()));
+			if("1".equals(a.getMedicareFlag())){
+				tempDTO.setMedicareFlag(true);
+			}else{
+				tempDTO.setMedicareFlag(false);
 			}
 			tempDTO.setCalcMsg(a.getCalcmsg());
 		}
@@ -694,6 +678,11 @@ public class TempServiceImpl implements TempService {
 			record.setOtherType(tempDTO.getOtherType());
 			record.setSsn(tempDTO.getSsn());
 			record.setBusinessYear(tempDTO.getBusinessyear());
+			if(tempDTO.getMedicareFlag()){
+				record.setMedicareFlag("1");
+			}else{
+				record.setMedicareFlag("0");
+			}
 			Integer id = jzMedicalafterDAO.insertSelective(record);
 			tempDTO.setApproveId(id.longValue());
 			if (!"".equals(tempDTO.getAssistTypeM())
@@ -760,6 +749,11 @@ public class TempServiceImpl implements TempService {
 			record.setOtherType(tempDTO.getOtherType());
 			record.setSsn(tempDTO.getSsn());
 			record.setBusinessYear(tempDTO.getBusinessyear());
+			if(tempDTO.getMedicareFlag()){
+				record.setMedicareFlag("1");
+			}else{
+				record.setMedicareFlag("0");
+			}
 			jzMedicalafterDAO.updateByPrimaryKeySelective(record);
 			if (!"".equals(tempDTO.getAssistTypeM())
 					&& null != tempDTO.getAssistTypeM()) {

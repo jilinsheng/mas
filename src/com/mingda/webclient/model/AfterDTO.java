@@ -79,7 +79,8 @@ public class AfterDTO {
 	private BigDecimal AssistCIA;
 	private String CalcMsg;
 	private String businessyear;
-	private Integer zzFlag;
+	private int MedicareFlag;//基本医疗保险是否降低比例，0：不降低，1：降低
+
 	
 	public String getOrgCode() {
 		return OrgCode;
@@ -270,12 +271,11 @@ public class AfterDTO {
 	public void setBusinessyear(String businessyear) {
 		this.businessyear = businessyear;
 	}
-	public Integer getZzFlag() {
-		return zzFlag;
+	public int getMedicareFlag() {
+		return MedicareFlag;
 	}
-	public void setZzFlag(Integer zzFlag) {
-		this.zzFlag = zzFlag;
+	public void setMedicareFlag(int medicareFlag) {
+		MedicareFlag = medicareFlag;
 	}
-
 
 }

@@ -70,6 +70,7 @@ public class CiDTO {
 	private String end_time;
 	private String businessyear;
 	private String orgCode;
+	private int XnhZzFlag;//是否未经新农合批准转诊，0：批准，1：未批准
 	
 	public BigDecimal getPay_Total() {
 		return pay_Total;
@@ -190,6 +191,12 @@ public class CiDTO {
 	}
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
+	}
+	public int getXnhZzFlag() {
+		return XnhZzFlag;
+	}
+	public void setXnhZzFlag(int xnhZzFlag) {
+		XnhZzFlag = xnhZzFlag;
 	}
 
 	

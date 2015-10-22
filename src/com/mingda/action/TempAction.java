@@ -709,6 +709,11 @@ public class TempAction extends ActionSupport {
 		System.out.println("计算大病保险,临时本次业务年度："+businessyear);
 		ciDTO.setBusinessyear(businessyear+"");
 		ciDTO.setOrgCode(organizationId);
+		if("49".equals(tempDTO.getOtherType())){
+			ciDTO.setXnhZzFlag(1);
+		}else{
+			ciDTO.setXnhZzFlag(0);
+		}
 		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		if ("1".equals(ciDTO.getReturnFlag())) {
 			json.put("in", ciDTO.getPaySumAssistIn());
@@ -753,6 +758,11 @@ public class TempAction extends ActionSupport {
 		System.out.println("临时本次业务年度："+businessyear);
 		ciDTO.setBusinessyear(businessyear+"");
 		ciDTO.setOrgCode(organizationId);
+		if("49".equals(tempDTO.getOtherType())){
+			ciDTO.setXnhZzFlag(1);
+		}else{
+			ciDTO.setXnhZzFlag(0);
+		}
 		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		if ("1".equals(ciDTO.getReturnFlag())) {
 			tempDTO.setPaySumAssistIn(ciDTO.getPaySumAssistIn());
@@ -805,6 +815,11 @@ public class TempAction extends ActionSupport {
 		System.out.println("计算大病保险,本次业务年度："+businessyear);
 		ciDTO.setBusinessyear(businessyear+"");
 		ciDTO.setOrgCode(organizationId);
+		if("49".equals(tempDTO.getOtherType())){
+			ciDTO.setXnhZzFlag(1);
+		}else{
+			ciDTO.setXnhZzFlag(0);
+		}
 		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		// 外伤、未经医保/新农合确认的转诊
 		if (!"0".equals(tempDTO.getOtherType())) {
@@ -913,6 +928,11 @@ public class TempAction extends ActionSupport {
 		System.out.println("本次业务年度："+businessyear);
 		ciDTO.setBusinessyear(businessyear+"");
 		ciDTO.setOrgCode(organizationId);
+		if("49".equals(tempDTO.getOtherType())){
+			ciDTO.setXnhZzFlag(1);
+		}else{
+			ciDTO.setXnhZzFlag(0);
+		}
 		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		// 外伤、未经医保/新农合确认的转诊
 		if ("0".equals(tempDTO.getDiagnoseTypeId())) {
@@ -1015,13 +1035,7 @@ public class TempAction extends ActionSupport {
 			int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
 			System.out.println("本次业务年度："+businessyear);
 			afterDTO.setBusinessyear(businessyear+"");
-			Integer i = 0;
-			if("49".equals(tempDTO.getOtherType())){
-				i = 1;
-			}else{
-				i = 0;
-			}
-			afterDTO.setZzFlag(i);
+			afterDTO.setMedicareFlag(0);
 			afterDTO = yljzService.getAssistMoneyAfterEx(afterDTO);
 			if ("1".equals(afterDTO.getReturnFlag())) {
 				if ("2".equals(tempDTO.getAssistype())) {
@@ -3606,13 +3620,7 @@ public class TempAction extends ActionSupport {
 			int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
 			System.out.println("本次业务年度："+businessyear);
 			afterDTO.setBusinessyear(businessyear+"");
-			Integer i = 0;
-			if("49".equals(tempDTO.getOtherType())){
-				i = 1;
-			}else{
-				i = 0;
-			}
-			afterDTO.setZzFlag(i);
+			afterDTO.setMedicareFlag(0);
 			afterDTO = yljzService.getAssistMoneyAfterEx(afterDTO);
 			
 			if ("1".equals(afterDTO.getReturnFlag())) {

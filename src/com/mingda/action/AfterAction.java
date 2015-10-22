@@ -55,6 +55,8 @@ public class AfterAction extends ActionSupport {
 	private String oid;
 	private String toolsmenu;
 	private String assistype;
+	private String opertime1;
+	private String opertime2;
 
 	@SuppressWarnings("rawtypes")
 	public String queryaftermemberinit() {
@@ -189,6 +191,11 @@ public class AfterAction extends ActionSupport {
 		System.out.println("计算大病保险,本次业务年度："+businessyear);
 		ciDTO.setBusinessyear(businessyear+"");
 		ciDTO.setOrgCode(organizationId);
+		if("49".equals(tempDTO.getOtherType())){
+			ciDTO.setXnhZzFlag(1);
+		}else{
+			ciDTO.setXnhZzFlag(0);
+		}
 		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
 		// 外伤、未经医保/新农合确认的转诊
 		if (!"0".equals(tempDTO.getOtherType())) {
@@ -464,13 +471,11 @@ public class AfterAction extends ActionSupport {
 			int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
 			System.out.println("本次业务年度："+businessyear);
 			afterDTO.setBusinessyear(businessyear+"");
-			Integer i = 0;
-			if("49".equals(tempDTO.getOtherType())){
-				i = 1;
+			if(tempDTO.getMedicareFlag()){
+				afterDTO.setMedicareFlag(1);
 			}else{
-				i = 0;
+				afterDTO.setMedicareFlag(0);
 			}
-			afterDTO.setZzFlag(i);
 			afterDTO = yljzService.getAssistMoneyAfterEx(afterDTO);
 			
 			if ("1".equals(afterDTO.getReturnFlag())) {
@@ -678,6 +683,153 @@ public class AfterAction extends ActionSupport {
         }
         return 0;
     }
+	
+	@SuppressWarnings("rawtypes")
+	public String queryafterapproveinit() {
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String organizationId = user.getOrganizationId();
+
+		if (6 == organizationId.length() || 8 == organizationId.length()) {
+			if (2 == organizationId.length()) {
+				orgs = systemDataService.findOrganizationExt(organizationId);
+			} else {
+				orgs = systemDataService.findOrgParentAndChilds(organizationId);
+			}
+			return SUCCESS;
+
+		} else {
+			result = "此功能为区县、街道使用！";
+			return "result";
+		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public String queryafterapprove() {
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String organizationId = user.getOrganizationId();
+		String sql = "";
+		if (null == cur_page || "".equals(cur_page)) {
+
+			String var = value;
+			String jwhere = "";
+			if (!"".equals(var)) {
+				if ("=".equals(operational)) {
+					var = " = '" + var + "'";
+				} else if ("like".equals(operational)) {
+					var = "like  '%" + var + "%'";
+				} else {
+					var = "";
+				}
+				if ("SSN".equals(term)) {
+					jwhere = jwhere + " and  mem.SSN  " + var;
+				} else if ("FAMILYNO".equals(term)) {
+					jwhere = jwhere + " and mem.FAMILYNO  " + var;
+				} else if ("MEMBERNAME".equals(term)) {
+					jwhere = jwhere + " and  mem.MEMBERNAME  " + var;
+				} else if ("PAPERID".equals(term)) {
+					jwhere = jwhere + " and  mem.PAPERID " + var;
+				} else {
+				}
+			}
+			if (oid == null || "".equals(oid)) {
+				jwhere = jwhere + " and  mem.familyno like '" + organizationId
+						+ "%' ";
+			} else {
+				jwhere = jwhere + " and  mem.familyno like '" + oid + "%' ";
+			}
+			if (null == app || "".equals(app)) {
+
+			} else if ("1".equals(app)) {
+				jwhere = jwhere + " and  a.member_type='1' ";
+			} else if ("2".equals(app)) {
+				jwhere = jwhere + " and  a.member_type='2' ";
+			}
+			String jwhere1 = "";
+			if ((opertime1.equals("") || null == opertime1)
+					&& (opertime2.equals("") || null == opertime2)) {
+			} else if (opertime1.equals("") || null == opertime1) {
+				jwhere1 = jwhere1 + " and t.oper_time > TO_DATE('"
+						+ opertime2.substring(0, 10)
+						+ " 23:59:59', 'yyyy-MM-dd hh24:mi:ss')";
+
+			} else if (opertime2.equals("") || null == opertime2) {
+				jwhere1 = jwhere1 + "and t.oper_time < TO_DATE('"
+						+ opertime1.substring(0, 10)
+						+ " 00:00:00', 'yyyy-MM-dd hh24:mi:ss') ";
+
+			} else {
+				jwhere1 = jwhere1 + " and t.oper_time BETWEEN TO_DATE('"
+						+ opertime1.substring(0, 10)
+						+ " 00:00:00', 'yyyy-MM-dd hh24:mi:ss') AND TO_DATE('"
+						+ opertime2.substring(0, 10)
+						+ " 23:59:59', 'yyyy-MM-dd hh24:mi:ss')";
+			}
+			if (null == assistype || "".equals(assistype)) {
+
+			} else {
+				jwhere1 = jwhere1 + " and t.assist_type = '" + assistype + "'";
+			}
+
+			sql = "select mem.membername, mem.paperid, mem.familyno,  a.member_id, "
+					+ " a.member_type,  cs, pay_total,  pay_medicare, pay_outmedicare, "
+					+ " pay_assist , pay_ciassist, mem.address, mem.rpraddress ,  a.diagnose_name, a.hospital_name, mem.personstate, mem.assist_type, mem.assist_typex, mem.orgname1, mem.orgname2 "
+					+ " from "
+					+ " (select a.*,org1.orgname as orgname1 ,org2.orgname as orgname2 from MEMBER_BASEINFOVIEW02 a "
+					+ " left join manager_org org1 "
+					+ " on org1.depth = 4 "
+					+ " and org1.organization_id = substr(a.familyno, 1, 8) "
+					+ " left join manager_org org2 "
+					+ " on org2.depth = 5 "
+					+ " and org2.organization_id = substr(a.familyno, 1, 10))mem, "
+					+ " (select t.member_id, t.member_type,  count(*) as cs, "
+					+ " sum(nvl(t.pay_total, 0)) as pay_total, "
+					+ " sum(nvl(t.pay_medicare, 0)) as pay_medicare, "
+					+ " sum(nvl(t.pay_outmedicare, 0)) as pay_outmedicare, "
+					+ " sum(nvl(t.pay_assist, 0)) as pay_assist ,"
+					+ " sum(nvl(t.pay_ciassist,0)) as pay_ciassist, "
+					+ " max(t.diagnose_name) as diagnose_name,  max(t.hospital_name) as hospital_name "
+					+ " from jz_medicalafter t where t.biz_status='1' "
+					+ jwhere1
+					+ " group by (t.member_id, t.member_type)) a "
+					+ " where mem.member_id = a.member_id and mem.ds = a.member_type "
+					+ jwhere + " order by mem.familyno";
+			session.put("sql", sql);
+			HashMap title = new HashMap();
+			title.put("FAMILYNO,val", "家庭编号");
+			title.put("MEMBERNAME,val", "姓名");
+			title.put("PAPERID,val", "身份证号");
+			title.put("PAY_TOTAL,val", "总费用");
+			title.put("PAY_ASSIST,val", "救助金");
+			title.put("PAY_CIASSIST,val", "大病保险");
+			title.put("PAY_MEDICARE,val", "统筹");
+			title.put("PAY_OUTMEDICARE,val", "目录外费用");
+			title.put("ADDRESS,val", "家庭地址");
+			title.put("RPRADDRESS,val", "户口所在地");
+			title.put("ORGNAME1", "街道/乡镇");
+			title.put("ORGNAME2", "社区/村");
+			title.put("DIAGNOSE_NAME,val", "患病名称");
+			title.put("HOSPITAL_NAME,val", "医院名称");
+			session.put("title", title);
+			cur_page = "1";
+		} else {
+			sql = (String) session.get("sql");
+		}
+		tempmembers = tempService.findAfterapprove(sql,
+				new BigDecimal(cur_page).intValue(),
+				"page/temp/queryafterapprove.action");
+		setToolsmenu(tempService.getToolsmenu());
+		// 获取机构
+		if (6 == organizationId.length() || 8 == organizationId.length()) {
+			if (2 == organizationId.length()) {
+				orgs = systemDataService.findOrganizationExt(organizationId);
+			} else {
+				orgs = systemDataService.findOrgParentAndChilds(organizationId);
+			}
+		}
+		return SUCCESS;
+	}
 
 	public String getResult() {
 		return result;
@@ -869,6 +1021,22 @@ public class AfterAction extends ActionSupport {
 
 	public void setAssistype(String assistype) {
 		this.assistype = assistype;
+	}
+
+	public String getOpertime1() {
+		return opertime1;
+	}
+
+	public void setOpertime1(String opertime1) {
+		this.opertime1 = opertime1;
+	}
+
+	public String getOpertime2() {
+		return opertime2;
+	}
+
+	public void setOpertime2(String opertime2) {
+		this.opertime2 = opertime2;
 	}
 
 }

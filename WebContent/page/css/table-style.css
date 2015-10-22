@@ -120,7 +120,7 @@ body {
 }
 
 .formtable {
-	height: 30px;
+	height: 20px;
 	border: 1px solid #000000;
 	border-width: 1px 1px 1px 1px;
 	margin: 2px 0 2px 0;
@@ -129,7 +129,7 @@ body {
 }
 
 .formtd1 {
-	height: 30px;
+	height: 20px;
 	font-size: 12px;
 	border: 1px solid #999999;
 	border-width: 1px 1px 1px 1px;
@@ -197,6 +197,7 @@ body {
 	background: url(../images/tr_back.gif) repeat-x;
 	color:#fff;
 }
+
 
 
 

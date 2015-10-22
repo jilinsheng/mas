@@ -22,7 +22,7 @@
 	function modify(m1,m2,m3,m4,m5,m6,m7){
 		alert(m6);
 		var url="afterapplyinitnew.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3+"&tempDTO.calcType=2&tempDTO.assistype="+m4+"&tempDTO.assistTypex="+m5+"&tempDTO.paperid="+m6+"&tempDTO.org="+m7;
-		var f="dialogWidth=780px;dialogHeight=710px;status=no;help=no;scroll=auto";
+		var f="dialogWidth=680px;dialogHeight=800px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 	function del(m1,m2,m3,m4,m5){
@@ -32,7 +32,7 @@
 	}
 	function view(m1,m2,m3){
 		var url="viewafterapply.action?tempDTO.memberId="+m1+"&tempDTO.memberType="+m2+"&tempDTO.approveId="+m3;
-		var f="dialogWidth=780px;dialogHeight=710px;status=no;help=no;scroll=auto";
+		var f="dialogWidth=680px;dialogHeight=800px;status=no;help=no;scroll=auto";
 		window.showModalDialog(url,window,f);
 	}
 </script>

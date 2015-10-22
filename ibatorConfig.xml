@@ -189,9 +189,15 @@
 			<generatedKey column="P_ID"
 				sqlStatement="select SQ_P_ID.nextval from dual" />
 		</table> -->
-		<table tableName="org_enabled" schema="medical">
+<!-- 		<table tableName="org_enabled" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
+		</table> -->
+		<table tableName="JZ_MEDICALAFTER" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+			<generatedKey column="BIZ_ID"
+				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
 		</table>
 	</ibatorContext>
 </ibatorConfiguration>

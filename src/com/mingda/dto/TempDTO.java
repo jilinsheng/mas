@@ -122,6 +122,8 @@ public class TempDTO {
 	private String hospitalLocal;
 	private String businessyear;
 	
+	private Boolean MedicareFlag;
+	
 	public BigDecimal getPaySumAssistScopeIn() {
 		return paySumAssistScopeIn;
 	}
@@ -1032,6 +1034,14 @@ public class TempDTO {
 
 	public void setBusinessyear(String businessyear) {
 		this.businessyear = businessyear;
+	}
+
+	public Boolean getMedicareFlag() {
+		return MedicareFlag;
+	}
+
+	public void setMedicareFlag(Boolean medicareFlag) {
+		MedicareFlag = medicareFlag;
 	}
 
 }

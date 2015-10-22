@@ -226,6 +226,9 @@ public class BasicHttpBinding_IServiceYljzStub extends org.apache.axis.client.St
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://tempuri.org/", "CalcType"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), java.lang.Integer.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://tempuri.org/", "XnhZzFlag"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), java.lang.Integer.class, false, false);
+        param.setOmittable(true);
+        oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://tempuri.org/", "Old_Pay_Total"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"), java.math.BigDecimal.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
@@ -1025,6 +1028,9 @@ public class BasicHttpBinding_IServiceYljzStub extends org.apache.axis.client.St
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://tempuri.org/", "SpecFlag"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), java.lang.Integer.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://tempuri.org/", "MedicareFlag"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), java.lang.Integer.class, false, false);
+        param.setOmittable(true);
+        oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://tempuri.org/", "Pay_Total"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"), java.math.BigDecimal.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
@@ -1400,6 +1406,9 @@ public class BasicHttpBinding_IServiceYljzStub extends org.apache.axis.client.St
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://tempuri.org/", "Icd_ID"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), java.lang.Integer.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://tempuri.org/", "MedicareFlag"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), java.lang.Integer.class, false, false);
+        param.setOmittable(true);
+        oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://tempuri.org/", "Pay_Total"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "decimal"), java.math.BigDecimal.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
@@ -1418,9 +1427,6 @@ public class BasicHttpBinding_IServiceYljzStub extends org.apache.axis.client.St
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://tempuri.org/", "Business_Year"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
         param.setNillable(true);
-        oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://tempuri.org/", "ZzFlag"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), java.lang.Integer.class, false, false);
-        param.setOmittable(true);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
         oper.setReturnClass(java.lang.String.class);
@@ -2836,7 +2842,7 @@ public class BasicHttpBinding_IServiceYljzStub extends org.apache.axis.client.St
 }
     }
 
-    public java.lang.String getCIAssistByPaperIDEx(java.lang.String paperID, java.lang.String orgCode, java.lang.String medicareType, java.lang.Integer calcType, java.math.BigDecimal old_Pay_Total, java.math.BigDecimal old_Pay_Medicare, java.math.BigDecimal old_Pay_OutMedicare, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_OutMedicare, java.lang.String end_Time, java.lang.String business_Year) throws java.rmi.RemoteException {
+    public java.lang.String getCIAssistByPaperIDEx(java.lang.String paperID, java.lang.String orgCode, java.lang.String medicareType, java.lang.Integer calcType, java.lang.Integer xnhZzFlag, java.math.BigDecimal old_Pay_Total, java.math.BigDecimal old_Pay_Medicare, java.math.BigDecimal old_Pay_OutMedicare, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_OutMedicare, java.lang.String end_Time, java.lang.String business_Year) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -2852,7 +2858,7 @@ public class BasicHttpBinding_IServiceYljzStub extends org.apache.axis.client.St
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {paperID, orgCode, medicareType, calcType, old_Pay_Total, old_Pay_Medicare, old_Pay_OutMedicare, pay_Total, pay_Medicare, pay_OutMedicare, end_Time, business_Year});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {paperID, orgCode, medicareType, calcType, xnhZzFlag, old_Pay_Total, old_Pay_Medicare, old_Pay_OutMedicare, pay_Total, pay_Medicare, pay_OutMedicare, end_Time, business_Year});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -4060,7 +4066,7 @@ public class BasicHttpBinding_IServiceYljzStub extends org.apache.axis.client.St
 }
     }
 
-    public java.lang.String getAssistMoney(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.Long out_biz_id, java.lang.Integer bizType, java.lang.Integer inTypeID, java.lang.String begin_Time, java.lang.String dept_Name, java.lang.String area_Name, java.lang.Long icdID, java.lang.String diagnose_Code, java.lang.String diagnose_Name, java.lang.String end_Time, java.lang.String fin_Time, java.lang.Integer diagnoseType, java.lang.Integer specFlag, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Account, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Other, java.math.BigDecimal pay_OutMedicare, java.math.BigDecimal pay_MinLine, java.math.BigDecimal pay_Cash, java.math.BigDecimal pay_Dbbx, java.lang.Integer gatherFlag, java.lang.Long user_ID) throws java.rmi.RemoteException {
+    public java.lang.String getAssistMoney(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.String memberType, java.lang.String memberID, java.lang.Long biz_id, java.lang.Long out_biz_id, java.lang.Integer bizType, java.lang.Integer inTypeID, java.lang.String begin_Time, java.lang.String dept_Name, java.lang.String area_Name, java.lang.Long icdID, java.lang.String diagnose_Code, java.lang.String diagnose_Name, java.lang.String end_Time, java.lang.String fin_Time, java.lang.Integer diagnoseType, java.lang.Integer specFlag, java.lang.Integer medicareFlag, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Account, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Other, java.math.BigDecimal pay_OutMedicare, java.math.BigDecimal pay_MinLine, java.math.BigDecimal pay_Cash, java.math.BigDecimal pay_Dbbx, java.lang.Integer gatherFlag, java.lang.Long user_ID) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -4076,7 +4082,7 @@ public class BasicHttpBinding_IServiceYljzStub extends org.apache.axis.client.St
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {orgCode, hospital_ID, memberType, memberID, biz_id, out_biz_id, bizType, inTypeID, begin_Time, dept_Name, area_Name, icdID, diagnose_Code, diagnose_Name, end_Time, fin_Time, diagnoseType, specFlag, pay_Total, pay_Account, pay_Medicare, pay_Other, pay_OutMedicare, pay_MinLine, pay_Cash, pay_Dbbx, gatherFlag, user_ID});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {orgCode, hospital_ID, memberType, memberID, biz_id, out_biz_id, bizType, inTypeID, begin_Time, dept_Name, area_Name, icdID, diagnose_Code, diagnose_Name, end_Time, fin_Time, diagnoseType, specFlag, medicareFlag, pay_Total, pay_Account, pay_Medicare, pay_Other, pay_OutMedicare, pay_MinLine, pay_Cash, pay_Dbbx, gatherFlag, user_ID});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -4264,7 +4270,7 @@ public class BasicHttpBinding_IServiceYljzStub extends org.apache.axis.client.St
 }
     }
 
-    public java.lang.String getAssistMoneyAfterEx(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.Integer hospital_Level, java.lang.Integer hospital_Local, java.lang.Integer hospital_Type, java.lang.String memberType, java.lang.String memberID, java.lang.String medicareType, java.lang.Integer bizType, java.lang.Integer specBiz, java.lang.String begin_Time, java.lang.String end_Time, java.lang.Integer diagnose_Type_ID, java.lang.Integer icd_ID, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Dbbx, java.math.BigDecimal pay_Sybx, java.math.BigDecimal pay_OutMedicare, java.lang.String business_Year, java.lang.Integer zzFlag) throws java.rmi.RemoteException {
+    public java.lang.String getAssistMoneyAfterEx(java.lang.String orgCode, java.lang.Long hospital_ID, java.lang.Integer hospital_Level, java.lang.Integer hospital_Local, java.lang.Integer hospital_Type, java.lang.String memberType, java.lang.String memberID, java.lang.String medicareType, java.lang.Integer bizType, java.lang.Integer specBiz, java.lang.String begin_Time, java.lang.String end_Time, java.lang.Integer diagnose_Type_ID, java.lang.Integer icd_ID, java.lang.Integer medicareFlag, java.math.BigDecimal pay_Total, java.math.BigDecimal pay_Medicare, java.math.BigDecimal pay_Dbbx, java.math.BigDecimal pay_Sybx, java.math.BigDecimal pay_OutMedicare, java.lang.String business_Year) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -4280,7 +4286,7 @@ public class BasicHttpBinding_IServiceYljzStub extends org.apache.axis.client.St
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {orgCode, hospital_ID, hospital_Level, hospital_Local, hospital_Type, memberType, memberID, medicareType, bizType, specBiz, begin_Time, end_Time, diagnose_Type_ID, icd_ID, pay_Total, pay_Medicare, pay_Dbbx, pay_Sybx, pay_OutMedicare, business_Year, zzFlag});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {orgCode, hospital_ID, hospital_Level, hospital_Local, hospital_Type, memberType, memberID, medicareType, bizType, specBiz, begin_Time, end_Time, diagnose_Type_ID, icd_ID, medicareFlag, pay_Total, pay_Medicare, pay_Dbbx, pay_Sybx, pay_OutMedicare, business_Year});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
