@@ -100,9 +100,9 @@
 	<tr>
 		<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">类别：</td>
 		<td class="formtd2">
-			<s:if test="tempDTO.diagnoseTypeId==48">外伤</s:if>
-			<s:if test="tempDTO.diagnoseTypeId==49">未经医保/新农合确认的转诊</s:if>
-			<s:if test="tempDTO.diagnoseTypeId==0">其它</s:if>
+			<s:if test="tempDTO.otherType==48">外伤</s:if>
+			<s:if test="tempDTO.otherType==49">未经医保/新农合确认的转诊</s:if>
+			<s:if test="tempDTO.otherType==0">其它</s:if>
 		</td>
 	</tr>
 </table>
