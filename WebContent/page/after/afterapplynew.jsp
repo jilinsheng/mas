@@ -707,7 +707,7 @@
 			<td class="formtd1" colspan="5"><%-- <div id="Msg"><s:property value="tempDTO.calcMsg"/>&nbsp;</div>&nbsp; --%>
 			<s:textarea id="calcMsg" name="tempDTO.calcMsg" cssStyle="border:hidden; size:10px; width:480px;height:40px;" />
 			</td>
-			<s:hidden id="calcMsg" name="tempDTO.calcMsg"></s:hidden>
+			<%-- <s:hidden id="calcMsg" name="tempDTO.calcMsg"> </s:hidden>--%>
 		</tr>
 	</table>
 	<div align="center"><s:submit id="b" value="保存" disabled="true"></s:submit>&nbsp;&nbsp;&nbsp;&nbsp;
