@@ -42,17 +42,17 @@
 					</li>
 				</ul>
 			</li>
-			<li>
+			<!-- <li>
 				<span class="folder">重点优抚对象</span>
 				<ul>
-					<!-- <li
+					<li
 						onclick="viewhtml('../contentframe.jsp?url=../page/specialcare/editspecinit.action&amp;nav=[重点优抚对象]>>[录入审批]')">
 						<span class="file">录入审批</span>
 					</li>
 					<li
 						onclick="viewhtml('../contentframe.jsp?url=../page/guarantee/uploadexcelinit1.action&amp;nav=[重点优抚对象]>>[对象导入]')">
 						<span class="file">对象导入</span>
-					</li> -->
+					</li>
 					<li
 						onclick="viewhtml('../contentframe.jsp?url=../page/specialcare/queryspecinit.action&amp;nav=[重点优抚对象]>>[调整复查]')">
 						<span class="file">调整复查</span>
@@ -62,7 +62,7 @@
 						<span class="file">查询</span>
 					</li>
 				</ul>
-			</li>
+			</li> -->
 			<li>
 				<span class="folder">三无人员</span>
 				<ul>
