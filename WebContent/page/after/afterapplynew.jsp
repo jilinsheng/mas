@@ -382,7 +382,7 @@
 						$('#AssistIn')[0].innerText=iin;
 						$('#AssistOut')[0].innerText=out;
 						$('#MedicareScope')[0].innerText=sum;
-						$('#Msg')[0].innerText=calcmsg;
+						//$('#Msg')[0].innerText=calcmsg;
 						$('#businessyear')[0].value=year;
 					}else{
 						alert(info);
