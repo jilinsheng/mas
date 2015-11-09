@@ -1076,13 +1076,18 @@ public class ChronicServiceImpl implements ChronicService {
 	public String findMoney(ChronicCheckDTO chronicCheckDTO) {
 		//OutIcdKey key = new OutIcdKey();
 		OutIcdExample example = new OutIcdExample();
+		Integer icdid = Integer.valueOf(chronicCheckDTO.getMainId()).intValue();
 		example.createCriteria()
-				.andIcdIdEqualTo(new Integer(chronicCheckDTO.getMainId()))
+				.andIcdIdEqualTo(icdid)
 				.andOrganizationIdEqualTo(chronicCheckDTO.getOrganziationId())
 				.andStsEqualTo("1");
 		//key.setIcdId(new Integer(chronicCheckDTO.getMainId()));
 		//key.setOrganizationId(chronicCheckDTO.getOrganziationId());
-		OutIcd rs =outIcdDAO.selectByExample(example).get(0);
+		List<OutIcd> r = outIcdDAO.selectByExample(example);
+		OutIcd rs = null; 
+		if(r.size()>0){
+			 rs =r.get(0);
+		}
 		//OutIcd rs = outIcdDAO.selectByPrimaryKey(key);
 		if (null == rs) {
 			return "0";
