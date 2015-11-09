@@ -131,20 +131,10 @@
 							<s:if test="#session.user.organizationId.length()==6">
 							<%-- <a href="javascript:void(0)" onclick="yn('<s:property value="approveId"></s:property>','1')">同意</a>&nbsp;&nbsp;&nbsp;&nbsp; --%>
 								<s:if test="approvests==-1 || approvests==0">
-									<s:if test="#session.user.organizationId=='220506'">
-										<a href="javascript:void(0)" onclick="modifynew('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="paperid"/>','<s:property value="#session.user.organizationId"/>')">同意</a>&nbsp;&nbsp;&nbsp;&nbsp;
-									</s:if>
-									<s:else>
-										<a href="javascript:void(0)" onclick="modify('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="paperid"/>','<s:property value="#session.user.organizationId"/>')">同意</a>&nbsp;&nbsp;&nbsp;&nbsp;
-									</s:else>
+									<a href="javascript:void(0)" onclick="modify('<s:property value="memberId"></s:property>','<s:property value="memberType"></s:property>','<s:property value="approveId"></s:property>','<s:property value="assistype"></s:property>','<s:property value="paperid"/>','<s:property value="#session.user.organizationId"/>')">同意</a>&nbsp;&nbsp;&nbsp;&nbsp;
 								</s:if>
 								<s:else>
-									<s:if test="#session.user.organizationId=='220506'">
-										<font style="color:#CCCCCC">同意</font>&nbsp;&nbsp;&nbsp;&nbsp;
-									</s:if>
-									<s:else>
-										<font style="color:#CCCCCC">同意</font>&nbsp;&nbsp;&nbsp;&nbsp;
-									</s:else>
+									<font style="color:#CCCCCC">同意</font>&nbsp;&nbsp;&nbsp;&nbsp;
 								</s:else>
 								<a href="javascript:void(0)" onclick="yn('<s:property value="approveId"></s:property>','0')">不同意</a>&nbsp;&nbsp;&nbsp;&nbsp;
 							</s:if>

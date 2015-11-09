@@ -80,10 +80,11 @@ public class CommonAction extends ActionSupport {
 			readxml = new ReadXML("com/mingda/common/menu4.xml");
 		}else if(2==oe.getManualSts()){
 			readxml = new ReadXML("com/mingda/common/menu.xml");
+			if("220506".equals(org)){
+				readxml = new ReadXML("com/mingda/common/menu3.xml");
+			}
 		}
-		if("220506".equals(org)){
-			readxml = new ReadXML("com/mingda/common/menu3.xml");
-		}
+		
 		Document menuxml = readxml.readXml();
 		Element root = menuxml.getRootElement();
 		menustr = root.asXML();
