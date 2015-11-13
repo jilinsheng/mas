@@ -1073,7 +1073,8 @@ public class TempServiceImpl implements TempService {
 		record.setAssistType(tempDTO.getAssistType());
 		record.setMedicaltimeEnd(tempDTO.getMedicaltimeEnd());
 		record.setIdCard(tempDTO.getPaperid());
-		
+		record.setName(tempDTO.getMembername());
+		record.setAddress(tempDTO.getAddress());
 		record.setBusinessYear(tempDTO.getBusinessyear());
 		
 		// 费用的录入

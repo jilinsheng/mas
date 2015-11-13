@@ -155,6 +155,20 @@ public class YljzServiceImpl implements YljzService {
 					cidto.getOld_Pay_OutMedicare(), cidto.getPay_Total(),
 					cidto.getPay_Medicare(), cidto.getPay_OutMedicare(),cidto.getEnd_time(),
 					cidto.getBusinessyear());
+			System.out.println("iServiceYljzProxy.getCIAssistByPaperIDEx("+
+					cidto.getPaperID()+","+
+					cidto.getOrgCode()+","+
+					cidto.getMedicareType()+","+
+					cidto.getCalcType()+","+
+					cidto.getXnhZzFlag()+","+
+					cidto.getOld_Pay_Total()+","+
+					cidto.getOld_Pay_Medicare()+","+
+					cidto.getOld_Pay_OutMedicare()+","+
+					cidto.getPay_Total()+","+
+					cidto.getPay_Medicare()+","+
+					cidto.getPay_OutMedicare()+","+
+					cidto.getEnd_time()+","+
+					cidto.getBusinessyear()+")");
 			Document document = DocumentHelper.parseText(xml);
 			String returnFlag = document.selectSingleNode(
 					"//GetCIAssistByPaperIDEx/ReturnFlag").getText();
