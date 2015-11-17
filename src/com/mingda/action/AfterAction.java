@@ -368,7 +368,7 @@ public class AfterAction extends ActionSupport {
 		String orgid = user.getOrganizationId();
 		tempDTO.setOrganizationId(orgid);
 		tempDTO.setOrg(orgid.substring(0, 6));
-		TempDTO temp = tempService.isline(tempDTO);
+		TempDTO temp = tempService.iscalcline(tempDTO);
 		if ("0".equals(temp.getResult())) {
 			result = "保障金大于封顶线，您重新填写救助金!<br/>累计总救助金：" + temp.getTotlePay()
 					+ "元;<br/>住院总救助金：" + temp.getZyPay() + "元;<br/>门诊大病总救助金："
@@ -376,6 +376,10 @@ public class AfterAction extends ActionSupport {
 					+ "元;";
 			return "result";
 		} else {
+			String end_char = user.getAccout().substring(user.getAccout().length()-1, user.getAccout().length());
+			if("a".equals(end_char)){
+				tempDTO.setBizStatus("-1");
+			}
 			tempDTO = tempService.saveAfterApplyInfo(tempDTO);
 		}
 		return SUCCESS;

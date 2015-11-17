@@ -287,6 +287,12 @@ public class BaseBizServiceImpl implements BaseBizService {
 			e.setChecked2(CHECK2);
 			e.setDiagnoseTypeName(DIAGNOSE_TYPE_NAME);
 			e.setMondeystand(MONEYSTAND);
+			BigDecimal  SPEC_DIAGNOSE_FLAG = (BigDecimal) s.get("SPEC_DIAGNOSE_FLAG");
+			BigDecimal  MEDICAREFLAG = (BigDecimal) s.get("MEDICAREFLAG");
+			Date REG_TIME = (Date) s.get("REG_TIME");
+			e.setSpecDiagnoseFlag(SPEC_DIAGNOSE_FLAG);
+			e.setMedicareflag(MEDICAREFLAG);
+			e.setRegTime(REG_TIME);
 			list.add(e);
 		}
 		return list;

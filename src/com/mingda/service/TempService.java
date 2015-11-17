@@ -210,5 +210,7 @@ public interface TempService {
 	public String getBusinessYear(JzYearDTO jzYearDTO);
 	
 	public BigDecimal getToplineByType(String organizationId, String type);
+	
+	public TempDTO iscalcline(TempDTO tempDTO);
 
 }

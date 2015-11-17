@@ -3892,6 +3892,89 @@ public class TempServiceImpl implements TempService {
 		return businessyear;
 	}
 	
+	public TempDTO iscalcline(TempDTO tempDTO){
+		BigDecimal m = BigDecimal.ZERO;// 封顶线
+		BigDecimal zpay = BigDecimal.ZERO;// 个人救助金总额（住院+门诊）
+		BigDecimal zyPay = BigDecimal.ZERO;// 住院个人救助金总额
+		BigDecimal mzPay = BigDecimal.ZERO;// 门诊个人救助金总额
+		BigDecimal assis = tempDTO.getPayAssist();
+		String organizationId = tempDTO.getOrganizationId();
+		if (null == organizationId || "".equals(organizationId)) {
+			tempDTO.setResult("机构编码为空");
+		} else {
+			organizationId = organizationId.substring(0, 6);
+			//人员类别:  1：重点救助对象，第 1 类，农村五保对象、城乡孤儿和城镇三无人员
+			//           2：重点救助对象，第 2 类，城乡低保（不含儿童）
+			//			 3：一般救助对象，第 3 类
+			//			 4：一般救助对象，第 4 类
+			//			 5：重点救助对象，第 2 类，儿童
+			String persontype = "";
+			String ptype = tempDTO.getAssistTypeM()+""+tempDTO.getAssistTypex();
+			persontype = getPersonType(ptype);
+			// 封顶线 
+			m = getTopCalclineByType(organizationId, persontype);
+			// 住院业务个人救助金总额(本年度)type = 2
+			zyPay = getTotalPayAssistPer(tempDTO, "2");
+			// 门诊大病业务个人救助金总额(本年度)type = 1
+			mzPay = getTotalPayAssistPer(tempDTO, "1");
+			// （住院业务+门诊大病业务）个人救助金总额(本年度)
+			zpay = zyPay.add(mzPay);
+		}
+		if (m.subtract(zpay).compareTo(assis) == -1) {
+			tempDTO.setResult("0");
+			tempDTO.setPayAssist(assis);
+			tempDTO.setTopLine(m);
+			tempDTO.setTotlePay(zpay);
+			tempDTO.setZyPay(zyPay);
+			tempDTO.setMzPay(mzPay);
+		} else {
+			tempDTO.setResult("1");
+		}
+
+		return tempDTO;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private BigDecimal getTopCalclineByType(String organizationId,String persontype){
+		BigDecimal m = BigDecimal.ZERO;
+		HashMap<String, String> param = new HashMap<String, String>();
+		String sql = "select  t.line as S  from calc_line t where t.organization_id='"
+				+ organizationId + "' and t.person_type='" + persontype + "' and t.line_type='1'" ;
+		param.put("executsql", sql);
+		List<HashMap> rs = extendsDAO.queryAll(param);
+		if (null != rs && rs.size() > 0) {
+			HashMap s = rs.get(0);
+			BigDecimal a = (BigDecimal) s.get("S");
+			if (null != a) {
+				m = a;
+			}
+		}
+		return m;
+	}
+	
+	private String getPersonType(String ptype){
+		String p="";
+		if(!"00000000000".equals(ptype)){
+			String a1 = ptype.substring(0,1);
+			String a2 = ptype.substring(1,2);
+			String a3 = ptype.substring(2,3);
+			String a4 = ptype.substring(3,4);
+			//String a5 = ptype.substring(4,5);
+			String a6 = ptype.substring(5,6);
+
+			if("1".equals(a3)||"1".equals(a4)||"1".equals(a6)){
+				p="1";
+			}
+			if(!"0".equals(a1)){
+				p="2";
+			}
+			
+		}else{
+			p="99";
+		}
+		return p;
+	}
+	
 	public String getToolsmenu() {
 		return pager.getToolsmenu();
 	}
