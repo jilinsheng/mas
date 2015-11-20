@@ -192,7 +192,6 @@
 				success : function(json) {
 					json = eval('(' + json + ')');
 					var info= json['info'];
-					var m= json['m'];
 					var iin= json['in'];
 					var out= json['out'];
 					var scope= json['scope'];

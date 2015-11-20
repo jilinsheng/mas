@@ -205,66 +205,14 @@ public class AfterAction extends ActionSupport {
 			tempDTO.setInsurance(new BigDecimal("0"));
 		}
 		if ("1".equals(ciDTO.getReturnFlag())) {
-			tempDTO.setPaySumAssistScopeIn(ciDTO.getPay_Sum_AssistScope_In());
-			tempDTO.setPayPreSumAssistScopeIn(ciDTO
-					.getPay_PreSum_AssistScope_In());
-			tempDTO.setPaySumAssistIn(ciDTO.getPaySumAssistIn());
-			tempDTO.setPaySumAssistOut(ciDTO.getPaySumAssistOut());
-			tempDTO.setSumMedicareScope(ciDTO.getSumMedicareScope());
-			tempDTO.setPayCIAssist(ciDTO.getPayCIAssist());
-			if ("2".equals(tempDTO.getAssistype())) {
-				HashMap m = tempService.findMaMoney(tempDTO);
-				json.put("m", m.get("m"));
-				json.put("info", m.get("info"));
-				json.put("in", ciDTO.getPaySumAssistIn());
-				json.put("out", ciDTO.getPaySumAssistOut());
-				json.put("scope", ciDTO.getSumMedicareScope());
-				json.put("ci", ciDTO.getPayCIAssist());
-				json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
-				json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
-				json.put("businessyear", ciDTO.getBusinessyear());
-			} else if ("1".equals(tempDTO.getAssistype())) {
-				if ("1".equals(tempDTO.getAssistype())
-						&& "2".equals(tempDTO.getMedicareType())) {
-					HashMap m = tempService.findMaMoney(tempDTO);
-					json.put("m", m.get("m"));
-					json.put("info", m.get("info"));
-					json.put("in", ciDTO.getPaySumAssistIn());
-					json.put("out", ciDTO.getPaySumAssistOut());
-					json.put("scope", ciDTO.getSumMedicareScope());
-					json.put("ci", ciDTO.getPayCIAssist());
-					json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
-					json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
-					json.put("businessyear", ciDTO.getBusinessyear());
-				} else {
-					json.put("info", "成功");
-					json.put("in", 0);
-					json.put("out", 0);
-					json.put("scope", 0);
-					json.put("ci", 0);
-					json.put("sum", 0);
-					json.put("preSum", 0);
-					json.put("businessyear", ciDTO.getBusinessyear());
-				}
-
-			} else {
-				if ("1".equals(tempDTO.getAssistype())
-						&& "1".equals(tempDTO.getJzjButtonFlag())) {
-					HashMap m = tempService.findMaMoney(tempDTO);
-					json.put("m", m.get("m"));
-					json.put("info", m.get("info"));
-					json.put("businessyear", ciDTO.getBusinessyear());
-				} else {
-					json.put("info", "成功");
-					json.put("businessyear", ciDTO.getBusinessyear());
-				}
-				json.put("in", 0);
-				json.put("out", 0);
-				json.put("scope", 0);
-				json.put("ci", 0);
-				json.put("sum", 0);
-				json.put("preSum", 0);
-			}
+			json.put("info", "成功");
+			json.put("in", ciDTO.getPaySumAssistIn());
+			json.put("out", ciDTO.getPaySumAssistOut());
+			json.put("scope", ciDTO.getSumMedicareScope());
+			json.put("ci", ciDTO.getPayCIAssist());
+			json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
+			json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
+			json.put("businessyear", ciDTO.getBusinessyear());
 		} else {
 			json.put("info", "大病保险计算失败!");
 		}

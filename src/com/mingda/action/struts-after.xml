@@ -107,7 +107,7 @@
 			</result>
 		</action>
 		<action name="queryafterapprovedoneinit" method="queryafterapprovedoneinit"
-			class="tempAction">
+			class="afterAction">
 			<result name="success">
 				/page/after/queryafterapprovedone.jsp
 			</result>
@@ -116,18 +116,18 @@
 			</result>
 		</action>
 		<action name="queryafterapprovedone" method="queryafterapprovedone"
-			class="tempAction">
+			class="afterAction">
 			<result name="success">
 				/page/after/queryafterapprovedone.jsp
 			</result>
 		</action>
-		<action name="afteryn" method="afteryn" class="tempAction">
+		<action name="afteryn" method="afteryn" class="afterAction">
 			<result name="success">
 				/page/after/result.jsp
 			</result>
 		</action>
 		<action name="queryafterapproveinit" method="queryafterapproveinit"
-			class="tempAction">
+			class="afterAction">
 			<result name="success">
 				/page/after/queryafterapprove.jsp
 			</result>
@@ -136,7 +136,7 @@
 			</result>
 		</action>
 		<action name="queryafterapprove" method="queryafterapprove"
-			class="tempAction">
+			class="afterAction">
 			<result name="success">
 				/page/temp/queryafterapprove.jsp
 			</result>
