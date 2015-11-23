@@ -262,6 +262,11 @@
 		var payCIAssist = $("#payCIAssist")[0].value;
 		var inhospitalsicken = $("#inhospitalsicken")[0].value;
 		//var otherType = $("input[name='tempDTO.otherType']:checked").val();
+		var specSet = $("#specSet")[0].value;
+		var hospitaltype = "1";
+		if(specSet==1){
+			hospitaltype = $("input[name='tempDTO.hospitaltype']:checked").val();
+		}
 		var medicareFlag = $("#medicareFlag")[0].checked;
 		var flag=true;
 		if(hospitalId>0){
@@ -352,7 +357,8 @@
 					"tempDTO.begintime" : beginDate,                           
 					"tempDTO.endtime" : endDate,                               
 					//"tempDTO.otherType" : otherType,
-					"tempDTO.MedicareFlag" : medicareFlag                     
+					"tempDTO.MedicareFlag" : medicareFlag,
+					"tempDTO.hospitaltype" : hospitaltype                  
 				},
 				timeout : 20000,
 				error : function() {
@@ -444,6 +450,7 @@
 <body>
 <s:form action="afterapply" method="post" theme="simple"
 	enctype="multipart/form-data" onsubmit="return checkform();">
+	
 	<s:hidden id ="r" name="r"></s:hidden>
 	<s:if test="r=='1a'">
 		<s:hidden id="oldPayTotal" name="tempDTO.oldPayTotal" value="0"></s:hidden>
@@ -479,6 +486,7 @@
 	<s:hidden id="assistTypex" name="tempDTO.assistTypex"></s:hidden>
 	<s:hidden id="org" name="tempDTO.org"></s:hidden>
 	<s:hidden id="businessyear" name="tempDTO.businessyear"></s:hidden>
+	<s:hidden id="specSet" name="orgSetDTO.specSet"></s:hidden>
 	<table width="680px" class="formTitle" border="0" cellpadding="0" cellspacing="0">
 		<tr>
 			<td style="padding-left: 2px"><img
@@ -557,6 +565,14 @@
 				</table>
 			</td>
 		</tr>
+		<s:if test='orgSetDTO.specSet==1'>
+		<tr>
+			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">医院类别：</td>
+			<td class="formtd2">
+				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'定点 医院','2':'非定点医院'}" listKey="key" listValue="value" value="1"></s:radio>
+			</td>
+		</tr>
+		</s:if>
 		<tr>
 			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">救助类型：</td>
 			<td class="formtd2">&nbsp;

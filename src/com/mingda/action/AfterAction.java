@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import com.mingda.dto.DeptDTO;
 import com.mingda.dto.DiagnoseTypeDTO;
 import com.mingda.dto.JzYearDTO;
+import com.mingda.dto.OrgSetDTO;
 import com.mingda.dto.OrganizationDTO;
 import com.mingda.dto.OutIcdDTO;
 import com.mingda.dto.TempDTO;
@@ -57,6 +58,7 @@ public class AfterAction extends ActionSupport {
 	private String assistype;
 	private String opertime1;
 	private String opertime2;
+	private OrgSetDTO orgSetDTO;
 
 	@SuppressWarnings("rawtypes")
 	public String queryaftermemberinit() {
@@ -152,6 +154,8 @@ public class AfterAction extends ActionSupport {
 				element.setName("无");
 				outicds.add(0, element);
 			}
+			// 是否有非定点医院
+			orgSetDTO = tempService.getOrgSet(organizationId);
 			return SUCCESS;
 		} else {
 			payviews = tempService.findPayviews(tempDTO);
@@ -419,7 +423,7 @@ public class AfterAction extends ActionSupport {
 			afterDTO.setPay_Dbbx(tempDTO.getPayCIAssist());
 			afterDTO.setHospital_Level(-1);
 			afterDTO.setHospital_Local(-1);
-			afterDTO.setHospital_Type(-1);
+			afterDTO.setHospital_Type(Integer.valueOf(tempDTO.getHospitaltype()));
 			int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
 			System.out.println("本次业务年度："+businessyear);
 			afterDTO.setBusinessyear(businessyear+"");
@@ -989,6 +993,14 @@ public class AfterAction extends ActionSupport {
 
 	public void setOpertime2(String opertime2) {
 		this.opertime2 = opertime2;
+	}
+
+	public OrgSetDTO getOrgSetDTO() {
+		return orgSetDTO;
+	}
+
+	public void setOrgSetDTO(OrgSetDTO orgSetDTO) {
+		this.orgSetDTO = orgSetDTO;
 	}
 
 }

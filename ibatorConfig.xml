@@ -94,12 +94,12 @@
 			<generatedKey column="BIZCHECK"
 				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
 		</table> -->
-	 <table tableName="TEMP_APPROVE" schema="medical">
+	 <!-- <table tableName="TEMP_APPROVE" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
 			<generatedKey column="APPROVE_ID"
 				sqlStatement="select SQ_BIZMEDIA_ID.nextval from dual" />
-		</table>   <!--
+		</table> -->   <!--
 		<table tableName="WUBAOHUFILE" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
@@ -199,5 +199,9 @@
 			<generatedKey column="BIZ_ID"
 				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
 		</table> -->
+		<table tableName="org_set" schema="medical">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="defaultConfigurationStatus" value="true" />
+		</table>
 	</ibatorContext>
 </ibatorConfiguration>

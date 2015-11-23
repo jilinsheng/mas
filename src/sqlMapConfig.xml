@@ -53,4 +53,5 @@
 	<sqlMap resource="com/mingda/model/map/JZ_YEAR_SqlMap.xml" />
 	<sqlMap resource="com/mingda/model/map/ORG_POLICY_SqlMap.xml" />
 	<sqlMap resource="com/mingda/model/map/ORG_ENABLED_SqlMap.xml" />
+	<sqlMap resource="com/mingda/model/map/ORG_SET_SqlMap.xml" />
 </sqlMapConfig>

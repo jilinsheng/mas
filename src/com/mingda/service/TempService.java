@@ -12,6 +12,7 @@ import com.mingda.dto.JzMedicalafterBillDTO;
 import com.mingda.dto.JzMedicalafterRuleDTO;
 import com.mingda.dto.JzMedicalafterfileDTO;
 import com.mingda.dto.JzYearDTO;
+import com.mingda.dto.OrgSetDTO;
 import com.mingda.dto.OutIcdDTO;
 import com.mingda.dto.SecondApproveDTO;
 import com.mingda.dto.SecondBatchDTO;
@@ -212,5 +213,7 @@ public interface TempService {
 	public BigDecimal getToplineByType(String organizationId, String type);
 	
 	public TempDTO iscalcline(TempDTO tempDTO);
+	
+	public OrgSetDTO getOrgSet(String orgid);
 
 }

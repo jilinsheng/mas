@@ -157,6 +157,9 @@
 	<bean id="orgEnabledDAO" class="com.mingda.dao.impl.OrgEnabledDAOImpl">
 		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
 	</bean>
+	<bean id="orgSetDAO" class="com.mingda.dao.impl.OrgSetDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate" />
+	</bean>
 	<!-- service配置 -->
 	<bean id="authorityService" class="com.mingda.service.AuthorityServiceImpl">
 		<property name="extendsDAO" ref="extendsDAO" />
@@ -229,6 +232,7 @@
 		<property name="payview01DAO" ref="payview01DAO"></property>
 		<property name="jzMedicalafterBillDAO" ref="jzMedicalafterBillDAO"></property>
 		<property name="jzYearDAO" ref="jzYearDAO"></property>
+		<property name="orgSetDAO" ref="orgSetDAO"></property>
 	</bean>
 	<bean id="icdService" class="com.mingda.service.IcdServiceImpl">
 		<property name="extendsDAO" ref="extendsDAO"></property>

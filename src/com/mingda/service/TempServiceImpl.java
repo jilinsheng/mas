@@ -27,6 +27,7 @@ import com.mingda.dao.JzYearDAO;
 import com.mingda.dao.MaBillDAO;
 import com.mingda.dao.MaMonthDAO;
 import com.mingda.dao.MemberBaseinfoviewDAO;
+import com.mingda.dao.OrgSetDAO;
 import com.mingda.dao.Payview01DAO;
 import com.mingda.dao.SecondApproveDAO;
 import com.mingda.dao.SecondBatchDAO;
@@ -44,6 +45,7 @@ import com.mingda.dto.JzMedicalafterBillDTO;
 import com.mingda.dto.JzMedicalafterRuleDTO;
 import com.mingda.dto.JzMedicalafterfileDTO;
 import com.mingda.dto.JzYearDTO;
+import com.mingda.dto.OrgSetDTO;
 import com.mingda.dto.OutIcdDTO;
 import com.mingda.dto.SecondApproveDTO;
 import com.mingda.dto.SecondBatchDTO;
@@ -66,6 +68,8 @@ import com.mingda.model.MaMonth;
 import com.mingda.model.MemberBaseinfoview;
 import com.mingda.model.MemberBaseinfoviewExample;
 import com.mingda.model.MemberBaseinfoviewExample.Criteria;
+import com.mingda.model.OrgSet;
+import com.mingda.model.OrgSetExample;
 import com.mingda.model.Payview01;
 import com.mingda.model.Payview01Example;
 import com.mingda.model.SecondApprove;
@@ -104,6 +108,7 @@ public class TempServiceImpl implements TempService {
 	private Payview01DAO payview01DAO;
 	private JzMedicalafterBillDAO jzMedicalafterBillDAO;
 	private JzYearDAO jzYearDAO;
+	private OrgSetDAO orgSetDAO;
 
 	public List<TempDTO> findAddmember(TempDTO tempDTO) {
 		List<TempDTO> list = new ArrayList<TempDTO>();
@@ -3975,6 +3980,22 @@ public class TempServiceImpl implements TempService {
 		return p;
 	}
 	
+	public OrgSetDTO getOrgSet(String orgid){
+		OrgSetDTO os = new OrgSetDTO();
+		OrgSetExample example = new OrgSetExample();
+		example.createCriteria().andOrganizationIdEqualTo(orgid);
+		List<OrgSet> rs = orgSetDAO.selectByExample(example);
+		if(rs.size()>0){
+			OrgSet r = rs.get(0);
+			os.setOrganizationId(r.getOrganizationId());
+			os.setAreaSet(r.getAreaSet());
+			os.setDbbxYbMz(r.getDbbxYbMz());
+			os.setSpecScope(r.getSpecScope());
+			os.setSpecSet(r.getSpecSet());
+		}
+		return os;
+	}
+	
 	public String getToolsmenu() {
 		return pager.getToolsmenu();
 	}
@@ -4140,5 +4161,13 @@ public class TempServiceImpl implements TempService {
 
 	public void setJzYearDAO(JzYearDAO jzYearDAO) {
 		this.jzYearDAO = jzYearDAO;
+	}
+
+	public OrgSetDAO getOrgSetDAO() {
+		return orgSetDAO;
+	}
+
+	public void setOrgSetDAO(OrgSetDAO orgSetDAO) {
+		this.orgSetDAO = orgSetDAO;
 	}
 }
