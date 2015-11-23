@@ -569,7 +569,12 @@
 		<tr>
 			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">医院类别：</td>
 			<td class="formtd2">
+				<s:if test="tempDTO.hospitaltype==''">
 				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'定点 医院','2':'非定点医院'}" listKey="key" listValue="value" value="1"></s:radio>
+				</s:if>
+				<s:else>
+				<s:radio id="tempDTO.hospitaltype" name="tempDTO.hospitaltype" list="#{'1':'定点 医院','2':'非定点医院'}" listKey="key" listValue="value"></s:radio>
+				</s:else>
 			</td>
 		</tr>
 		</s:if>
