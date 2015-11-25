@@ -27,10 +27,8 @@
 			<property name="methodNameCalculator" value="default" />
 			<property name="enableSubPackages" value="false" />
 		</daoGenerator>
-		<!-- <table tableName="JZ_BIZ" schema="jl_yljz"> <property name="ignoreQualifiersAtRuntime" 
-			value="true" /> <property name="defaultConfigurationStatus" value="true" 
-			/> <generatedKey column="BIZ_ID" sqlStatement="select SQ_BIZ_ID.nextval from 
-			dual" /> </table> <table tableName="ncorganization" schema="medical"> <property 
+		
+		<!--  <table tableName="ncorganization" schema="medical"> <property 
 			name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
 			value="true" /> </table> <table tableName="jz_pay" schema="medical"> <property 
 			name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
@@ -199,9 +197,14 @@
 			<generatedKey column="BIZ_ID"
 				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
 		</table> -->
-		<table tableName="org_set" schema="medical">
+<!-- 		<table tableName="org_set" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
-		</table>
+		</table> -->
+		<table tableName="JZ_BIZ" schema="medical"> 
+		<property name="ignoreQualifiersAtRuntime" value="true" /> 
+		<property name="defaultConfigurationStatus" value="true" />
+		 <generatedKey column="BIZ_ID" sqlStatement="select SQ_BIZ_ID.nextval from 
+			dual" /> </table>
 	</ibatorContext>
 </ibatorConfiguration>

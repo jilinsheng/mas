@@ -11,6 +11,7 @@ import oracle.sql.BLOB;
 
 import com.mingda.common.Pager;
 import com.mingda.dao.AddressBookDAO;
+import com.mingda.dao.BizdeptDAO;
 import com.mingda.dao.ExtendsDAO;
 import com.mingda.dao.JzBizDAO;
 import com.mingda.dao.JzBizcheckDAO;
@@ -24,8 +25,8 @@ import com.mingda.dto.GsDTO;
 import com.mingda.dto.MediaDTO;
 import com.mingda.dto.PayDTO;
 import com.mingda.model.AddressBook;
+import com.mingda.model.Bizdept;
 import com.mingda.model.JzBiz;
-import com.mingda.model.JzBizcheck;
 import com.mingda.model.JzBizcheckWithBLOBs;
 import com.mingda.model.JzBizmedia;
 import com.mingda.model.JzBizmediaExample;
@@ -41,6 +42,7 @@ public class BaseBizServiceImpl implements BaseBizService {
 	private JzPayDAO jzPayDAO;
 	private AddressBookDAO addressBookDAO;
 	private JzBizmediaDAO jzBizmediaDAO;
+	private BizdeptDAO bizdeptDAO;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<BizDTO> findBizCheckAccounts(String sql, int currentpage,
@@ -57,7 +59,8 @@ public class BaseBizServiceImpl implements BaseBizService {
 		for (HashMap s : rs) {
 			BizDTO e = new BizDTO();
 			String SSN = (String) s.get("SSN");
-			String BIZ_TYPE = (String) s.get("BIZ_TYPE");
+			String BIZ_TYPE_EX = (String) s.get("BIZ_TYPE_EX");
+			String BIZ_TYPE_EX_TXT = (String) s.get("BIZTYPETXT");
 			String FAMILY_NO = (String) s.get("FAMILY_NO");
 			String ID_CARD = (String) s.get("ID_CARD");
 			String ICDNAME = (String) s.get("DIAGNOSE_NAME");
@@ -78,13 +81,6 @@ public class BaseBizServiceImpl implements BaseBizService {
 			String MASTERNAME = (String) s.get("MASTERNAME");
 			String IDCARD = (String) s.get("ID_CARD");
 			String MEMINFO = (String) s.get("MEMINFO");
-			//start 梅河口20131018重大疾病-------------------------------------
-			BigDecimal DIAGNOSETYPEID = (BigDecimal) s.get("DIAGNOSE_TYPE_ID") ;
-			String DORG = (String) s.get("DORG");
-			BigDecimal DTYPEID = (BigDecimal) s.get("DTYPEID");
-		    String DTYPENAME = (String) s.get("DTYPENAME");
-		    BigDecimal SCALER = (BigDecimal) s.get("SCALER");
-		    //end 梅河口20131018重大疾病-------------------------------------
 		    String INTYPEID = (String) s.get("INTYPEID");
 		    e.setIntypeid(INTYPEID);
  			e.setEndTime(ENDTIME);
@@ -137,41 +133,8 @@ public class BaseBizServiceImpl implements BaseBizService {
 			} else {
 				e.setPayciassist("0");
 			}
-			//start 梅河口20131018重大疾病-------------------------------------
-			if(null != DIAGNOSETYPEID){
-				e.setDiagnoseTypeId(DIAGNOSETYPEID.toString());
-			}
-			e.setDorg(DORG);
-			if(null != DTYPEID){
-				e.setDtypeid(DTYPEID.toString());
-			}
-			e.setDtypename(DTYPENAME);
-			if (null != SCALER) {
-				e.setScaler(SCALER.toString());
-			} else {
-				e.setScaler("0");
-			}
-			//end   梅河口20131018重大疾病-------------------------------------
-			// 1：门诊，2，住院，3：购药 ，4：重大疾病住院，5：重大疾病门诊注射，6：重大疾病门诊购药
-						if ("1".equals(BIZ_TYPE) && "0".equals(e.getScaler())) {
-							e.setBizType("门诊");
-						}
-						if ("2".equals(BIZ_TYPE) && "0".equals(e.getScaler())) {
-							e.setBizType("住院");
-						}
-						if ("3".equals(BIZ_TYPE)&& "0".equals(e.getScaler())) {
-							e.setBizType("购药");
-						}
-						if ("1".equals(BIZ_TYPE) && !"0".equals(e.getScaler())) {
-							e.setBizType("重大疾病门诊注射");
-						}
-						if ("2".equals(BIZ_TYPE) && !"0".equals(e.getScaler())) {
-							e.setBizType("重大疾病住院");
-						}
-						if ("3".equals(BIZ_TYPE)&& !"0".equals(e.getScaler())) {
-							e.setBizType("重大疾病门诊购药");
-						}
-			e.setBiztype(BIZ_TYPE);
+			e.setBizTypeEx(BIZ_TYPE_EX);
+			e.setBizTypeExTxt(BIZ_TYPE_EX_TXT);
 			list.add(e);
 		}
 		return list;
@@ -291,6 +254,7 @@ public class BaseBizServiceImpl implements BaseBizService {
 			BigDecimal  MEDICAREFLAG = (BigDecimal) s.get("MEDICAREFLAG");
 			Date REG_TIME = (Date) s.get("REG_TIME");
 			e.setSpecDiagnoseFlag(SPEC_DIAGNOSE_FLAG);
+			e.setBizTypeEx((String)s.get("BIZ_TYPE_EX"));
 			e.setMedicareflag(MEDICAREFLAG);
 			e.setRegTime(REG_TIME);
 			list.add(e);
@@ -681,7 +645,8 @@ public class BaseBizServiceImpl implements BaseBizService {
 		e.setGatherFlag(s.getGatherFlag());
 		e.setUserId(s.getUserId());
 		e.setOperTime(s.getOperTime());
-		e.setHname(s.getHname());
+		Bizdept bd = bizdeptDAO.selectByPrimaryKey(s.getHospitalId());
+		e.setHname(bd.getName());
 		e.setIcdname(s.getDiagnoseName());
 		return e;
 	}
@@ -1095,5 +1060,13 @@ public class BaseBizServiceImpl implements BaseBizService {
 			}
 		}
 		return dsval;
+	}
+
+	public BizdeptDAO getBizdeptDAO() {
+		return bizdeptDAO;
+	}
+
+	public void setBizdeptDAO(BizdeptDAO bizdeptDAO) {
+		this.bizdeptDAO = bizdeptDAO;
 	}
 }

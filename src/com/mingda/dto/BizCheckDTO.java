@@ -76,6 +76,7 @@ public class BizCheckDTO {
 	private BigDecimal specDiagnoseFlag; //0:一般疾病,1:特殊疾病
 	private BigDecimal medicareflag; //基本医疗保险降低比例;1是0否
 	private Date regTime; //入院登记时间
+	private String bizTypeEx;//救助方式
 	
 
 	public String getDiagnoseTypeName() {
@@ -612,6 +613,14 @@ public class BizCheckDTO {
 
 	public void setRegTime(Date regTime) {
 		this.regTime = regTime;
+	}
+
+	public String getBizTypeEx() {
+		return bizTypeEx;
+	}
+
+	public void setBizTypeEx(String bizTypeEx) {
+		this.bizTypeEx = bizTypeEx;
 	}
 
 	

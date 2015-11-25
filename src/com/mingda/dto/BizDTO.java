@@ -63,6 +63,8 @@ public class BizDTO {
 	private String mastername;
 	private String paperid;
 	private String intypeid;
+	private String bizTypeEx;
+	private String bizTypeExTxt;
 	
 	public String getMeminfo() {
 		return meminfo;
@@ -534,6 +536,22 @@ public class BizDTO {
 
 	public void setIntypeid(String intypeid) {
 		this.intypeid = intypeid;
+	}
+
+	public String getBizTypeEx() {
+		return bizTypeEx;
+	}
+
+	public void setBizTypeEx(String bizTypeEx) {
+		this.bizTypeEx = bizTypeEx;
+	}
+
+	public String getBizTypeExTxt() {
+		return bizTypeExTxt;
+	}
+
+	public void setBizTypeExTxt(String bizTypeExTxt) {
+		this.bizTypeExTxt = bizTypeExTxt;
 	}
 
 }

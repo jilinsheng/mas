@@ -147,7 +147,7 @@
 						</s:if>
 						<th>入院时间</th>
 						<th>住院天数</th>
-						<th>疾病类别</th>
+						<th>救助方式</th>
 						<th>基本医疗保险降低比例</th>
 						<th>入院登记时间</th>
 						<th>人员类别</th>
@@ -174,11 +174,11 @@
 							<td><s:date name="beginTime" format="yyyy-MM-dd" /></td>
 							<td><s:property value="days"></s:property></td>
 							<td>
-							<s:if test="specDiagnoseFlag==1">特殊疾病
+							<s:if test="bizTypeEx==4">基本医疗住院及重特大疾病住院
 							</s:if>
-							<s:elseif test="specDiagnoseFlag==0">一般疾病
+							<s:elseif test="bizTypeEx==5">特殊疾病住院
 							</s:elseif>
-							<s:else>未知</s:else>
+							<s:else></s:else>
 							</td>
 							<td>
 							<s:if test="medicareflag==1">是</s:if>

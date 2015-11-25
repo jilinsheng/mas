@@ -148,17 +148,9 @@
 								</tr>
 								<tr>
 									<td>救助方式：</td>
-									<s:if test="orgid==220506">
-										<td><s:select value="biztype" name="biztype"
-											list="#{'':'全部','1':'重大疾病门诊注射','2':'普通住院','4':'重大疾病住院','6':'重大疾病门诊购药'}"
-											label="救助方式" listKey="key"
-											listValue="value"></s:select></td>
-									</s:if>
-									<s:else>
-										<td><s:select value="biztype" name="biztype"
-											list="#{'':'全部','1':'门诊','2':'住院'}" label="救助方式" listKey="key"
-											listValue="value"></s:select></td>
-									</s:else>
+									<td><s:select value="biztype" name="biztype"
+										list="#{'':'全部','2':'大病门诊','3':'特殊疾病门诊','6':'基本医疗住院','7':'重特大疾病住院','5':'特殊疾病住院','1':'基本医疗门诊','4':'基本医疗住院及特大疾病住院'}" label="救助方式" listKey="key"
+										listValue="value"></s:select></td>
 									<td>数据来源：</td>
 									<td><s:select value="method" name="method"
 										list="#{'':'全部','1':'城市','2':'农村'}" label="数据来源" listKey="key"
@@ -197,7 +189,7 @@
 					</tr>
 					<s:iterator value="bizs">
 						<tr>
-							<td><s:property value="bizType"></s:property></td>
+							<td><s:property value="bizTypeExTxt"></s:property></td>
 							<td><s:property value="familyNo"></s:property></td>
 							<td style="text-align: left;"><s:property value="hname"></s:property></td>
 							<td style="text-align: center;"><s:property value="intypeid"></s:property></td>
@@ -207,12 +199,7 @@
 								target="_blank"> <s:property value="name"></s:property> </a></td>
 							<td ><s:property value="paperid"></s:property></td>
 							<td ><s:property value="meminfo"></s:property></td>
-							<s:if test="orgid==220506 && biztype ==3">
-								<td style="text-align: left;"><s:property value="dtypename"></s:property></td>
-							</s:if>
-							<s:else>
-								<td style="text-align: left;"><s:property value="icdname"></s:property></td>
-							</s:else>
+							<td style="text-align: left;"><s:property value="icdname"></s:property></td>
 							<td><s:date name="beginTime" format="yyyy-MM-dd" /></td>
 							<td><s:date name="endTime" format="yyyy-MM-dd" /></td>
 							<td style="text-align: right;"><s:property value="total"></s:property></td>

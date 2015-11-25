@@ -87,10 +87,6 @@ public class BaseBizAction extends ActionSupport {
 	private String longitude;
 	private String latitude;
 	
-	//start 梅河口20131018重大疾病-------------------------------------
-	private String orgid;
-	//end 梅河口20131018重大疾病-------------------------------------
-	
 	public HashMap<String, String> getCmap() {
 		return cmap;
 	}
@@ -311,13 +307,7 @@ public class BaseBizAction extends ActionSupport {
 		UserDTO user = (UserDTO) ActionContext.getContext().getSession()
 				.get("user");
 		String organizationId = user.getOrganizationId();
-		//start 梅河口20131018重大疾病-------------------------------------
-		if(organizationId.length()>6){
-			orgid = organizationId.substring(0,6);
-		}else{
-			orgid = organizationId;
-		}
-		//end 梅河口20131018重大疾病-------------------------------------
+
 		// 获取机构
 		if (2 == organizationId.length()) {
 			orgs = systemDataService.findOrganizationExt(organizationId);
@@ -332,24 +322,6 @@ public class BaseBizAction extends ActionSupport {
 			element.setHospitalId(null);
 			element.setName("全部");
 			depts.add(0, element);
-			/*if("220506".equals(orgid)){
-				DeptDTO element1 = new DeptDTO();
-				element1.setHospitalId(2582);
-				element1.setName("通化市海龙精神病医院（药房）");
-				depts.add(len+1, element1);
-				DeptDTO element2 = new DeptDTO();
-				element2.setHospitalId(2583);
-				element2.setName("梅河口市结核病防治所（药房）");
-				depts.add((len+2), element2);
-				DeptDTO element3 = new DeptDTO();
-				element3.setHospitalId(2584);
-				element3.setName("梅河口市友谊医院（药房）");
-				depts.add((len+3), element3);
-				DeptDTO element4 = new DeptDTO();
-				element4.setHospitalId(2585);
-				element4.setName("梅河口市中心医院（药房 ）");
-				depts.add((len+4), element4);
-			}*/
 		} else {
 			DeptDTO element = new DeptDTO();
 			element.setHospitalId(-1);
@@ -367,17 +339,6 @@ public class BaseBizAction extends ActionSupport {
 		String var = value;
 		String jwhere = "";
 		String sql = "";
-		//start 梅河口20131018重大疾病-------------------------------------
-		if(organizationId.length()>6){
-			orgid = organizationId.substring(0,6);
-		}else{
-			orgid = organizationId;
-		}
-		String m_jwhere = "";
-		String m_sql = "";
-		String m_where = "";
-		String m_from  = "";
-		//end 梅河口20131018重大疾病-------------------------------------
 		
 		if (null == cur_page || "".equals(cur_page)) {
 
@@ -451,46 +412,26 @@ public class BaseBizAction extends ActionSupport {
 			} else if ("2".equals(method)) {
 				jwhere = jwhere + " and  biz.member_type=2 ";
 			}
-			
-			//start 梅河口20131018重大疾病--20131211修正-------------------------------------
-			if("220506".equals(orgid)){
-				if ("1".equals(biztype)) {
-					jwhere = jwhere + " and  biz.BIZ_TYPE=1 and  (f.scaler = 0 or f.scaler is null)";
-				} else if ("2".equals(biztype)) {
-					jwhere = jwhere + " and  biz.BIZ_TYPE=2 and  (f.scaler = 0 or f.scaler is null)";
-				} else if ("3".equals(biztype)) {
-					jwhere = jwhere + " and  biz.BIZ_TYPE=3 and  (f.scaler = 0 or f.scaler is null)";
-				} else if ("4".equals(biztype)){
-					jwhere = jwhere + " and  biz.BIZ_TYPE=2 and  f.scaler > 0 ";
-				} else if ("5".equals(biztype)){
-					jwhere = jwhere + " and  biz.BIZ_TYPE=1 and  f.scaler > 0 ";
-				} else if ("6".equals(biztype)){
-					jwhere = jwhere + " and  biz.BIZ_TYPE=3 and  f.scaler > 0 ";
-				}
-				m_sql = " , f.organization_id dorg, f.diagnose_type_id as dtypeid, f.diagnose_type_name dtypename, " 
-						+ "(decode(sign(f.scaler),'1','重大疾病','普通')||decode(biz.biz_type,'1','-门诊','2','-住院','3','-购药'))as biztypetext, f.scaler, "
-						+ " decode(sign(f.scaler),'1','0.00',c.assismoney) as assismoney_p, "
-						+ " decode(sign(f.scaler),'1',c.assismoney,'0.00') as assismoney_s ";
-				m_where = " and biz.diagnose_type_id = f.diagnose_type_id(+) " + m_jwhere 
-						+ " and not exists(select * from jz_biz zz left join diagnose_type dd on zz.diagnose_type_id = dd.diagnose_type_id where zz.biz_type=3 "
-						+ " and (dd.scaler = 0 or dd.scaler is null) and zz.biz_id =biz.biz_id) ";
-				m_from = " ,(select * from diagnose_type dia where dia.organization_id='220506') f ";
-
-			}
-			//end   梅河口20131018重大疾病-20131211修正------------------------------------
-			else{
-				jwhere = jwhere + " and biz.BIZ_TYPE in (1,2)";
-				if ("1".equals(biztype)) {
-					jwhere = jwhere + " and  biz.BIZ_TYPE=1 ";
-				} else if ("2".equals(biztype)) {
-					jwhere = jwhere + " and  biz.BIZ_TYPE=2 ";
-				} else if ("3".equals(biztype)) {
-					jwhere = jwhere + " and  biz.BIZ_TYPE=3 ";
-				}
+		
+			if ("2".equals(biztype)) {
+				jwhere = jwhere + " and  biz.biz_type_ex=2 ";
+			} else if ("3".equals(biztype)) {
+				jwhere = jwhere + " and  biz.biz_type_ex=3 ";
+			} else if ("6".equals(biztype)) {
+				jwhere = jwhere + " and  biz.biz_type_ex=6 ";
+			} else if ("7".equals(biztype)) {
+				jwhere = jwhere + " and  biz.biz_type_ex=7 ";
+			} else if ("5".equals(biztype)) {
+				jwhere = jwhere + " and  biz.biz_type_ex=5 ";
+			} else if ("1".equals(biztype)) {
+				jwhere = jwhere + " and  biz.biz_type_ex=1 ";
+			} else if ("4".equals(biztype)) {
+				jwhere = jwhere + " and  biz.biz_type_ex=4 ";
 			}
 
-			sql = "select biz.biz_id, biz.ssn,d.name as hname,biz.biz_type, "
-					+ "decode(biz.biz_type,'1','门诊','2','住院','3','购药') as biztypetxt, "
+			sql = "select biz.biz_id, biz.ssn,d.name as hname," 
+					+ " biz.biz_type_ex,"
+				    + " decode(biz.biz_type_ex, '2', '大病门诊', '3', '特殊疾病门诊', '6', '基本医疗住院','7','重特大疾病住院','5','特殊疾病住院','1','基本医疗门诊','4','基本医疗住院及特大疾病住院','其他') as biztypetxt,"
 					+ "biz.family_no, "
 					+ "biz.name, f.mastername, biz.id_card, e.name as icdname,e.icdcode, "
 					+ "c.assismoney,c.total,c.payself, c.payoutmedicare,  c.payassistscope, c.paymedicare, c.payciassist, "
@@ -502,28 +443,21 @@ public class BaseBizAction extends ActionSupport {
 					+ " decode(substr(biz.person_type, 5, 1), 1, '-优抚对象', null) || "
 					+ " decode(substr(biz.person_typex, 1, 1), 1, '-孤儿', null)) as meminfo, "
 					+ " decode(biz.in_type_id,'0','其他','1','消化','31','精神病','48','外伤','49','未经医保/新农合确认的转诊') as intypeid "
-					+ m_sql
 					+ " from jz_biz biz,(select sum(b.pay_total) as total, "
 					+ "sum(b.pay_assist) as assismoney, sum(b.PAY_SELF) as payself ,sum(b.pay_outmedicare) as payoutmedicare,  "
 					+ "sum(b.pay_assistscope) as payassistscope, sum(b.pay_medicare) as paymedicare, sum(b.pay_ciassist) as payciassist, b.biz_id "
 					+ "from jz_pay b where    b.sts=1 and 1=1  "
 					+ jwhere1
 					+ " group by b.biz_id) c,bizdept d,icd10 e,member_baseinfoview02 f  "
-					+ m_from
 					+ "where c.biz_id = biz.biz_id and biz.assist_flag = 1 and biz.out_biz_id is null and biz.reg_status=1 "
 					+ "and d.hospital_id(+) = biz.hospital_id and e.icd_id(+) = biz.icd_id and f.member_id(+) = biz.member_id and f.ds(+) = biz.member_type "
-					+ m_where
 					+ jwhere + " order by biz.end_time desc";
 			map.put("sql", sql);
 			// SSN HNAME BIZ_TYPE FAMILY_NO NAME ID_CARD ICDNAME ICDCODE
 			// ASSISMONEY
 			// BIZ_ID TOTAL PAYOUTMEDICARE PAYASSISTSCOPE PAYMEDICARE
 			HashMap title = new LinkedHashMap();
-			if("220506".equals(orgid)){
-				title.put("BIZTYPETEXT,val", "救助方式");
-			}else{
-				title.put("BIZTYPETXT,val", "救助方式（住院/门诊）");
-			}
+			title.put("BIZTYPETXT,val", "救助方式（住院/门诊）");
 			title.put("FAMILY_NO,val", "家庭编号");
 			title.put("HNAME,val", "就诊医院");
 			title.put("MASTERNAME,val", "户主姓名");
@@ -540,12 +474,7 @@ public class BaseBizAction extends ActionSupport {
 			title.put("PAYOUTMEDICARE,val", "目录外费用");
 			title.put("PAYCIASSIST,val", "大病保险");
 			//title.put("PAYASSISTSCOPE,val", "纳入救助");
-			if("220506".equals(orgid)){
-				title.put("ASSISMONEY_P,val", "医疗救助金");
-				title.put("ASSISMONEY_S,val", "重大疾病救助金");
-			}else{
-				title.put("ASSISMONEY,val", "医疗救助金");
-			}
+			title.put("ASSISMONEY,val", "医疗救助金");
 			title.put("PAYSELF,val", "个人承担");
 			title.put("OPER_TIME,val", "结算时间");
 			title.put("INTYPEID,val", "住院类别");
@@ -575,24 +504,6 @@ public class BaseBizAction extends ActionSupport {
 			element.setHospitalId(null);
 			element.setName("全部");
 			depts.add(0, element);
-			/*if("220506".equals(orgid)){
-				DeptDTO element1 = new DeptDTO();
-				element1.setHospitalId(2582);
-				element1.setName("通化市海龙精神病医院（药房）");
-				depts.add(len+1, element1);
-				DeptDTO element2 = new DeptDTO();
-				element2.setHospitalId(2583);
-				element2.setName("梅河口市结核病防治所（药房）");
-				depts.add((len+2), element2);
-				DeptDTO element3 = new DeptDTO();
-				element3.setHospitalId(2584);
-				element3.setName("梅河口市友谊医院（药房）");
-				depts.add((len+3), element3);
-				DeptDTO element4 = new DeptDTO();
-				element4.setHospitalId(2585);
-				element4.setName("梅河口市中心医院（药房 ）");
-				depts.add((len+4), element4);
-			}*/
 		} else {
 			DeptDTO element = new DeptDTO();
 			element.setHospitalId(-1);
@@ -1445,6 +1356,7 @@ public class BaseBizAction extends ActionSupport {
 					+ " biz.member_type, "
 					+ " DIAGNOSE_NAME,"
 				    + " biz.spec_diagnose_flag,"
+					+ " biz.biz_type_ex,"
 				    + " biz.medicareflag,"
 				    + " biz.reg_time "
 					//+ ", biz.pay_ex as MONEYSTAND"
@@ -2140,12 +2052,6 @@ public class BaseBizAction extends ActionSupport {
 
 	public void setBizcheck(String bizcheck) {
 		this.bizcheck = bizcheck;
-	}
-	public String getOrgid() {
-		return orgid;
-	}
-	public void setOrgid(String orgid) {
-		this.orgid = orgid;
 	}
 
 }
