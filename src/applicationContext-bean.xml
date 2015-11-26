@@ -176,6 +176,7 @@
 		<property name="jzPayDAO" ref="jzPayDAO" />
 		<property name="addressBookDAO" ref="addressBookDAO" />
 		<property name="jzBizmediaDAO" ref="jzBizmediaDAO"></property>
+		<property name="bizdeptDAO" ref="bizdeptDAO"></property>
 	</bean>
 	<bean id="systemDataService" class="com.mingda.service.SystemDataServiceImpl">
 		<property name="extendsDAO" ref="extendsDAO" />
