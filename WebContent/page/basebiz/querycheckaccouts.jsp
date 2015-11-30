@@ -149,7 +149,7 @@
 								<tr>
 									<td>救助方式：</td>
 									<td><s:select value="biztype" name="biztype"
-										list="#{'':'全部','2':'大病门诊','3':'特殊疾病门诊','6':'基本医疗住院','7':'重特大疾病住院','5':'特殊疾病住院'}" label="救助方式" listKey="key"
+										list="#{'':'全部','01':'门诊','02':'住院','&':'-----------------------','2':'大病门诊','3':'特殊疾病门诊','6':'基本医疗住院','7':'重特大疾病住院','5':'特殊疾病住院'}" label="救助方式" listKey="key"
 										listValue="value"></s:select></td>
 									<td>数据来源：</td>
 									<td><s:select value="method" name="method"

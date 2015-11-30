@@ -427,6 +427,12 @@ public class BaseBizAction extends ActionSupport {
 				jwhere = jwhere + " and  biz.biz_type_ex=1 ";
 			} else if ("4".equals(biztype)) {
 				jwhere = jwhere + " and  biz.biz_type_ex=4 ";
+			} else if ("01".equals(biztype)) {
+				jwhere = jwhere + " and  biz.BIZ_TYPE=1 ";
+			} else if ("02".equals(biztype)) {
+				jwhere = jwhere + " and  biz.BIZ_TYPE=2 ";
+			} else if ("".equals(biztype)){
+				jwhere = jwhere + " and  biz.BIZ_TYPE in ('1','2') ";
 			}
 
 			sql = "select biz.biz_id, biz.ssn,d.name as hname," 
