@@ -451,6 +451,7 @@ public class BaseBizAction extends ActionSupport {
 					+ " group by b.biz_id) c,bizdept d,icd10 e,member_baseinfoview02 f  "
 					+ "where c.biz_id = biz.biz_id and biz.assist_flag = 1 and biz.out_biz_id is null and biz.reg_status=1 "
 					+ "and d.hospital_id(+) = biz.hospital_id and e.icd_id(+) = biz.icd_id and f.member_id(+) = biz.member_id and f.ds(+) = biz.member_type "
+					+ " and biz.biz_type_ex<>'1' "
 					+ jwhere + " order by biz.end_time desc";
 			map.put("sql", sql);
 			// SSN HNAME BIZ_TYPE FAMILY_NO NAME ID_CARD ICDNAME ICDCODE
