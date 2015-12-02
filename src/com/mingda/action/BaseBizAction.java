@@ -86,6 +86,7 @@ public class BaseBizAction extends ActionSupport {
 	private HashMap<String, String> cmap;
 	private String longitude;
 	private String latitude;
+	private String showtype;
 	
 	public HashMap<String, String> getCmap() {
 		return cmap;
@@ -415,29 +416,41 @@ public class BaseBizAction extends ActionSupport {
 		
 			if ("2".equals(biztype)) {
 				jwhere = jwhere + " and  biz.biz_type_ex=2 ";
+				showtype="2";
 			} else if ("3".equals(biztype)) {
 				jwhere = jwhere + " and  biz.biz_type_ex=3 ";
+				showtype="2";
 			} else if ("6".equals(biztype)) {
 				jwhere = jwhere + " and  biz.biz_type_ex=6 ";
+				showtype="2";
 			} else if ("7".equals(biztype)) {
 				jwhere = jwhere + " and  biz.biz_type_ex=7 ";
+				showtype="2";
 			} else if ("5".equals(biztype)) {
 				jwhere = jwhere + " and  biz.biz_type_ex=5 ";
+				showtype="2";
 			} else if ("1".equals(biztype)) {
 				jwhere = jwhere + " and  biz.biz_type_ex=1 ";
+				showtype="2";
 			} else if ("4".equals(biztype)) {
 				jwhere = jwhere + " and  biz.biz_type_ex=4 ";
+				showtype="2";
 			} else if ("01".equals(biztype)) {
 				jwhere = jwhere + " and  biz.BIZ_TYPE=1 ";
+				showtype="1";
 			} else if ("02".equals(biztype)) {
 				jwhere = jwhere + " and  biz.BIZ_TYPE=2 ";
+				showtype="1";
 			} else if ("".equals(biztype)){
 				jwhere = jwhere + " and  biz.BIZ_TYPE in ('1','2') ";
+				showtype="1";
 			}
 
 			sql = "select biz.biz_id, biz.ssn,d.name as hname," 
+					+ " biz.biz_type,"
+					+ " decode(biz.biz_type,'1','门诊','2','住院','3','购药') as biztypetxt,"
 					+ " biz.biz_type_ex,"
-				    + " decode(biz.biz_type_ex, '2', '大病门诊', '3', '特殊疾病门诊', '6', '基本医疗住院','7','重特大疾病住院','5','特殊疾病住院','1','基本医疗门诊','4','基本医疗住院及特大疾病住院','其他') as biztypetxt,"
+				    + " decode(biz.biz_type_ex, '2', '大病门诊', '3', '特殊疾病门诊', '6', '基本医疗住院','7','重特大疾病住院','5','特殊疾病住院','1','基本医疗门诊','4','基本医疗住院及特大疾病住院','其他') as biztypeextxt,"
 					+ "biz.family_no, "
 					+ "biz.name, f.mastername, biz.id_card, e.name as icdname,e.icdcode, "
 					+ "c.assismoney,c.total,c.payself, c.payoutmedicare,  c.payassistscope, c.paymedicare, c.payciassist, "
@@ -457,7 +470,6 @@ public class BaseBizAction extends ActionSupport {
 					+ " group by b.biz_id) c,bizdept d,icd10 e,member_baseinfoview02 f  "
 					+ "where c.biz_id = biz.biz_id and biz.assist_flag = 1 and biz.out_biz_id is null and biz.reg_status=1 "
 					+ "and d.hospital_id(+) = biz.hospital_id and e.icd_id(+) = biz.icd_id and f.member_id(+) = biz.member_id and f.ds(+) = biz.member_type "
-					+ " and biz.biz_type_ex<>'1' "
 					+ jwhere + " order by biz.end_time desc";
 			map.put("sql", sql);
 			// SSN HNAME BIZ_TYPE FAMILY_NO NAME ID_CARD ICDNAME ICDCODE
@@ -1355,7 +1367,7 @@ public class BaseBizAction extends ActionSupport {
 				jwhere = jwhere + " and biz.hospital_id  ='" + hid + "' ";
 			}
 
-			sql = "select (select t.diagnose_type_name  from diagnose_type t where t.diagnose_type_id = biz. DIAGNOSE_TYPE_ID) diagnose_type_name "
+			sql = "select (select t.diagnose_type_name  from diagnose_type t where t.diagnose_type_id = biz. DIAGNOSE_TYPE_ID and t.sts='1') diagnose_type_name "
 					+ ", biz.biz_id,biz.ssn, d.name as hname, "
 					+ " biz.biz_type, biz.family_no,biz.name, biz.id_card, e.name as icdname"
 					+ ", ck.checked1,ck.checked2 , biz.dept_name , biz.area_name , biz.begin_time ,biz.end_time , "
@@ -1455,7 +1467,7 @@ public class BaseBizAction extends ActionSupport {
 			} else if (6 == organizationId.length()) {
 				jwhere = jwhere + " and ck.checked2 is not null";
 			}
-			sql = "select (select t.diagnose_type_name  from diagnose_type t where t.diagnose_type_id = biz. DIAGNOSE_TYPE_ID) diagnose_type_name,"
+			sql = "select (select t.diagnose_type_name  from diagnose_type t where t.diagnose_type_id = biz. DIAGNOSE_TYPE_ID and t.sts='1') diagnose_type_name,"
 					+ " biz.DIAGNOSE_TYPE_ID, biz.biz_id,biz.ssn, d.name as hname, "
 					+ " biz.biz_type, biz.family_no,biz.name, biz.id_card, e.name as icdname"
 					+ ", ck.checked1,ck.checked2,biz.dept_name , biz.area_name ,biz.DIAGNOSE_NAME, "
@@ -1608,7 +1620,7 @@ public class BaseBizAction extends ActionSupport {
 			sql = "select " 
 					+ " (select t.diagnose_type_name "
 					+ " from diagnose_type t "
-					+ " where t.diagnose_type_id = biz. DIAGNOSE_TYPE_ID) diagnose_type_name,"
+					+ " where t.diagnose_type_id = biz. DIAGNOSE_TYPE_ID and t.sts='1') diagnose_type_name,"
 					+ " biz.biz_id, biz.ssn, d.name as hname,  biz.biz_type,   biz.family_no,  biz.name, "
 					+ "biz.dept_name,biz.area_name,biz.begin_time,biz.diagnose_name, "
 					+ " biz.id_card  ,biz.assist_flag ,biz.audit_flag ,biz.end_time  from jz_biz biz, bizdept d "
@@ -2059,6 +2071,12 @@ public class BaseBizAction extends ActionSupport {
 
 	public void setBizcheck(String bizcheck) {
 		this.bizcheck = bizcheck;
+	}
+	public String getShowtype() {
+		return showtype;
+	}
+	public void setShowtype(String showtype) {
+		this.showtype = showtype;
 	}
 
 }

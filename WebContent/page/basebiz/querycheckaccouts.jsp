@@ -89,6 +89,11 @@
 		});
 	}
 </script>
+<script>
+function openwin(){
+	
+}
+</script>
 <link rel="stylesheet" href="page/css/table-style.css" type="text/css"></link>
 </head>
 <body>
@@ -167,10 +172,15 @@
 				<table width="100%" class="t2" border="0" cellpadding="0"
 					cellspacing="0">
 					<tr>
+						<s:if test="showtype==2">
+						<th>救助方式</th>
+						</s:if>
+						<s:else>
 						<th>救助方式（住院/门诊）</th>
+						</s:else>
 						<th>家庭编号</th>
 						<th>就诊医院</th>
-						<th>住院类别</th>
+						<!-- <th>住院类别</th> -->
 						<th>户主姓名</th>
 						<th>患者姓名</th>
 						<th>身份证号码</th>
@@ -189,10 +199,15 @@
 					</tr>
 					<s:iterator value="bizs">
 						<tr>
+						<s:if test="showtype==2">
 							<td><s:property value="bizTypeExTxt"></s:property></td>
+						</s:if>
+						<s:else>
+							<td><s:property value="bizTypeTxt"></s:property></td>
+						</s:else>
 							<td><s:property value="familyNo"></s:property></td>
 							<td style="text-align: left;"><s:property value="hname"></s:property></td>
-							<td style="text-align: center;"><s:property value="intypeid"></s:property></td>
+							<%-- <td style="text-align: center;"><s:property value="intypeid"></s:property></td> --%>
 							<td style="text-align: left;"><s:property value="mastername"></s:property></td>
 							<td style="text-align: left;"><a
 								href="page/basebiz/viewbizpay.action?bizDTO.bizId=<s:property value="bizId"/>"

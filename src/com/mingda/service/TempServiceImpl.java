@@ -3433,7 +3433,7 @@ public class TempServiceImpl implements TempService {
 	public List<DiagnoseTypeDTO> findDiagnoseTypesByOrg(String organizationId) {
 		List<DiagnoseTypeDTO> diagnosetypes = new ArrayList<DiagnoseTypeDTO>();
 		String sql = " select * from diagnose_type dtype "
-				+ " where dtype.organization_id ='" + organizationId + "' "
+				+ " where dtype.organization_id ='" + organizationId + "' and dtype.sts='1'"
 				+ " order by dtype.seq ";
 		HashMap param = new HashMap();
 		param.put("executsql", sql);

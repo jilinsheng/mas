@@ -59,8 +59,10 @@ public class BaseBizServiceImpl implements BaseBizService {
 		for (HashMap s : rs) {
 			BizDTO e = new BizDTO();
 			String SSN = (String) s.get("SSN");
+			String BIZ_TYPE =(String) s.get("BIZ_TYPE");
+			String BIZ_TYPE_TXT = (String) s.get("BIZTYPETXT");
 			String BIZ_TYPE_EX = (String) s.get("BIZ_TYPE_EX");
-			String BIZ_TYPE_EX_TXT = (String) s.get("BIZTYPETXT");
+			String BIZ_TYPE_EX_TXT = (String) s.get("BIZTYPEEXTXT");
 			String FAMILY_NO = (String) s.get("FAMILY_NO");
 			String ID_CARD = (String) s.get("ID_CARD");
 			String ICDNAME = (String) s.get("DIAGNOSE_NAME");
@@ -135,6 +137,8 @@ public class BaseBizServiceImpl implements BaseBizService {
 			}
 			e.setBizTypeEx(BIZ_TYPE_EX);
 			e.setBizTypeExTxt(BIZ_TYPE_EX_TXT);
+			e.setBizType(BIZ_TYPE);
+			e.setBizTypeTxt(BIZ_TYPE_TXT);
 			list.add(e);
 		}
 		return list;

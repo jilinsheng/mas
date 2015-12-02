@@ -4295,7 +4295,7 @@ public class TempAction extends ActionSupport {
 			m_sql = " , aft.diagnose_type_id, f.organization_id dorg, f.diagnose_type_id as dtypeid, f.diagnose_type_name dtypename, f.scaler ";
 			m_where = " and aft.diagnose_type_id = f.diagnose_type_id(+) "
 					+ m_jwhere;
-			m_from = " ,(select * from diagnose_type dia where dia.organization_id='220506') f ";
+			m_from = " ,(select * from diagnose_type dia where dia.organization_id='220506' and dia.sts='1') f ";
 
 		}
 		// end 梅河口20131018重大疾病-------------------------------------

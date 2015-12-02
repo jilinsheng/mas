@@ -6,6 +6,7 @@ public class BizDTO {
 	private Integer bizId;
 	private Integer hospitalId;
 	private String bizType;
+	private String bizTypeTxt;
 	private String organizationId;
 	private String centerId;
 	private String ssn;
@@ -552,6 +553,14 @@ public class BizDTO {
 
 	public void setBizTypeExTxt(String bizTypeExTxt) {
 		this.bizTypeExTxt = bizTypeExTxt;
+	}
+
+	public String getBizTypeTxt() {
+		return bizTypeTxt;
+	}
+
+	public void setBizTypeTxt(String bizTypeTxt) {
+		this.bizTypeTxt = bizTypeTxt;
 	}
 
 }
