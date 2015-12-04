@@ -43,10 +43,7 @@
 			<property name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
 			value="true" /> <generatedKey column="CHRONICSTATUS_ID" sqlStatement="select 
 			SQ_CHRONICSTATUS_ID.nextval from dual" /> </table> -->
-		<!--<table tableName="TEMP_PERSON" schema="medical"> <property name="ignoreQualifiersAtRuntime" 
-			value="true" /> <property name="defaultConfigurationStatus" value="true" 
-			/> <generatedKey column="MEMBER_ID" sqlStatement="select HIBERNATE_SEQUENCE.nextval 
-			from dual" /> </table> <table tableName="TEMP_MONTH" schema="medical"> <property 
+		<!-- <table tableName="TEMP_MONTH" schema="medical"> <property 
 			name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
 			value="true" /> <generatedKey column="MID" sqlStatement="select SQ_CHRONICSTATUS_ID.nextval 
 			from dual" /> </table> <table tableName="TEMP_BILL" schema="medical"> <property 
@@ -59,13 +56,7 @@
 			<property name="ignoreQualifiersAtRuntime" value="true" /> <property name="defaultConfigurationStatus" 
 			value="true" /> <generatedKey column="BATCH_ID" sqlStatement="select HIBERNATE_SEQUENCE.nextval 
 			from dual" /> </table> --><!--
-
-		<table tableName="JZ_MEDICALAFTER" schema="medical">
-			<property name="ignoreQualifiersAtRuntime" value="true" />
-			<property name="defaultConfigurationStatus" value="true" />
-			<generatedKey column="BIZ_ID"
-				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
-		</table>
+			
 		<table tableName="MA_MONTH" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
@@ -127,13 +118,7 @@
 			<generatedKey column="RULE_ID"
 				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
 		</table>-->
-	<!-- 	<table tableName="JZ_MEDICALAFTER" schema="medical">
-			<property name="ignoreQualifiersAtRuntime" value="true" />
-			<property name="defaultConfigurationStatus" value="true" />
-			<generatedKey column="BIZ_ID"
-				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
-		</table>
-				<table tableName="JZ_YEAR" schema="medical">
+	<!-- <table tableName="JZ_YEAR" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
 			<generatedKey column="Y_ID"
@@ -187,24 +172,28 @@
 			<generatedKey column="P_ID"
 				sqlStatement="select SQ_P_ID.nextval from dual" />
 		</table> -->
-<!-- 		<table tableName="org_enabled" schema="medical">
+		<table tableName="org_enabled" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
-		</table> -->
-		<!-- <table tableName="JZ_MEDICALAFTER" schema="medical">
+		</table>
+<!-- 		<table tableName="JZ_MEDICALAFTER" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
 			<generatedKey column="BIZ_ID"
 				sqlStatement="select HIBERNATE_SEQUENCE.nextval from dual" />
 		</table> -->
+		<!-- <table tableName="TEMP_PERSON" schema="medical"> <property name="ignoreQualifiersAtRuntime" 
+			value="true" /> <property name="defaultConfigurationStatus" value="true" 
+			/> <generatedKey column="MEMBER_ID" sqlStatement="select HIBERNATE_SEQUENCE.nextval 
+			from dual" /> </table> -->
 <!-- 		<table tableName="org_set" schema="medical">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="defaultConfigurationStatus" value="true" />
-		</table> -->
+		</table> 
 		<table tableName="JZ_BIZ" schema="medical"> 
 		<property name="ignoreQualifiersAtRuntime" value="true" /> 
 		<property name="defaultConfigurationStatus" value="true" />
 		 <generatedKey column="BIZ_ID" sqlStatement="select SQ_BIZ_ID.nextval from 
-			dual" /> </table>
+			dual" /> </table>-->
 	</ibatorContext>
 </ibatorConfiguration>

@@ -80,6 +80,10 @@ public class AfterDTO {
 	private String CalcMsg;
 	private String businessyear;
 	private int MedicareFlag;//基本医疗保险是否降低比例，0：不降低，1：降低
+	private String IdNumber;
+	private String Fin_Time;
+	private int Person_Type;
+	private int bizTypeEx;//2：大病门诊，3：特殊疾病门诊，5：特殊疾病住院，6：基本医疗住院，7：重特大疾病住院
 
 	
 	public String getOrgCode() {
@@ -276,6 +280,30 @@ public class AfterDTO {
 	}
 	public void setMedicareFlag(int medicareFlag) {
 		MedicareFlag = medicareFlag;
+	}
+	public String getIdNumber() {
+		return IdNumber;
+	}
+	public void setIdNumber(String idNumber) {
+		IdNumber = idNumber;
+	}
+	public String getFin_Time() {
+		return Fin_Time;
+	}
+	public void setFin_Time(String fin_Time) {
+		Fin_Time = fin_Time;
+	}
+	public int getPerson_Type() {
+		return Person_Type;
+	}
+	public void setPerson_Type(int person_Type) {
+		Person_Type = person_Type;
+	}
+	public int getBizTypeEx() {
+		return bizTypeEx;
+	}
+	public void setBizTypeEx(int bizTypeEx) {
+		this.bizTypeEx = bizTypeEx;
 	}
 
 }

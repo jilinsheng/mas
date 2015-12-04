@@ -151,11 +151,12 @@ public class TempServiceImpl implements TempService {
 		} else {
 			String sql = "insert into temp_person "
 					+ " (member_id,  member_type, membername, paperid,  safesort, linkmode, address, "
-					+ "  birthday, sex,  organizationid,  status, familyno, relmaster, ssn, nation, personstate, assist_type, assist_typex) "
+					+ "  birthday, sex,  organizationid,  status, familyno, relmaster, ssn, nation, personstate, assist_type, assist_typex,person_typeex) "
 					+ " select mem.member_id, mem.ds,  mem.membername,  mem.paperid, "
 					+ " med.medicare_type, mem.linkmode, mem.address,  mem.birthday, "
 					+ "  mem.sex, substr(mem.familyno, 1, 10), "
-					+ "  '1', mem.familyno, mem.relmaster,  mem.ssn, mem.nation, mem.personstate, mem.assist_type, mem.assist_typex "
+					+ "  '1', mem.familyno, mem.relmaster,  mem.ssn, mem.nation, mem.personstate, mem.assist_type, mem.assist_typex, "
+					+ " decode(mem.a1, 0, (decode(mem.assist_type || mem.assist_typex, '00000000000', '', 1)), (decode(mem.assist_type || mem.assist_typex, '10000000000', 2, '11000000000', 2, '21000000000', 2, '20000000000', 2, 1))) "
 					+ "  from MEMBER_BASEINFOVIEW02 mem "
 					+ " left join member_medicare med "
 					+ " on med.member_id=mem.member_id and med.member_type=med.member_type "
@@ -179,6 +180,7 @@ public class TempServiceImpl implements TempService {
 			e.setRelmaster(s.getRelmaster());
 			e.setPersonstate(s.getPersonstate());
 			e.setAssistTypex(s.getAssistTypex());
+			e.setPersonTypeex(s.getPersonTypeex());
 			if (!"".equals(s.getAssistType()) && null != s.getAssistType()) {
 				e.setA1(s.getAssistType().substring(0, 1));
 				e.setA2(s.getAssistType().substring(1, 2));
@@ -200,6 +202,24 @@ public class TempServiceImpl implements TempService {
 		return list;
 	}
 
+	private String getPersonTypeEx(TempDTO e){
+		String tempstr = "";
+		String persontype = e.getAssistType()+e.getAssistTypex();
+		if("00000000000".equals(persontype)){
+			tempstr="0";
+		}else{
+			if("1".equals(e.getA3())||"1".equals(e.getA4())||"1".equals(e.getA5())||"1".equals(e.getA6())){
+				tempstr="1";
+			}else if(!"0".equals(e.getA1())){
+				tempstr="2";
+			}else{
+				tempstr="0";
+			}
+		}
+		
+		return tempstr;
+		
+	}
 	private String genAssistype(TempDTO e) {
 		String tempstr = "";
 		if ("1".equals(e.getMemberType())) {
@@ -502,11 +522,11 @@ public class TempServiceImpl implements TempService {
 
 			}
 			tempDTO.setAssistTypeTxt(genAssistype(tempDTO));
+			tempDTO.setPersonTypeex(this.getPersonTypeEx(tempDTO));
 			list.add(tempDTO);
 		}
 		return list;
 	}
-	
 	@SuppressWarnings("rawtypes")
 	public String idcard15to18(String idcard){
 		String sql=" select IDCARD15TO18('"+idcard+"') as idcard from dual ";
@@ -542,6 +562,133 @@ public class TempServiceImpl implements TempService {
 			tempDTO.setAssistTypeM(m.getAssistType());
 			tempDTO.setAssistType(m.getAssistType());
 			tempDTO.setAssistTypex(m.getAssistTypex());
+			if (!"".equals(m.getAssistType()) && null != m.getAssistType()) {
+				tempDTO.setA1(m.getAssistType().substring(0, 1));
+				tempDTO.setA2(m.getAssistType().substring(1, 2));
+				tempDTO.setA3(m.getAssistType().substring(2, 3));
+				tempDTO.setA4(m.getAssistType().substring(3, 4));
+				tempDTO.setA5(m.getAssistType().substring(4, 5));
+			}
+			if (!"".equals(m.getAssistTypex()) && null != m.getAssistTypex()) {
+				tempDTO.setA6(m.getAssistTypex().substring(0, 1));
+				tempDTO.setA7(m.getAssistTypex().substring(1, 2));
+				tempDTO.setA8(m.getAssistTypex().substring(2, 3));
+				tempDTO.setA9(m.getAssistTypex().substring(3, 4));
+				tempDTO.setA10(m.getAssistTypex().substring(4, 5));
+				tempDTO.setA11(m.getAssistTypex().substring(5, 6));
+			}
+			tempDTO.setAssistTypeTxt(genAssistype(tempDTO));
+			tempDTO.setPersonTypeex(this.getPersonTypeEx(tempDTO));
+			
+			// 查询参保编号
+			String medicaretype = this.findSSN(tempDTO).getMedicareType();
+			String ssn = "";
+			if("2".equals(medicaretype)){
+				ssn = m.getPaperid();
+			}else{
+				ssn = this.findSSN(tempDTO).getSsn();
+			}
+
+			tempDTO.setMedicareType(medicaretype);
+			tempDTO.setSsn(ssn);
+		}
+		if (null != tempDTO.getApproveId()) {
+			JzMedicalafter a = jzMedicalafterDAO.selectByPrimaryKey(tempDTO
+					.getApproveId().intValue());
+			tempDTO.setBegintime(a.getBeginTime());
+			tempDTO.setEndtime(a.getEndTime());
+			tempDTO.setHospitalname(a.getHospitalName());
+			tempDTO.setPayAssist(a.getPayAssist());
+			tempDTO.setPayMedicare(a.getPayMedicare());
+			tempDTO.setPayOutmedicare(a.getPayOutmedicare());
+			tempDTO.setPayTotal(a.getPayTotal());
+			tempDTO.setAssistype(a.getAssistType());
+			tempDTO.setInhospitalsicken(a.getDiagnoseName());
+			tempDTO.setHospitaltype(a.getHospitalType());
+			tempDTO.setPaySumAssistIn(a.getPaySumassistIn());
+			tempDTO.setPaySumAssistOut(a.getPaySumassistOut());
+			tempDTO.setSumMedicareScope(a.getSumMedicarescope());
+			tempDTO.setPayCIAssist(a.getPayCiassist());
+			tempDTO.setMedicareType(a.getMedicareType());
+			tempDTO.setBizStatus(a.getBizStatus().trim());
+			tempDTO.setPaySumAssistScopeIn(a.getSumAssitscope());
+			tempDTO.setPayPreSumAssistScopeIn(a.getSumPreAssitscope());
+			tempDTO.setInsurance(a.getInsurance());
+			tempDTO.setOtherType(a.getOtherType());
+			tempDTO.setSsn(a.getSsn());
+			tempDTO.setHospitalLocal(a.getHospitalLocal());
+			if (null == a.getHospitalLevel()) {
+				tempDTO.setHospitalLevel(0);
+			} else {
+				tempDTO.setHospitalLevel(Integer.valueOf(a.getHospitalLevel()
+						.trim()));
+			}
+			if (null == a.getIcdId()) {
+				tempDTO.setIcdId(0);
+			} else {
+				tempDTO.setIcdId(a.getIcdId());
+			}
+			if (null == a.getSpecbiz()) {
+				tempDTO.setSpecBiz(0);
+			} else {
+				tempDTO.setSpecBiz(Integer.valueOf(a.getSpecbiz().trim()));
+			}
+			if (null == a.getHospitalId()) {
+				tempDTO.setHospitalId(0);
+			} else {
+				tempDTO.setHospitalId(a.getHospitalId());
+			}
+			if (null == a.getDiagnoseTypeId()) {
+				tempDTO.setDiagnoseTypeId(0);
+			} else {
+				tempDTO.setDiagnoseTypeId(a.getDiagnoseTypeId());
+			}
+			if("1".equals(a.getMedicareFlag())){
+				tempDTO.setMedicareFlag(true);
+			}else{
+				tempDTO.setMedicareFlag(false);
+			}
+			tempDTO.setCalcMsg(a.getCalcmsg());
+			tempDTO.setBizTypeex(a.getBizTypeEx());
+			if("2".equals(a.getBizTypeEx())){
+				tempDTO.setBizTypeexTxt("大病门诊");
+			}else if("3".equals(a.getBizTypeEx())){
+				tempDTO.setBizTypeexTxt("特殊疾病门诊");
+			}else if("5".equals(a.getBizTypeEx())){
+				tempDTO.setBizTypeexTxt("特殊疾病住院");
+			}else if("6".equals(a.getBizTypeEx())){
+				tempDTO.setBizTypeexTxt("基本医疗住院");
+			}else if("7".equals(a.getBizTypeEx())){
+				tempDTO.setBizTypeexTxt("重特大疾病住院");
+			}
+			tempDTO.setFintime(a.getFinTime());
+		}
+		return tempDTO;
+	}
+	
+	@Override
+	public TempDTO findGeneralAftermeberinfo(TempDTO tempDTO) {
+		TempPersonExample example = new TempPersonExample();
+		example.createCriteria().andMemberIdEqualTo(new BigDecimal(tempDTO.getMemberId()))
+				.andMemberTypeEqualTo(new BigDecimal(tempDTO.getMemberType()));
+		List<TempPerson> ms = tempPersonDAO
+				.selectByExample(example);
+		if (null != ms && ms.size() > 0) {
+			TempPerson m = ms.get(0);
+			tempDTO.setMembername(m.getMembername());
+			tempDTO.setMemberType(m.getMemberType().toString());
+			tempDTO.setAddress(m.getAddress());
+			tempDTO.setSex(m.getSex());
+			tempDTO.setPaperid(m.getPaperid());
+			tempDTO.setRelmaster(m.getRelmaster());
+			tempDTO.setFamilyno(m.getFamilyno());
+			tempDTO.setMastername(m.getMembername());
+			tempDTO.setOrganizationId(m.getFamilyno().substring(0, 10));
+			tempDTO.setPersonstate(m.getPersonstate());
+			tempDTO.setAssistTypeM(m.getAssistType());
+			tempDTO.setAssistType(m.getAssistType());
+			tempDTO.setAssistTypex(m.getAssistTypex());
+			tempDTO.setPersonTypeex(m.getPersonTypeex());
 			if (!"".equals(m.getAssistType()) && null != m.getAssistType()) {
 				tempDTO.setA1(m.getAssistType().substring(0, 1));
 				tempDTO.setA2(m.getAssistType().substring(1, 2));
@@ -628,6 +775,19 @@ public class TempServiceImpl implements TempService {
 				tempDTO.setMedicareFlag(false);
 			}
 			tempDTO.setCalcMsg(a.getCalcmsg());
+			tempDTO.setBizTypeex(a.getBizTypeEx());
+			if("2".equals(a.getBizTypeEx())){
+				tempDTO.setBizTypeexTxt("大病门诊");
+			}else if("3".equals(a.getBizTypeEx())){
+				tempDTO.setBizTypeexTxt("特殊疾病门诊");
+			}else if("5".equals(a.getBizTypeEx())){
+				tempDTO.setBizTypeexTxt("特殊疾病住院");
+			}else if("6".equals(a.getBizTypeEx())){
+				tempDTO.setBizTypeexTxt("基本医疗住院");
+			}else if("7".equals(a.getBizTypeEx())){
+				tempDTO.setBizTypeexTxt("重特大疾病住院");
+			}
+			tempDTO.setFintime(a.getFinTime());
 		}
 		return tempDTO;
 	}
@@ -692,6 +852,9 @@ public class TempServiceImpl implements TempService {
 					record.setMedicareFlag("0");
 				}
 			}
+			record.setFinTime(tempDTO.getFintime());
+			record.setPersonTypeex(tempDTO.getPersonTypeex());
+			record.setBizTypeEx(tempDTO.getBizTypeex());
 			Integer id = jzMedicalafterDAO.insertSelective(record);
 			tempDTO.setApproveId(id.longValue());
 			if (!"".equals(tempDTO.getAssistTypeM())
@@ -767,6 +930,9 @@ public class TempServiceImpl implements TempService {
 					record.setMedicareFlag("0");
 				}
 			}
+			record.setFinTime(tempDTO.getFintime());
+			record.setPersonTypeex(tempDTO.getPersonTypeex());
+			record.setBizTypeEx(tempDTO.getBizTypeex());
 			jzMedicalafterDAO.updateByPrimaryKeySelective(record);
 			if (!"".equals(tempDTO.getAssistTypeM())
 					&& null != tempDTO.getAssistTypeM()) {
@@ -800,7 +966,9 @@ public class TempServiceImpl implements TempService {
 		List<TempDTO> list = new ArrayList<TempDTO>();
 		String sql = "select t.biz_id, mem.membername, mem.paperid18, mem.familyno, "
 				+ "t.pay_total, t.pay_medicare, t.pay_outmedicare, t.pay_assist, t.pay_ciassist, t.biz_status, mem.personstate, mem.assist_type, mem.assist_typex, "
-				+ "t.assist_type as mt, t.diagnose_name, t.hospital_name, t.assist_time , t.member_id, t.member_type, t.other_type, t.insurance "
+				+ "t.assist_type as mt, t.diagnose_name, t.hospital_name, t.assist_time , t.member_id, t.member_type, t.other_type, t.insurance, "
+				+ "decode(mem.a1,0,(decode(mem.assist_type || mem.assist_typex,'00000000000','',1)),(decode(mem.assist_type || mem.assist_typex, '10000000000', 2,'11000000000', 2, '21000000000', 2, '20000000000', 2, 1))) as personTypeex, "
+				+ " t.fin_time "
 				+ " from jz_medicalafter t, MEMBER_BASEINFOVIEW02 mem "
 				+ "where t.member_id = mem.member_id  and t.member_type = mem.ds  and t.member_id='"
 				+ tempDTO.getMemberId()
@@ -831,6 +999,71 @@ public class TempServiceImpl implements TempService {
 			String assistypem = (String) s.get("ASSIST_TYPE");
 			String assisttypex = (String) s.get("ASSIST_TYPEX");
 			e.setAssistTypex(assisttypex);
+			if (!"".equals(assistypem) && null != assistypem) {
+				e.setA1(assistypem.substring(0, 1));
+				e.setA2(assistypem.substring(1, 2));
+				e.setA3(assistypem.substring(2, 3));
+				e.setA4(assistypem.substring(3, 4));
+				e.setA5(assistypem.substring(4, 5));
+			}
+			if (!"".equals(assisttypex) && null != assisttypex) {
+				e.setA6(assisttypex.substring(0, 1));
+				e.setA7(assisttypex.substring(1, 2));
+				e.setA8(assisttypex.substring(2, 3));
+				e.setA9(assisttypex.substring(3, 4));
+				e.setA10(assisttypex.substring(4, 5));
+				e.setA11(assisttypex.substring(5, 6));
+			}
+			e.setAssistTypeTxt(genAssistype(e));
+			e.setPersonTypeex(this.getPersonTypeEx(e));
+			e.setFintime((Date)s.get("FIN_TIME"));
+			list.add(e);
+		}
+		return list;
+	}
+	@Override
+	@SuppressWarnings({ "rawtypes" })
+	public List<TempDTO> findGeneralAfterapplys(TempDTO tempDTO) {
+		List<TempDTO> list = new ArrayList<TempDTO>();
+		String sql = "select t.biz_id, mem.membername, mem.paperid, mem.familyno, "
+				+ " t.pay_total, t.pay_medicare, t.pay_outmedicare, t.pay_assist, t.pay_ciassist, t.biz_status, "
+				+ " mem.personstate, mem.assist_type, mem.assist_typex,mem.person_typeex as tPersontypeex, "
+				+ " t.assist_type as mt, t.diagnose_name, t.hospital_name, t.assist_time , "
+				+ " t.member_id, t.member_type, t.other_type, t.insurance,t.person_typeex as jPerontypeex,"
+				+ " t.biz_type_ex,t.fin_time "
+				+ " from jz_medicalafter t, temp_person mem "
+				+ "where t.member_id = mem.member_id  and t.member_type = mem.member_type  and t.member_id='"
+				+ tempDTO.getMemberId()
+				+ "' and t.member_type='"
+				+ tempDTO.getMemberType() + "'  order by t.assist_time";
+		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("executsql", sql);
+		List<HashMap> rs = extendsDAO.queryAll(param);
+		for (HashMap s : rs) {
+			TempDTO e = new TempDTO();
+			e.setMembername((String) s.get("MEMBERNAME"));
+			e.setPaperid((String) s.get("PAPERID"));
+			e.setPayAssist((BigDecimal) s.get("PAY_ASSIST"));
+			e.setPayMedicare((BigDecimal) s.get("PAY_MEDICARE"));
+			e.setPayOutmedicare((BigDecimal) s.get("PAY_OUTMEDICARE"));
+			e.setPayCIAssist((BigDecimal) s.get("PAY_CIASSIST"));
+			e.setPayTotal((BigDecimal) s.get("PAY_TOTAL"));
+			e.setApplytime((Date) s.get("ASSIST_TIME"));
+			e.setInhospitalsicken((String) s.get("DIAGNOSE_NAME"));
+			e.setHospitalname((String) s.get("HOSPITAL_NAME"));
+			e.setApproveId(new Long(s.get("BIZ_ID").toString()));
+			e.setMemberId((String) s.get("MEMBER_ID"));
+			e.setMemberType((String) s.get("MEMBER_TYPE"));
+			e.setPersonstate((String) s.get("PERSONSTATE"));
+			e.setBizStatus((String) s.get("BIZ_STATUS"));
+			e.setAssistype((String) s.get("MT"));
+			e.setInsurance((BigDecimal) s.get("INSURANCE"));
+			String assistypem = (String) s.get("ASSIST_TYPE");
+			String assisttypex = (String) s.get("ASSIST_TYPEX");
+			e.setAssistTypex(assisttypex);
+			e.setPersonTypeex((String) s.get("TPERSONTYPEEX"));
+			e.setBizTypeex((String) s.get("BIZ_TYPE_EX"));
+			e.setFintime((Date)s.get("FIN_TIME"));
 			if (!"".equals(assistypem) && null != assistypem) {
 				e.setA1(assistypem.substring(0, 1));
 				e.setA2(assistypem.substring(1, 2));
@@ -1944,6 +2177,7 @@ public class TempServiceImpl implements TempService {
 
 	public TempDTO saveTempPerson(TempDTO tempDTO) {
 		TempPerson record = new TempPerson();
+		String familno = this.getFamilyno(tempDTO.getOrganizationId());
 		record.setAddress(tempDTO.getAddress());
 		record.setBirthday(tempDTO.getBirthday());
 		record.setLinkmode(tempDTO.getLinkmode());
@@ -1953,10 +2187,11 @@ public class TempServiceImpl implements TempService {
 		record.setPaperid(tempDTO.getPaperid());
 		record.setSafesort(tempDTO.getSafesort());
 		record.setSex(tempDTO.getSex());
-		record.setFamilyno(tempDTO.getPaperid());
+		record.setFamilyno(familno);
 		record.setSsn(tempDTO.getSsn());
 		record.setRelmaster("本人");
 		record.setNation(tempDTO.getNation());
+		record.setPersonTypeex(tempDTO.getPersonTypeex());
 		if (null == tempDTO.getMemberId()) {
 			record.setStatus("1");
 			record.setPersonstate("正常");
@@ -2000,6 +2235,17 @@ public class TempServiceImpl implements TempService {
 		tempDTO.setAssistTypeTxt(genAssistype(tempDTO));
 		tempDTO.setOrganizationId(tempDTO.getOrganizationId());
 		return tempDTO;
+	}
+	
+	@SuppressWarnings({ "unused", "rawtypes" })
+	private String getFamilyno(String org){
+		String familyno = "";
+		HashMap<String, String> param = new HashMap<String, String>();
+		String sql = "select genfamnonc('"+org+"')as fno from dual";
+		param.put("executsql", sql);
+		List<HashMap> rs = extendsDAO.queryAll(param);
+		familyno = (String)rs.get(0).get("FNO");
+		return familyno;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -3916,6 +4162,9 @@ public class TempServiceImpl implements TempService {
 			String persontype = "";
 			String ptype = tempDTO.getAssistTypeM()+""+tempDTO.getAssistTypex();
 			persontype = getPersonType(ptype);
+			if("99".equals(persontype)){
+				persontype=tempDTO.getPersonTypeex();
+			}
 			// 封顶线 
 			m = getTopCalclineByType(organizationId, persontype);
 			// 住院业务个人救助金总额(本年度)type = 2

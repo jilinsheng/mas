@@ -9,6 +9,8 @@ public class OrgEnabledDTO {
 	private Date hospitalTime;
 	private Integer manualSts;
 	private Date manualTime;
+	private Integer tempSts;
+	private Date tempTime;
 	
 	public String getOrganizationId() {
 		return organizationId;
@@ -39,6 +41,18 @@ public class OrgEnabledDTO {
 	}
 	public void setManualTime(Date manualTime) {
 		this.manualTime = manualTime;
+	}
+	public Integer getTempSts() {
+		return tempSts;
+	}
+	public void setTempSts(Integer tempSts) {
+		this.tempSts = tempSts;
+	}
+	public Date getTempTime() {
+		return tempTime;
+	}
+	public void setTempTime(Date tempTime) {
+		this.tempTime = tempTime;
 	}
 	
 }

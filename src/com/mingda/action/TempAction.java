@@ -32,6 +32,7 @@ import com.mingda.dto.JzMedicalafterBillDTO;
 import com.mingda.dto.JzMedicalafterRuleDTO;
 import com.mingda.dto.JzMedicalafterfileDTO;
 import com.mingda.dto.JzYearDTO;
+import com.mingda.dto.OrgEnabledDTO;
 import com.mingda.dto.OrganizationDTO;
 import com.mingda.dto.OutIcdDTO;
 import com.mingda.dto.SecondApproveDTO;
@@ -44,6 +45,7 @@ import com.mingda.dto.TempMonthDTO;
 import com.mingda.dto.TempRuleDTO;
 import com.mingda.dto.TempSecondDTO;
 import com.mingda.dto.UserDTO;
+import com.mingda.service.AuthorityService;
 import com.mingda.service.SystemDataService;
 import com.mingda.service.TempService;
 import com.mingda.webclient.YljzService;
@@ -130,6 +132,7 @@ public class TempAction extends ActionSupport {
 	private String bizstatus;
 	private String ds;
 	private JzMedicalafterBillDTO jzMedicalafterBillDTO;
+	private AuthorityService authorityService;
 	
 	private BigDecimal temp_topline;
 
@@ -316,10 +319,22 @@ public class TempAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-		if (organizationId.length() == 8) {
-			return SUCCESS;
-		} else {
-			result = "此功能由乡镇街道使用！";
+		String org = "";
+		if(organizationId.length()>6){
+			org = organizationId.substring(0, 6);
+		}else{
+			org = organizationId;
+		}
+		OrgEnabledDTO oe = authorityService.queryEnabled(org);
+		if(oe.getTempSts()==2){
+			if (organizationId.length() == 8) {
+				return SUCCESS;
+			} else {
+				result = "此功能由乡镇街道使用！";
+				return "result";
+			}
+		}else{
+			result = "已经开启新政策！";
 			return "result";
 		}
 	}
@@ -483,20 +498,32 @@ public class TempAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-		if (organizationId.length() == 6) {
-			// 获取机构
-			if (6 == organizationId.length() || 8 == organizationId.length()) {
-				if (2 == organizationId.length()) {
-					orgs = systemDataService
-							.findOrganizationExt(organizationId);
-				} else {
-					orgs = systemDataService
-							.findOrgParentAndChilds(organizationId);
+		String org = "";
+		if(organizationId.length()>6){
+			org = organizationId.substring(0, 6);
+		}else{
+			org = organizationId;
+		}
+		OrgEnabledDTO oe = authorityService.queryEnabled(org);
+		if(oe.getTempSts()==2){
+			if (organizationId.length() == 6) {
+				// 获取机构
+				if (6 == organizationId.length() || 8 == organizationId.length()) {
+					if (2 == organizationId.length()) {
+						orgs = systemDataService
+								.findOrganizationExt(organizationId);
+					} else {
+						orgs = systemDataService
+								.findOrgParentAndChilds(organizationId);
+					}
 				}
+				return SUCCESS;
+			} else {
+				result = "您没有操作权限！";
+				return "result";
 			}
-			return SUCCESS;
-		} else {
-			result = "您没有操作权限！";
+		}else{
+			result = "已经开启新政策！";
 			return "result";
 		}
 
@@ -660,16 +687,27 @@ public class TempAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-
-		// 获取机构
-		if (6 == organizationId.length() || 8 == organizationId.length()) {
-			if (2 == organizationId.length()) {
-				orgs = systemDataService.findOrganizationExt(organizationId);
-			} else {
-				orgs = systemDataService.findOrgParentAndChilds(organizationId);
-			}
+		String org = "";
+		if(organizationId.length()>6){
+			org = organizationId.substring(0, 6);
+		}else{
+			org = organizationId;
 		}
-		return SUCCESS;
+		OrgEnabledDTO oe = authorityService.queryEnabled(org);
+		if(oe.getTempSts()==2){
+			// 获取机构
+			if (6 == organizationId.length() || 8 == organizationId.length()) {
+				if (2 == organizationId.length()) {
+					orgs = systemDataService.findOrganizationExt(organizationId);
+				} else {
+					orgs = systemDataService.findOrgParentAndChilds(organizationId);
+				}
+			}
+			return SUCCESS;
+		}else{
+			result = "已经开启新政策！";
+			return "result";
+		}
 	}
 
 	public String viewtemp() {
@@ -2991,32 +3029,43 @@ public class TempAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-		if (organizationId.length() == 6) {
-			tempRuleDTO = this.tempService.findTempRuleByOrgid(organizationId);
-			if (null == tempRuleDTO.getPersonType()
-					|| "".equals(tempRuleDTO.getPersonType())) {
-			} else {
-				tempRuleDTO.setScale(tempRuleDTO.getScale().multiply(
-						new BigDecimal(100)));
-			}
-			if (null == tempRuleDTO.getPersonTypeNj()
-					|| "".equals(tempRuleDTO.getPersonTypeNj())) {
-			} else {
-				tempRuleDTO.setScaleNj(tempRuleDTO.getScaleNj().multiply(
-						new BigDecimal(100)));
-			}
-			if (null == tempRuleDTO.getNscale()
-					|| "".equals(tempRuleDTO.getNscale())) {
-			} else {
-				tempRuleDTO.setNscale(tempRuleDTO.getNscale().multiply(
-						new BigDecimal(100)));
-			}
-			return SUCCESS;
-		} else {
-			result = "您没有操作权限！";
-			return ERROR;
+		String org = "";
+		if(organizationId.length()>6){
+			org = organizationId.substring(0, 6);
+		}else{
+			org = organizationId;
 		}
-
+		OrgEnabledDTO oe = authorityService.queryEnabled(org);
+		if(oe.getTempSts()==2){
+			if (organizationId.length() == 6) {
+				tempRuleDTO = this.tempService.findTempRuleByOrgid(organizationId);
+				if (null == tempRuleDTO.getPersonType()
+						|| "".equals(tempRuleDTO.getPersonType())) {
+				} else {
+					tempRuleDTO.setScale(tempRuleDTO.getScale().multiply(
+							new BigDecimal(100)));
+				}
+				if (null == tempRuleDTO.getPersonTypeNj()
+						|| "".equals(tempRuleDTO.getPersonTypeNj())) {
+				} else {
+					tempRuleDTO.setScaleNj(tempRuleDTO.getScaleNj().multiply(
+							new BigDecimal(100)));
+				}
+				if (null == tempRuleDTO.getNscale()
+						|| "".equals(tempRuleDTO.getNscale())) {
+				} else {
+					tempRuleDTO.setNscale(tempRuleDTO.getNscale().multiply(
+							new BigDecimal(100)));
+				}
+				return SUCCESS;
+			} else {
+				result = "您没有操作权限！";
+				return ERROR;
+			}
+		}else{
+			result = "已经开启新政策！";
+			return "result";
+		}
 	}
 
 	public String managetemp() {
@@ -3261,15 +3310,26 @@ public class TempAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-
-		if (6 == organizationId.length() || 8 == organizationId.length()) {
-			if (2 == organizationId.length()) {
-				orgs = systemDataService.findOrganizationExt(organizationId);
-			} else {
-				orgs = systemDataService.findOrgParentAndChilds(organizationId);
-			}
+		String org = "";
+		if(organizationId.length()>6){
+			org = organizationId.substring(0, 6);
+		}else{
+			org = organizationId;
 		}
-		return SUCCESS;
+		OrgEnabledDTO oe = authorityService.queryEnabled(org);
+		if(oe.getTempSts()==2){
+			if (6 == organizationId.length() || 8 == organizationId.length()) {
+				if (2 == organizationId.length()) {
+					orgs = systemDataService.findOrganizationExt(organizationId);
+				} else {
+					orgs = systemDataService.findOrgParentAndChilds(organizationId);
+				}
+			}
+			return SUCCESS;
+		}else{
+			result = "已经开启新政策！";
+			return "result";
+		}
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -4838,6 +4898,14 @@ public class TempAction extends ActionSupport {
 
 	public void setTemp_topline(BigDecimal temp_topline) {
 		this.temp_topline = temp_topline;
+	}
+
+	public AuthorityService getAuthorityService() {
+		return authorityService;
+	}
+
+	public void setAuthorityService(AuthorityService authorityService) {
+		this.authorityService = authorityService;
 	}
 
 }

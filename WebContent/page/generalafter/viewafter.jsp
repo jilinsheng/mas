@@ -16,15 +16,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Pragma" content="no-cache">
 <link rel="stylesheet" href="<%=basePath%>/page/css/table-style.css" type="text/css"></link>
-<title><s:property value="tempDTO.membername"></s:property>重点医后报销审批表</title>
+<title><s:property value="tempDTO.membername"></s:property>一般医后报销审批表</title>
 </head>
 <body>
 <table width="680px" class="formTitle">
 	<tr>
 		<td style="padding-left: 2px"><img
-			alt="<s:property value="tempDTO.membername"></s:property>重点医后报销审批表"
+			alt="<s:property value="tempDTO.membername"></s:property>一般医后报销审批表"
 			border="0" src="page/images/aws-dev.gif" /><font
-			class="formTitleFont"><s:property value="tempDTO.membername"></s:property>重点医后报销审批表</font>
+			class="formTitleFont"><s:property value="tempDTO.membername"></s:property>一般医后报销审批表</font>
 			<font color="red">[当前状态：<s:property value="tempDTO.personstate"/>]&nbsp;[身份类别：<s:property value="tempDTO.assistTypeTxt"/>]&nbsp;[救助对象类别:<s:if test="tempDTO.personTypeex==1">第一类</s:if>
 				<s:elseif test="tempDTO.personTypeex==2">第二类</s:elseif><s:elseif test="tempDTO.personTypeex==3">第三类</s:elseif><s:elseif test="tempDTO.personTypeex==4">第四类</s:elseif>]</font>
 		</td>

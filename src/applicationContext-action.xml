@@ -66,6 +66,7 @@
 		<property name="systemDataService" ref="systemDataService"></property>
 		<property name="tempService" ref="tempService"></property>
 		<property name="yljzService" ref="yljzService"></property>
+		<property name="authorityService" ref="authorityService"></property>
 	</bean>
 	<bean id="icdAction" class="com.mingda.action.IcdAction" scope="request">
 		<property name="searchService" ref="searchService"></property>
@@ -106,6 +107,12 @@
 	<bean id="policyAction" class="com.mingda.action.PolicyAction" scope="request">
 		<property name="policyService" ref="policyService"></property>
 		<property name="systemDataService" ref="systemDataService"></property>
+	</bean>
+	<bean id="generalAfterAction" class="com.mingda.action.GeneralAfterAction" scope="request">
+		<property name="systemDataService" ref="systemDataService"></property>
+		<property name="tempService" ref="tempService"></property>
+		<property name="yljzService" ref="yljzService"></property>
+		<property name="authorityService" ref="authorityService"></property>
 	</bean>
 	<bean id="authorityInterceptor" class="com.mingda.interceptor.AuthorityInterceptor" scope="request">
 		<property name="systemDataService" ref="systemDataService"></property>

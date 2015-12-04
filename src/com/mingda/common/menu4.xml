@@ -171,27 +171,48 @@
 				</ul>
 			</li>
 			<li>
-				<span class="folder">医后报销管理</span>
+				<span class="folder">重点医后报销管理</span>
 				<ul>
 					<li>
 						<span class="file"
-							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryaftermemberinit.action&amp;nav=[医后报销管理]>>[审批]')">录入</span>
+							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryaftermemberinit.action&amp;nav=[重点医后报销管理]>>[审批]')">录入</span>
 					</li>
 					<li>
 						<span class="file"
-							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryafterapprovedoneinit.action&amp;nav=[医后报销管理]>>[审批]')">审批</span>
+							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryafterapprovedoneinit.action&amp;nav=[重点医后报销管理]>>[审批]')">审批</span>
 					</li>
 					<li>
 						<span class="file"
-							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryafterapproveinit.action&amp;nav=[医后报销管理]>>[报销查询]')">报销查询</span>
+							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryafterapproveinit.action&amp;nav=[重点医后报销管理]>>[报销查询]')">报销查询</span>
 					</li>
 <!-- 					<li>
 						<span class="file"
-							onclick="viewhtml('../contentframe.jsp?url=../page/temp/afterannexaddinit.action&amp;nav=[医后报销管理]>>[附件补录]')">附件补录</span>
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/afterannexaddinit.action&amp;nav=[重点医后报销管理]>>[附件补录]')">附件补录</span>
 					</li> -->
 					<li>
 						<span class="file"
-							onclick="viewhtml('../contentframe.jsp?url=../page/temp/queryaftermembersgsinit.action&amp;nav=[医后报销管理]>>[公示]')">公示</span>
+							onclick="viewhtml('../contentframe.jsp?url=../page/after/queryaftermembersgsinit.action&amp;nav=[重点医后报销管理]>>[公示]')">公示</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<span class="folder">一般医后报销管理</span>
+				<ul>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/generalafter/querytempmemberinit.action&amp;nav=[一般医后报销管理]>>[申请]')">申请</span>
+					</li>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/generalafter/queryafterapprovedoneinit.action&amp;nav=[一般医后报销管理]>>[审批]')">审批</span>
+					</li>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/generalafter/queryafterapproveinit.action&amp;nav=[一般医后报销管理]>>[报销查询]')">报销查询</span>
+					</li>
+					<li>
+						<span class="file"
+							onclick="viewhtml('../contentframe.jsp?url=../page/generalafter/queryaftermembersgsinit.action&amp;nav=[一般医后报销管理]>>[公示]')">公示</span>
 					</li>
 				</ul>
 			</li>
@@ -206,19 +227,19 @@
 
 					<li>
 						<span class="file"
-							onclick="viewhtml('../contentframe.jsp?url=../page/temp/querytempapproveinit&amp;nav=[临时救助管理]>>[审批]')">审批</span>
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/querytempapproveinit.action&amp;nav=[临时救助管理]>>[审批]')">审批</span>
 					</li>
 					<li>
 						<span class="file"
-							onclick="viewhtml('../contentframe.jsp?url=../page/temp/querytempsinit&amp;nav=[临时救助管理]>>[审批查询]')">审批查询</span>
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/querytempsinit.action&amp;nav=[临时救助管理]>>[审批查询]')">审批查询</span>
 					</li>
 					<li>
 						<span class="file"
-							onclick="viewhtml('../contentframe.jsp?url=../page/temp/tempannexaddinit.action&amp;nav=[医后报销管理]>>[附件补录]')">附件补录</span>
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/tempannexaddinit.action&amp;nav=[临时报销管理]>>[附件补录]')">附件补录</span>
 					</li>
 					<li>
 						<span class="file"
-							onclick="viewhtml('../contentframe.jsp?url=../page/temp/managetempinit&amp;nav=[临时救助管理]>>[政策管理]')">政策管理</span>
+							onclick="viewhtml('../contentframe.jsp?url=../page/temp/managetempinit.action&amp;nav=[临时救助管理]>>[政策管理]')">政策管理</span>
 					</li>
 				</ul>
 			</li>

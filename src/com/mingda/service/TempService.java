@@ -215,5 +215,9 @@ public interface TempService {
 	public TempDTO iscalcline(TempDTO tempDTO);
 	
 	public OrgSetDTO getOrgSet(String orgid);
+	
+	public TempDTO findGeneralAftermeberinfo(TempDTO tempDTO);
+	
+	public List<TempDTO> findGeneralAfterapplys(TempDTO tempDTO);
 
 }

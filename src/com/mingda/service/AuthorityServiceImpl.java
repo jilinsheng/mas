@@ -99,6 +99,8 @@ public class AuthorityServiceImpl implements AuthorityService {
 		o.setManualSts(s.getManualSts());
 		o.setManualTime(s.getManualTime());
 		o.setOrganizationId(s.getOrganizationId());
+		o.setTempSts(s.getTempSts());
+		o.setTempTime(s.getTempTime());
 		return o;
 	}
 

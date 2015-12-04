@@ -141,5 +141,17 @@
 				/page/after/queryafterapprove.jsp
 			</result>
 		</action>
+		<action name="queryaftermembersgsinit" method="queryaftermembersgsinit"
+			class="afterAction">
+			<result name="success">
+				/page/after/queryaftermembersgs.jsp
+			</result>
+		</action>
+		<action name="queryaftermembersgs" method="queryaftermembersgs"
+			class="afterAction">
+			<result name="success">
+				/page/after/queryaftermembersgs.jsp
+			</result>
+		</action>
 	</package>
 </struts>

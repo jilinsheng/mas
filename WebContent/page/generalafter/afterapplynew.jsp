@@ -17,7 +17,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <link rel="stylesheet" href="<%=basePath%>/page/css/table-style.css" type="text/css"></link>
 <link rel="stylesheet" href="<%=basePath%>/page/css/button.css" type="text/css"></link>
-<title><s:property value="tempDTO.membername"></s:property>重点医后报销审批表</title>
+<title><s:property value="tempDTO.membername"></s:property>一般医后报销审批表</title>
 <script type="text/javascript"
 	src="<%=path%>/struts/js/base/jquery.ui.datepicker.min.js"></script>
 <script type="text/javascript"

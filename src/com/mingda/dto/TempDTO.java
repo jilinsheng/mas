@@ -123,6 +123,11 @@ public class TempDTO {
 	private String businessyear;
 	
 	private Boolean MedicareFlag;
+
+	private String personTypeex;
+	private Date fintime;
+	private String bizTypeex;
+	private String bizTypeexTxt;
 	
 	public BigDecimal getPaySumAssistScopeIn() {
 		return paySumAssistScopeIn;
@@ -1042,6 +1047,38 @@ public class TempDTO {
 
 	public void setMedicareFlag(Boolean medicareFlag) {
 		MedicareFlag = medicareFlag;
+	}
+
+	public String getPersonTypeex() {
+		return personTypeex;
+	}
+
+	public void setPersonTypeex(String personTypeex) {
+		this.personTypeex = personTypeex;
+	}
+
+	public String getBizTypeex() {
+		return bizTypeex;
+	}
+
+	public void setBizTypeex(String bizTypeex) {
+		this.bizTypeex = bizTypeex;
+	}
+
+	public Date getFintime() {
+		return fintime;
+	}
+
+	public void setFintime(Date fintime) {
+		this.fintime = fintime;
+	}
+
+	public String getBizTypeexTxt() {
+		return bizTypeexTxt;
+	}
+
+	public void setBizTypeexTxt(String bizTypeexTxt) {
+		this.bizTypeexTxt = bizTypeexTxt;
 	}
 
 }

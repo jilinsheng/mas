@@ -5,5 +5,6 @@ import com.mingda.webclient.model.CiDTO;
 
 public interface YljzService {
 	public AfterDTO getAssistMoneyAfterEx(AfterDTO afterDTO);
+	public AfterDTO getAssistMoneyAfter(AfterDTO afterDTO);
 	public CiDTO getCiAssistByPaperIDEx(CiDTO cidto);
 }

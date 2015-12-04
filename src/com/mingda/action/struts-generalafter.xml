@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<package name="generalafter" extends="json-default" namespace="/page/generalafter">
+		<interceptors>
+			<interceptor class="com.mingda.interceptor.AuthorityInterceptor"
+				name="authority" />
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="basicStack" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"></default-interceptor-ref>
+		<global-results>
+			<result name="login" type="redirect">/logout.jsp</result><result name="norole" type="redirect">/norole/norole.jsp</result>
+		</global-results>
+		<action name="querytempmemberinit" method="querytempmemberinit"
+			class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/querytempmember.jsp
+			</result>
+			<result name="result">
+				/page/generalafter/result.jsp
+			</result>
+		</action>
+		<action name="querytempmember" method="querytempmember" class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/viewtempmembers.jsp
+			</result>
+			<result name="createtempperson">
+				/page/generalafter/createtempperson.jsp
+			</result>
+		</action>
+		<action name="createtempperson" method="createtempperson" class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/viewtempmembers.jsp
+			</result>
+		</action>
+		<action name="afterapplyinitnew" method="afterapplyinitnew" class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/afterapplynew.jsp
+			</result>
+			<result name="result">
+				/page/generalafter/maresult.jsp
+			</result>
+		</action>
+		<action name="viewafterapplys" method="viewafterapplys" class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/viewafters.jsp
+			</result>
+		</action>
+		<action name="viewafterapply" method="viewafterapply" class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/viewafter.jsp
+			</result>
+		</action>
+		<action name="queryafterapprovedoneinit" method="queryafterapprovedoneinit" class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/queryafterapprovedone.jsp
+			</result>
+			<result name="result">
+				/page/generalafter/result.jsp
+			</result>
+		</action>
+		<action name="queryafterapprovedone" method="queryafterapprovedone" class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/queryafterapprovedone.jsp
+			</result>
+		</action>
+		<action name="afterapply" method="afterapply" class="generalAfterAction">
+			<interceptor-ref name="fileUpload" />
+			<interceptor-ref name="mydefault"></interceptor-ref>
+			<result name="success">
+				/page/generalafter/viewafter.jsp
+			</result>
+			<result name="result">
+				/page/generalafter/result.jsp
+			</result>
+		</action>
+		<action name="afteryn" method="afteryn" class="afterAction">
+			<result name="success">
+				/page/after/result.jsp
+			</result>
+		</action>
+		<action name="calcaftermoneyauto" method="calcaftermoneyauto" 
+			class="generalAfterAction">
+			<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
+		<action name="queryafterapproveinit" method="queryafterapproveinit" class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/queryafterapprove.jsp
+			</result>
+			<result name="result">
+				/page/generalafter/result.jsp
+			</result>
+		</action>
+		<action name="queryafterapprove" method="queryafterapprove" class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/queryafterapprove.jsp
+			</result>
+		</action>
+		<action name="queryaftermembersgsinit" method="queryaftermembersgsinit" class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/queryaftermembersgs.jsp
+			</result>
+			<result name="result">
+				/page/generalafter/result.jsp
+			</result>
+		</action>
+		<action name="queryaftermembersgs" method="queryaftermembersgs" class="generalAfterAction">
+			<result name="success">
+				/page/generalafter/queryaftermembersgs.jsp
+			</result>
+		</action>
+	</package>
+</struts>

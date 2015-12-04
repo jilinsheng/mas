@@ -16,7 +16,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Pragma" content="no-cache">
 <link rel="stylesheet" href="page/css/table-style.css" type="text/css"></link>
-<title>重点医后报销审批查询</title>
+<title>一般医后报销审批查询</title>
 <script type="text/javascript"
 	src="<%=path%>/struts/js/base/jquery.ui.datepicker.min.js"></script>
 <script type="text/javascript"

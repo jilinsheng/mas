@@ -2,6 +2,7 @@ package com.mingda.action;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,6 +16,7 @@ import org.apache.log4j.Logger;
 
 import com.mingda.dto.DeptDTO;
 import com.mingda.dto.DiagnoseTypeDTO;
+import com.mingda.dto.DictDTO;
 import com.mingda.dto.JzYearDTO;
 import com.mingda.dto.OrgEnabledDTO;
 import com.mingda.dto.OrgSetDTO;
@@ -27,29 +29,28 @@ import com.mingda.service.SystemDataService;
 import com.mingda.service.TempService;
 import com.mingda.webclient.YljzService;
 import com.mingda.webclient.model.AfterDTO;
-import com.mingda.webclient.model.CiDTO;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class AfterAction extends ActionSupport {
-	static final Logger log = Logger.getLogger(AfterAction.class);
+public class GeneralAfterAction extends ActionSupport {
+	
+	static final Logger log = Logger.getLogger(TempAction.class);
 	private static final long serialVersionUID = 1L;
-	private String result;
+	
 	private SystemDataService systemDataService;
 	private YljzService yljzService;
+	private TempService tempService;
+	private String result;
 	private TempDTO tempDTO;
 	private List<TempDTO> tempmembers;
-	private TempService tempService;
-	private List<TempDTO> payviews;
+	private List<OrganizationDTO> orgs;
+	private List<DictDTO> nations;
 	private String r;
 	private List<DeptDTO> depts;
 	private List<DiagnoseTypeDTO> diagnosetypes;
 	private List<OutIcdDTO> outicds;
-	private CiDTO ciDTO;
-	private String orgid;
-	private TempDTO tempDTOend;
-	private AfterDTO afterDTO;
-	private List<OrganizationDTO> orgs;
+	private OrgSetDTO orgSetDTO;
+	private List<TempDTO> payviews;
 	private String cur_page;
 	private String value;
 	private String operational;
@@ -58,42 +59,65 @@ public class AfterAction extends ActionSupport {
 	private String oid;
 	private String toolsmenu;
 	private String assistype;
+	private AfterDTO afterDTO;
+	private String orgid;
+	private AuthorityService authorityService;
 	private String opertime1;
 	private String opertime2;
-	private OrgSetDTO orgSetDTO;
 	private String opertime3;
 	private String opertime4;
 	private String impl;
 	private String ds;
 	
-
 	@SuppressWarnings("rawtypes")
-	public String queryaftermemberinit() {
+	public String querytempmemberinit() {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-		if (organizationId.length() == 6) {
-			return SUCCESS;
-		} else {
-			result = "此功能由区县使用！";
+		String org = "";
+		if(organizationId.length()>6){
+			org = organizationId.substring(0, 6);
+		}else{
+			org = organizationId;
+		}
+		OrgEnabledDTO oe = authorityService.queryEnabled(org);
+		if(oe.getTempSts()==1){
+			if (organizationId.length() == 8) {
+				return SUCCESS;
+			} else {
+				result = "此功能由乡镇街道使用！";
+				return "result";
+			}
+		}else{
+			result = "未启用新政策！";
 			return "result";
 		}
 	}
-
+	
+	// 临时救助：申请查询
 	@SuppressWarnings("rawtypes")
-	public String queryaftermember() {
+	public String querytempmember() {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-		tempDTO.setOrg(organizationId.substring(0, 6));
 		tempDTO.setOrganizationId(organizationId);
-		tempmembers = tempService.findAftermember(tempDTO);
-		tempDTO.setMemberId(tempmembers.get(0).getMemberId());
-		tempDTO.setMemberType(tempmembers.get(0).getMemberType());
-		payviews = tempService.findPayviews(tempDTO);
+		tempmembers = tempService.findTempmember(tempDTO);
+		if (null != tempmembers && tempmembers.size() > 0) {
+			return SUCCESS;
+		} else {
+			orgs = systemDataService.findOrgChilds(organizationId);
+			setNations(systemDataService.findNations());
+			return "createtempperson";
+		}
+	}
+	
+	public String createtempperson() {
+		tempDTO = tempService.saveTempPerson(tempDTO);
+		tempmembers = new ArrayList<TempDTO>();
+		tempmembers.add(tempDTO);
 		return SUCCESS;
 	}
-
+	
 	@SuppressWarnings("rawtypes")
 	public String afterapplyinitnew() {
 		Map session = ActionContext.getContext().getSession();
@@ -115,7 +139,7 @@ public class AfterAction extends ActionSupport {
 		}
 
 		if (flag == true) {
-			tempDTO = tempService.findAftermeberinfo(tempDTO);
+			tempDTO = tempService.findGeneralAftermeberinfo(tempDTO);
 			// 定点医院名称列表
 			if (organizationId.length() > 6) {
 				organizationId = organizationId.substring(0, 6);
@@ -171,186 +195,13 @@ public class AfterAction extends ActionSupport {
 		}
 
 	}
-
-	// 计算医后大病保险
-	@SuppressWarnings("rawtypes")
-	public String calcaftermoney() {
-		Map session = ActionContext.getContext().getSession();
-		UserDTO user = (UserDTO) session.get("user");
-		String organizationId = user.getOrganizationId();
-		if (null != organizationId && !"".equals(organizationId)) {
-			organizationId = organizationId.substring(0, 6);
-		}
-		JSONObject json = new JSONObject();
-		ciDTO = new CiDTO();
-		ciDTO.setPaperID(tempDTO.getPaperid());
-		if ("3".equals(tempDTO.getMedicareType())) {
-			ciDTO.setMedicareType("0");
-		} else {
-			ciDTO.setMedicareType(tempDTO.getMedicareType());
-		}
-		ciDTO.setPay_Total(tempDTO.getPayTotal());
-		ciDTO.setPay_Medicare(tempDTO.getPayMedicare());
-		ciDTO.setPay_OutMedicare(tempDTO.getPayOutmedicare());
-		ciDTO.setCalcType(tempDTO.getCalcType());
-		ciDTO.setOld_Pay_Total(tempDTO.getOldPayTotal());
-		ciDTO.setOld_Pay_Medicare(tempDTO.getOldPayMedicare());
-		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		ciDTO.setEnd_time(sdf.format(tempDTO.getEndtime()));
-		int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
-		System.out.println("计算大病保险,本次业务年度："+businessyear);
-		ciDTO.setBusinessyear(businessyear+"");
-		ciDTO.setOrgCode(organizationId);
-		if("49".equals(tempDTO.getOtherType())){
-			ciDTO.setXnhZzFlag(1);
-		}else{
-			ciDTO.setXnhZzFlag(0);
-		}
-		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
-		// 外伤、未经医保/新农合确认的转诊
-		if (!"0".equals(tempDTO.getOtherType())) {
-			ciDTO.setPayCIAssist(getCia(tempDTO));
-		}
-		if (tempDTO.getInsurance() == null || "".equals(tempDTO.getInsurance())) {
-			tempDTO.setInsurance(new BigDecimal("0"));
-		}
-		if ("1".equals(ciDTO.getReturnFlag())) {
-			json.put("info", "成功");
-			json.put("in", ciDTO.getPaySumAssistIn());
-			json.put("out", ciDTO.getPaySumAssistOut());
-			json.put("scope", ciDTO.getSumMedicareScope());
-			json.put("ci", ciDTO.getPayCIAssist());
-			json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
-			json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
-			json.put("businessyear", ciDTO.getBusinessyear());
-		} else {
-			json.put("info", "大病保险计算失败!");
-		}
-		result = json.toString();
-		return SUCCESS;
-	}
-
-/*	@SuppressWarnings("rawtypes")
-	public String calcaftermoneyauto2() {
-		Map session = ActionContext.getContext().getSession();
-		UserDTO user = (UserDTO) session.get("user");
-		String organizationId = user.getOrganizationId();
-		if (null != organizationId && !"".equals(organizationId)) {
-			organizationId = organizationId.substring(0, 6);
-		}
-		JSONObject json = new JSONObject();
-		ciDTO = new CiDTO();
-		ciDTO.setPaperID(tempDTO.getPaperid());
-		if ("3".equals(tempDTO.getMedicareType())) {
-			ciDTO.setMedicareType("0");
-		} else {
-			ciDTO.setMedicareType(tempDTO.getMedicareType());
-		}
-		ciDTO.setPay_Total(tempDTO.getPayTotal());
-		ciDTO.setPay_Medicare(tempDTO.getPayMedicare());
-		ciDTO.setPay_OutMedicare(tempDTO.getPayOutmedicare());
-		ciDTO.setCalcType(tempDTO.getCalcType());
-		ciDTO.setOld_Pay_Total(tempDTO.getOldPayTotal());
-		ciDTO.setOld_Pay_Medicare(tempDTO.getOldPayMedicare());
-		ciDTO.setOld_Pay_OutMedicare(tempDTO.getOldPayOutMedicare());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		ciDTO.setEnd_time(sdf.format(tempDTO.getEndtime()));
-		int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
-		System.out.println("本次业务年度："+businessyear);
-		ciDTO.setBusinessyear(businessyear+"");
-		ciDTO.setOrgCode(organizationId);
-		ciDTO = yljzService.getCiAssistByPaperIDEx(ciDTO);
-		// 外伤、未经医保/新农合确认的转诊
-		if ("0".equals(tempDTO.getDiagnoseTypeId())) {
-			ciDTO.setPayCIAssist(getCia(tempDTO));
-		}
-		if ("1".equals(ciDTO.getReturnFlag())) {
-			tempDTO.setPaySumAssistScopeIn(ciDTO.getPay_Sum_AssistScope_In());
-			tempDTO.setPayPreSumAssistScopeIn(ciDTO
-					.getPay_PreSum_AssistScope_In());
-			tempDTO.setPaySumAssistIn(ciDTO.getPaySumAssistIn());
-			tempDTO.setPaySumAssistOut(ciDTO.getPaySumAssistOut());
-			tempDTO.setSumMedicareScope(ciDTO.getSumMedicareScope());
-			HashMap m = tempService.findMaMoney(tempDTO);
-			json.put("m", m.get("m"));
-			json.put("info", m.get("info"));
-			json.put("in", ciDTO.getPaySumAssistIn());
-			json.put("out", ciDTO.getPaySumAssistOut());
-			json.put("scope", ciDTO.getSumMedicareScope());
-			json.put("ci", ciDTO.getPayCIAssist());
-			json.put("sum", ciDTO.getPay_Sum_AssistScope_In());
-			json.put("preSum", ciDTO.getPay_PreSum_AssistScope_In());
-			json.put("businessyear", ciDTO.getBusinessyear());
-		} else {
-			json.put("info", "大病保险计算失败!");
-		}
-		result = json.toString();
-		return SUCCESS;
-	}*/
-
-	private BigDecimal getCia(TempDTO tempDTO) {
-		BigDecimal bl = BigDecimal.ZERO;// 大病保险金
-		BigDecimal mline_y = new BigDecimal("11000");// "医保"起助线
-		BigDecimal mline_n = new BigDecimal("8000");// "未经医保/新农合确认转诊"起助线
-		BigDecimal payTotal = tempDTO.getPayTotal();
-		BigDecimal payOutmedicare = tempDTO.getPayOutmedicare();
-		BigDecimal payMedicare = tempDTO.getPayMedicare();
-		// 医保
-		if ("1".equals(tempDTO.getMedicareType())) {
-			if ((payTotal.subtract(payOutmedicare).subtract(payMedicare))
-					.compareTo(mline_y) == -1) {
-			} else {
-				bl = (payTotal.subtract(payOutmedicare).subtract(payMedicare)
-						.subtract(mline_y)).multiply(new BigDecimal("0.3"));
-			}
-			// 新农合
-		} else if ("2".equals(tempDTO.getMedicareType())) {
-			if ((payTotal.subtract(payOutmedicare).subtract(payMedicare))
-					.compareTo(mline_n) == -1) {
-			} else {
-				bl = (payTotal.subtract(payOutmedicare).subtract(payMedicare)
-						.subtract(mline_n)).multiply(new BigDecimal("0.3"));
-			}
-			// 未参保/参合
-		} else {
-
-		}
-		return bl;
-	}
-
-	// 医后报销申请保存
-	@SuppressWarnings("rawtypes")
-	public String afterapply() {
-		Map session = ActionContext.getContext().getSession();
-		UserDTO user = (UserDTO) session.get("user");
-		String orgid = user.getOrganizationId();
-		tempDTO.setOrganizationId(orgid);
-		tempDTO.setOrg(orgid.substring(0, 6));
-		TempDTO temp = tempService.iscalcline(tempDTO);
-		if ("0".equals(temp.getResult())) {
-			result = "保障金大于封顶线，您重新填写救助金!<br/>累计总救助金：" + temp.getTotlePay()
-					+ "元;<br/>住院总救助金：" + temp.getZyPay() + "元;<br/>门诊大病总救助金："
-					+ temp.getMzPay() + "元;<br/>封顶线：" + temp.getTopLine()
-					+ "元;";
-			return "result";
-		} else {
-			String end_char = user.getAccout().substring(user.getAccout().length()-1, user.getAccout().length());
-			if("a".equals(end_char)){
-				tempDTO.setBizStatus("-1");
-			}
-			tempDTO = tempService.saveAfterApplyInfo(tempDTO);
-		}
-		return SUCCESS;
-
-	}
 	
 	@SuppressWarnings("rawtypes")
 	public String viewafterapplys() {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-		tempmembers = tempService.findAfterapplys(tempDTO);
+		tempmembers = tempService.findGeneralAfterapplys(tempDTO);
 		tempDTO.setOrg(organizationId.substring(0, 6));
 		return SUCCESS;
 	}
@@ -360,117 +211,11 @@ public class AfterAction extends ActionSupport {
 				.get("user");
 		String organizationId = user.getOrganizationId();
 		orgid = organizationId.substring(0, 6);
-		tempDTO = tempService.findAftermeberinfo(tempDTO);
+		tempDTO = tempService.findGeneralAftermeberinfo(tempDTO);
 		tempDTO.setOrg(orgid);
 		return SUCCESS;
 	}
-	
-	public String delafterapply() {
-		Boolean flag = false;
-		if (tempDTO.getCalcType() == 2) {
-			tempDTOend = tempService.findPayview01(tempDTO);
-			if (tempDTOend.getApproveId() != null
-					&& "2".equals(tempDTO.getAssistype())) {
-				if (tempDTOend.getApproveId().toString()
-						.equals(tempDTO.getApproveId().toString())
-						&& "ma".equals(tempDTOend.getBiztype())) {
-					flag = true;
-				} else {
-					flag = false;
-				}
-			} else {
-				flag = true;
-			}
-		}
-		if (tempDTO.getCalcType() == 1 || flag == true) {
-			tempService.removeAfterapply(tempDTO);
-		}
-		if (flag == true) {
-			result = "删除成功！";
-			return "result";
-		} else {
-			result = "此条信息不允许删除！";
-			return "result";
-		}
-	}
-	
-	//调用getAssistMoneyAfterEx，计算救助金
-	@SuppressWarnings({ "rawtypes" })
-	public String calcaftermoneyauto() {
-		Map session = ActionContext.getContext().getSession();
-		UserDTO user = (UserDTO) session.get("user");
-		String assisttype = tempDTO.getAssistTypeM() + tempDTO.getAssistTypex()
-				+ "";
-		String organizationId = user.getOrganizationId();
-		if (null != organizationId && !"".equals(organizationId)) {
-			organizationId = organizationId.substring(0, 6);
-		}
-		JSONObject json = new JSONObject();
-		if (!"00000000000".equals(assisttype)) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			afterDTO = new AfterDTO();
-			afterDTO.setOrgCode(organizationId);
-			afterDTO.setHospital_ID(new Long(tempDTO.getHospitalId()));
-			afterDTO.setMedicareType(tempDTO.getMedicareType());
-			afterDTO.setMemberType(tempDTO.getMemberType());
-			afterDTO.setMemberID(tempDTO.getMemberId());
-			afterDTO.setMedicareType(tempDTO.getMedicareType());
-			afterDTO.setBizType(new Integer(tempDTO.getAssistype()));
-			afterDTO.setSpecBiz(-1);
-			afterDTO.setBegin_Time(sdf.format(tempDTO.getBegintime()));
-			afterDTO.setEnd_Time(sdf.format(tempDTO.getEndtime()));
-			afterDTO.setDiagnose_Type_ID(new Integer(tempDTO
-					.getDiagnoseTypeId()));
-			afterDTO.setIcd_ID(0);//原的门诊特殊大病
-			afterDTO.setPay_Total(tempDTO.getPayTotal());
-			afterDTO.setPay_Medicare(tempDTO.getPayMedicare());
-			afterDTO.setPay_OutMedicare(tempDTO.getPayOutmedicare());
-			afterDTO.setPay_Sybx(tempDTO.getInsurance());
-			afterDTO.setPay_Dbbx(tempDTO.getPayCIAssist());
-			afterDTO.setHospital_Level(-1);
-			afterDTO.setHospital_Local(-1);
-			afterDTO.setHospital_Type(Integer.valueOf(tempDTO.getHospitaltype()));
-			int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
-			System.out.println("本次业务年度："+businessyear);
-			afterDTO.setBusinessyear(businessyear+"");
-			if(tempDTO.getMedicareFlag()){
-				afterDTO.setMedicareFlag(1);
-			}else{
-				afterDTO.setMedicareFlag(0);
-			}
-			afterDTO = yljzService.getAssistMoneyAfterEx(afterDTO);
-			
-			if ("1".equals(afterDTO.getReturnFlag())) {
-				if ("2".equals(tempDTO.getAssistype())) {
-					json.put("m", afterDTO.getAssistMoney());
-					json.put("info", afterDTO.getMessage());
-					json.put("in", afterDTO.getAssistSumIn());
-					json.put("out", afterDTO.getAssistSumOut());
-					json.put("ci", afterDTO.getAssistCIA());
-					json.put("sum", afterDTO.getAssistSum());
-					json.put("calcmsg", afterDTO.getCalcMsg());
-					json.put("businessyear", businessyear);
-				} else {
-					json.put("m", afterDTO.getAssistMoney());
-					json.put("info", afterDTO.getMessage());
-					json.put("in", afterDTO.getAssistSumIn());
-					json.put("out", afterDTO.getAssistSumOut());
-					json.put("ci", afterDTO.getAssistCIA());
-					json.put("sum", afterDTO.getAssistSum());
-					json.put("calcmsg", afterDTO.getCalcMsg());
-					json.put("businessyear", businessyear);
-				}
 
-			} else {
-				json.put("info", afterDTO.getMessage());
-			}
-		} else {
-			json.put("info", "普通居民不在救助范围内！");
-		}
-		result = json.toString();
-		return SUCCESS;
-	}
-	
 	/**
 	 * 审批查询初始化
 	 * @return
@@ -480,15 +225,30 @@ public class AfterAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-		if (6 == organizationId.length()) {
-			if (2 == organizationId.length()) {
-				orgs = systemDataService.findOrganizationExt(organizationId);
-			} else {
-				orgs = systemDataService.findOrgParentAndChilds(organizationId);
-			}
+		String org = "";
+		if(organizationId.length()>6){
+			org = organizationId.substring(0, 6);
+		}else{
+			org = organizationId;
 		}
-		return SUCCESS;
-
+		OrgEnabledDTO oe = authorityService.queryEnabled(org);
+		if(oe.getTempSts()==1){
+			if (6 == organizationId.length()) {
+				if (2 == organizationId.length()) {
+					orgs = systemDataService.findOrganizationExt(organizationId);
+				} else {
+					orgs = systemDataService.findOrgParentAndChilds(organizationId);
+				}
+				return SUCCESS;
+			}else{
+				result = "区县级使用权限！";
+				return "result";
+			}
+		}else{
+			result = "未启用新政策！";
+			return "result";
+		}
+		
 	}
 	
 	/**
@@ -548,7 +308,7 @@ public class AfterAction extends ActionSupport {
 					+ " left join manager_org org1 on org1.depth = 3 and substr(jz.family_no,0,6)=org1.organization_id "
 					+ " left join manager_org org2 on org2.depth = 4 and substr(jz.family_no,0,8)=org2.organization_id "
 					+ " left join manager_org org3 on org3.depth = 5 and substr(jz.family_no,0,10)=org3.organization_id "
-					+ "where 1=1 and jz.person_typeex in ('1', '2') " + jwhere + "  order by oper_time desc  ";
+					+ "where 1=1 and jz.person_typeex in ('3','4') " + jwhere + "  order by oper_time desc  ";
 			session.put("sql", sql);
 			cur_page = "1";
 			HashMap title = new HashMap();
@@ -582,6 +342,31 @@ public class AfterAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public String afterapply() {
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String orgid = user.getOrganizationId();
+		tempDTO.setOrganizationId(orgid);
+		tempDTO.setOrg(orgid.substring(0, 6));
+		TempDTO temp = tempService.iscalcline(tempDTO);
+		if ("0".equals(temp.getResult())) {
+			result = "保障金大于封顶线，您重新填写救助金!<br/>累计总救助金：" + temp.getTotlePay()
+					+ "元;<br/>住院总救助金：" + temp.getZyPay() + "元;<br/>门诊大病总救助金："
+					+ temp.getMzPay() + "元;<br/>封顶线：" + temp.getTopLine()
+					+ "元;";
+			return "result";
+		} else {
+			if(orgid.length()==8){
+				tempDTO.setBizStatus("-1");
+			}
+			tempDTO = tempService.saveAfterApplyInfo(tempDTO);
+		}
+		return SUCCESS;
+
+	}
+	
 	/**
 	 *审批不同意
 	 * @return
@@ -589,6 +374,71 @@ public class AfterAction extends ActionSupport {
 	public String afteryn() {
 		tempDTO = tempService.saveAfteryn(tempDTO);
 		result = "保存成功";
+		return SUCCESS;
+	}
+	
+	//调用GetAssistMoneyAfter，计算救助金
+	@SuppressWarnings({ "rawtypes" })
+	public String calcaftermoneyauto() {
+		Map session = ActionContext.getContext().getSession();
+		UserDTO user = (UserDTO) session.get("user");
+		String assisttype = tempDTO.getAssistTypeM() + tempDTO.getAssistTypex()
+				+ "";
+		String organizationId = user.getOrganizationId();
+		if (null != organizationId && !"".equals(organizationId)) {
+			organizationId = organizationId.substring(0, 6);
+		}
+		JSONObject json = new JSONObject();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		afterDTO = new AfterDTO();
+		afterDTO.setOrgCode(organizationId);
+		afterDTO.setHospital_ID(new Long(tempDTO.getHospitalId()));
+		afterDTO.setMedicareType(tempDTO.getMedicareType());
+		afterDTO.setMemberType(tempDTO.getMemberType());
+		afterDTO.setMemberID(tempDTO.getMemberId());
+		afterDTO.setMedicareType(tempDTO.getMedicareType());
+		afterDTO.setBizType(new Integer(tempDTO.getAssistype()));
+		afterDTO.setSpecBiz(-1);
+		afterDTO.setBegin_Time(sdf.format(tempDTO.getBegintime()));
+		afterDTO.setEnd_Time(sdf.format(tempDTO.getEndtime()));
+		afterDTO.setDiagnose_Type_ID(new Integer(tempDTO
+				.getDiagnoseTypeId()));
+		afterDTO.setIcd_ID(0);//原的门诊特殊大病
+		afterDTO.setPay_Total(tempDTO.getPayTotal());
+		afterDTO.setPay_Medicare(tempDTO.getPayMedicare());
+		afterDTO.setPay_OutMedicare(tempDTO.getPayOutmedicare());
+		afterDTO.setPay_Sybx(tempDTO.getInsurance());
+		afterDTO.setPay_Dbbx(tempDTO.getPayCIAssist());
+		afterDTO.setHospital_Level(-1);
+		afterDTO.setHospital_Local(-1);
+		afterDTO.setHospital_Type(Integer.valueOf(tempDTO.getHospitaltype()));
+		int businessyear = this.getBusinessYear(organizationId,tempDTO.getEndtime());
+		System.out.println("本次业务年度："+businessyear);
+		afterDTO.setBusinessyear(businessyear+"");
+		afterDTO.setIdNumber(tempDTO.getPaperid());
+		afterDTO.setFin_Time(sdf.format(tempDTO.getFintime()));
+		afterDTO.setPerson_Type(Integer.valueOf(tempDTO.getPersonTypeex()));
+		if(tempDTO.getMedicareFlag()){
+			afterDTO.setMedicareFlag(1);
+		}else{
+			afterDTO.setMedicareFlag(0);
+		}
+		afterDTO = yljzService.getAssistMoneyAfter(afterDTO);
+		
+		if ("1".equals(afterDTO.getReturnFlag())) {
+			json.put("m", afterDTO.getAssistMoney());
+			json.put("info", afterDTO.getMessage());
+			json.put("in", afterDTO.getAssistSumIn());
+			json.put("out", afterDTO.getAssistSumOut());
+			json.put("ci", afterDTO.getAssistCIA());
+			json.put("sum", afterDTO.getAssistSum());
+			json.put("calcmsg", afterDTO.getCalcMsg());
+			json.put("businessyear", businessyear);
+			json.put("biztypeex",afterDTO.getBizTypeEx());
+		} else {
+			json.put("info", afterDTO.getMessage());
+		}
+		result = json.toString();
 		return SUCCESS;
 	}
 	
@@ -624,7 +474,6 @@ public class AfterAction extends ActionSupport {
 		}
 		return year;
 	}
-	
 	private int compare_date(String DATE1, String DATE2) {
 		SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
         try {
@@ -650,17 +499,28 @@ public class AfterAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-
-		if (6 == organizationId.length() || 8 == organizationId.length()) {
-			if (2 == organizationId.length()) {
-				orgs = systemDataService.findOrganizationExt(organizationId);
+		String org = "";
+		if(organizationId.length()>6){
+			org = organizationId.substring(0, 6);
+		}else{
+			org = organizationId;
+		}
+		OrgEnabledDTO oe = authorityService.queryEnabled(org);
+		if(oe.getTempSts()==1){
+			if (6 == organizationId.length() || 8 == organizationId.length()) {
+				if (2 == organizationId.length()) {
+					orgs = systemDataService.findOrganizationExt(organizationId);
+				} else {
+					orgs = systemDataService.findOrgParentAndChilds(organizationId);
+				}
+				return SUCCESS;
+	
 			} else {
-				orgs = systemDataService.findOrgParentAndChilds(organizationId);
+				result = "此功能为区县、街道使用！";
+				return "result";
 			}
-			return SUCCESS;
-
-		} else {
-			result = "此功能为区县、街道使用！";
+		}else{
+			result = "未启用新政策！";
 			return "result";
 		}
 	}
@@ -735,9 +595,9 @@ public class AfterAction extends ActionSupport {
 
 			sql = "select mem.membername, mem.paperid, mem.familyno,  a.member_id, "
 					+ " a.member_type,  cs, pay_total,  pay_medicare, pay_outmedicare, "
-					+ " pay_assist , pay_ciassist, mem.address, mem.rpraddress ,  a.diagnose_name, a.hospital_name, mem.personstate, mem.assist_type, mem.assist_typex, mem.orgname1, mem.orgname2 "
+					+ " pay_assist , pay_ciassist, mem.address, mem.address as rpraddress,  a.diagnose_name, a.hospital_name, mem.personstate, mem.assist_type, mem.assist_typex, mem.orgname1, mem.orgname2 "
 					+ " from "
-					+ " (select a.*,org1.orgname as orgname1 ,org2.orgname as orgname2 from MEMBER_BASEINFOVIEW02 a "
+					+ " (select a.*,org1.orgname as orgname1 ,org2.orgname as orgname2 from temp_person a "
 					+ " left join manager_org org1 "
 					+ " on org1.depth = 4 "
 					+ " and org1.organization_id = substr(a.familyno, 1, 8) "
@@ -752,10 +612,10 @@ public class AfterAction extends ActionSupport {
 					+ " sum(nvl(t.pay_ciassist,0)) as pay_ciassist, "
 					+ " max(t.diagnose_name) as diagnose_name,  max(t.hospital_name) as hospital_name "
 					+ " from jz_medicalafter t where t.biz_status='1' "
-					+ " and t.person_typeex in (1,2) "
+					+ " and t.person_typeex in (3,4) "
 					+ jwhere1
 					+ " group by (t.member_id, t.member_type)) a "
-					+ " where mem.member_id = a.member_id and mem.ds = a.member_type "
+					+ " where mem.member_id = a.member_id and mem.member_type = a.member_type "
 					+ jwhere + " order by mem.familyno";
 			session.put("sql", sql);
 			HashMap title = new HashMap();
@@ -798,14 +658,26 @@ public class AfterAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserDTO user = (UserDTO) session.get("user");
 		String organizationId = user.getOrganizationId();
-		if (6 == organizationId.length() || 8 == organizationId.length()) {
-			if (2 == organizationId.length()) {
-				orgs = systemDataService.findOrganizationExt(organizationId);
-			} else {
-				orgs = systemDataService.findOrgParentAndChilds(organizationId);
-			}
+		String org = "";
+		if(organizationId.length()>6){
+			org = organizationId.substring(0, 6);
+		}else{
+			org = organizationId;
 		}
-		return SUCCESS;
+		OrgEnabledDTO oe = authorityService.queryEnabled(org);
+		if(oe.getTempSts()==1){
+			if (6 == organizationId.length() || 8 == organizationId.length()) {
+				if (2 == organizationId.length()) {
+					orgs = systemDataService.findOrganizationExt(organizationId);
+				} else {
+					orgs = systemDataService.findOrgParentAndChilds(organizationId);
+				}
+			}
+			return SUCCESS;
+		}else{
+			result = "未启用新政策！";
+			return "result";
+		}
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -924,7 +796,7 @@ public class AfterAction extends ActionSupport {
 					+ " left join manager_org org1 on org1.depth = 3 and substr(jz.family_no,0,6)=org1.organization_id "
 					+ " left join manager_org org2 on org2.depth = 4 and substr(jz.family_no,0,8)=org2.organization_id "
 					+ " left join manager_org org3 on org3.depth = 5 and substr(jz.family_no,0,10)=org3.organization_id "
-					+ "where 1=1 and jz.person_typeex in (1,2)" + jwhere + "  order by oper_time desc  ";
+					+ "where 1=1  and jz.person_typeex in (3,4) " + jwhere + "  order by oper_time desc  ";
 			session.put("sql", sql);
 			cur_page = "1";
 			HashMap title = new HashMap();
@@ -964,7 +836,7 @@ public class AfterAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
-
+	
 	public String getResult() {
 		return result;
 	}
@@ -989,6 +861,14 @@ public class AfterAction extends ActionSupport {
 		this.yljzService = yljzService;
 	}
 
+	public TempService getTempService() {
+		return tempService;
+	}
+
+	public void setTempService(TempService tempService) {
+		this.tempService = tempService;
+	}
+
 	public TempDTO getTempDTO() {
 		return tempDTO;
 	}
@@ -1005,20 +885,20 @@ public class AfterAction extends ActionSupport {
 		this.tempmembers = tempmembers;
 	}
 
-	public TempService getTempService() {
-		return tempService;
+	public List<OrganizationDTO> getOrgs() {
+		return orgs;
 	}
 
-	public void setTempService(TempService tempService) {
-		this.tempService = tempService;
+	public void setOrgs(List<OrganizationDTO> orgs) {
+		this.orgs = orgs;
 	}
 
-	public List<TempDTO> getPayviews() {
-		return payviews;
+	public List<DictDTO> getNations() {
+		return nations;
 	}
 
-	public void setPayviews(List<TempDTO> payviews) {
-		this.payviews = payviews;
+	public void setNations(List<DictDTO> nations) {
+		this.nations = nations;
 	}
 
 	public String getR() {
@@ -1053,44 +933,20 @@ public class AfterAction extends ActionSupport {
 		this.outicds = outicds;
 	}
 
-	public CiDTO getCiDTO() {
-		return ciDTO;
+	public OrgSetDTO getOrgSetDTO() {
+		return orgSetDTO;
 	}
 
-	public void setCiDTO(CiDTO ciDTO) {
-		this.ciDTO = ciDTO;
-	}
-	
-	public String getOrgid() {
-		return orgid;
+	public void setOrgSetDTO(OrgSetDTO orgSetDTO) {
+		this.orgSetDTO = orgSetDTO;
 	}
 
-	public void setOrgid(String orgid) {
-		this.orgid = orgid;
+	public List<TempDTO> getPayviews() {
+		return payviews;
 	}
 
-	public TempDTO getTempDTOend() {
-		return tempDTOend;
-	}
-
-	public void setTempDTOend(TempDTO tempDTOend) {
-		this.tempDTOend = tempDTOend;
-	}
-
-	public AfterDTO getAfterDTO() {
-		return afterDTO;
-	}
-
-	public void setAfterDTO(AfterDTO afterDTO) {
-		this.afterDTO = afterDTO;
-	}
-
-	public List<OrganizationDTO> getOrgs() {
-		return orgs;
-	}
-
-	public void setOrgs(List<OrganizationDTO> orgs) {
-		this.orgs = orgs;
+	public void setPayviews(List<TempDTO> payviews) {
+		this.payviews = payviews;
 	}
 
 	public String getCur_page() {
@@ -1157,6 +1013,30 @@ public class AfterAction extends ActionSupport {
 		this.assistype = assistype;
 	}
 
+	public AfterDTO getAfterDTO() {
+		return afterDTO;
+	}
+
+	public void setAfterDTO(AfterDTO afterDTO) {
+		this.afterDTO = afterDTO;
+	}
+
+	public String getOrgid() {
+		return orgid;
+	}
+
+	public void setOrgid(String orgid) {
+		this.orgid = orgid;
+	}
+
+	public AuthorityService getAuthorityService() {
+		return authorityService;
+	}
+
+	public void setAuthorityService(AuthorityService authorityService) {
+		this.authorityService = authorityService;
+	}
+
 	public String getOpertime1() {
 		return opertime1;
 	}
@@ -1171,14 +1051,6 @@ public class AfterAction extends ActionSupport {
 
 	public void setOpertime2(String opertime2) {
 		this.opertime2 = opertime2;
-	}
-
-	public OrgSetDTO getOrgSetDTO() {
-		return orgSetDTO;
-	}
-
-	public void setOrgSetDTO(OrgSetDTO orgSetDTO) {
-		this.orgSetDTO = orgSetDTO;
 	}
 
 	public String getOpertime3() {
@@ -1212,6 +1084,4 @@ public class AfterAction extends ActionSupport {
 	public void setDs(String ds) {
 		this.ds = ds;
 	}
-
-
 }

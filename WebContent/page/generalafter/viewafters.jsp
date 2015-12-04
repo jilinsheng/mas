@@ -16,7 +16,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Pragma" content="no-cache">
 <link rel="stylesheet" href="page/css/table-style.css" type="text/css"></link>
-<title>重点医后报销审批列表</title>
+<title>一般医后报销审批列表</title>
 </head>
 <script type="text/javascript">
 	function modify(m1,m2,m3,m4,m5,m6,m7){
@@ -38,8 +38,8 @@
 <body>
 <table width="1100px" class="formTitle">
 	<tr>
-		<td style="padding-left: 2px"><img alt="重点医后报销审批列表" border="0"
-			src="page/images/aws-dev.gif" /><font class="formTitleFont">重点医后报销审批列表</font></td>
+		<td style="padding-left: 2px"><img alt="一般医后报销审批列表" border="0"
+			src="page/images/aws-dev.gif" /><font class="formTitleFont">一般医后报销审批列表</font></td>
 	</tr>
 </table>
 <table align="center" border="0" cellpadding="0" cellspacing="0"

@@ -153,6 +153,9 @@
 			<result name="success">
 				/page/temp/querytemps.jsp
 			</result>
+			<result name="result">
+				/page/temp/result.jsp
+			</result>
 		</action>
 		<action name="querytemps" method="querytemps" class="tempAction">
 			<result name="success">
@@ -648,7 +651,7 @@
 			<result name="success">
 				/page/temp/managetemp.jsp
 			</result>
-			<result name="error">
+			<result name="result">
 				/page/temp/result.jsp
 			</result>
 		</action>
