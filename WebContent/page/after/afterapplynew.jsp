@@ -527,8 +527,7 @@
 			    alt="<s:property value="tempDTO.membername"></s:property>医后报销审批表"
 				border="0" src="page/images/aws-dev.gif" /><font
 				class="formTitleFont"><s:property value="tempDTO.membername"></s:property>医后报销审批表</font>
-				<font color="red">[当前状态：<s:property value="tempDTO.personstate"/>]&nbsp;[身份类别：<s:property value="tempDTO.assistTypeTxt"/>]&nbsp;[救助对象类别:<s:if test="tempDTO.personTypeex==1">第一类</s:if>
-				<s:elseif test="tempDTO.personTypeex==2">第二类</s:elseif><s:elseif test="tempDTO.personTypeex==3">第三类</s:elseif><s:elseif test="tempDTO.personTypeex==4">第四类</s:elseif>]</font>
+				<font color="red">[当前状态：<s:property value="tempDTO.personstate"/>]&nbsp;[身份类别：<s:property value="tempDTO.assistTypeTxt"/>]</font>
 			</td>
 		</tr>
 	</table>
@@ -567,6 +566,16 @@
 	<hr/>
 	<div align="center" style="background:#FFFFCC;font-weight:bold;color:#003399;font-size:15px;">就  医  情  况</div>
 	<table border="0" cellpadding="0" cellspacing="0" width="680px" class="formtable">
+		<tr>
+			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">救助对象类别：</td>
+			<td class="formtd2" >
+				<s:if test="tempDTO.personTypeex==1">第一类</s:if>
+				<s:if test="tempDTO.personTypeex==2">第二类</s:if>
+				<s:if test="tempDTO.personTypeex==3">第三类</s:if>
+				<s:if test="tempDTO.personTypeex==4">第四类</s:if>
+				<s:if test="tempDTO.personTypeex==''">未知</s:if>
+			</td>
+		</tr>
 		<tr>
 			<td class="formtd1" width="20%" style="font-weight:bold;color:#006030">保障类型：</td>
 			<td class="formtd2" >

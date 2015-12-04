@@ -362,6 +362,8 @@ public class GeneralAfterAction extends ActionSupport {
 				tempDTO.setBizStatus("-1");
 			}
 			tempDTO = tempService.saveAfterApplyInfo(tempDTO);
+			//ÐÞ¸Ätemp_peron±ípersontypeex
+			int i = tempService.updateTempPersonTypeEx(tempDTO);
 		}
 		return SUCCESS;
 

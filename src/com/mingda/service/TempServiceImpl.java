@@ -4245,6 +4245,18 @@ public class TempServiceImpl implements TempService {
 		return os;
 	}
 	
+	@Override
+	public int updateTempPersonTypeEx(TempDTO tempDTO){
+		TempPerson record1 = new TempPerson();
+		record1.setPersonTypeex(tempDTO.getPersonTypeex());
+		TempPersonExample example = new TempPersonExample();
+		example.createCriteria()
+				.andMemberIdEqualTo(new BigDecimal(tempDTO.getMemberId()))
+				.andMemberTypeEqualTo(new BigDecimal(tempDTO.getMemberType()));
+		int i = tempPersonDAO.updateByExampleSelective(record1, example);
+		return i;
+	}
+	
 	public String getToolsmenu() {
 		return pager.getToolsmenu();
 	}

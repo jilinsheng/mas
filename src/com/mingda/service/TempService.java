@@ -219,5 +219,7 @@ public interface TempService {
 	public TempDTO findGeneralAftermeberinfo(TempDTO tempDTO);
 	
 	public List<TempDTO> findGeneralAfterapplys(TempDTO tempDTO);
+	
+	public int updateTempPersonTypeEx(TempDTO tempDTO);
 
 }
